@@ -1,0 +1,218 @@
+[
+  {
+    "objectID": "computing/computing-cheatsheets.html",
+    "href": "computing/computing-cheatsheets.html",
+    "title": "R cheatsheets",
+    "section": "",
+    "text": "The following cheatsheets come from https://posit.co/resources/cheatsheets. We haven’t covered every function and functionality listed on them, but you might still find them useful as references.",
+    "crumbs": [
+      "Computing",
+      "Cheatsheets"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html",
+    "href": "course-syllabus.html",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "",
+    "text": "Course Title: MATH 4720/MSSC 5720: Statistical Methods\nMeeting Time: TuTh 9:30am - 10:45am\nLocation: Cudahy Hall 145 (Microsoft Teams)\nWebsite: http://tinyurl.com/f26-4720",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#course-information",
+    "href": "course-syllabus.html#course-information",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "",
+    "text": "Course Title: MATH 4720/MSSC 5720: Statistical Methods\nMeeting Time: TuTh 9:30am - 10:45am\nLocation: Cudahy Hall 145 (Microsoft Teams)\nWebsite: http://tinyurl.com/f26-4720",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#instructor-details",
+    "href": "course-syllabus.html#instructor-details",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Instructor Details",
+    "text": "Instructor Details\n\nName: Mehdi Maadooliat, Ph.D.\nOffice: CU 351\nOffice Hours: Tu 1:45pm - 3:15pm & Th 10:45am - 12:15pm in CU 351 or by e-mail",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#course-description",
+    "href": "course-syllabus.html#course-description",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Course Description",
+    "text": "Course Description\nProbability, discrete and continuous distributions. Treatment of data, point and interval estimation, hypothesis testing. Large and small sample method, regression, non-parametric methods. An introductory applications-oriented course recommended for students who wish to acquire a basic understanding of statistical methods. May not be taken for credit by those who have completed MATH 4710.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#course-topics",
+    "href": "course-syllabus.html#course-topics",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Course Topics",
+    "text": "Course Topics\n\nIntroduction to probability and probability distributions\nSampling and descriptive measures\nInference and hypothesis testing\nLinear regression and analysis of variance",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#prerequisites",
+    "href": "course-syllabus.html#prerequisites",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nMATH 1400, MATH 1410, or MATH 1450",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#textbook",
+    "href": "course-syllabus.html#textbook",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Textbook",
+    "text": "Textbook\nTitle: An Introduction to Statistical Methods & Data Analysis (7th Edition)\nAuthors: R. Lyman Ott, Michael Longnecker\nYear: 2015",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#grading-breakdown",
+    "href": "course-syllabus.html#grading-breakdown",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Grading Breakdown",
+    "text": "Grading Breakdown\n\nHomework: 15%\nExaminations: 25% each (2 exams)\nFinal Exam: 30%\nBest Exam: 5%\n\nFor students in MSSC 5720, there will be extra questions in Homework and/or Exam\nYou will NOT be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:\n\nGrading Scale\n\n\n\nGrade\nRange\n\n\n\n\nA\n93.5 - 100\n\n\nA-\n90.0 - 93.5\n\n\nB+\n86.5 - 90.0\n\n\nB\n83.5 - 86.5\n\n\nB-\n80.0 - 83.5\n\n\nC+\n76.5 - 80.0\n\n\nC\n73.5 - 76.5\n\n\nC-\n70.0 - 73.5\n\n\nD+\n66.5 - 70.0\n\n\nD\n63.5 - 66.5\n\n\nD-\n60.0 - 63.5\n\n\nF\nbelow 60.0\n\n\n\nNote: No late homework will be accepted, and no make-up work will be allowed unless in the case of an emergency. Submit incomplete work if necessary, but ensure scanned PDFs are legible before submission.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#homework-policy",
+    "href": "course-syllabus.html#homework-policy",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Homework Policy",
+    "text": "Homework Policy\nHomework is required for a better understanding of the material and must be submitted to D2L. No late homework will be accepted, and two homework assignments will be dropped. It is recommended to submit even incomplete work. You can scan your homework and submit it as a PDF, but ensure it is readable.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#attendance-policy",
+    "href": "course-syllabus.html#attendance-policy",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Attendance Policy",
+    "text": "Attendance Policy\nAttendance is required, and the College of Arts and Sciences attendance policy will be observed.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#make-up-policy",
+    "href": "course-syllabus.html#make-up-policy",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Make-up Policy",
+    "text": "Make-up Policy\nThere will be no make-up exams or homework unless there is an emergency.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#honor-code",
+    "href": "course-syllabus.html#honor-code",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Honor Code",
+    "text": "Honor Code\nMarquette University Honor Code:\n“I recognize the importance of personal integrity in all aspects of life and work. I commit myself to truthfulness, honor, and responsibility, by which I earn the respect of others. I support the development of good character and commit myself to uphold the highest standards of academic integrity.”",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#important-dates",
+    "href": "course-syllabus.html#important-dates",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Important dates",
+    "text": "Important dates\n\nMonday, August 31: Classes begin\nTuesday, September 8: Drop/add ends\nThursday - Friday, October 22 - 23: Fall Break\nFriday, November 20: Last day to withdraw with W\nWednesday - Sunday, November 25 - 29: Thanksgiving Break\nSaturday, December 12: Classes end\nWednesday, December 16th, 8:00 am - 10:00 am: Final Exam\n\nFor more important dates, see the full MU Academic Calendar.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#important-note",
+    "href": "course-syllabus.html#important-note",
+    "title": "Syllabus - Statistical Methods - Fall 2026",
+    "section": "Important Note",
+    "text": "Important Note\nThe syllabus may be modified throughout the course. Any substantial modifications will result in a reissued syllabus.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site!"
+  },
+  {
+    "objectID": "course-links.html",
+    "href": "course-links.html",
+    "title": "Useful links",
+    "section": "",
+    "text": "Homework\nDatasets in Lectures\nStat Calculator\nDistribution Calculator\nTI-84 Guideline\nMinitab Commands\nStat Tables\n🔗 on D2L\n🔗 Download here\n🔗 StatCalc(JAMM)\n🔗 DistCalc\n🔗 Download here\n🔗 Download here\n🔗 StatTables\n\n\nAdvanced Texbooks\n🔗 R Package\n🔗 Advanced R by Hadley Wickham\n🔗 Quarto\n🔗 R Markdown\n🔗 ggplot2: Elegant Graphics for Data Analysis\n🔗 Fundamentals of Data Visualization\n🔗 Data Visualization: A Practical Introduction\n🔗 R for Data Science\n\n\nSome Package documentation\n🔗 ggplot2: ggplot2.tidyverse.org\n🔗 dplyr: dplyr.tidyverse.org\n🔗 tidyr: tidyr.tidyverse.org\n🔗 forcats: forcats.tidyverse.org\n🔗 stringr: stringr.tidyverse.org\n🔗 lubridate: lubridate.tidyverse.org\n🔗 readr: readr.tidyverse.org",
+    "crumbs": [
+      "Course information",
+      "Useful links"
+    ]
+  },
+  {
+    "objectID": "course-overview.html",
+    "href": "course-overview.html",
+    "title": "Course overview",
+    "section": "",
+    "text": "This is the homepage for MATH 4720 (MSSC 5720) - Statistical Methods by Dr. Mehdi Maadooliat in Fall 2026 at Marquette University. All course materials will be posted on this site.\nYou can find the course syllabus here and the course schedule here.",
+    "crumbs": [
+      "Course information",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "course-overview.html#class-meetings",
+    "href": "course-overview.html#class-meetings",
+    "title": "Course overview",
+    "section": "Class meetings",
+    "text": "Class meetings\n\n\n\n\n\n\n\n\nMeeting\nLocation\nTime\n\n\n\n\nLecture\nCudahy Hall 145\nTue & Thur 9:30 am - 10:45 am\n\n\nOffice Hours\nCudahy Hall 351\nTu 1:45pm - 3:15pm & Th 10:45am - 12:15pm",
+    "crumbs": [
+      "Course information",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Statistical Methods - Fall 2026",
+    "section": "",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nWhat is Statistics? [🎥 Lecture 1]\n💻Chapt 1-2\n\n\n\n\n\n\nThu, Sep 3\nBasics of Statistics [🎥 Lecture 2]\n💻Chapt 3\n\n\n\n\n\n\nFri, Sep 4\n📃[1st week Summary]\n\n\n📝 HW 0\n\n\n2\nTue, Sep 8\nLearn R [🎥 Lecture 3]\n📃Learn R in R\n\n\n\n\n\n\nThu, Sep 10\nBasics of Statistics cont.  Probability Basics [🎥 Lecture 4]\nChapt 3 cont.  💻Chapt 4A\n\n\n\n\n\n\nFri, Sep 11\n📃[2nd week Summary]\n\n\n📝 HW 1 at 11:50 pm [Solution]\n\n\n3\nTue, Sep 15\nConditional Probability & Bayes  Theorem [🎥 Lecture 5]\nChatp 4A cont.\n\n\n\n\n\n\nThu, Sep 17\nDiscrete Random Variables  (Binomial, Poisson) [🎥 Lecture 6]\nChapt 4A cont.  📃More on Binomial\n\n\n\n\n\n\nFri, Sep 18\n📃[3rd week Summary]\n\n\n📝 HW 2 at 11:50 pm [Solution]\n\n\n4\nTue, Sep 22\nContinous Random Variable  (Normal) [🎥 Lecture 7]\n💻Chapt 4B\n\n\n\n\n\n\nThu, Sep 24\nSampling distribution  Confidence Interval (CLT) [🎥 Lecture 8]\nChapt 4B cont.  💻Chapt 5A\n\n\n\n\n5\nFri, Sep 25\n📃[4th week Summary]\n\n\n📝 HW 3 at 11:50 pm [Solution]\n\n\n\n\nTue, Sep 29\nReview for Exam [🎥 Lecture 9] Exam Details\n\n\n\n\n\n\n\n\nThu, Oct 1\n\n\n📑 Exam 1 formula sheet\n\n\n\n\n6\nTue, Oct 6\nReturn Exam and Start  Hypothesis Testing [🎥 Lecture 11]\n💻Chapt 5B\n\n\n\n\n\n\nThu, Oct 8\nHypothesis Testing [🎥 Lecture 12]\n\n\n\n\n\n\n\n\nFri, Oct 9\n📃[5th and 6th week Summary]\n\n\n📝 HW 4 at 11:50 pm [Solution]\n\n\n7\nTue, Oct 13\np-value? Test for mean  with unknown σ [🎥 Lecture 13]\n💻Chapt 5C\n\n\n\n\n\n\nThu, Oct 15\nTest for mean, two independent  population [🎥 Lecture 14]\n💻Chapt 6A\n\n\n\n\n\n\nFri, Oct 16\n📃[7th week Summary]\n\n\n📝 HW 5 at 11:50 pm [Solution]\n\n\n8\nTue, Oct 20\nTest for mean, two dependent population  Power Analysis [🎥 Lecture 15]\n💻Chapt 6B\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break 📃[8th week Summary]\n\n\n\n\n\n\n9\nTue, Oct 27\nNonparametric Tests [🎥 Lecture 16]\n💻Chapt 6C\n\n\n\n\n\n\nThu, Oct 29\nTest for Variance [🎥 Lecture 17]\n💻Chatp 7\n\n\n\n\n\n\nFri, Oct 30\n📃[9th week Summary]\n\n\n📝 HW 6 at 11:50 pm [Solution]\n\n\n10\nTue, Nov 3\nANOVA [🎥 Lecture 18]\n💻Chapt 8A\n\n\n\n\n\n\nThu, Nov 5\nANOVA cont. [🎥 Lecture 19]\n💻Chapt 8B\n\n\n\n\n\n\nFri, Nov 6\n📃[10th week Summary]\n\n\n📝 HW 7 at 11:50 pm [Solution]  📊Datasets\n\n\n11\nTue, Nov 10\nPresentation by Dr. Yu  Review for Exam [🎥 Lecture 20] Exam Details\n💻APST-ADP\n\n\n\n\n\n\nThu, Nov 12\n\n\n📑 Exam 2 formula sheet\n\n\n\n\n12\nTue, Nov 17\nReturn Exam and finish  ANOVA [🎥 Lecture 22]\n💻Chapt 8B\n\n\n\n\n\n\nThu, Nov 19\nMultiple Testing [🎥 Lecture 23]\n💻Chapt 9\n\n\n\n\n\n\nFri, Nov 20\n📃[11th and 12th week Summary]\n\n\n📝 HW 8 at 11:50 pm [Solution]  📊Datasets\n\n\n13\nTue, Nov 24\nTest for Proportion [🎥 Lecture 24]\n💻Chapt 10A\n\n\n\n\n\n\nThu, Nov 26\n🦃🍂🥧🙏 Thanksgiving Break  📃[13th week Summary] MATH 4720 Course Evaluation\n\n\n\n\n\n\n14\nTue, Dec 1\nGoodness of Fit Test [🎥 Lecture 25]\n💻Chapt 10B\n\n\n\n\n\n\nThu, Dec 3\nRegression Analysis [🎥 Lecture 26]\n💻Chapt 11\n\n\n\n\n\n\nFri, Dec 4\n📃[14th week Summary]\n\n\n📝 HW 9 at 11:50 pm [Solution]  📊Datasets\n\n\n15\nTue, Dec 8\nRegression Analysis cont. [🎥 Lecture 27]\nChapt 11 cont.\n\n\n\n\n\n\nThu, Dec 10\nReview for Final [🎥 Lecture 28]\n📃Review\n📝 HW 10 at 11:00 am [Solution]  📊Datasets\n\n\n16\nWed, Dec 16\n8:00 am - 10:00 am  Exam Details\n📑 Final Exam",
+    "crumbs": [
+      "Course information",
+      "Schedule"
+    ]
+  }
+]
