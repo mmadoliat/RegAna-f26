@@ -1,0 +1,77 @@
+\documentclass[twoside]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb,hyperref}
+\usepackage{graphicx,color}
+\usepackage{epsfig}
+
+\setlength{\oddsidemargin}{0.1 in} \setlength{\evensidemargin}{-0.1
+in} \setlength{\topmargin}{-0.6 in} \setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{10.5 in} \setlength{\headsep}{0.1 in}
+\setlength{\parindent}{0 in} \setlength{\parskip}{0.1 in}
+
+\newcommand{\homework}[2]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+       \hbox to 6.28in { {\bf Math 4720:~Statistical Methods \hfill} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1 (#2)  \hfill} }
+       \vspace{6mm}
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
+
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\red}{\textcolor{red}}
+
+\begin{document}
+
+\homework{$3^{rd}$ Week Summary}{01/31/25}\vspace{-.35in}
+\begin{itemize}
+\item \red{Probability Rules}
+\subitem \red{The probability $P(A)$ of any event $A$ satisfies $0 < P(A) < 1$.}
+\subitem \red{If $S$ is the sample space, then $P(S) = 1$.}
+\subitem \red{Two events $A$ and $B$ are \textbf{disjoint} (mutually exclusive) if they have no outcomes in common and so can never occur together. If $A$ and $B$ are disjoint, $P(A \ \textrm{or} \ B) = P(A \bigcup B) = P(A) + P(B)$}
+\subitem \red{For any event $A$, $P(A$ does not occur$) = P(\overline{A}) = 1 - P(A)$.}
+\item \red{Addition rule in general : $P(A \ \textrm{or} \ B) = P(A \bigcup B) = P(A) + P(B) - P( A \bigcap B )$}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[angle=0,width=5in] {venn_tree.jpg}
+\end{center}
+\end{figure}
+
+\item $P(A|B)$, the \textbf{conditional probability} of A given that B has occurred, can be thought of an adjusted version of the probability of A in light of the additional information that B has occurred.
+\subitem When $P(B) > 0$, the conditional probability of A given B is: $P(A|B) = \dfrac{P(A \ \textrm{and} \ B)}{P(B)} = \dfrac{P(A \bigcap B)}{P(B)}$
+
+\item General \textbf{multiplication} rule : $P(A \ \textrm{and} \ B) = P(A \bigcap B) = P(A|B) P(B) = P(B|A) P(A)$.
+\item Two events $A$ and $B$ that both have positive probability are \textbf{independent} if: $P(A|B) = P(A)$ or $P(A \bigcap B)=P(A)P(B)$.
+\item Bayes' Rule : $P(A|B)=\dfrac{P(B|A)P(A)}{P(B)}=\dfrac{P(B|A)P(A)}{P(B|A)P(A)+P(B|\overline{A})P(\overline{A})}$
+
+\item Law of total probability: If $A_1, A_2, \ldots, A_k$ are disjoint events whose probabilities are not $0$ and add to exactly 1, then:
+    $$P(B)={P(B|A_1)P(A_1)+\ldots+P(B|A_k)P(A_k)}$$
+\item General Bayes' Rule : Suppose that $A_1, A_2, \ldots, A_k$ are disjoint events whose probabilities are not $0$ and add to exactly 1, then :
+    $$P(A_i|B)=\dfrac{P(B|A_i)P(A_i)}{P(B|A_1)P(A_1)+\ldots+P(B|A_k)P(A_k)}$$
+
+\item A \textbf{random variable}(\textit{discrete} or \textit{continuous}) is a variable whose value is a numerical outcome of a random phenomenon.
+\subitem A probability model with a sample space made up of a list of individual outcomes is called \textbf{discrete}.
+\subsubitem \textbf{Binomial$(n,\pi)$}: $P(X=k)=\dfrac{n!}{k!(n-k)!}\pi^k(1-\pi)^{n-k}$, $k=0,1,2,\cdots,n$
+\subsubitem \textbf{Poisson$(\mu)$}: $P(Y=y)=\dfrac{\mu^ye^{-\mu}}{y!}$, $y=1,2,\cdots$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,98 @@
+\documentclass[twoside]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb,color}
+\usepackage{graphicx}
+\usepackage{epsfig}
+
+\setlength{\oddsidemargin}{0.1 in} \setlength{\evensidemargin}{-0.1
+in} \setlength{\topmargin}{-0.6 in} \setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{10.5 in} \setlength{\headsep}{0.1 in}
+\setlength{\parindent}{0 in} \setlength{\parskip}{0.1 in}
+
+\newcommand{\red}{\textcolor{red}}
+
+\newcommand{\homework}[2]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+       \hbox to 6.28in { {\bf Math 4720:~Statistical Methods \hfill} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1 (#2)  \hfill} }
+       \vspace{2mm}
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
+
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\0}{\mathbf{0}}
+
+\begin{document}
+
+\homework{$11^{th}$ and $12^{th}$ Week Summary}{11/19/26}
+\vspace{-0.4 in}
+\begin{itemize}
+\item \textbf{ANOVA}: If the assumption of the equality of variances fails \dotfill
+\item We ``transform'' the data. The common transformations are
+\subitem If $\sigma^2\propto\mu$, the use $Y_T=\sqrt{Y}$ or $\sqrt{Y+0.375}$
+\subitem If $\sigma^2\propto\mu^2$, the use $Y_T=\ln(Y)$ or $\ln(Y+1)$
+\subitem If $\sigma^2\propto\mu(1-\mu)$, the use $Y_T=\sin^{-1}\sqrt{Y}$
+\item Assumptions for Oneway ANOVA model ($y_{ij}=\mu+\tau_i+\epsilon_{ij}$, where $i=1,\cdots,t$ and $j=1,\cdots,n_i$):
+\subitem To test $H_0:\tau_i=0$ vs $H_a:\tau_i\neq0$ for some $i$:
+\subitem (1) The $\epsilon_{ij}$'s are independent and normally distributed
+\subitem (2) $\textrm{Var}(\epsilon_{ij})=\sigma^2$ (a constant value)
+\item Checking the Assumptions:
+\subitem Obtain the residuals ($r_{ij}=y_{ij}-\hat{\mu}-\hat{\tau}_i$) and fitted values ($\hat{y}_{ij}=\hat{\mu}+\hat{\tau}_i$), then
+\subitem (1) The QQ-plot of $r_{ij}$'s should be linear
+\subitem (2) The scatterplot of $r_{ij}$'s versus $\hat{y}_{ij}$'s should follow a random pattern.
+\item \textbf{Multiple Comparisons}\dotfill
+\item The problem of \textbf{multiplicity} is serious when we are testing many hypotheses
+\item Instead of using Type-I error rate, we use familywise error rate (FEW):
+\subitem $\alpha_F = P(\textbf{Falsely reject at least one hypotheses})$
+\item Bonferroni Method:
+\subitem If there are ${m}$ hypotheses, then Reject $H_0^{ij}:\mu_i=\mu_j$ if $|\bar{y}_i-\bar{y}_j|>t_{\alpha/2m}\sqrt{MSE\Bigl(\frac{1}{n_i}+\frac{1}{n_j}\Bigr)}$
+\subsubitem \textbf{Pros:} This will guarantee that $\alpha_F\leq0.05$
+\subsubitem \textbf{Cons:} The chance of rejecting $H_0$ is small. In other word, the power of Bonferroni is very poor
+\subsubitem R: \textsf{with(exmp9.3, pairwise.t.test(yield, agent, p.adj = "bonf"))}
+\item Fisher's Least Significant Difference (LSD):
+\subitem Reject $H_0^{ij}:\mu_i=\mu_j$ if $|\bar{y}_i-\bar{y}_j|>t_{\alpha/2}\sqrt{MSE\Bigl(\frac{1}{n_i}+\frac{1}{n_j}\Bigr)}$
+\subsubitem \textbf{Pros:} Easy to discover differences (reject $H_0^{ij}$). In other word, high power
+\subsubitem \textbf{Cons:} This DOES NOT control the familywise error
+\subsubitem R: \textsf{with(exmp9.3, pairwise.t.test(yield, agent, p.adj = "none"))}
+\item Tukey's Method:
+\subitem Reject $H_0^{ij}:\mu_i=\mu_j$ if $|\bar{y}_i-\bar{y}_j|>\dfrac{q_\alpha(t,df_E)}{\sqrt{2}}\sqrt{MSE\Bigl(\frac{1}{n_i}+\frac{1}{n_j}\Bigr)}$
+\subsubitem \textbf{Pros:} Control the familywise error rate
+\subsubitem \textbf{Cons:} Lower power comparing to Fisher LSD and Dunnett methods
+\subsubitem R: \textsf{model = aov(yield~agent, data= exmp9.3); TukeyHSD(model)}
+\item Dunnett's Method:
+\subitem Reject $H_0^{ij}:\mu_i=\mu_j$ if $|\bar{y}_i-\bar{y}_j|>d_\alpha(t-1,df_E)\sqrt{\dfrac{2 MSE}{n}}$
+\subsubitem \textbf{Pros:} Control the familywise error rate. Higher power comparing to Bonferroni and Tukey's
+\subsubitem \textbf{Cons:} It's just for comparing with a control group.
+\subsubitem R: \textsf{library("DescTools"); with(exmp9.3, DunnettTest(yield, agent, control = "None"))}
+% \item \textbf{Population proportion}\dotfill
+% \item Draw a large random sample of size $n$ from a large population having unknown proportion $p$ of successes. To test the hypothesis $H_0: \pi = \pi_0$, compute the $Z$ statistic: $z=\dfrac{\hat{\pi}-\pi_0}{\sqrt{\dfrac{\pi_0(1-\pi_0)}{n}}}$
+% \item Use this test when the sample size $n$ is so large that both $n\pi_0$ and $n(1 - \pi_0)$ are $5$ or more.
+% \item The p\_value for a test of $H_0: \pi = \pi_0$ against
+% \subsubitem $H_a: \pi > \pi_0$ is p-value $ = P(Z\geq z)$
+% \subsubitem $H_a: \pi < \pi_0$ is p-value $ = P(Z\leq z)$
+% \subsubitem $H_a: \pi \neq \pi_0$ is p-value $ = 2P(|Z|\geq|z|)$
+% \item Confidence interval for $\pi$ can be obtained by $\hat{\pi}\pm z_{\alpha/2 v }\sqrt{\dfrac{\hat{\pi}(1-\hat{\pi})}{n}}$.
+% This interval should not be used unless $n\hat{\pi} \geq 5$ and $n(1-\hat{\pi}) \geq 5$.
+\end{itemize}
+
+\end{document}
+
+

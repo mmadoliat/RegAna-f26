@@ -1,0 +1,108 @@
+---
+title: "Syllabus - Statistical Methods - Fall 2026"
+format: 
+  html: default
+  pdf: default
+---
+
+## Course Information
+
+**Course Title:** MATH 4720/MSSC 5720: Statistical Methods\
+**Meeting Time:** TuTh 9:30am - 10:45am\
+**Location:** Cudahy Hall 145 (Microsoft Teams)\
+**Website:** <http://tinyurl.com/f26-4720>
+
+## Instructor Details
+
+- **Name:** Mehdi Maadooliat, Ph.D.
+- **Office:** CU 351
+- **Office Hours:** Tu 1:45pm - 3:15pm & Th 10:45am - 12:15pm in CU 351 or by e-mail
+
+## Course Description
+
+Probability, discrete and continuous distributions. Treatment of data, point and interval estimation, hypothesis testing. Large and small sample method, regression, non-parametric methods. An introductory applications-oriented course recommended for students who wish to acquire a basic understanding of statistical methods. May not be taken for credit by those who have completed [MATH 4710](https://bulletin.marquette.edu/search/?P=MATH%204710).
+
+## Course Topics
+
+- Introduction to probability and probability distributions
+- Sampling and descriptive measures
+- Inference and hypothesis testing
+- Linear regression and analysis of variance
+
+## Prerequisites
+
+- MATH 1400, MATH 1410, or MATH 1450
+
+## Textbook
+
+**Title**: An Introduction to Statistical Methods & Data Analysis (7th Edition)\
+**Authors**: R. Lyman Ott, Michael Longnecker\
+**Year**: 2015
+
+## Grading Breakdown
+
+- **Homework**: 15%
+- **Examinations**: 25% each (2 exams)
+- **Final Exam**: 30%
+- **Best Exam**: 5%
+
+For students in MSSC 5720, there will be extra questions in Homework and/or Exam
+
+You will **NOT** be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:
+
+### Grading Scale
+
+| Grade | Range       |
+|-------|-------------|
+| A     | 93.5 - 100  |
+| A-    | 90.0 - 93.5 |
+| B+    | 86.5 - 90.0 |
+| B     | 83.5 - 86.5 |
+| B-    | 80.0 - 83.5 |
+| C+    | 76.5 - 80.0 |
+| C     | 73.5 - 76.5 |
+| C-    | 70.0 - 73.5 |
+| D+    | 66.5 - 70.0 |
+| D     | 63.5 - 66.5 |
+| D-    | 60.0 - 63.5 |
+| F     | below 60.0  |
+
+**Note:** No late homework will be accepted, and no make-up work will be allowed unless in the case of an emergency. Submit incomplete work if necessary, but ensure scanned PDFs are legible before submission.
+
+# Exam Dates
+
+- **Midterms**: Oct. 1st, Nov. 12th (70 minutes long)
+- **Final Exam**: Dec 16th from 8:00 am to 10:00 am
+
+## Homework Policy
+
+Homework is required for a better understanding of the material and must be submitted to D2L. No late homework will be accepted, and two homework assignments will be dropped. It is recommended to submit even incomplete work. You can scan your homework and submit it as a PDF, but ensure it is readable.
+
+## Attendance Policy
+
+Attendance is required, and the [College of Arts and Sciences attendance policy](https://bulletin.marquette.edu/policies/attendance/undergraduate/) will be observed.
+
+## Make-up Policy
+
+There will be no make-up exams or homework unless there is an emergency.
+
+## Honor Code
+
+Marquette University Honor Code:\
+"I recognize the importance of personal integrity in all aspects of life and work. I commit myself to truthfulness, honor, and responsibility, by which I earn the respect of others. I support the development of good character and commit myself to uphold the highest standards of academic integrity."
+
+## Important dates
+
+- **Monday, August 31:** Classes begin
+- **Tuesday, September 8:** Drop/add ends
+- **Thursday - Friday, October 22 - 23**: Fall Break
+- **Friday, November 20:** Last day to withdraw with W
+- **Wednesday - Sunday, November 25 - 29**: Thanksgiving Break
+- **Saturday, December 12**: Classes end
+- **Wednesday, December 16th, 8:00 am - 10:00 am**: Final Exam
+
+For more important dates, see the full [MU Academic Calendar](https://www.marquette.edu/central/registrar/2025-spring-academic-calendar.php).
+
+## Important Note
+
+The syllabus may be modified throughout the course. Any substantial modifications will result in a reissued syllabus.
