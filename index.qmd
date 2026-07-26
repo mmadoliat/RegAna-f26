@@ -1,5 +1,5 @@
 ---
-title: "Statistical Methods - Fall 2026"
+title: "Regression Analysis - Fall 2026"
 execute: 
   freeze: false
 ---
@@ -14,7 +14,7 @@ library(googlesheets4)
 library(gt)
 library(tidyverse)
 gs4_deauth()
-d <- read_sheet("https://docs.google.com/spreadsheets/d/1-lIozp7Q3vE7aFsjklWQgtuCRnOmOc6Q222qTK5qjHI/edit?usp=sharing")
+d <- read_sheet("https://docs.google.com/spreadsheets/d/1QNIrOsYO-phOMvbHSEu4QlyG-h1wE7_3wLGmmTPA3RM/edit?usp=sharing")
 ```
 
 ```{r}
