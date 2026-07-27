@@ -1,8 +1,8 @@
 on:
   push:
-    branches: main
+    branches: [main]
   pull_request:
-    branches: main
+    branches: [main]
   workflow_dispatch:
 
 name: Build Site
@@ -12,11 +12,37 @@ permissions:
 
 jobs:
   build-website:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+      # Posit Package Manager binaries for Ubuntu 24.04 (Noble)
+      RENV_CONFIG_REPOS_OVERRIDE: >-
+        https://packagemanager.posit.co/cran/__linux__/noble/latest
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          # Use the R version recorded in renv.lock
+          r-version: renv
+          use-public-rspm: true
+
+      - name: Install system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcurl4-openssl-dev \
+            libudunits2-dev \
+            libgdal-dev \
+            libgeos-dev \
+            libproj-dev \
+            libmagick++-dev \
+            libnode-dev
 
       - name: Install Quarto CLI
         uses: quarto-dev/quarto-actions/setup@v2
@@ -24,44 +50,28 @@ jobs:
           tinytex: true
           version: 1.5.9
 
-      - name: Install system libraries
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev libmagick++-dev
-
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
-          
       - name: Restore packages with renv
         uses: r-lib/actions/setup-renv@v2
-        env:
-          # Forces renv to pull pre-compiled Linux binaries instead of source files
-          RENV_CONFIG_REPOS_OVERRIDE: https://r-project.org
-
-      - name: Install system dependencies for V8
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libnode-dev
-    
-      - name: Set up renv
-        uses: r-lib/actions/setup-renv@v2
         with:
-          cache-version: 2
+          cache-version: 3
 
-      - name: Render Quarto Project
+      - name: Check renv status
+        shell: Rscript {0}
+        run: |
+          renv::status()
+
+      - name: Render Quarto project
         uses: quarto-dev/quarto-actions/render@v2
 
       - name: Configure Git
+        if: github.event_name != 'pull_request'
         run: |
           git config --global user.name "Mehdi Maadooliat"
           git config --global user.email "mmadoliat@gmail.com"
-          
-      - name: Deploy 🚀
+
+      - name: Deploy
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4.6.4
-        
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: _site # The folder the action should deploy.
+          branch: gh-pages
+          folder: _site
