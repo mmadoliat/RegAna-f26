@@ -38,7 +38,7 @@ jobs:
         uses: r-lib/actions/setup-renv@v2
         env:
           # Forces renv to pull pre-compiled Linux binaries instead of source files
-          RENV_CONFIG_REPOS_OVERRIDE: https://posit.co
+          RENV_CONFIG_REPOS_OVERRIDE: https://r-project.org
 
       - name: Install system dependencies for V8
         run: |
