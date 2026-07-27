@@ -364,13 +364,13 @@ the observations with $xi ≥ c$. The first polynomial function has coefficients
 
 
 
-## [U.S. Birth Rate from 1917 to 2003](./data/birthrates.Rda)
+## [U.S. Birth Rate from 1917 to 2003](./data/birthrates.rda)
 :::: {.columns}
 
 ::: {.column width="30%"}
 ```{r}
 #| class-output: my_class800
-load("./data/birthrates.Rda")
+load("./data/birthrates.rda")
 head(birthrates, n = 20)
 ```
 :::

@@ -3688,6 +3688,44 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "here": {
+      "Package": "here",
+      "Version": "1.0.2",
+      "Source": "Repository",
+      "Title": "A Simpler Way to Find Your Files",
+      "Date": "2025-09-06",
+      "Authors@R": "c(person(given = \"Kirill\", family = \"M\\u00fcller\", role = c(\"aut\", \"cre\"), email = \"kirill@cynkra.com\", comment = c(ORCID = \"0000-0002-1416-3412\")), person(given = \"Jennifer\", family = \"Bryan\", role = \"ctb\", email = \"jenny@rstudio.com\", comment = c(ORCID = \"0000-0002-6983-2759\")))",
+      "Description": "Constructs paths to your project's files. Declare the relative path of a file within your project with 'i_am()'. Use the 'here()' function as a drop-in replacement for 'file.path()', it will always locate the files relative to your project root.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://here.r-lib.org/, https://github.com/r-lib/here",
+      "BugReports": "https://github.com/r-lib/here/issues",
+      "Imports": [
+        "rprojroot (>= 2.1.0)"
+      ],
+      "Suggests": [
+        "conflicted",
+        "covr",
+        "fs",
+        "knitr",
+        "palmerpenguins",
+        "plyr",
+        "readr",
+        "rlang",
+        "rmarkdown",
+        "testthat",
+        "uuid",
+        "withr"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.3.9000",
+      "Config/testthat/edition": "3",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "NeedsCompilation": "no",
+      "Author": "Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>), Jennifer Bryan [ctb] (ORCID: <https://orcid.org/0000-0002-6983-2759>)",
+      "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+      "Repository": "CRAN"
+    },
     "highr": {
       "Package": "highr",
       "Version": "0.12",
@@ -7138,6 +7176,40 @@
       "URL": "https://github.com/bethatkinson/rpart, https://cran.r-project.org/package=rpart",
       "BugReports": "https://github.com/bethatkinson/rpart/issues"
     },
+    "rprojroot": {
+      "Package": "rprojroot",
+      "Version": "2.1.1",
+      "Source": "Repository",
+      "Title": "Finding Files in Project Subdirectories",
+      "Authors@R": "person(given = \"Kirill\", family = \"M\\u00fcller\", role = c(\"aut\", \"cre\"), email = \"kirill@cynkra.com\", comment = c(ORCID = \"0000-0002-1416-3412\"))",
+      "Description": "Robust, reliable and flexible paths to files below a project root. The 'root' of a project is defined as a directory that matches a certain criterion, e.g., it contains a certain regular file.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://rprojroot.r-lib.org/, https://github.com/r-lib/rprojroot",
+      "BugReports": "https://github.com/r-lib/rprojroot/issues",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "Suggests": [
+        "covr",
+        "knitr",
+        "lifecycle",
+        "rlang",
+        "rmarkdown",
+        "testthat (>= 3.2.0)",
+        "withr"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2.9000",
+      "Config/autostyle/scope": "line_breaks",
+      "Config/autostyle/strict": "true",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "NeedsCompilation": "no",
+      "Author": "Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>)",
+      "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+      "Repository": "CRAN"
+    },
     "rsample": {
       "Package": "rsample",
       "Version": "1.3.2",
@@ -7408,6 +7480,40 @@
       "NeedsCompilation": "no",
       "Author": "Uwe Ligges [aut, cre], Martin Maechler [aut], Sarah Schnackenberg [aut]",
       "Maintainer": "Uwe Ligges <ligges@statistik.tu-dortmund.de>",
+      "Repository": "CRAN"
+    },
+    "schrute": {
+      "Package": "schrute",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Title": "The Entire Transcript from the Office in Tidy Format",
+      "Authors@R": "c( person(\"Brad\", \"Lindblad\", , \"me@bradlindblad.com\", role = c(\"aut\", \"cre\")), person(\"Lucas\", \"Graybuck\", role = \"ctb\"), person(\"Sean\", \"Kent\", , \"spkent@wisc.edu\", role = \"ctb\") )",
+      "Description": "The complete scripts from the American version of the Office television show in tibble format. Use this package to analyze and have fun with text from the best series of all time.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/bradlindblad/schrute",
+      "BugReports": "https://github.com/bradlindblad/schrute/issues",
+      "Depends": [
+        "R (>= 2.10)"
+      ],
+      "Imports": [
+        "magrittr"
+      ],
+      "Suggests": [
+        "dplyr",
+        "ggplot2",
+        "knitr",
+        "rmarkdown",
+        "stats",
+        "testthat (>= 2.1.0)",
+        "tidytext"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "LazyData": "true",
+      "RoxygenNote": "7.1.2",
+      "NeedsCompilation": "no",
+      "Author": "Brad Lindblad [aut, cre], Lucas Graybuck [ctb], Sean Kent [ctb]",
+      "Maintainer": "Brad Lindblad <me@bradlindblad.com>",
       "Repository": "CRAN"
     },
     "selectr": {
