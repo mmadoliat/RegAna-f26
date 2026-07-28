@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Cheng-Han Yu   Department of Mathematical and Statistical Sciences   Marquette University">
-  <title>MATH 4720 (MSSC 5720) – Multiple Linear Regression - Matrix Approach </title>
+  <title>MATH 4780 (MSSC 5780) – Multiple Linear Regression - Matrix Approach </title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -101,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-6816827f3dd20e8d473876198109e96c.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-de3b831a9b3ad9875a472ca76c93aba3.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -195,12 +195,12 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Multiple Linear Regression - Matrix Approach r fontawesome::fa(&quot;table&quot;) – MATH 4720 (MSSC 5720)">
+<meta property="og:title" content="Multiple Linear Regression - Matrix Approach r fontawesome::fa(&quot;table&quot;) – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
-<meta property="og:site_name" content="MATH 4720 (MSSC 5720)">
-<meta name="twitter:title" content="Multiple Linear Regression - Matrix Approach r fontawesome::fa(&quot;table&quot;) – MATH 4720 (MSSC 5720)">
+<meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Multiple Linear Regression - Matrix Approach r fontawesome::fa(&quot;table&quot;) – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
-<meta name="twitter:image" content="https://tinyurl.com/f26-4720/slides/images/twitter-card.png">
+<meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -218,7 +218,7 @@
 Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University
 </div>
         <p class="quarto-title-affiliation">
-            Marquette University <br> MATH 4720 - Fall 2026
+            Marquette University <br> MATH 4780 - Fall 2026
           </p>
     </div>
 </div>
@@ -276,7 +276,21 @@ y_n \end{bmatrix},\quad
       }</style></aside>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>For simplicity and convenience, <span class="math inline">\(N({\bf a}, {\bf B})\)</span> represents a multivariate normal distribution with mean vector <span class="math inline">\({\bf a}\)</span> and covariance matrix <span class="math inline">\({\bf B}\)</span>.</p></li></ol></aside></section>
-
+<section id="regression-model-in-matrix-form-1" class="slide level2">
+<h2>Regression Model in Matrix Form</h2>
+<div class="fact">
+<p>For a random vector <span class="math inline">\({\bf Z} = (Z_1, \dots, Z_n)'\)</span>, its mean vector is <span class="math display">\[E({\bf Z}) = E\begin{pmatrix}
+Z_1 \\
+Z_2 \\
+\vdots \\
+Z_n\end{pmatrix} = \begin{bmatrix}
+E(Z_1) \\
+E(Z_2) \\
+\vdots \\
+E(Z_n)\end{bmatrix}\]</span></p>
+<p>Its (symmetric) variance-covariance matrix is <span class="math display">\[\scriptsize \begin{align} \mathrm{Cov}({\bf Z}) = {\bf \Sigma} &amp;= \begin{bmatrix} \mathrm{Var}(Z_1) &amp; \mathrm{Cov}(Z_1, Z_2) &amp; \cdots &amp; \mathrm{Cov}(Z_1, Z_n) \\ \mathrm{Cov}(Z_2, Z_1) &amp; \mathrm{Var}(Z_2) &amp; \cdots &amp; \mathrm{Cov}(Z_2, Z_n) \\ \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\ \mathrm{Cov}(Z_n, Z_1) &amp; \mathrm{Cov}(Z_n, Z_2) &amp; \cdots &amp; \mathrm{Var}(Z_n) \end{bmatrix} \end{align}\]</span></p>
+</div>
+</section>
 <section id="least-squares-estimation-in-matrix-form" class="slide level2">
 <h2>Least Squares Estimation in Matrix Form</h2>
 <p><span class="math display">\[S(\beta_0, \beta_1, \dots, \beta_k) = \sum_{i=1}^n\epsilon_i^2 = \sum_{i=1}^n\left(y_i - \beta_0 - \sum_{j=1}^k\beta_j x_{ij}\right)^2\]</span></p>
@@ -286,38 +300,26 @@ y_n \end{bmatrix},\quad
 \end{align}\]</span></p>
 <div class="fragment">
 <p><span class="math display">\[\begin{align}
-S(\boldsymbol \beta) = \sum_{i=1}^n\epsilon_i^2 = \boldsymbol \epsilon'\boldsymbol \epsilon= ({\bf y} - {\bf X} \boldsymbol \beta)'({\bf y} - \bf X \boldsymbol \beta)
-\end{align}\]</span></p>
-<aside class="notes">
-<p><span class="math display">\[\begin{align}
 S(\boldsymbol \beta) = \sum_{i=1}^n\epsilon_i^2 = \boldsymbol \epsilon'\boldsymbol \epsilon&amp;= ({\bf y} - {\bf X} \boldsymbol \beta)'({\bf y} - \bf X \boldsymbol \beta) \\
 &amp;= {\bf y'}{\bf y} - \boldsymbol \beta'{\bf X'}{\bf y} - {\bf y'}{\bf X} \boldsymbol \beta+ \boldsymbol \beta' \bf X' \bf X \boldsymbol \beta\\
 &amp;={\bf y}'{\bf y} - 2\boldsymbol \beta'{\bf X}'{\bf y} + \boldsymbol \beta' {\bf X}' {\bf X} \boldsymbol \beta
 \end{align}\]</span></p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </div>
 </section>
 <section id="least-squares-estimation-in-matrix-form-1" class="slide level2">
 <h2>Least Squares Estimation in Matrix Form</h2>
 <p><span class="math display">\[\begin{align}
 S(\boldsymbol \beta) = \sum_{i=1}^n\epsilon_i^2 = \boldsymbol \epsilon'\boldsymbol \epsilon&amp;= ({\bf y} - {\bf X} \boldsymbol \beta)'({\bf y} - \bf X \boldsymbol \beta) \\
-&amp;= {\bf y'}{\bf y} - \boldsymbol \beta'{\bf X'}{\bf y} - {\bf y'}{\bf X} \boldsymbol \beta+ \boldsymbol \beta' \bf X' \bf X \boldsymbol \beta
+&amp;= {\bf y'}{\bf y} - \boldsymbol \beta'{\bf X'}{\bf y} - {\bf y'}{\bf X} \boldsymbol \beta+ \boldsymbol \beta' \bf X' \bf X \boldsymbol \beta\\
+&amp;={\bf y}'{\bf y} - 2\boldsymbol \beta'{\bf X}'{\bf y} + \boldsymbol \beta' {\bf X}' {\bf X} \boldsymbol \beta
 \end{align}\]</span></p>
-<!-- ::: fact -->
-<!-- Let ${\bf t}$ and ${\bf a}$ be $n \times 1$ column vectors, and ${\bf A}_{n \times n}$ is a symmetric matrix. -->
-<!-- - $\frac{\partial {\bf t}'{\bf a} }{\partial {\bf t}} = \frac{\partial {\bf a}'{\bf t} }{\partial {\bf t}} = {\bf a}$ -->
-<!-- - $\frac{\partial {\bf t}'{\bf A} {\bf t}}{\partial {\bf t}} = 2{\bf A} {\bf t}$ -->
-<!-- ::: -->
+<div class="fact">
+<p>Let <span class="math inline">\({\bf t}\)</span> and <span class="math inline">\({\bf a}\)</span> be <span class="math inline">\(n \times 1\)</span> column vectors, and <span class="math inline">\({\bf A}_{n \times n}\)</span> is a symmetric matrix.</p>
+<ul>
+<li><p><span class="math inline">\(\frac{\partial {\bf t}'{\bf a} }{\partial {\bf t}} = \frac{\partial {\bf a}'{\bf t} }{\partial {\bf t}} = {\bf a}\)</span></p></li>
+<li><p><span class="math inline">\(\frac{\partial {\bf t}'{\bf A} {\bf t}}{\partial {\bf t}} = 2{\bf A} {\bf t}\)</span></p></li>
+</ul>
+</div>
 <ul>
 <li>Normal equations: <span class="math inline">\(\begin{align} \left.\frac{\partial S}{\partial \boldsymbol \beta}\right \vert_{\bf b} = -2 {\bf X}' {\bf y} + 2 {\bf X}' {\bf X} {\bf b} = \boldsymbol{0} \end{align}\)</span></li>
 </ul>
@@ -509,7 +511,7 @@ distance 0.014</code></pre>
 <div class="alert">
 <ul>
 <li>Both <span class="math inline">\(\bf H\)</span> and <span class="math inline">\(\bf I-H\)</span> are <em>symmetric</em> and <em>idempotent</em>. They are <strong>projection</strong> matrices.</li>
-<li><span class="math inline">\(\bf H\)</span> projects <span class="math inline">\(\bf y\)</span> to <span class="math inline">\(\hat{\bf y}\)</span> on the <span class="math inline">\(p\)</span>-dimensional space spanned by columns of <span class="math inline">\(\bf X\)</span>, or the column space of <span class="math inline">\(\bf X\)</span>, <span class="math inline">\(Col({\bf X}) = \{ {\bf Xv}: {\bf v} \in {\bf R}^p \}\)</span>.</li>
+<li><span class="math inline">\(\bf H\)</span> projects <span class="math inline">\(\bf y\)</span> to <span class="math inline">\(\hat{\bf y}\)</span> on the <span class="math inline">\(p\)</span>-dimensional space spanned by columns of <span class="math inline">\(\bf X\)</span>, or the column space of <span class="math inline">\(\bf X\)</span>, <span class="math inline">\(Col(\bf X)\)</span>.</li>
 <li><span class="math inline">\(\bf I - H\)</span> projects <span class="math inline">\(\bf y\)</span> to <span class="math inline">\(\bf e\)</span> on the space <strong>perpendicular</strong> to <span class="math inline">\(Col(\bf X)\)</span>, or <span class="math inline">\(Col(\bf X)^{\bot}\)</span>.</li>
 </ul>
 </div>
@@ -538,6 +540,7 @@ distance 0.014</code></pre>
 <div class="columns">
 <div class="column" style="width:30%;">
 <ul>
+<li><span class="math inline">\(Col({\bf X}) = \{ {\bf Xb}: {\bf b} \in {\bf R}^p \}\)</span></li>
 <li><span class="math inline">\({\bf y} \notin Col({\bf X})\)</span></li>
 <li><span class="math inline">\(\hat{{\bf y}} = {\bf Xb} = {\bf H} {\bf y} \in Col({\bf X})\)</span></li>
 <li>Minimize the distance of <span class="math inline">\(\color{red}{A}\)</span> to <span class="math inline">\(Col(\bf X)\)</span>: Find the point in <span class="math inline">\(Col(\bf X)\)</span> that is closest to <span class="math inline">\(A\)</span>.</li>
@@ -606,7 +609,7 @@ distance 0.014</code></pre>
 <div class="columns">
 <div class="column" style="width:30%;">
 <ul>
-<li>The distance is minimized when the point in the space is the foot of the line from <span class="math inline">\(A\)</span> <strong>normal</strong> to the space. This is point <span class="math inline">\(C\)</span>. <span class="math inline">\(\small {\bf e} = ({\bf I} - {\bf H}) {\bf y} \perp Col({\bf X})\)</span></li>
+<li>The distance is minimized when the point in the space is the foot of the line from <span class="math inline">\(A\)</span> <strong>normal</strong> to the space. This is point <span class="math inline">\(C\)</span>. <span class="math inline">\(\small {\bf e} = ({\bf y - \hat{\bf y}}) = ({\bf y - X b}) = ({\bf I} - {\bf H}) {\bf y} \perp Col({\bf X})\)</span></li>
 <li><span class="math inline">\({\bf X}'( {\bf y} - {\bf Xb}) = {\bf 0}\)</span></li>
 </ul>
 <div class="alert">
@@ -697,7 +700,33 @@ distance 6.2e-10</code></pre>
 </div>
 </div></div>
 </section>
-</section>
+<section id="multivariate-normal-distribution" class="slide level2">
+<h2>Multivariate Normal Distribution</h2>
+<div class="fact">
+<p><span class="math inline">\({\bf y} \sim N(\boldsymbol \mu, {\bf \Sigma})\)</span>, and <span class="math inline">\({\bf Z = By + c}\)</span> with a constant matrix <span class="math inline">\({\bf B}\)</span> and vector <span class="math inline">\(\bf c\)</span>, then <span class="math display">\[{\bf Z} \sim N({\bf B\boldsymbol \mu}, {\bf B \Sigma B}')\]</span></p>
+</div>
+<p><span class="math inline">\({\bf b} = ({\bf X}' {\bf X}) ^{-1} \bf X' \bf y\)</span></p>
+<p><span class="math display">\[\textbf{b} \sim N\left(\boldsymbol \beta, \sigma^2 {( {\bf X'} {\bf X} )}^{-1} \right)\]</span> <span class="math display">\[E(\textbf{b}) = E\left[ {( {\bf X'} {\bf X} )}^{-1} {\bf X}' {\bf y}\right] = \boldsymbol \beta\]</span> <span class="math display">\[\mathrm{Cov}(\textbf{b}) = \mathrm{Cov}\left[{( {\bf X'} {\bf X} )}^{-1} {\bf X}' {\bf y} \right] = \sigma^2 {( {\bf X'} {\bf X} )}^{-1}\]</span></p>
+<div class="alert">
+<p>The standard error of <span class="math inline">\(b_j\)</span> is <span class="math inline">\({\sqrt{s^2C_{jj}}}\)</span>, where <span class="math inline">\(C_{jj}\)</span> is the diagonal element of <span class="math inline">\(( {\bf X'} {\bf X} )^{-1}\)</span> corresponding to <span class="math inline">\(b_j\)</span>.</p>
+</div>
+<aside class="notes">
+<p>If <span class="math inline">\({\bf y} \sim N_n(\bsmu, {\bf \Sigma})\)</span>, and <span class="math inline">\({\bf Z = By + c}\)</span> with a constant vector <span class="math inline">\(\bf c\)</span>, then <span class="math display">\[{\bf Z} \sim N({\bf B\bsmu}, {\bf B \Sigma B}')\]</span>. <span class="math display">\[\mathrm{Var}(\textbf{b}) = E\left[(\textbf{b} - E(\textbf{b}))(\textbf{b}-E(\textbf{b}))'\right] = \mathrm{Var}\left[\bf{(X'X)^{-1}X'y}\right] = \sigma^2 \bf (X'X)^{-1}\]</span></p>
+<ul>
+<li>The standard error of <span class="math inline">\(b_j\)</span> is <span class="math inline">\({\sqrt{\hat{\sigma}^2C_{jj}}}\)</span>, where <span class="math inline">\(C_{jj}\)</span> is the diagonal element of <span class="math inline">\(({\bf X'X})^{-1}\)</span> corresponding to <span class="math inline">\(b_j\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
 <section>
 <section id="hypothesis-testing" class="title-slide slide level1 center">
 <h1>Hypothesis Testing</h1>
@@ -1004,7 +1033,7 @@ distance       0.014     0.0036     4.0  6.3e-04</code></pre>
 <pre><code>    time    cases distance 
 -6.2e-17  4.6e-17  8.7e-17 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-label="1"></a><span class="fu">apply</span>(scale_data, <span class="dv">2</span>, sd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-label="1"></a><span class="fu">apply</span>(scale_data, <span class="dv">2</span>, var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    time    cases distance 
        1        1        1 </code></pre>
@@ -1092,7 +1121,7 @@ distance       0.014     0.0036     4.0  6.3e-04</code></pre>
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
-'multiplex': {"secret":null,"id":"3638fa6268c050548d44b024050c2e70c1317c960fe722b1361a5930c9acb753","url":"https://multiplex.up.railway.app/"},
+'multiplex': {"secret":null,"id":"c1da58c27fc9365b6a907094fab48fa4fabfffedfa26dbf2113d74989439ae16","url":"https://multiplex.up.railway.app/"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -1380,7 +1409,7 @@ distance       0.014     0.0036     4.0  6.3e-04</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4720");
+            var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4780");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

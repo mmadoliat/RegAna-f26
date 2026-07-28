@@ -6,13 +6,11 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Cheng-Han Yu   Department of Mathematical and Statistical Sciences   Marquette University">
-  <title>MATH 4720 (MSSC 5720) – Matrix Algebra 👨‍💻</title>
+  <title>MATH 4780 (MSSC 5780) – Matrix Algebra 👩‍💻</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -103,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-6816827f3dd20e8d473876198109e96c.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-de3b831a9b3ad9875a472ca76c93aba3.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -197,12 +195,12 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Matrix Algebra r emo::ji('coder') – MATH 4720 (MSSC 5720)">
+<meta property="og:title" content="Matrix Algebra r emo::ji('coder') – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
-<meta property="og:site_name" content="MATH 4720 (MSSC 5720)">
-<meta name="twitter:title" content="Matrix Algebra r emo::ji('coder') – MATH 4720 (MSSC 5720)">
+<meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Matrix Algebra r emo::ji('coder') – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
-<meta name="twitter:image" content="https://tinyurl.com/f26-4720/slides/images/twitter-card.png">
+<meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -211,7 +209,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#447099" class="quarto-title-block center">
-  <h1 class="title">Matrix Algebra 👨‍💻</h1>
+  <h1 class="title">Matrix Algebra 👩‍💻</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
@@ -220,7 +218,7 @@
 Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University
 </div>
         <p class="quarto-title-affiliation">
-            Marquette University <br> MATH 4720 - Fall 2026
+            Marquette University <br> MATH 4780 - Fall 2026
           </p>
     </div>
 </div>
@@ -285,35 +283,13 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
-<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="rotation.mp4"></video>
-<aside class="notes">
-<ul>
-<li><p>A matrix is actually a numerical representation of a linear transformation in a linear space which is a function that takes an vector as an input and produces another vector as an output.</p></li>
-<li><p>If we use the grid lines to represent the entire coordinate system, we will see that when we use (1, 0) and (0, 1) as the two bases, all lines are vertical and horizontal, showing, for example, the integer values of each coordinate.</p></li>
-<li><p>Linear transformation means we stretch or rotate the lines, but at the same time, all lines remains lines and origin remain fixed. Grids lines are parallel and evenly spaced after linear transformation.</p></li>
-<li><p>(-1, 3) is the transformed vector of (-1, 2) when the two new transformed basis are (3, 1) and (1, 2)</p></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-2" class="slide level2">
-<h2></h2>
 <div class="small">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/06-mat/lin_trans.png" style="width:90.0%"></p>
-<figcaption>Source: 3blue1brown.com/topics/linearalgebra</figcaption>
+<p><img data-src="https://thumbs.gfycat.com/CooperativeQuerulousFirefly-size_restricted.gif" style="width:90.0%"></p>
+<figcaption>Source: https://gfycat.com/cooperativequerulousfirefly (3Blue1Brown)</figcaption>
 </figure>
 </div>
 </div>
@@ -444,10 +420,6 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 </ul>
 </div>
 </section>
-<section id="section-3" class="slide level2">
-<h2></h2>
-<video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="linearly_dependent_columns.mp4"></video>
-</section>
 <section id="linear-independence-1" class="slide level2">
 <h2>Linear Independence</h2>
 <div class="cell" data-layout-align="center">
@@ -489,8 +461,81 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
           display:block!important;
       }</style></aside>
 </section>
-
-
+<section id="rank" class="slide level2">
+<h2>Rank</h2>
+<ul>
+<li><p>The <strong>rank</strong> of a matrix <span class="math inline">\({\bf A} = \begin{bmatrix} {\bf a}_1 &amp; {\bf a}_2 &amp; \cdots &amp; {\bf a}_m \end{bmatrix}\)</span> is the <em>number of linearly independent columns</em> (dimension of the column space).</p></li>
+<li><p>If <span class="math inline">\(k\)</span> of the <span class="math inline">\(m\)</span> column vectors <span class="math inline">\({\bf a}_1, {\bf a}_2, \dots, {\bf a}_m\)</span> are linearly independent, the rank of <span class="math inline">\({\bf A}\)</span> is <span class="math inline">\(k\)</span>.</p></li>
+<li><p>The remaining <span class="math inline">\(m-k\)</span> columns of <span class="math inline">\({\bf A}\)</span> can be written as a linear combination of the <span class="math inline">\(k\)</span> linearly independent columns.</p></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>If <span class="math inline">\(k = m\)</span>, it is full rank</li>
+<li>If <span class="math inline">\(k\)</span> of the <span class="math inline">\(n\)</span> column vectors <span class="math inline">\({\bf a}_1, {\bf a}_2, \dots, {\bf a}_n\)</span> are linearly independent, the rank of <span class="math inline">\({\bf A}\)</span> is <span class="math inline">\(k\)</span>. The remaining <span class="math inline">\(n-k\)</span> columns can be written as a linear combination of the <span class="math inline">\(k\)</span> columns.</li>
+<li>The vectors <span class="math inline">\({\bf v}_1, {\bf v}_2, \dots, {\bf v}_k\)</span> is said to be <strong>linearly dependent</strong> if there exist scalars <span class="math inline">\(c_{1},c_{2},\dots,c_{k},\)</span> not all zero, such that <span class="math display">\[c_{1}{\bf v}_1 + c_{2}{\bf v}_2 + \cdots + c_{k}{\bf v}_k = \bf 0\]</span></li>
+<li>The column vectors <span class="math inline">\({\bf v}_1, {\bf v}_2, \dots, {\bf v}_k\)</span> is said to be <strong>linearly independent</strong> if it is not linearly dependent, that is, if <span class="math display">\[c_{1}{\bf v}_1 + c_{2}{\bf v}_2 + \cdots + c_{k}{\bf v}_k = \bf 0\]</span> can only be satisfied by <span class="math inline">\(c_i = 0, i = 1, 2, \dots, k.\)</span></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="rank-1" class="slide level2">
+<h2>Rank</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>(M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("Matrix")</span></span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(M)[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<div class="question">
+<p>Can you see why the rank is 2, meaning that one column can be written as a linear combo of the other two?</p>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\({\bf a}_3 = 2{\bf a_2}-{\bf a}_1\)</span></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> M[, <span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> M[, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7 8 9</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Find the row or column basis of A using reduced row echelon form</li>
+<li>the dimension of the vector space generated (or spanned) by its columns</li>
+<li>dimension: number of basis in the vector space.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="operations-addition" class="slide level2">
 <h2>Operations: Addition</h2>
 <ul>
@@ -692,14 +737,15 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Identity matrix</span></span>
-<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">4</span>)</span>
+<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">5</span>)</span>
 <span id="cb67-3"><a aria-hidden="true" tabindex="-1"></a>I</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,]    1    0    0    0
-[2,]    0    1    0    0
-[3,]    0    0    1    0
-[4,]    0    0    0    1</code></pre>
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    0    0    0    0
+[2,]    0    1    0    0    0
+[3,]    0    0    1    0    0
+[4,]    0    0    0    1    0
+[5,]    0    0    0    0    1</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## A diagonal matrix</span></span>
 <span id="cb69-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -766,13 +812,45 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 </div>
 </div></div>
 </section>
-<section id="idempotent-and-orthogonal" class="slide level2">
-<h2>Idempotent and Orthogonal</h2>
+<section id="idempotent-orthogonal-positive-definite" class="slide level2">
+<h2>Idempotent, Orthogonal, Positive Definite</h2>
 <ul>
 <li>A square matrix <span class="math inline">\({\bf A}\)</span> is <strong>idempotent</strong> if <span class="math inline">\({\bf A}{\bf A} = {\bf A}\)</span>.</li>
 <li>A square matrix <span class="math inline">\({\bf A}\)</span> is <strong>orthogonal</strong> if <span class="math inline">\({\bf A}^{-1} = {\bf A}'\)</span> and hence <span class="math inline">\({\bf A}'{\bf A} = {\bf I}\)</span>.</li>
 </ul>
 <div class="fragment">
+<ul>
+<li>Let <span class="math inline">\({\bf A}\)</span> be a <span class="math inline">\(n \times n\)</span> matrix and <span class="math inline">\({\bf y}\)</span> be a <span class="math inline">\(n \times 1\)</span> vector. <span class="math display">\[{\bf y}'{\bf A} {\bf y} = \sum_{i=1}^n\sum_{j=1}^na_{ij}y_iy_j\]</span> is called a <strong>quadratic form</strong> of <span class="math inline">\({\bf y}\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>A symmetric matrix <span class="math inline">\({\bf A}\)</span> is said to be <!-- + ${\bf A}' = {\bf A}$ -->
+<ul>
+<li><strong>positive definite</strong> if <span class="math inline">\({\bf y}'{\bf A} {\bf y} &gt; 0\)</span> for all <span class="math inline">\({\bf y \ne 0}\)</span>.</li>
+<li><strong>positive semi-definite</strong> if <span class="math inline">\({\bf y}'{\bf A} {\bf y} \ge 0\)</span> for all <span class="math inline">\({\bf y \ne 0}\)</span> and <span class="math inline">\({\bf y}'{\bf A} {\bf y} = 0\)</span> for some <span class="math inline">\({\bf y \ne 0}\)</span>.</li>
+</ul></li>
+<li>If <span class="math inline">\({\bf A}\)</span> is symmetric and idempotent, then <span class="math inline">\({\bf A}\)</span> is positive semi-definite.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>How about negative definite</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="special-matrices-idempotent-orthogonal" class="slide level2">
+<h2>Special Matrices: Idempotent, Orthogonal</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -789,35 +867,42 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 [1,]  0.5  0.5
 [2,]  0.5  0.5</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## positive semi-definite</span></span>
+<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(y) <span class="sc">%*%</span> A <span class="sc">%*%</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]  4.5</code></pre>
+</div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Orthogonal matrix</span></span>
-<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>(E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
-<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Orthogonal matrix</span></span>
+<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>(E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
+<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    0
-[2,]    0   -1</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    0   -1    0
+[2,]    1    0    0
+[3,]    0    0   -1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    0
-[2,]    0   -1</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    0    1    0
+[2,]   -1    0    0
+[3,]    0    0   -1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(E) <span class="sc">%*%</span> E</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(E) <span class="sc">%*%</span> E</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    0
-[2,]    0    1</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    0    1    0
+[3,]    0    0    1</code></pre>
 </div>
 </div>
 </div></div>
-</div>
 </section>
-
-
 <section id="trace" class="slide level2">
 <h2>Trace</h2>
 <ul>
@@ -825,67 +910,111 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 <li><p><span class="math inline">\(\text{tr}({\bf A}{\bf B}) = \text{tr}({\bf B}{\bf A})\)</span></p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a aria-hidden="true" tabindex="-1"></a>(G <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a aria-hidden="true" tabindex="-1"></a>(G <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(G))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(G))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15</code></pre>
 </div>
 </div>
-<!-- ## Eigenvalues and Eigenvectors {visibility="hidden"} -->
-<!-- - For a square matrix ${\bf A}$, if we can find a scalar $\lambda$ and a non-zero vector ${\bf x}$ such that $${\bf Ax} = \lambda {\bf x},$$ -->
-<!--   + $\lambda$ is an **eigenvalue** of ${\bf A}$ -->
-<!--   + ${\bf x}$ is a corresponding **eigenvector** of ${\bf A}$. -->
-<!-- - A $n \times n$ matrix ${\bf A}$ will have $n$ eigenvalues and $n$ corresponding eigenvectors. -->
-<!-- ## {visibility="hidden"} -->
-<!-- ::: small -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- knitr::include_graphics("./images/06-mat/eigen0.gif") -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ## {visibility="hidden"} -->
-<!-- ::: small -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- knitr::include_graphics("./images/06-mat/eigen1.gif") -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ## Eigen-decomposition {visibility="hidden"} -->
-<!-- - **Eigen-decomposition**: Any symmetric matrix ${\bf A}_{n \times n}$ can be decomposed as $${\bf A} = {\bf V\bsLambda V'}$$ -->
-<!-- - $\bsLambda$ is a $n \times n$ diagnonal matrix whose elements are eigenvalues $\lambda_j$ of ${\bf A}$ -->
-<!--   $$\bsLambda = \begin{bmatrix} \lambda_1 & 0 & \cdots & 0 \\ 0 & \lambda_2 & \cdots & 0 \\ \vdots  & \vdots  & \ddots & \vdots  \\ 0 & 0 & \cdots & \lambda_n \end{bmatrix}$$ -->
-<!-- - ${\bf V} = [{\bf v}_1 \quad {\bf v}_2 \quad \dots \quad {\bf v}_n]$ is a $n \times n$ orthogonal matrix whose columns are the eigenvectors of ${\bf A}.$ -->
-<!-- ## Eigenvalues and Eigenvectors {visibility="hidden"} -->
-<!-- - $\text{tr}({\bf A}) = \sum_{i=1}^n\lambda_i$ -->
-<!-- - $|{\bf A}| = \prod_{i=1}^n \lambda_i$ -->
-<!-- <!-- - $\text{rank}({\bf A}) =$ the number of non-zero $\lambda_i$ -->
-<p>–&gt; <!-- <!-- - If ${\bf A}$ is symmetric, all $\lambda_i \in \mathbf{R}$ --></p>
-<!-- . . . -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- (A <- matrix(c(3, 1, 1, 2), 2, 2)) -->
-<!-- eigen_decomp <- eigen(A) -->
-<!-- (lam <- eigen_decomp$values) -->
-<!-- (V <- eigen_decomp$vectors) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: {.column width="50%"} -->
-<!-- ```{r} -->
-<!-- V %*% diag(lam) %*% t(V) -->
-<!-- sum(diag(A)) -->
-<!-- sum(lam) -->
-<!-- det(A) -->
-<!-- prod(lam) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
+</section>
+<section id="eigenvalues-and-eigenvectors" class="slide level2">
+<h2>Eigenvalues and Eigenvectors</h2>
+<ul>
+<li>For a square matrix <span class="math inline">\({\bf A}\)</span>, if we can find a scalar <span class="math inline">\(\lambda\)</span> and a non-zero vector <span class="math inline">\({\bf x}\)</span> such that <span class="math display">\[{\bf Ax} = \lambda {\bf x},\]</span>
+<ul>
+<li><span class="math inline">\(\lambda\)</span> is an <strong>eigenvalue</strong> of <span class="math inline">\({\bf A}\)</span></li>
+<li><span class="math inline">\({\bf x}\)</span> is a corresponding <strong>eigenvector</strong> of <span class="math inline">\({\bf A}\)</span>.</li>
+</ul></li>
+<li>A <span class="math inline">\(n \times n\)</span> matrix <span class="math inline">\({\bf A}\)</span> will have <span class="math inline">\(n\)</span> eigenvalues and <span class="math inline">\(n\)</span> corresponding eigenvectors.</li>
+</ul>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="small">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://thumbs.gfycat.com/WickedSaltyAnemonecrab-size_restricted.gif" style="width:90.0%"></p>
+<figcaption>https://gfycat.com/ifr/WickedSaltyAnemonecrab (3Blue1Brown)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="eigen-decomposition" class="slide level2">
+<h2>Eigen-decomposition</h2>
+<ul>
+<li><p><strong>Eigen-decomposition</strong>: Any symmetric matrix <span class="math inline">\({\bf A}_{n \times n}\)</span> can be decomposed as <span class="math display">\[{\bf A} = {\bf V\boldsymbol \Lambda V'}\]</span></p></li>
+<li><p><span class="math inline">\(\boldsymbol \Lambda\)</span> is a <span class="math inline">\(n \times n\)</span> diagnonal matrix whose elements are eigenvalues <span class="math inline">\(\lambda_j\)</span> of <span class="math inline">\({\bf A}\)</span> <span class="math display">\[\boldsymbol \Lambda= \begin{bmatrix} \lambda_1 &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; \lambda_2 &amp; \cdots &amp; 0 \\ \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\ 0 &amp; 0 &amp; \cdots &amp; \lambda_n \end{bmatrix}\]</span></p></li>
+<li><p><span class="math inline">\({\bf V} = [{\bf v}_1 \quad {\bf v}_2 \quad \dots \quad {\bf v}_n]\)</span> is a <span class="math inline">\(n \times n\)</span> orthogonal matrix whose columns are the eigenvectors of <span class="math inline">\({\bf A}.\)</span></p></li>
+</ul>
+</section>
+<section id="eigenvalues-and-eigenvectors-1" class="slide level2">
+<h2>Eigenvalues and Eigenvectors</h2>
+<ul>
+<li><span class="math inline">\(\text{tr}({\bf A}) = \sum_{i=1}^n\lambda_i\)</span></li>
+<li><span class="math inline">\(|{\bf A}| = \prod_{i=1}^n \lambda_i\)</span></li>
+<li><span class="math inline">\(\text{rank}({\bf A}) =\)</span> the number of non-zero <span class="math inline">\(\lambda_i\)</span></li>
+<li>If <span class="math inline">\({\bf A}\)</span> is symmetric, all <span class="math inline">\(\lambda_i \in \mathbf{R}\)</span></li>
+</ul>
+</section>
+<section id="eigenvalues-and-eigenvectors-2" class="slide level2">
+<h2>Eigenvalues and Eigenvectors</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a aria-hidden="true" tabindex="-1"></a>(A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    3    1
+[2,]    1    2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a aria-hidden="true" tabindex="-1"></a>eigen_decomp <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
+<span id="cb101-2"><a aria-hidden="true" tabindex="-1"></a>(lam <span class="ot">&lt;-</span> eigen_decomp<span class="sc">$</span>values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.6 1.4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a aria-hidden="true" tabindex="-1"></a>(V <span class="ot">&lt;-</span> eigen_decomp<span class="sc">$</span>vectors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2]
+[1,] -0.85  0.53
+[2,] -0.53 -0.85</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a aria-hidden="true" tabindex="-1"></a>V <span class="sc">%*%</span> <span class="fu">diag</span>(lam) <span class="sc">%*%</span> <span class="fu">t</span>(V)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    3    1
+[2,]    1    2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(A))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(lam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(lam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</div></div>
 
 
 </section></section>
@@ -905,8 +1034,6 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../site_libs/revealjs/plugin/multiplex/socket.io.js"></script>
-  <script src="../site_libs/revealjs/plugin/multiplex/multiplex.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -930,7 +1057,6 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
-'multiplex': {"secret":null,"id":"bb4a965fa9f723f288d8b16d08c7021ea5f00d5a2375049470821ac968d64521","url":"https://multiplex.up.railway.app/"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -1104,7 +1230,7 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
-          
+          RevealNotes,
           RevealSearch,
           RevealZoom
         ]
@@ -1218,7 +1344,7 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4720");
+            var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4780");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
@@ -1316,8 +1442,6 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
         }
       });
       </script>
-    <script>videojs(video_shortcode_videojs_video1);</script>
-    <script>videojs(video_shortcode_videojs_video2);</script>
     
 
 </body></html>

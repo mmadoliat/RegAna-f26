@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Cheng-Han Yu   Department of Mathematical and Statistical Sciences   Marquette University">
-  <title>MATH 4720 (MSSC 5720) – Probability and Statistics 🎲</title>
+  <title>MATH 4780 (MSSC 5780) – Probability and Statistics 🎲</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -101,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-6816827f3dd20e8d473876198109e96c.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-de3b831a9b3ad9875a472ca76c93aba3.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -195,12 +195,12 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Probability and Statistics r emo::ji('game_die') – MATH 4720 (MSSC 5720)">
+<meta property="og:title" content="Probability and Statistics r emo::ji('game_die') – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
-<meta property="og:site_name" content="MATH 4720 (MSSC 5720)">
-<meta name="twitter:title" content="Probability and Statistics r emo::ji('game_die') – MATH 4720 (MSSC 5720)">
+<meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Probability and Statistics r emo::ji('game_die') – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
-<meta name="twitter:image" content="https://tinyurl.com/f26-4720/slides/images/twitter-card.png">
+<meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -218,7 +218,7 @@
 Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University
 </div>
         <p class="quarto-title-affiliation">
-            Marquette University <br> MATH 4720 - Fall 2026
+            Marquette University <br> MATH 4780 - Fall 2026
           </p>
     </div>
 </div>
@@ -383,7 +383,7 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="do">## 10 binomial variable values with m = 5</span></span>
 <span id="cb1-2"><a aria-label="2"></a><span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0 1 3 1 1 4 3 2 2 1</code></pre>
+<pre><code> [1] 2 4 4 2 3 2 2 2 2 2</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a><span class="do">## P(X = 3) of binom(5, 0.4)</span></span>
 <span id="cb3-2"><a aria-label="2"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -408,7 +408,7 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a><span class="do">## the default mean = 0 and sd = 1 (standard normal)</span></span>
 <span id="cb7-2"><a aria-label="2"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.387 -0.670 -2.371 -0.579 -1.849</code></pre>
+<pre><code>[1]  0.889 -0.940  0.764  1.137  0.375</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1003,7 +1003,7 @@ Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4720");
+            var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4780");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
