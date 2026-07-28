@@ -1,3 +1,3 @@
-# statmeth-f26
+# RegAna-f26
 
-Course webpage for MATH 4720 - Fall 2026
+Course webpage for MATH 4780 - Fall 2026

@@ -1,5 +1,5 @@
 ---
-title: "Syllabus - Statistical Methods - Fall 2026"
+title: "Syllabus - Regression Analysis - Fall 2026"
 format: 
   html: default
   pdf: default
@@ -7,10 +7,10 @@ format:
 
 ## Course Information
 
-**Course Title:** MATH 4720/MSSC 5720: Statistical Methods\
-**Meeting Time:** TuTh 9:30am - 10:45am\
-**Location:** Cudahy Hall 145 (Microsoft Teams)\
-**Website:** <http://tinyurl.com/f26-4720>
+**Course Title:** MATH 4780/MSSC 5780: Regression Analysis\
+**Meeting Time:** TuTh 12:30pm - 1:45pm\
+**Location:** Cudahy Hall 131 (Microsoft Teams)\
+**Website:** <http://tinyurl.com/f26-4780>
 
 ## Instructor Details
 
@@ -20,33 +20,38 @@ format:
 
 ## Course Description
 
-Probability, discrete and continuous distributions. Treatment of data, point and interval estimation, hypothesis testing. Large and small sample method, regression, non-parametric methods. An introductory applications-oriented course recommended for students who wish to acquire a basic understanding of statistical methods. May not be taken for credit by those who have completed [MATH 4710](https://bulletin.marquette.edu/search/?P=MATH%204710).
+This course introduces the theory and application of linear regression for analyzing relationships among variables. Topics include simple and multiple linear regression, statistical inference, model interpretation, diagnostic methods, transformations, categorical predictors, multicollinearity, and model selection. Emphasis is placed on applying regression methods to real data, evaluating model assumptions, and communicating results effectively. The statistical software R will be used for data analysis, visualization, and regression modeling.
 
 ## Course Topics
 
-- Introduction to probability and probability distributions
-- Sampling and descriptive measures
-- Inference and hypothesis testing
-- Linear regression and analysis of variance
+- Simple and multiple linear regression
+- Estimation, inference, and prediction
+- Model interpretation and analysis of variance
+- Regression diagnostics and residual analysis
+- Transformations and remedial measures
+- Polynomial and categorical predictors
+- Outliers, leverage, and influential observations
+- Multicollinearity and model selection
+- Regression analysis, visualization, and reporting using R
 
 ## Prerequisites
 
-- MATH 1400, MATH 1410, or MATH 1450
+- MATH 2780, or MATH 4720
 
 ## Textbook
 
-**Title**: An Introduction to Statistical Methods & Data Analysis (7th Edition)\
-**Authors**: R. Lyman Ott, Michael Longnecker\
-**Year**: 2015
+**Title**: Introduction to Linear Regression Analysis, John Wiley, New York (6th Edition)\
+**Authors**: Montgomery, D.C., Peck E.A., and Vining, G.G.\
+**Year**: 2021
 
 ## Grading Breakdown
 
-- **Homework**: 15%
-- **Examinations**: 25% each (2 exams)
-- **Final Exam**: 30%
-- **Best Exam**: 5%
+- **Homework**: 30%
+- **In-class Exam**: 30%
+- **Final Project**: 30%
+- **Best of three**: 10%
 
-For students in MSSC 5720, there will be extra questions in Homework and/or Exam
+For students in MSSC 5780, there will be extra questions in Homework and/or Exam
 
 You will **NOT** be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:
 
@@ -71,8 +76,8 @@ You will **NOT** be allowed any extra credit projects to compensate for a poor a
 
 # Exam Dates
 
-- **Midterms**: Oct. 1st, Nov. 12th (70 minutes long)
-- **Final Exam**: Dec 16th from 8:00 am to 10:00 am
+- **In class Exam**: Oct 20th (70 minutes long)
+- **Final Project**: Dec 15th from 10:30 am to 12:30 pm
 
 ## Homework Policy
 
@@ -99,7 +104,7 @@ Marquette University Honor Code:\
 - **Friday, November 20:** Last day to withdraw with W
 - **Wednesday - Sunday, November 25 - 29**: Thanksgiving Break
 - **Saturday, December 12**: Classes end
-- **Wednesday, December 16th, 8:00 am - 10:00 am**: Final Exam
+- **Wednesday, December 15th, 10:30 am - 12:30 pm**: Final Project
 
 For more important dates, see the full [MU Academic Calendar](https://www.marquette.edu/central/registrar/2025-spring-academic-calendar.php).
 

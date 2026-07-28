@@ -3,11 +3,11 @@ project:
 
 website:
   page-navigation: true
-  title: "MATH 4720 (MSSC 5720)"
-  description: "Homepage for 'Statistical Methods' at Marquette University, Fall 2026."
-  site-url: "https://tinyurl.com/f26-4720"
+  title: "MATH 4780 (MSSC 5780)"
+  description: "Homepage for 'Regression Analysis' at Marquette University, Fall 2026."
+  site-url: "https://tinyurl.com/f26-4780"
 
-  repo-url: https://github.com/mmadoliat/statmeth-f26/
+  repo-url: https://github.com/mmadoliat/RegAna-f26/
   repo-actions: [edit, issue]
 
   open-graph: true
@@ -22,10 +22,10 @@ website:
     align: center
     tools:
       - icon: github
-        href: https://github.com/mmadoliat/statmeth-f26/
+        href: https://github.com/mmadoliat/RegAna-f26/
         text: "GitHub organization"
       - icon: code-square
-        href: https://tinyurl.com/f26-4720
+        href: https://tinyurl.com/f26-4780
         text: "TinyURL"
       - icon: person-fill
         href: https://d2l.mu.edu/

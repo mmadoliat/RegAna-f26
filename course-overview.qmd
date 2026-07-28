@@ -2,7 +2,7 @@
 title: "Course overview"
 ---
 
-This is the homepage for MATH 4720 (MSSC 5720) - Statistical Methods by [Dr. Mehdi Maadooliat](www.mssc.mu.edu/~mehdi) in Fall 2026 at Marquette University. All course materials will be posted on this site.
+This is the homepage for MATH 4780 (MSSC 5780) - Regression Analysis by [Dr. Mehdi Maadooliat](www.mssc.mu.edu/~mehdi) in Fall 2026 at Marquette University. All course materials will be posted on this site.
 
 You can find the course syllabus [here](/course-syllabus.html) and the course schedule [here](/).
 
@@ -10,7 +10,7 @@ You can find the course syllabus [here](/course-syllabus.html) and the course sc
 
 | Meeting      | Location        | Time                                      |
 |--------------|-----------------|-------------------------------------------|
-| Lecture      | Cudahy Hall 145 | Tue & Thur 9:30 am - 10:45 am             |
+| Lecture      | Cudahy Hall 131 | Tue & Thur 12:30 pm - 1:45 pm             |
 | Office Hours | Cudahy Hall 351 | Tu 1:45pm - 3:15pm & Th 10:45am - 12:15pm |
 
 ![](images/twitter-card.png)
