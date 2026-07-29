@@ -1,17 +1,12 @@
 ---
 title: 'Simple Linear Regression `r fontawesome::fa("chart-line")`'
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
-author: "Dr. Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University"
-# date: "`r format(Sys.time(), '%B %d %Y')`"
-# macros: _macros.tex # import a list of TeX/LaTeX definitions
 format: 
   revealjs:
     code-line-numbers: false
-    #     - "macros.tex"
     html-math-method:
       method: mathjax
       url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-    # include-in-header:
     highlight-style: arrow
     code-block-bg: true
     self-contained: false
@@ -20,8 +15,8 @@ format:
     width: 1800
     height: 1000
     margin: 0.05
-    logo: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Marquette_Golden_Eagles_logo.svg"
-    footer: "[math4780-f23.github.io/website](https://math4780-f23.github.io/website/)"
+    logo: "logo.png"
+    footer: "[http://tinyurl.com/f26-4780](http://mmadoliat.github.io/RegAna-f26/)"
     theme: ["simple", "slides.scss"]
     multiplex: false
     code-link: true
@@ -29,10 +24,9 @@ format:
     fig-align: center
     transition: none ## fade slide convex concave zoom
     title-slide-attributes:
-      data-background-color: "#447099"
-      # data-background-image: images/paper-texture.jpg
-      # data-background-size: cover
-      # data-background-color: "#698ED5"
+      data-background-image: mu-bg.png
+      data-background-size: stretch
+      data-slide-number: none
 editor: source
 execute:
   freeze: true
@@ -1059,24 +1053,6 @@ https://fhernanb.github.io/model/reference/confint_sigma2.html
 :::
 
 
-## Hypothesis Testing: $\beta_0$
-
-- <span style="color:blue"> $H_0: \beta_0 = \beta_0^0 \quad H_1: \beta_0 \ne \beta_0^0$  </span>
-- standard error of $b_0$: $se(b_0) = \sqrt{MS_{res}\left(1/n + \overline{x}^2/S_{xx}\right)}$
-- Test statistic: $t_{test} = \frac{b_0 - \color{red}{\beta_0^0}}{se(b_0)} \sim t_{n-2}$ under $H_0$
-- Reject $H_0$ in favor of $H_1$ if 
-  + $|t_{test}| > t_{\alpha/2, \, n-2}$ (critical value method)
-  + $\text{p-value} = 2P(t_{n-2} > |t_{test}|) < \alpha$ (p-value method)
-
-::: notes
-
-- Here is the $\beta_0$ version of the testing.
-- Basically we are more interested in $\beta_1$ because $\beta_1$ sort of measures the relationship between $X$ and $Y$.
-- Again it depends on your research question.
-:::
-
-
-
 ## [R Lab]{.pink} Testing on $\beta_0$ and $\beta_1$
 <!-- # ```{r} -->
 <!-- # #| class-output: my_class500 -->
@@ -1638,23 +1614,68 @@ text(x = -2, y = min(y_s)+0.2, "range of x", cex = 1.5)
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
-#| out-width: 100%
+#| include: false
+
 set.seed(9274)
 x <- seq(-3, 4, 0.05)
-y_s <-  -0.5 * x ^ 3 + x ^ 2 + x + rnorm(length(x), mean = 0, sd = 2)
-y_s_1 <- x ^ 2 + x + rnorm(length(x), mean = 0, sd = 2)
-par(mar = c(0, 0, 0, 0))
-plot(y_s ~ x, xlab = "", ylab = "",
-     yaxt = "n", xaxt = "n", pch = 19, col = "green3")
-points(y_s[41:length(x)] ~ x[41:length(x)], pch = 19, col = 1)
-points(y_s_1[41:length(x)] ~ x[41:length(x)], pch = 19, col = 2)
-abline(lm(y_s[1:40] ~ x[1:40]), col = "blue", lwd = 2)
-abline(v = x[40], lty = 2, col = "red")
-# segments(x0 = -3, y0 = min(y_s)-0.5, x1 = x[40], y1 = min(y_s)-0.5, col = 2, 
-#          lwd = 3)
-# text(x = -2, y = min(y_s), "range of x")
+y_s <- -0.5 * x^3 + x^2 + x + rnorm(length(x), mean = 0, sd = 2)
+y_s_1 <- x^2 + x + rnorm(length(x), mean = 0, sd = 2)
+
+draw_right_plot <- function(stage = 0) {
+  par(mar = c(0, 0, 0, 0))
+  plot(y_s[1:40] ~ x[1:40], xlab = "", ylab = "", yaxt = "n", xaxt = "n", pch = 19,
+       col = "green3", xlim = range(x), ylim = range(c(y_s, y_s_1)))
+  abline(lm(y_s[1:40] ~ x[1:40]), col = "blue", lwd = 2)
+  abline(v = x[40], lty = 2, col = "red")
+  segments(x0 = -3, y0 = min(y_s)-0.5, x1 = x[40], y1 = min(y_s)-0.5, col = 2, 
+         lwd = 3)
+  text(x = -2, y = min(y_s)+0.2, "range of x", cex = 1.5)
+
+
+  # First additional layer
+  if (stage >= 1) {
+    points(y_s[41:length(x)] ~ x[41:length(x)], pch = 19, col = 1)
+  }
+
+  # Second additional layer
+  if (stage >= 2) {
+    points(y_s_1[41:length(x)] ~ x[41:length(x)], pch = 19, col = 2)
+  }
+}
 ```
+
+::: {.r-stack}
+
+::: {.fragment .fade-in-then-out}
+
+```{r}
+#| out-width: 100%
+draw_right_plot(stage = 0)
+```
+
+:::
+
+::: {.fragment .fade-in-then-out}
+
+```{r}
+#| out-width: 100%
+draw_right_plot(stage = 1)
+```
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| out-width: 100%
+draw_right_plot(stage = 2)
+```
+
+:::
+
+:::
 
 :::
 
@@ -1686,20 +1707,18 @@ abline(v = x[40], lty = 2, col = "red")
 ```{r}
 #| out-width: 100%
 set.seed(83629)
-x <- seq(1, 30, 1)
+x <- c(1:10,20)
 par(mar = c(0, 0, 0, 0))
 y <- -2 * x + 20 + rnorm(length(x), mean = 0, sd = 10)
-y_outlier <- c(y[1:15], y[16]+200, y[17:30])
+y_outlier <- c(y[1:5], y[6]+200, y[7:11])
 plot(y_outlier ~ x, pch = 19, col = "black", 
-     xlab = "", ylab = "", xaxt = "n", yaxt = "n")
+     xlab = "", ylab = "", xaxt = "n", yaxt = "n", ylim=c(y[11],y[6]+200))
 lm_outlier = lm(y_outlier ~ x)
 lm_no_outlier <- lm(y ~ x)
 abline(lm_outlier, col = "blue", lwd = 2)
 abline(lm_no_outlier, col = "red", lwd = 2)
 ```
 :::
-
-
 
 ::: {.column width="50%"}
 - The estimate of the intercept may be incorrect.
@@ -1723,25 +1742,42 @@ summary(lm_no_outlier)$sigma ^ 2
 - We will talk about outliers in detail later in this course.
 :::
 
-## Considerations in Regression: Influential Points
-- **Influential point**: A point that strongly affects the slope of the line. (unusual in $x$ direction)
+## Considerations in the Use of Regression: Influential Points
+- **Outlier**: An observation that is considerably different from the rest of the data (unusual in $y$ direction)
 
+:::: {.columns}
+
+::: {.column width="50%"}
 ```{r}
-x_influential <- c(x[1:29], 200)
+#| out-width: 100%
+set.seed(83629)
+x <- c(1:10,20)
 par(mar = c(0, 0, 0, 0))
-plot(y ~ x_influential, pch = 19, col = "black", 
-     xlab = "", ylab = "", xaxt = "n", yaxt = "n")
-lm_influential = lm(y ~ x_influential)
-lm_influential_rm <- lm(y ~ x)
-abline(lm_influential, col = "blue")
-abline(lm_influential_rm, col = "red")
+y <- -2 * x + 20 + rnorm(length(x), mean = 0, sd = 10)
+y_outlier <- c(y[1:10], y[11]+200)
+plot(y_outlier ~ x, pch = 19, col = "black", 
+     xlab = "", ylab = "", xaxt = "n", yaxt = "n", ylim=c(y[11],y[6]+200))
+lm_outlier = lm(y_outlier ~ x)
+lm_no_outlier <- lm(y ~ x)
+abline(lm_outlier, col = "blue", lwd = 2)
+abline(lm_no_outlier, col = "red", lwd = 2)
 ```
-
-
-::: notes
-- Our inference and prediction may be totally distorted just because of one single influential point. So again, we have to very careful about it.
 :::
 
+::: {.column width="50%"}
+- The estimate of the intercept may be incorrect.
+
+- The residual mean square may be inflated.
+
+```{r}
+#| echo: true
+summary(lm_outlier)$sigma ^ 2
+summary(lm_no_outlier)$sigma ^ 2
+```
+:::
+::::
+
+- **Influential point**: A point that strongly affects the slope of the line. (unusual in $x$ direction)
 
 ## Considerations in Regression: Causal Relationship?
 <!-- - Correlation is NOT Causation! -->

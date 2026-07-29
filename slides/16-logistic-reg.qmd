@@ -1,17 +1,11 @@
 ---
 title: "Logistic Regression `r emo::ji('computer')`"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
-author: "Dr. Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University"
-# date: "`r format(Sys.time(), '%B %d %Y')`"
-# macros: _macros.tex # import a list of TeX/LaTeX definitions
 format: 
   revealjs:
-    # code-line-numbers: false
-    #     - "macros.tex"
     html-math-method:
       method: mathjax
       url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-    # include-in-header:
     highlight-style: arrow
     code-block-bg: true
     self-contained: false
@@ -20,8 +14,8 @@ format:
     width: 1800
     height: 1000
     margin: 0.05
-    logo: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Marquette_Golden_Eagles_logo.svg"
-    footer: "[math4780-f23.github.io/website](https://math4780-f23.github.io/website/)"
+    logo: "logo.png"
+    footer: "[http://tinyurl.com/f26-4780](http://mmadoliat.github.io/RegAna-f26/)"
     theme: ["simple", "slides.scss"]
     multiplex: false
     code-link: true
@@ -29,10 +23,9 @@ format:
     fig-align: center
     transition: none ## fade slide convex concave zoom
     title-slide-attributes:
-      data-background-color: "#447099"
-      # data-background-image: images/paper-texture.jpg
-      # data-background-size: cover
-      # data-background-color: "#698ED5"
+      data-background-image: mu-bg.png
+      data-background-size: stretch
+      data-slide-number: none
 editor: source
 execute:
   freeze: true
