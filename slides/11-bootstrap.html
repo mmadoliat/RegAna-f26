@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
-  <meta name="author" content="Dr.&nbsp;Cheng-Han Yu   Department of Mathematical and Statistical Sciences   Marquette University">
+  <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
   <title>MATH 4780 (MSSC 5780) – Simulation-based Inference 💻</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -208,14 +208,14 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#447099" class="quarto-title-block center">
+<section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
   <h1 class="title">Simulation-based Inference 💻</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University
+Dr.&nbsp;Mehdi Maadooliat
 </div>
         <p class="quarto-title-affiliation">
             Marquette University <br> MATH 4780 - Fall 2026
@@ -721,7 +721,7 @@ $ rent &lt;dbl&gt; 3850, 3800, 2350, 3200, 2150, 3267, 2495, 2349, 3950, 1795, 2
 <pre><code>Rows: 15,000
 Columns: 2
 $ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
-$ stat      &lt;dbl&gt; 2350, 2350, 2349, 2350, 2349, 2175, 2350, 2238, 2350, 2495, …</code></pre>
+$ stat      &lt;dbl&gt; 2350, 2350, 2350, 2300, 3234, 2350, 2150, 2495, 2522, 2175, …</code></pre>
 </div>
 </div>
 <ul>
@@ -1207,9 +1207,9 @@ cases           2.18  1.613   2.74</code></pre>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Marquette_Golden_Eagles_logo.svg" class="slide-logo"></p>
+<p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p><a href="https://math4780-f23.github.io/website/">math4780-f23.github.io/website</a></p>
+<p><a href="http://mmadoliat.github.io/RegAna-f26/">http://tinyurl.com/f26-4780</a></p>
 </div>
 </div></div>
 
@@ -1221,8 +1221,6 @@ cases           2.18  1.613   2.74</code></pre>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../site_libs/revealjs/plugin/multiplex/socket.io.js"></script>
-  <script src="../site_libs/revealjs/plugin/multiplex/multiplex.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -1246,7 +1244,6 @@ cases           2.18  1.613   2.74</code></pre>
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
-'multiplex': {"secret":null,"id":"d529427e7ea15f1f65cc93c13d59e39765fbe5a94dc64e90fb525b39220f940d","url":"https://multiplex.up.railway.app/"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -1420,7 +1417,7 @@ cases           2.18  1.613   2.74</code></pre>
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
-          
+          RevealNotes,
           RevealSearch,
           RevealZoom
         ]

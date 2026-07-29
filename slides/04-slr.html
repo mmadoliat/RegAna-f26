@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
-  <meta name="author" content="Dr.&nbsp;Cheng-Han Yu   Department of Mathematical and Statistical Sciences   Marquette University">
+  <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
   <title>MATH 4780 (MSSC 5780) – Simple Linear Regression </title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -208,14 +208,14 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#447099" class="quarto-title-block center">
+<section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
   <h1 class="title">Simple Linear Regression <svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"></path></svg></h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University
+Dr.&nbsp;Mehdi Maadooliat
 </div>
         <p class="quarto-title-affiliation">
             Marquette University <br> MATH 4780 - Fall 2026
@@ -1357,36 +1357,6 @@ displ       -3.91  -3.15</code></pre>
           display:block!important;
       }</style></aside>
 </section>
-<section id="hypothesis-testing-beta_0-1" class="slide level2">
-<h2>Hypothesis Testing: <span class="math inline">\(\beta_0\)</span></h2>
-<ul>
-<li><span style="color:blue"> <span class="math inline">\(H_0: \beta_0 = \beta_0^0 \quad H_1: \beta_0 \ne \beta_0^0\)</span> </span></li>
-<li>standard error of <span class="math inline">\(b_0\)</span>: <span class="math inline">\(se(b_0) = \sqrt{MS_{res}\left(1/n + \overline{x}^2/S_{xx}\right)}\)</span></li>
-<li>Test statistic: <span class="math inline">\(t_{test} = \frac{b_0 - \color{red}{\beta_0^0}}{se(b_0)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></li>
-<li>Reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
-<ul>
-<li><span class="math inline">\(|t_{test}| &gt; t_{\alpha/2, \, n-2}\)</span> (critical value method)</li>
-<li><span class="math inline">\(\text{p-value} = 2P(t_{n-2} &gt; |t_{test}|) &lt; \alpha\)</span> (p-value method)</li>
-</ul></li>
-</ul>
-<aside class="notes">
-<ul>
-<li>Here is the <span class="math inline">\(\beta_0\)</span> version of the testing.</li>
-<li>Basically we are more interested in <span class="math inline">\(\beta_1\)</span> because <span class="math inline">\(\beta_1\)</span> sort of measures the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</li>
-<li>Again it depends on your research question.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="r-lab-testing-on-beta_0-and-beta_1" class="slide level2">
 <h2><span class="pink">R Lab</span> Testing on <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h2>
 <!-- # ```{r} -->
@@ -2135,12 +2105,38 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 </div>
 </div>
 </div><div class="column" style="width:50%;">
+<div class="r-stack">
+<div class="fragment fade-in-then-out">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/04-slr/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/04-slr/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-in-then-out">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/04-slr/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/04-slr/unnamed-chunk-38-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2182,7 +2178,7 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/04-slr/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/04-slr/unnamed-chunk-39-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -2195,11 +2191,11 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_outlier)<span class="sc">$</span>sigma <span class="sc">^</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1421</code></pre>
+<pre><code>[1] 3933</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_no_outlier)<span class="sc">$</span>sigma <span class="sc">^</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 101</code></pre>
+<pre><code>[1] 147</code></pre>
 </div>
 </div>
 </div></div>
@@ -2222,27 +2218,41 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
           display:block!important;
       }</style></aside>
 </section>
-<section id="considerations-in-regression-influential-points" class="slide level2">
-<h2>Considerations in Regression: Influential Points</h2>
+<section id="considerations-in-the-use-of-regression-influential-points" class="slide level2">
+<h2>Considerations in the Use of Regression: Influential Points</h2>
+<ul>
+<li><strong>Outlier</strong>: An observation that is considerably different from the rest of the data (unusual in <span class="math inline">\(y\)</span> direction)</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/04-slr/unnamed-chunk-41-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>The estimate of the intercept may be incorrect.</p></li>
+<li><p>The residual mean square may be inflated.</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_outlier)<span class="sc">$</span>sigma <span class="sc">^</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1033</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_no_outlier)<span class="sc">$</span>sigma <span class="sc">^</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 147</code></pre>
+</div>
+</div>
+</div></div>
 <ul>
 <li><strong>Influential point</strong>: A point that strongly affects the slope of the line. (unusual in <span class="math inline">\(x\)</span> direction)</li>
 </ul>
-
-<img data-src="./images/04-slr/unnamed-chunk-38-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><aside class="notes">
-<ul>
-<li>Our inference and prediction may be totally distorted just because of one single influential point. So again, we have to very careful about it.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="considerations-in-regression-causal-relationship" class="slide level2">
 <h2>Considerations in Regression: Causal Relationship?</h2>
@@ -2263,7 +2273,7 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/04-slr/unnamed-chunk-40-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/04-slr/unnamed-chunk-44-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -2282,7 +2292,7 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/04-slr/unnamed-chunk-42-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/04-slr/unnamed-chunk-46-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -2377,7 +2387,7 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 <li>For easier calculation and computation, we work with the <strong>log-likelihood function</strong> <span class="math display">\[\ell(\theta|{\bf y}) := \log L(\theta|{\bf y})\]</span></li>
 </ul>
 
-<img data-src="./images/04-slr/unnamed-chunk-46-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
+<img data-src="./images/04-slr/unnamed-chunk-50-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
 <ul>
 <li>For easier calculation and computation, we usually work with the <strong>log-likelihood function</strong> defined by <span class="math display">\[\ell(\theta|{\bf y}) := \log L(\theta|{\bf y})\]</span></li>
 </ul>
@@ -2439,7 +2449,7 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 <li>The estimated probability of successes <span class="math inline">\(\hat{\theta}_{ML}\)</span> is the sample proportion of successes <span class="math inline">\(\frac{\sum_{i=1}^n y_i}{n} = \frac{12}{20}\)</span>.</li>
 </ul>
 
-<img data-src="./images/04-slr/unnamed-chunk-47-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="./images/04-slr/unnamed-chunk-51-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="linear-regression-estimation-by-maximum-likelihood" class="slide level2">
 <h2>Linear Regression: Estimation by Maximum Likelihood</h2>
 <!-- - If the distribution of the errors is known, the maximum likelihood estimation can be used. -->
@@ -2495,9 +2505,9 @@ F-statistic:  329 on 1 and 232 DF,  p-value: &lt;2e-16
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Marquette_Golden_Eagles_logo.svg" class="slide-logo"></p>
+<p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p><a href="https://math4780-f23.github.io/website/">math4780-f23.github.io/website</a></p>
+<p><a href="http://mmadoliat.github.io/RegAna-f26/">http://tinyurl.com/f26-4780</a></p>
 </div>
 </div></div>
 
