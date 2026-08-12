@@ -584,7 +584,7 @@ How do we test if the 2 regressions are identical?
 :::: {.columns}
 
 ::: {.column width="50%"}
-$y = \beta_0+\beta_1x_1+\beta_2x_2 + \epsilon$
+$y = \beta_0+\beta_1x_1 + \epsilon$
 
 ```{r}
 #| out-width: 100%
@@ -596,6 +596,7 @@ points(tool_data$speed[11:20], tool_data$hours[11:20], pch = 15, col = 4, cex = 
 legend("topright", c("A", "B"), pch = c(16, 15), col = c(2, 4), bty = "n", cex = 1.5)
 abline(a = 36.9856, b = -0.0266, col = 2)
 abline(a = 36.9856 + 15.0043, b = -0.0266, col = 4)
+abline(lm(hours ~ speed, data = tool_data), lwd=2)
 ```
 :::
 

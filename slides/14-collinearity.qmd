@@ -239,13 +239,13 @@ $x$ and $x^2$ are highly (linearly correlated)
 
 <!-- $$({\bf X}_2'{\bf X}_2)^{-1} = \begin{bmatrix} 63.94 & -63.44 \\ -63.44 & 63.94 \end{bmatrix}$$  -->
 
-2. `r emo::ji('point_right')` Tends to produce LSE $b_j$ that are **too large in absolute value**. Therefore, the vector ${\bf b}$, on average, is much longer than the vector $\bbeta$.
+2. `r emo::ji('point_right')` The estimates $b_j$ become **highly variable and unstable**. They may have large magnitudes or unexpected signs, even though OLS remains unbiased.
 
 ::: alert
-- Large variances and large magnitude of coefficients lead to **instable** and **wrong signed** coefficients.
-- Poor coefficients do not necessarily imply bad fit or poor prediction. 
-- The predictions should be confined to the $x$ space where the collinearity holds approximately.
-- Collinearity causes very poor *extrapolated* prediction.
+- Large variances can produce **unstable coefficient estimates**, with large magnitudes and changing or unexpected signs.
+- Unstable coefficient estimates do **not necessarily imply poor fit or poor prediction** within the observed predictor region.
+- Predictions are generally most reliable within the region of the $x$-space represented by the observed data.
+- Collinearity can lead to **poor extrapolated prediction**, particularly away from the observed predictor structure.
 :::
 
 

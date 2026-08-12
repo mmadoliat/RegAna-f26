@@ -314,22 +314,19 @@ solve(t(X) %*% X) %*% t(X) %*% y
 
 . . .
 
-$$\hat{\bf y} = {\bf X} {\bf b} = {\bf X} ({\bf X}' {\bf X}) ^{-1} {\bf X'} {\bf y} = {\bf H} {\bf y}$$
-
-- ${\bf H} = {\bf X} ({\bf X}' {\bf X}) ^{-1} \bf X'$
-
-- The vector of residuals $e_i = y_i - \hat{y}_i$ is
+$$\hat{\bf y} = {\bf X} {\bf b} = \color{red}{{\bf X} ({\bf X}' {\bf X}) ^{-1} {\bf X'}} \color{black}{{\bf y} =} \color{red}{\bf H} \color{black}{\bf y}$$
+- The residuals are $e_i = y_i - \hat{y}_i$, and the residual vector is
 $${\bf e} = {\bf y} - \hat{\bf y} ={ \bf y} - {\bf X} {\bf b} = {\bf y} -{\bf H} {\bf y} = ({\bf I} - {\bf H}) {\bf y}$$
 
 . . .
 
 ::: alert
-- Both $\bf H$ and $\bf I-H$ are *symmetric* and *idempotent*. They are **projection** matrices.
-- $\bf H$ projects $\bf y$ to $\hat{\bf y}$ on the $p$-dimensional space spanned by columns of $\bf X$, or the column space of $\bf X$, $Col(\bf X)$.
-- $\bf I - H$ projects $\bf y$ to $\bf e$ on the space **perpendicular** to $Col(\bf X)$, or $Col(\bf X)^{\bot}$.
+- Both $\mathbf{H}$ and $\mathbf{I} - \mathbf{H}$ are **symmetric and idempotent**; hence, **orthogonal projection matrices**.
+- $\mathbf{H}$ projects $\mathbf{y}$ onto the column space of $\mathbf{X}$: $\qquad\qquad\qquad\hat{\mathbf{y}} = \mathbf{H}\mathbf{y}\in \operatorname{Col}(\mathbf{X}).$
+- $\mathbf{I} - \mathbf{H}$ projects $\mathbf{y}$ onto the orthogonal complement of the $\operatorname{Col}(\mathbf{X})$: $\ \ \  \mathbf{e}=(\mathbf{I}-\mathbf{H})\mathbf{y}\in\operatorname{Col}(\mathbf{X})^\perp.$
 :::
 
-
+$$\boxed{\mathbf{y}=\hat{\mathbf{y}}+\mathbf{e},\qquad\hat{\mathbf{y}} \perp \mathbf{e}}$$
 
 ::: notes
 - The vector of fitted values $\hat{y}_i$ corresponding to $y_i$ is
