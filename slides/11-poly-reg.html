@@ -9,8 +9,8 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
-  <meta name="author" content="Dr.&nbsp;Cheng-Han Yu   Department of Mathematical and Statistical Sciences   Marquette University">
-  <title>MATH 4780 (MSSC 5780) – Polynomial Regression ▶️</title>
+  <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
+  <title>MATH 4780 (MSSC 5780) – Polynomial Regression ⏯</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -208,14 +208,14 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#447099" class="quarto-title-block center">
-  <h1 class="title">Polynomial Regression ▶️</h1>
+<section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
+  <h1 class="title">Polynomial Regression ⏯</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Dr.&nbsp;Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University
+Dr.&nbsp;Mehdi Maadooliat
 </div>
         <p class="quarto-title-affiliation">
             Marquette University <br> MATH 4780 - Fall 2026
@@ -395,7 +395,7 @@ Splines
 <div class="columns">
 <div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a>hardwood[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>hardwood[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  conc strength
 1  1.0      6.3
@@ -427,8 +427,8 @@ Splines
 <li>Following the suggestion that centering the data may remove nonessential ill-conditioning: <span class="math display">\[y = \beta_0 + \beta_1 (x - \bar{x}) + \beta_2 (x - \bar{x}) ^ 2 + \epsilon\]</span></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a>conc_cen <span class="ot">&lt;-</span> hardwood<span class="sc">$</span>conc <span class="sc">-</span> <span class="fu">mean</span>(hardwood<span class="sc">$</span>conc)</span>
-<span id="cb3-2"><a aria-label="2"></a><span class="fu">lm</span>(strength <span class="sc">~</span> conc_cen <span class="sc">+</span> <span class="fu">I</span>(conc_cen <span class="sc">^</span> <span class="dv">2</span>), <span class="at">data =</span> hardwood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>conc_cen <span class="ot">&lt;-</span> hardwood<span class="sc">$</span>conc <span class="sc">-</span> <span class="fu">mean</span>(hardwood<span class="sc">$</span>conc)</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(strength <span class="sc">~</span> conc_cen <span class="sc">+</span> <span class="fu">I</span>(conc_cen <span class="sc">^</span> <span class="dv">2</span>), <span class="at">data =</span> hardwood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -517,27 +517,27 @@ Coefficients:
 <div class="column" style="width:30%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource my_class800 number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a aria-label="1"></a>     Year Birthrate</span>
-<span id="cb5-2"><a aria-label="2"></a>1917 1917       183</span>
-<span id="cb5-3"><a aria-label="3"></a>1918 1918       184</span>
-<span id="cb5-4"><a aria-label="4"></a>1919 1919       163</span>
-<span id="cb5-5"><a aria-label="5"></a>1920 1920       180</span>
-<span id="cb5-6"><a aria-label="6"></a>1921 1921       181</span>
-<span id="cb5-7"><a aria-label="7"></a>1922 1922       173</span>
-<span id="cb5-8"><a aria-label="8"></a>1923 1923       168</span>
-<span id="cb5-9"><a aria-label="9"></a>1924 1924       177</span>
-<span id="cb5-10"><a aria-label="10"></a>1925 1925       172</span>
-<span id="cb5-11"><a aria-label="11"></a>1926 1926       170</span>
-<span id="cb5-12"><a aria-label="12"></a>1927 1927       164</span>
-<span id="cb5-13"><a aria-label="13"></a>1928 1928       152</span>
-<span id="cb5-14"><a aria-label="14"></a>1929 1929       145</span>
-<span id="cb5-15"><a aria-label="15"></a>1930 1930       145</span>
-<span id="cb5-16"><a aria-label="16"></a>1931 1931       139</span>
-<span id="cb5-17"><a aria-label="17"></a>1932 1932       132</span>
-<span id="cb5-18"><a aria-label="18"></a>1933 1933       126</span>
-<span id="cb5-19"><a aria-label="19"></a>1934 1934       130</span>
-<span id="cb5-20"><a aria-label="20"></a>1935 1935       130</span>
-<span id="cb5-21"><a aria-label="21"></a>1936 1936       130</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="my_class800"><code>     Year Birthrate
+1917 1917       183
+1918 1918       184
+1919 1919       163
+1920 1920       180
+1921 1921       181
+1922 1922       173
+1923 1923       168
+1924 1924       177
+1925 1925       172
+1926 1926       170
+1927 1927       164
+1928 1928       152
+1929 1929       145
+1930 1930       145
+1931 1931       139
+1932 1932       132
+1933 1933       126
+1934 1934       130
+1935 1935       130
+1936 1936       130</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:70%;">
@@ -555,8 +555,8 @@ Coefficients:
 <section id="r-lab-a-polynomial-regression-provide-a-poor-fit" class="slide level2">
 <h2><span class="pink">R Lab</span> A Polynomial Regression Provide a Poor Fit</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-label="1"></a>lmfit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">poly</span>(Year <span class="sc">-</span> <span class="fu">mean</span>(Year), <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb6-2"><a aria-label="2"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>lmfit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">poly</span>(Year <span class="sc">-</span> <span class="fu">mean</span>(Year), <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -621,8 +621,8 @@ Coefficients:
 <li>Use <code>bs()</code> function in the <strong>splines</strong> package.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a>lin_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
-<span id="cb7-2"><a aria-label="2"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>lin_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="./images/11-poly-reg/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"></section>
@@ -632,8 +632,8 @@ Coefficients:
 <li>The cubic spline is a spline of degree 3 with <em>first 2 derivatives are continuous</em> at the knots.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a>cub_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
-<span id="cb8-2"><a aria-label="2"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>cub_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="./images/11-poly-reg/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"></section>
@@ -660,9 +660,9 @@ Coefficients:
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Marquette_Golden_Eagles_logo.svg" class="slide-logo"></p>
+<p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p><a href="https://math4780-f23.github.io/website/">math4780-f23.github.io/website</a></p>
+<p><a href="http://mmadoliat.github.io/RegAna-f26/">http://tinyurl.com/f26-4780</a></p>
 </div>
 </div></div>
 
@@ -674,8 +674,6 @@ Coefficients:
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../site_libs/revealjs/plugin/multiplex/socket.io.js"></script>
-  <script src="../site_libs/revealjs/plugin/multiplex/multiplex.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -699,7 +697,6 @@ Coefficients:
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
-'multiplex': {"secret":null,"id":"f5059d7880bc12683d08f469c27618e367976a7fb5de6323bb26340ecdf88710","url":"https://multiplex.up.railway.app/"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -873,7 +870,7 @@ Coefficients:
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
-          
+          RevealNotes,
           RevealSearch,
           RevealZoom
         ]

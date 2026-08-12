@@ -298,7 +298,7 @@
     "href": "slides/14-collinearity.html#effect-of-collinearity",
     "title": "Collinearity",
     "section": "Effect of Collinearity",
-    "text": "Effect of Collinearity\n\n👉 Large variances and covariances for the LSE \\(b_j\\)s.\n\n\n\n👉 Tends to produce LSE \\(b_j\\) that are too large in absolute value. Therefore, the vector \\({\\bf b}\\), on average, is much longer than the vector \\(\\boldsymbol \\beta\\).\n\n\n\nLarge variances and large magnitude of coefficients lead to instable and wrong signed coefficients.\nPoor coefficients do not necessarily imply bad fit or poor prediction.\nThe predictions should be confined to the \\(x\\) space where the collinearity holds approximately.\nCollinearity causes very poor extrapolated prediction.\n\n\n\n\nThe squared distance from \\({\\bf b}\\) to \\(\\bsbeta\\) is \\(D^2 = \\sum_{j=1}^k(b_j - \\beta_j)^2\\).\nThe expected squared distance is \\[E(D^2) = E\\left(\\sum_{j=1}^k(b_j - \\beta_j)^2 \\right) = \\sum_{j=1}^kE\\left[(b_j - \\beta_j)^2\\right] = \\sum_{j=1}^k\\mathrm{Var}(b_j) = \\sigma^2 \\mathrm{tr}\\left[({\\bf X'X})^{-1}\\right]\\]\nStrong Collinearity between \\(x\\)’s results in\nthe trace of a matrix (Tr) is the sum of the diagonal elements."
+    "text": "Effect of Collinearity\n\n👉 Large variances and covariances for the LSE \\(b_j\\)s.\n\n\n\n👉 The estimates \\(b_j\\) become highly variable and unstable. They may have large magnitudes or unexpected signs, even though OLS remains unbiased.\n\n\n\nLarge variances can produce unstable coefficient estimates, with large magnitudes and changing or unexpected signs.\nUnstable coefficient estimates do not necessarily imply poor fit or poor prediction within the observed predictor region.\nPredictions are generally most reliable within the region of the \\(x\\)-space represented by the observed data.\nCollinearity can lead to poor extrapolated prediction, particularly away from the observed predictor structure.\n\n\n\n\nThe squared distance from \\({\\bf b}\\) to \\(\\bsbeta\\) is \\(D^2 = \\sum_{j=1}^k(b_j - \\beta_j)^2\\).\nThe expected squared distance is \\[E(D^2) = E\\left(\\sum_{j=1}^k(b_j - \\beta_j)^2 \\right) = \\sum_{j=1}^kE\\left[(b_j - \\beta_j)^2\\right] = \\sum_{j=1}^k\\mathrm{Var}(b_j) = \\sigma^2 \\mathrm{tr}\\left[({\\bf X'X})^{-1}\\right]\\]\nStrong Collinearity between \\(x\\)’s results in\nthe trace of a matrix (Tr) is the sum of the diagonal elements."
   },
   {
     "objectID": "slides/14-collinearity.html#perfectly-correlated-regressors",
@@ -429,280 +429,280 @@
   {
     "objectID": "slides/11-poly-reg.html#why-polynomial-regression",
     "href": "slides/11-poly-reg.html#why-polynomial-regression",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Why Polynomial Regression",
     "text": "Why Polynomial Regression\n\nPolynomials are widely used in situations where the response surface is curvilinear.\nMany complex nonlinear relationships can be adequately modeled by polynomials over reasonably small ranges of the \\(x\\)’s.\n\n\n\n\nThey are also useful as approximating functions to unknown and possibly very complex nonlinear relationships.\nIn this sense, the polynomial model is just the Taylor series expansion of the unknown function."
   },
   {
     "objectID": "slides/11-poly-reg.html#polynomial-regression-models",
     "href": "slides/11-poly-reg.html#polynomial-regression-models",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Polynomial Regression Models",
     "text": "Polynomial Regression Models\n\nA second-order (degree) polynomial in one variable or a quadratic model is \\[y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\epsilon\\]\nA second-order polynomial in two variables is \\[y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_{11}x_1^2 + \\beta_{22}x_2^2 + \\beta_{12}x_1x_2 + \\epsilon\\]\nThe \\(k\\)th-order polynomial model in one variable is \\[y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\cdots + \\beta_kx^k + \\epsilon\\]\nIf we set \\(x_j = x^j\\), this is just a multiple linear regression model with \\(k\\) predictors \\(x_1, x_2, \\dots, x_k\\)!"
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations",
     "href": "slides/11-poly-reg.html#important-considerations",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nKeep the order of the model as low as possible.\n\n\n\n\nTransform data to keep the model 1st order.\nIf fails, try a 2nd order model.\nAvoid higher-order polynomials unless they can be justified for reasons outside the data.\n👉 Occam’s Razor: among competing models that predict equally well, choose the “simplest” one, i.e., a parsimonious model.\n\nThis avoids overfitting that leads to nearly perfect fit to the data, but bad prediction performance.\n\n\n\n\n\n\n\n\nSource: Wikiversity\n\n\n\n\n\n\nThere are several important considerations that arise when fitting a polynomial in one variable. - A low-order model in a transformed variable is almost always preferable to a high-order model in the original metric. - Arbitrary fitting of high-order polynomials is a serious abuse of regression analysis. - You can always fit a polynomial model with very high order. It may give you a pretty good fit, but with very high chance, it will end up with very bad prediction, leading to overfitting. + Occam’s Razor: among competing models that predict equally well, choose the “simplest” one, i.e., parsimonious model. + This avoid overfitting that leads to bad prediction performance.\n\n\n\n“Bayesian Deep Learning and a Probabilistic Perspective of Generalization” Wilson and Izmailov (2020) for the rationale of choosing a super high-order polynomial as the regression model.\n\n\n\nthe ground truth explanation for the data is out of class for any of these choices, but there is some setting of the coefficients in choice (3) which provides a better description of reality than could be managed by choices (1) and (2).\nour beliefs about the generative processes for our observations, which are often very sophisticated, typically ought to be independent of how many data points we happen to observe.\nwe often use neural networks with millions of parameters to fit datasets with thousands of points"
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations-1",
     "href": "slides/11-poly-reg.html#important-considerations-1",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nModel building strategy\n\n\n👉 Forward selection: successively fit models of increasing order until the \\(t\\)-test for the highest order term is non-significant.\n👉 Backward elimination: fit the highest order model and then delete terms one at a time until the highest order remaining term has a significant \\(t\\) statistic.\n👉 They do not necessarily lead to the same model.\n👉 Restrict our attention to low-order polynomials."
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations-2",
     "href": "slides/11-poly-reg.html#important-considerations-2",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nExtrapolation\n\n\nCan be extremely dangerous when the model is higher-order polynomial.\nThe nature of the true underlying relationship may change or be completely different from the system that produced the data used to fit the model."
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations-3",
     "href": "slides/11-poly-reg.html#important-considerations-3",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nIll-conditioning\n\n\nIll-conditioning: as the order of the model increases, \\({\\bf X'X}\\) matrix inversion will become inaccurate, and error may be introduced into the parameter estimates\nCentering the predictors may remove some ill conditioning but not all.\nOne solution is to use orthogonal polynomials (LRA Sec 7.5).\n\n\n\nIll-conditioning refers to the fact that as the order of the model increases, \\({\\bf X'X}\\) matrix inversion will become inaccurate, and error can be introduced into the parameter estimates\nCentering the predictors may remove some ill conditioning but not all."
   },
   {
     "objectID": "slides/11-poly-reg.html#example-7.1-hardwood-data-lra",
     "href": "slides/11-poly-reg.html#example-7.1-hardwood-data-lra",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Example 7.1: Hardwood Data (LRA)",
     "text": "Example 7.1: Hardwood Data (LRA)\n\nStrength of kraft paper vs. the percentage of hardwood in the batch of pulp from which the paper was produced.\nA quadratic model may adequately describe the relationship between tensile strength and hardwood concentration.\n\n\n\n\nhardwood[1:9, ]\n\n  conc strength\n1  1.0      6.3\n2  1.5     11.1\n3  2.0     20.0\n4  3.0     24.0\n5  4.0     26.1\n6  4.5     30.0\n7  5.0     33.8\n8  5.5     34.0\n9  6.0     38.1"
   },
   {
     "objectID": "slides/11-poly-reg.html#r-lab-hardwood-data-model-fitting",
     "href": "slides/11-poly-reg.html#r-lab-hardwood-data-model-fitting",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "R Lab Hardwood Data Model Fitting",
     "text": "R Lab Hardwood Data Model Fitting\n\nFollowing the suggestion that centering the data may remove nonessential ill-conditioning: \\[y = \\beta_0 + \\beta_1 (x - \\bar{x}) + \\beta_2 (x - \\bar{x}) ^ 2 + \\epsilon\\]\n\n\nconc_cen &lt;- hardwood$conc - mean(hardwood$conc)\nlm(strength ~ conc_cen + I(conc_cen ^ 2), data = hardwood)\n\n\nCall:\nlm(formula = strength ~ conc_cen + I(conc_cen^2), data = hardwood)\n\nCoefficients:\n  (Intercept)       conc_cen  I(conc_cen^2)  \n       45.295          2.546         -0.635  \n\n\n\n\\(y = 45.3 + 2.55 (x - 7.26) - 0.63 (x - 7.26) ^ 2 + \\epsilon\\)\nInference, prediction and residual diagnostics procedures are the same as multiple linear regression.\n\n\n\nWe don’t need to create an extra predictor concentration ^ 2 in the data set.\nWe can construct the x_sq term in the lm() function.\nWe use I() function to wrap up the operation concen_cen ^ 2, so that concen_cen ^ 2 is not interpreted as a part of formula, but actual arithmetic operation.\nTo avoid this confusion, the function I() can be used to bracket those portions of a model formula where the operators are used in their arithmetic sense. For example, in the formula y ~ a + I(b+c), the term b+c is to be interpreted as the sum of b and c."
   },
   {
     "objectID": "slides/11-poly-reg.html#piecewise-polynomial-regression",
     "href": "slides/11-poly-reg.html#piecewise-polynomial-regression",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Piecewise (Polynomial) Regression",
     "text": "Piecewise (Polynomial) Regression\n\nA polynomial regression may provide a poor fit, and increasing the order does not improve the situation.\nThis may happen when the regression function behaves differently in different parts of the range of \\(x\\).\n\n\n\nSOLUTION: 👉 piecewise polynomial regression that fits separate polynomials over different regions of \\(x\\).\nExample: \\[y=\\begin{cases}\n  \\beta_{01} + \\beta_{11}x+ \\beta_{21}x^2+\\beta_{31}x^3 +\\epsilon     & \\quad \\text{if } x &lt; c\\\\\n  \\beta_{02} + \\beta_{12}x+ \\beta_{22}x^2+\\beta_{32}x^3+\\epsilon      & \\quad \\text{if } x \\ge c\n\\end{cases}\\]\nThe joint points of pieces are called knots.\n\n\n\n\nUsing more knots leads to a more flexible piecewise polynomial.\n\n\nWith \\(K\\) different knots, how many different polynomials do we have?\n\n\n\n\n\nThere might be tow different systems or schemes that govern the relationship between response and predictor variables.\nAny issue of fitting a piecewise polynomial regression?\nIn other words, we fit two different polynomial functions to the data, one on the subset of the observations with \\(xi &lt; c\\), and one on the subset of the observations with \\(xi ≥ c\\). The first polynomial function has coefficients β01, β11, β21, β31, and the second has coefficients β02, β12, β22, β32.\nEach of these polynomial functions can be fit using least squares applied to simple functions of the original predictor.\nthe function is discontinuous\nlocations of the knots are known, otherwise it is a nonlinear regression problem.\nWE could fit piecewise regression with order 1.\n(or more constrained?)"
   },
   {
     "objectID": "slides/11-poly-reg.html#u.s.-birth-rate-from-1917-to-2003",
     "href": "slides/11-poly-reg.html#u.s.-birth-rate-from-1917-to-2003",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "U.S. Birth Rate from 1917 to 2003",
     "text": "U.S. Birth Rate from 1917 to 2003\n\n\n\n\n     Year Birthrate\n1917 1917       183\n1918 1918       184\n1919 1919       163\n1920 1920       180\n1921 1921       181\n1922 1922       173\n1923 1923       168\n1924 1924       177\n1925 1925       172\n1926 1926       170\n1927 1927       164\n1928 1928       152\n1929 1929       145\n1930 1930       145\n1931 1931       139\n1932 1932       132\n1933 1933       126\n1934 1934       130\n1935 1935       130\n1936 1936       130"
   },
   {
     "objectID": "slides/11-poly-reg.html#r-lab-a-polynomial-regression-provide-a-poor-fit",
     "href": "slides/11-poly-reg.html#r-lab-a-polynomial-regression-provide-a-poor-fit",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "R Lab A Polynomial Regression Provide a Poor Fit",
     "text": "R Lab A Polynomial Regression Provide a Poor Fit\n\nlmfit3 &lt;- lm(Birthrate ~ poly(Year - mean(Year), degree = 3, raw = TRUE),  \n             data = birthrates)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIt might be interesting to fit a linear regression with high order polynomials to approximate this curve. This can be carried out using the poly() function, which calculates all polynomials up to a certain power. Please note that this is a more stable method compared with writing out the powers such as I(Year^2), I(Year^3) etc because the Year variable is very large, and is numerically unstable."
   },
   {
     "objectID": "slides/11-poly-reg.html#r-lab-piecewise-polynomials-3-knots-at-1936-60-78",
     "href": "slides/11-poly-reg.html#r-lab-piecewise-polynomials-3-knots-at-1936-60-78",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "R Lab Piecewise Polynomials: 3 knots at 1936, 60, 78",
     "text": "R Lab Piecewise Polynomials: 3 knots at 1936, 60, 78\n\n\nAny issue of piecewise polynomials?\n\n\nthese functions are not continuous. Hence we use a trick to construct continuous basis"
   },
   {
     "objectID": "slides/11-poly-reg.html#splines",
     "href": "slides/11-poly-reg.html#splines",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Splines",
     "text": "Splines\nSplines of degree \\(k\\) are piecewise polynomials of degree \\(k\\) with continuity in derivatives (smoothing) up to degree \\(k-1\\) at each knot.\n\nUse bs() function in the splines package.\n\n\nlin_sp &lt;- lm(Birthrate ~ splines::bs(Year, degree = 1, knots = c(1936, 1960, 1978)), \n             data = birthrates)"
   },
   {
     "objectID": "slides/11-poly-reg.html#cubic-splines",
     "href": "slides/11-poly-reg.html#cubic-splines",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Cubic Splines",
     "text": "Cubic Splines\n\nThe cubic spline is a spline of degree 3 with first 2 derivatives are continuous at the knots.\n\n\ncub_sp &lt;- lm(Birthrate ~ splines::bs(Year, degree = 3, knots = c(1936, 1960, 1978)), \n             data = birthrates)"
   },
   {
     "objectID": "slides/11-poly-reg.html#practical-issue",
     "href": "slides/11-poly-reg.html#practical-issue",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Practical Issue",
     "text": "Practical Issue\n\nHow many knots should be used\n\nAs few knots as possible\nAt least 5 data points per segment\n\nWhere to place the knots\n\nNo more than one extreme point per segment\nIf possible, the extreme points should be centered in the segment\n\nWhat is the degree of functions in each region\n\nCubic spline is popular"
   },
   {
     "objectID": "slides/06-mat.html#matrix",
     "href": "slides/06-mat.html#matrix",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Matrix",
     "text": "Matrix\n\nA matrix \\({\\bf A}\\) that has \\(n\\) rows and \\(m\\) columns is defined as \\[{\\bf A} = (a_{ij})_{n \\times m}\\begin{bmatrix} a_{11} & a_{12} & \\cdots & a_{1m} \\\\ a_{21} & a_{22} & \\cdots & a_{2m} \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ a_{n1} & a_{n2} & \\cdots & a_{nm} \\end{bmatrix}_{n \\times m}\\]\n\n\n\n\n\n(A &lt;- matrix(data = 1:6, \n             nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nclass(A)\n\n[1] \"matrix\" \"array\" \n\n\n\n\nattributes(A)\n\n$dim\n[1] 2 3\n\n\n\n\n\n\nBut what is the geometrical meaning of matrices?\n\n\n\nFirst index is for row and the second index is for column\nUse command matrix() to create a matrix.\nA matrix is a two-dimensional analog of a vector.\nLike all elements of a matrix must be of the same type."
   },
   {
     "objectID": "slides/06-mat.html#matrices-as-linear-transformations",
     "href": "slides/06-mat.html#matrices-as-linear-transformations",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Matrices as Linear Transformations",
     "text": "Matrices as Linear Transformations\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 3\n\n\n\nA matrix is actually a numerical representation of a linear transformation in a linear space which is a function that takes an vector as an input and produces another vector as an output.\nIf we use the grid lines to represent the entire coordinate system, we will see that when we use (1, 0) and (0, 1) as the two bases, all lines are vertical and horizontal, showing, for example, the integer values of each coordinate.\nLinear transformation means we stretch or rotate the lines, but at the same time, all lines remains lines and origin remain fixed.\nGrids lines are parallel and evenly spaced after linear transformation.\n(-1, 3) is the transformed vector of (-1, 2) when the two new transformed basis are (3, 1) and (1, 2)"
   },
   {
     "objectID": "slides/06-mat.html#column-vector",
     "href": "slides/06-mat.html#column-vector",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Column Vector",
     "text": "Column Vector\n\nIf \\(m = 1\\), it becomes a \\(n\\) by 1 matrix or a column vector of size \\(n\\). \\[\\small {\\bf y} = \\begin{bmatrix} y_{1}  \\\\ y_{2}  \\\\ \\vdots  \\\\  y_{n} \\end{bmatrix}_{n \\times 1} \\quad {\\bf 1} = \\begin{bmatrix} 1  \\\\ 1  \\\\ \\vdots  \\\\  1 \\end{bmatrix}_{n \\times 1}\\]\n\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n## 2nd column\nA[, 2]\n\n[1] 3 4\n\n## becomes a numeric vector\nclass(A[, 2]) \n\n[1] \"integer\"\n\n\n\n\n## keep its matrix class\nA[, 2, drop = FALSE] \n\n     [,1]\n[1,]    3\n[2,]    4\n\nclass(A[, 2, drop = FALSE])  \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#row-vector",
     "href": "slides/06-mat.html#row-vector",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Row Vector",
     "text": "Row Vector\n\nIf \\(n = 1\\), it becomes a \\(1\\) by \\(m\\) matrix or a row vector of size \\(m\\). \\[{\\bf x} = \\begin{bmatrix} x_{1} &  x_{2}  & \\dots  &  x_{m} \\end{bmatrix}_{1 \\times m}\\]\nBy default, a vector means a column vector.\n\n\n## 2nd row\nA[2, , drop = FALSE]\n\n     [,1] [,2] [,3]\n[1,]    2    4    6\n\n## keep its matrix class\nclass(A[2, , drop = FALSE]) \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#transpose",
     "href": "slides/06-mat.html#transpose",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Transpose",
     "text": "Transpose\n\nLet \\({\\bf A}\\) be an \\(n \\times m\\) matrix. The transpose of \\({\\bf A}\\), denoted by \\({\\bf A}'\\) or \\({\\bf A}^T\\), is a \\(m \\times n\\) matrix whose columns are the rows of \\({\\bf A}\\). \\[{\\bf A} = \\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6\\end{bmatrix}\\] \\[{\\bf X}_{n \\times 2}\\begin{bmatrix} 1 & x_1 \\\\ 1 & x_{2} \\\\ \\vdots  & \\vdots  \\\\ 1 & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1} & {\\bf x} \\end{bmatrix}\\] \\[{\\bf X}'_{2 \\times n} = \\begin{bmatrix} 1 & 1 & \\cdots & 1 \\\\ x_1 & x_2 & \\cdots & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1}' \\\\ {\\bf x}' \\end{bmatrix}\\]"
   },
   {
     "objectID": "slides/06-mat.html#transpose-in-r",
     "href": "slides/06-mat.html#transpose-in-r",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Transpose in R",
     "text": "Transpose in R\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nt(A)\n\n     [,1] [,2]\n[1,]    1    2\n[2,]    3    4\n[3,]    5    6"
   },
   {
     "objectID": "slides/06-mat.html#linear-independence",
     "href": "slides/06-mat.html#linear-independence",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\n\n\nVectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if for scalars \\(c_{1},c_{2},\\dots,c_{k} \\in \\mathbf{R},\\) \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0\\) for all \\(i = 1, 2, \\dots, k\\).\n\n\nAre \\({\\bf v}_1 = (1, 1)'\\) and \\({\\bf v}_2 = (-3, 2)'\\) linearly independent?\n\n\nWays to check linear independence:\n\nsolve the homogeneous linear system \\(\\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix}\\begin{bmatrix} c_1 \\\\ c_2 \\end{bmatrix}=\\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix}\\) for \\(c_1\\) and \\(c_2\\).\ncheck if \\(\\text{det} \\left( \\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix} \\right)\\) is non-zero."
   },
   {
     "objectID": "slides/06-mat.html#linear-independence-1",
     "href": "slides/06-mat.html#linear-independence-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\nV &lt;- matrix(c(1, 1, -3, 2), nrow = 2, ncol = 2)\nsolve(a = V, b = rep(0, 2))\n\n[1] 0 0\n\ndet(V)\n\n[1] 5\n\n\n\n\nA is invertible, that is, A has an inverse, is nonsingular, and is nondegenerate.\nA is row-equivalent to the n-by-n identity matrix In.\nA is column-equivalent to the n-by-n identity matrix In.\nA has n pivot positions.\nA has full rank; that is, rank A = n.\nBased on the rank A=n, the equation Ax = 0 has only the trivial solution x = 0. and the equation Ax = b has exactly one solution for each b in Kn.\nThe kernel (null space) of A is trivial\nThe columns of A are linearly independent.\nThe columns of A span Kn.\nThe columns of A form a basis of Kn.\ndet A ≠ 0.\nThe number 0 is not an eigenvalue of A.\nThe transpose AT is an invertible matrix"
   },
   {
     "objectID": "slides/06-mat.html#rank",
     "href": "slides/06-mat.html#rank",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Rank",
     "text": "Rank\n\nThe rank of a matrix \\({\\bf A} = \\begin{bmatrix} {\\bf a}_1 & {\\bf a}_2 & \\cdots & {\\bf a}_m \\end{bmatrix}\\) is the number of linearly independent columns (dimension of the column space).\nIf \\(k\\) of the \\(m\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_m\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\).\nThe remaining \\(m-k\\) columns of \\({\\bf A}\\) can be written as a linear combination of the \\(k\\) linearly independent columns.\n\n\n\nIf \\(k = m\\), it is full rank\nIf \\(k\\) of the \\(n\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_n\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\). The remaining \\(n-k\\) columns can be written as a linear combination of the \\(k\\) columns.\nThe vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly dependent if there exist scalars \\(c_{1},c_{2},\\dots,c_{k},\\) not all zero, such that \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\]\nThe column vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if it is not linearly dependent, that is, if \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0, i = 1, 2, \\dots, k.\\)"
   },
   {
     "objectID": "slides/06-mat.html#rank-1",
     "href": "slides/06-mat.html#rank-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Rank",
     "text": "Rank\n\n(M &lt;- matrix(1:9, nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n# install.packages(\"Matrix\")\nlibrary(Matrix)\nrankMatrix(M)[1]\n\n[1] 2\n\n\n\nCan you see why the rank is 2, meaning that one column can be written as a linear combo of the other two?\n\n\n\n\\({\\bf a}_3 = 2{\\bf a_2}-{\\bf a}_1\\)\n\n\n2 * M[, 2] - 1 * M[, 1]\n\n[1] 7 8 9\n\n\n\n\nFind the row or column basis of A using reduced row echelon form\nthe dimension of the vector space generated (or spanned) by its columns\ndimension: number of basis in the vector space."
   },
   {
     "objectID": "slides/06-mat.html#operations-addition",
     "href": "slides/06-mat.html#operations-addition",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Addition",
     "text": "Operations: Addition\n\nAddition: \\({\\bf A + B}\\) is adding the corresponding elements together \\(a_{ij} + b_{ij}\\).\n\\({\\bf A}\\) and \\({\\bf B}\\) must have an equal number of rows and columns.\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(6:1, nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    6    4    2\n[2,]    5    3    1\n\nA + B\n\n     [,1] [,2] [,3]\n[1,]    7    7    7\n[2,]    7    7    7\n\n\n\n\n\n(B &lt;- matrix(1:4, nrow = 2, ncol = 2))\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nA + B\n\nError in `A + B`:\n! non-conformable arrays"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication",
     "href": "slides/06-mat.html#operations-multiplication",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\nMultiplication: The product of matrices \\({\\bf A}\\) and \\({\\bf B}\\) is denoted as \\({\\bf AB}\\).\n\n\n\nThe number of columns in \\({\\bf A}\\) must be equal to the number of rows \\({\\bf B}\\).\nThe result matrix \\({\\bf C}\\) has the number of rows of \\({\\bf A}\\) and the number of columns of the \\({\\bf B}\\).\n\n\n\nThe number of columns in the first matrix \\({\\bf A}\\) must be equal to the number of rows in the second matrix of \\({\\bf B}\\).\nThe resulting matrix \\({\\bf C}\\) has dimension of the number of rows of the first and the number of columns of the second matrix."
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-1",
     "href": "slides/06-mat.html#operations-multiplication-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(1:12, nrow = 3, ncol = 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n\n\n\n\n(C &lt;- A %*% B)\n\n     [,1] [,2] [,3] [,4]\n[1,]   22   49   76  103\n[2,]   28   64  100  136\n\n(B &lt;- matrix(1:8, nrow = 2, ncol = 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    3    5    7\n[2,]    2    4    6    8\n\nA %*% B\n\nError in `A %*% B`:\n! non-conformable arguments"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-2",
     "href": "slides/06-mat.html#operations-multiplication-2",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\\({\\bf A}{\\bf B} \\ne {\\bf B}{\\bf A}\\) in general.\n\\(({\\bf A}{\\bf B})' =  {\\bf B}'{\\bf A}'\\).\n\n\n\n\n\n(C &lt;- matrix(1:4, 2, 2))\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\n(D &lt;- matrix(2:5, 2, 2))\n\n     [,1] [,2]\n[1,]    2    4\n[2,]    3    5\n\nC %*% D\n\n     [,1] [,2]\n[1,]   11   19\n[2,]   16   28\n\n\n\n\n\nD %*% C\n\n     [,1] [,2]\n[1,]   10   22\n[2,]   13   29\n\nt(C %*% D)\n\n     [,1] [,2]\n[1,]   11   16\n[2,]   19   28\n\nt(D) %*% t(C)\n\n     [,1] [,2]\n[1,]   11   16\n[2,]   19   28"
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-symmetric-and-identity",
     "href": "slides/06-mat.html#special-matrices-symmetric-and-identity",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Special Matrices: Symmetric and Identity",
     "text": "Special Matrices: Symmetric and Identity\n\nA square matrix \\((m = n)\\) \\({\\bf A}_{n \\times n}\\) is a symmetric matrix if \\({\\bf A = A}'\\).\n\n\\[{\\bf A} = \\begin{bmatrix} 1 & 2  \\\\ 2 & 5 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 2 \\\\ 2 & 5 \\end{bmatrix}\\]\n\nA square matrix \\({\\bf I}_{n \\times n}\\) whose diagonal elements are 1’s and off diagonal elements are 0’s is called an identity matrix of order \\(n\\). \\[{\\bf I} = \\begin{bmatrix} 1 & 0 & \\cdots & 0 \\\\ 0 & 1 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & 1 \\end{bmatrix}\\]\n\n\n\nIf the inverse exists, it is unique."
   },
   {
     "objectID": "slides/06-mat.html#identity-and-diagonal-matrix",
     "href": "slides/06-mat.html#identity-and-diagonal-matrix",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Identity and Diagonal Matrix",
     "text": "Identity and Diagonal Matrix\n\n\n\n## Identity matrix\nI &lt;- diag(5)\nI\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    0    0    0    0\n[2,]    0    1    0    0    0\n[3,]    0    0    1    0    0\n[4,]    0    0    0    1    0\n[5,]    0    0    0    0    1\n\n## A diagonal matrix\ndiag(c(4, 2, 5))\n\n     [,1] [,2] [,3]\n[1,]    4    0    0\n[2,]    0    2    0\n[3,]    0    0    5\n\n\n\n\n## Extract diagonal elements\nD &lt;- matrix(1:4, 2, 2)\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\ndiag(D)\n\n[1] 1 4"
   },
   {
     "objectID": "slides/06-mat.html#inverse-matrix",
     "href": "slides/06-mat.html#inverse-matrix",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Inverse Matrix",
     "text": "Inverse Matrix\n\nThe inverse of a square matrix \\({\\bf A}\\), denoted by \\({\\bf A}^{-1}\\), is a square matrix such that \\[{\\bf A}^{-1}{\\bf A} = {\\bf A}{\\bf A}^{-1} = {\\bf I}\\]\n\n\n\n\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nD_inv &lt;- solve(D)\nD_inv\n\n     [,1] [,2]\n[1,]   -2  1.5\n[2,]    1 -0.5\n\n\n\n\nD_inv %*% D\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1\n\nD %*% D_inv\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1"
   },
   {
     "objectID": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
     "href": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Idempotent, Orthogonal, Positive Definite",
     "text": "Idempotent, Orthogonal, Positive Definite\n\nA square matrix \\({\\bf A}\\) is idempotent if \\({\\bf A}{\\bf A} = {\\bf A}\\).\nA square matrix \\({\\bf A}\\) is orthogonal if \\({\\bf A}^{-1} = {\\bf A}'\\) and hence \\({\\bf A}'{\\bf A} = {\\bf I}\\).\n\n\n\nLet \\({\\bf A}\\) be a \\(n \\times n\\) matrix and \\({\\bf y}\\) be a \\(n \\times 1\\) vector. \\[{\\bf y}'{\\bf A} {\\bf y} = \\sum_{i=1}^n\\sum_{j=1}^na_{ij}y_iy_j\\] is called a quadratic form of \\({\\bf y}\\).\n\n\n\n\nA symmetric matrix \\({\\bf A}\\) is said to be \n\npositive definite if \\({\\bf y}'{\\bf A} {\\bf y} &gt; 0\\) for all \\({\\bf y \\ne 0}\\).\npositive semi-definite if \\({\\bf y}'{\\bf A} {\\bf y} \\ge 0\\) for all \\({\\bf y \\ne 0}\\) and \\({\\bf y}'{\\bf A} {\\bf y} = 0\\) for some \\({\\bf y \\ne 0}\\).\n\nIf \\({\\bf A}\\) is symmetric and idempotent, then \\({\\bf A}\\) is positive semi-definite.\n\n\n\nHow about negative definite"
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
     "href": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Special Matrices: Idempotent, Orthogonal",
     "text": "Special Matrices: Idempotent, Orthogonal\n\n\n\n## Idempotent and symmetric matrix\n(A &lt;- matrix(1, 2, 2)/2)\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\nA %*% A\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\n## positive semi-definite\ny &lt;- c(-2, 5)\nt(y) %*% A %*% y\n\n     [,1]\n[1,]  4.5\n\n\n\n\n## Orthogonal matrix\n(E &lt;- matrix(c(0, 1, 0, -1, 0, 0, 0, 0, -1), \n             nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    0   -1    0\n[2,]    1    0    0\n[3,]    0    0   -1\n\nsolve(E)\n\n     [,1] [,2] [,3]\n[1,]    0    1    0\n[2,]   -1    0    0\n[3,]    0    0   -1\n\nt(E) %*% E\n\n     [,1] [,2] [,3]\n[1,]    1    0    0\n[2,]    0    1    0\n[3,]    0    0    1"
   },
   {
     "objectID": "slides/06-mat.html#trace",
     "href": "slides/06-mat.html#trace",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Trace",
     "text": "Trace\n\nThe trace of \\({\\bf A}_{n \\times n}\\), denoted by \\(\\text{tr}({\\bf A})\\), is defined as \\[\\text{tr}({\\bf A}) = a_{11} + a_{22} + \\dots + a_{nn}\\]\n\\(\\text{tr}({\\bf A}{\\bf B}) = \\text{tr}({\\bf B}{\\bf A})\\)\n\n\n(G &lt;- matrix(1:9, 3, 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\nsum(diag(G))\n\n[1] 15"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\nFor a square matrix \\({\\bf A}\\), if we can find a scalar \\(\\lambda\\) and a non-zero vector \\({\\bf x}\\) such that \\[{\\bf Ax} = \\lambda {\\bf x},\\]\n\n\\(\\lambda\\) is an eigenvalue of \\({\\bf A}\\)\n\\({\\bf x}\\) is a corresponding eigenvector of \\({\\bf A}\\).\n\nA \\(n \\times n\\) matrix \\({\\bf A}\\) will have \\(n\\) eigenvalues and \\(n\\) corresponding eigenvectors."
   },
   {
     "objectID": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Geometric Meaning of Eigenvalues and Eigenvectors",
     "text": "Geometric Meaning of Eigenvalues and Eigenvectors\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 14"
   },
   {
     "objectID": "slides/06-mat.html#eigen-decomposition",
     "href": "slides/06-mat.html#eigen-decomposition",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigen-decomposition",
     "text": "Eigen-decomposition\n\nEigen-decomposition: Any symmetric matrix \\({\\bf A}_{n \\times n}\\) can be decomposed as \\[{\\bf A} = {\\bf V\\boldsymbol \\Lambda V'}\\]\n\\(\\boldsymbol \\Lambda\\) is a \\(n \\times n\\) diagnonal matrix whose elements are eigenvalues \\(\\lambda_j\\) of \\({\\bf A}\\) \\[\\boldsymbol \\Lambda= \\begin{bmatrix} \\lambda_1 & 0 & \\cdots & 0 \\\\ 0 & \\lambda_2 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & \\lambda_n \\end{bmatrix}\\]\n\\({\\bf V} = [{\\bf v}_1 \\quad {\\bf v}_2 \\quad \\dots \\quad {\\bf v}_n]\\) is a \\(n \\times n\\) orthogonal matrix whose columns are the eigenvectors of \\({\\bf A}.\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\nLet \\({\\bf A} \\in \\mathbb{R}^{n \\times n}\\) be a square matrix with eigenvalues \\(\\lambda_1, \\ldots, \\lambda_n\\).\n\n\\(\\operatorname{tr}({\\bf A}) = \\sum_{i=1}^n \\lambda_i\\)\n\\(\\det({\\bf A}) = \\prod_{i=1}^n \\lambda_i\\)\nIf \\({\\bf A}\\) is symmetric, \\(\\operatorname{rank}({\\bf A}) = \\#\\{i : \\lambda_i \\neq 0\\}\\)\nIf \\({\\bf A}\\) is symmetric, all \\(\\lambda_i \\in \\mathbb{R}\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\n\n\n(A &lt;- matrix(c(3, 1, 1, 2), 2, 2))\n\n     [,1] [,2]\n[1,]    3    1\n[2,]    1    2\n\neigen_decomp &lt;- eigen(A)\n(lam &lt;- eigen_decomp$values)\n\n[1] 3.6 1.4\n\n(V &lt;- eigen_decomp$vectors)\n\n      [,1]  [,2]\n[1,] -0.85  0.53\n[2,] -0.53 -0.85\n\n\n\n\nV %*% diag(lam) %*% t(V)\n\n     [,1] [,2]\n[1,]    3    1\n[2,]    1    2\n\nsum(diag(A))\n\n[1] 5\n\nsum(lam)\n\n[1] 5\n\ndet(A)\n\n[1] 5\n\nprod(lam)\n\n[1] 5"
   },
@@ -1292,14 +1292,14 @@
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 1 3 3 0 2 2 3 2 3 1\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
+    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 2 1 1 1 0 1 2 0 2 1\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1]  0.695 -1.535  1.038 -1.024  1.264\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
+    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1] -0.906 -0.107  0.882 -0.512  0.323\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-2",
@@ -2369,7 +2369,7 @@
     "href": "slides/13-cat-var.html#r-lab-regression-lines",
     "title": "Categorical Variables 🛠",
     "section": "R Lab Regression Lines",
-    "text": "R Lab Regression Lines\n\n\n\\(y = \\beta_0+\\beta_1x_1+\\beta_2x_2 + \\epsilon\\)\n\n\n\n\n\n\n\n\n\n\n\\(y = \\beta_0+\\beta_1x_1+\\beta_2x_2 + \\beta_3x_1x_2+\\epsilon\\)"
+    "text": "R Lab Regression Lines\n\n\n\\(y = \\beta_0+\\beta_1x_1 + \\epsilon\\)\n\n\n\n\n\n\n\n\n\n\n\\(y = \\beta_0+\\beta_1x_1+\\beta_2x_2 + \\beta_3x_1x_2+\\epsilon\\)"
   },
   {
     "objectID": "slides/13-cat-var.html#r-lab-test-effect-of-tool-type",
@@ -2516,7 +2516,7 @@
     "href": "slides/06-mlr-mat.html#hat-matrix",
     "title": "Multiple Linear Regression - Matrix Approach ",
     "section": "Hat Matrix",
-    "text": "Hat Matrix\n\nIn SLR, \\(\\hat{y}_i = h_{i1}y_1 + h_{i2}y_2 + \\cdots + h_{in}y_n = {\\bf h}_i'{\\bf y}\\) where \\(h_{ij} = \\frac{1}{n} + \\frac{(x_i-\\overline{x})(x_j-\\overline{x})}{S_{xx}}\\) and \\({\\bf h}_i' = (h_{i1}, h_{i2}, \\dots, h_{in})\\). The hat matrix is \\({\\bf H} = (h_{ij})_{n \\times n}\\).\n\n\n\\[\\hat{\\bf y} = {\\bf X} {\\bf b} = {\\bf X} ({\\bf X}' {\\bf X}) ^{-1} {\\bf X'} {\\bf y} = {\\bf H} {\\bf y}\\]\n\n\\({\\bf H} = {\\bf X} ({\\bf X}' {\\bf X}) ^{-1} \\bf X'\\)\nThe vector of residuals \\(e_i = y_i - \\hat{y}_i\\) is \\[{\\bf e} = {\\bf y} - \\hat{\\bf y} ={ \\bf y} - {\\bf X} {\\bf b} = {\\bf y} -{\\bf H} {\\bf y} = ({\\bf I} - {\\bf H}) {\\bf y}\\]\n\n\n\n\n\nBoth \\(\\bf H\\) and \\(\\bf I-H\\) are symmetric and idempotent. They are projection matrices.\n\\(\\bf H\\) projects \\(\\bf y\\) to \\(\\hat{\\bf y}\\) on the \\(p\\)-dimensional space spanned by columns of \\(\\bf X\\), or the column space of \\(\\bf X\\), \\(Col(\\bf X)\\).\n\\(\\bf I - H\\) projects \\(\\bf y\\) to \\(\\bf e\\) on the space perpendicular to \\(Col(\\bf X)\\), or \\(Col(\\bf X)^{\\bot}\\).\n\n\n\n\nThe vector of fitted values \\(\\hat{y}_i\\) corresponding to \\(y_i\\) is \\[\\hat{\\bf y} = \\bf X \\bf b = \\bf X (\\bf X' \\bf X) ^{-1} \\bf X' \\bf y = \\bf H \\bf y\\]\n\\(\\bf H\\) plays an important role in regression analysis.\nAnd it will be shown up many times later in many topics of this course.\nOK. It’s a little abstract. Let’s look into the geometrical interpretation of least squares little by little."
+    "text": "Hat Matrix\n\nIn SLR, \\(\\hat{y}_i = h_{i1}y_1 + h_{i2}y_2 + \\cdots + h_{in}y_n = {\\bf h}_i'{\\bf y}\\) where \\(h_{ij} = \\frac{1}{n} + \\frac{(x_i-\\overline{x})(x_j-\\overline{x})}{S_{xx}}\\) and \\({\\bf h}_i' = (h_{i1}, h_{i2}, \\dots, h_{in})\\). The hat matrix is \\({\\bf H} = (h_{ij})_{n \\times n}\\).\n\n\n\\[\\hat{\\bf y} = {\\bf X} {\\bf b} = \\color{red}{{\\bf X} ({\\bf X}' {\\bf X}) ^{-1} {\\bf X'}} \\color{black}{{\\bf y} =} \\color{red}{\\bf H} \\color{black}{\\bf y}\\] - The residuals are \\(e_i = y_i - \\hat{y}_i\\), and the residual vector is \\[{\\bf e} = {\\bf y} - \\hat{\\bf y} ={ \\bf y} - {\\bf X} {\\bf b} = {\\bf y} -{\\bf H} {\\bf y} = ({\\bf I} - {\\bf H}) {\\bf y}\\]\n\n\n\n\nBoth \\(\\mathbf{H}\\) and \\(\\mathbf{I} - \\mathbf{H}\\) are symmetric and idempotent; hence, orthogonal projection matrices.\n\\(\\mathbf{H}\\) projects \\(\\mathbf{y}\\) onto the column space of \\(\\mathbf{X}\\): \\(\\qquad\\qquad\\qquad\\hat{\\mathbf{y}} = \\mathbf{H}\\mathbf{y}\\in \\operatorname{Col}(\\mathbf{X}).\\)\n\\(\\mathbf{I} - \\mathbf{H}\\) projects \\(\\mathbf{y}\\) onto the orthogonal complement of the \\(\\operatorname{Col}(\\mathbf{X})\\): \\(\\ \\ \\  \\mathbf{e}=(\\mathbf{I}-\\mathbf{H})\\mathbf{y}\\in\\operatorname{Col}(\\mathbf{X})^\\perp.\\)\n\n\n\\[\\boxed{\\mathbf{y}=\\hat{\\mathbf{y}}+\\mathbf{e},\\qquad\\hat{\\mathbf{y}} \\perp \\mathbf{e}}\\]\n\n\nThe vector of fitted values \\(\\hat{y}_i\\) corresponding to \\(y_i\\) is \\[\\hat{\\bf y} = \\bf X \\bf b = \\bf X (\\bf X' \\bf X) ^{-1} \\bf X' \\bf y = \\bf H \\bf y\\]\n\\(\\bf H\\) plays an important role in regression analysis.\nAnd it will be shown up many times later in many topics of this course.\nOK. It’s a little abstract. Let’s look into the geometrical interpretation of least squares little by little."
   },
   {
     "objectID": "slides/06-mlr-mat.html#geometrical-interpretation-of-least-squares",
@@ -2612,273 +2612,273 @@
   {
     "objectID": "slides/07-diag-unusual.html#outliers-unusual-y",
     "href": "slides/07-diag-unusual.html#outliers-unusual-y",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Outliers: Unusual \\(y\\)",
     "text": "Outliers: Unusual \\(y\\)\n\nAn outlier is a case whose response value is unusual given the value of the regressors.\n\n\n\n\nNeither the x nor y value of the outlier is individually unusual, as it is clear from the marginal distribution of each variable."
   },
   {
     "objectID": "slides/07-diag-unusual.html#leverage-unusual-x",
     "href": "slides/07-diag-unusual.html#leverage-unusual-x",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Leverage: Unusual \\(x\\)",
     "text": "Leverage: Unusual \\(x\\)\n\nPoints that are away from the center of the data cloud of \\({\\bf x}\\) are called leverage points.\n\n\n\n\n\n\n   time cases distance\n1  16.7     7      560\n2  11.5     3      220\n3  12.0     3      340\n4  14.9     4       80\n5  13.8     6      150\n6  18.1     7      330\n7   8.0     2      110\n8  17.8     7      210\n9  79.2    30     1460\n10 21.5     5      605\n11 40.3    16      688\n12 21.0    10      215\n13 13.5     4      255\n14 19.8     6      462\n15 24.0     9      448\n16 29.0    10      776\n17 15.3     6      200\n18 19.0     7      132\n19  9.5     3       36\n20 35.1    17      770\n21 17.9    10      140\n22 52.3    26      810\n23 18.8     9      450\n24 19.8     8      635\n25 10.8     4      150\n\n\n\n\n\nObservation 9 and 22 are away from the center of \\({\\bf x}\\) space, and are likely leverage points.\n\n\n\n\n\n\n\n\n\n\n\n\n\nleverage certainly will have a dramatic effect on the model summary statistics such as \\(R^2\\) and the standard errors of the regression coefficients"
   },
   {
     "objectID": "slides/07-diag-unusual.html#influence-unusual-x-and-y",
     "href": "slides/07-diag-unusual.html#influence-unusual-x-and-y",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Influence: Unusual \\(x\\) and \\(y\\)",
     "text": "Influence: Unusual \\(x\\) and \\(y\\)\n\nAn influential point has great influence on estimated regression coefficients. \\[\\text{Influence} = \\text{Leverage} \\times \\text{Outlyingness}\\]\n\n\n\n\nWhat kind of data points have such great influence power?\nWell if a point is an outlier with high leverage, then it becomes a influential point.\nWe got to be very careful about influential points because the estimated regression coefficients change a lot with and without these points.\nOur analysis conclusion may be completely opposite =&gt; explain the figure."
   },
   {
     "objectID": "slides/07-diag-unusual.html#unusual-data-outliers-leverage-and-influence",
     "href": "slides/07-diag-unusual.html#unusual-data-outliers-leverage-and-influence",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Unusual Data: Outliers, Leverage and Influence",
     "text": "Unusual Data: Outliers, Leverage and Influence"
   },
   {
     "objectID": "slides/07-diag-unusual.html#measuring-leverage-hat-values",
     "href": "slides/07-diag-unusual.html#measuring-leverage-hat-values",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Measuring Leverage: Hat Values",
     "text": "Measuring Leverage: Hat Values\n\n\\({\\bf H} = {\\bf X}({\\bf X}' {\\bf X}) ^{-1} {\\bf X}'\\).\nThe hat value \\(h_{ii}\\) is the \\(i\\)th diagonal element of \\(\\bf H\\).\n\\(h_{ii} \\in \\left[\\frac{1}{n}, 1\\right]\\) is a standardized measure of the distance of the \\(i\\)th case from the centroid of the \\(\\bf x\\) space, taking into account the correlational structure of the \\(x\\)s.\nThe larger the \\(h_{ii}\\) is, the farther the point \\({\\bf x}_i\\) lies to the centroid of the \\(\\bf x\\) space.\n\n\n\n\nThe contours show the same or constant leverage in the 2-dim data ellipses.\nThe two black points are equally unusual and have equally large hat values.\nexample: one point at inner contour, the other outer contour"
   },
   {
     "objectID": "slides/07-diag-unusual.html#measuring-leverage-hat-values-1",
     "href": "slides/07-diag-unusual.html#measuring-leverage-hat-values-1",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Measuring Leverage: Hat Values",
     "text": "Measuring Leverage: Hat Values\n\nIn simple linear regression, \\[h_{ii} = \\frac{1}{n} + \\frac{\\left(x_i - \\bar{x}\\right)^2}{S_{xx}}\\]\n\\(\\hat{y}_j = b_0 + b_1 ~x_j = h_{j1}y_1 + h_{j2}y_2 + \\cdots + h_{jn}y_n\\)\n\\(h_{ii} = \\sum_{j=1}^nh_{ji}^2\\) summarizes the influence (the leverage) of \\(y_i\\) on all the fitted values \\(\\hat{y}_j\\), \\(j = 1, \\dots, n\\).\n\\(\\bar{h} = \\frac{\\sum_{i=1}^n h_{ii}}{n} = p/n\\)\n\n\nA point with \\(h_{ii} &gt; 2\\bar{h}\\) is considered a leverage point.\n\n\n\n\\(\\hat{y}_i = b_0 + b_1 ~x_i = h_{i1}y_1 + h_{i2}y_2 + \\cdots + h_{in}y_n\\)\n\\(h_{ii} = \\sum_{j=1}^nh_{ji}^2\\) summarizes the potential influence (the leverage) of \\(y_i\\) on all the fitted values \\(\\hat{y}_j\\), \\(j = 1, \\dots, n\\).\n\\(2\\bar{h}\\) may be greater than 1, which is not applicable.\nA point with \\(h_{ii} &gt; 2\\bar{h}\\) is remote enough to be considered a leverage point.\n2p/n corresponds to 5% of the data when x is multivariate normal and n and p are large.\nUse 3p/n when n small."
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-delivery-time-leverage-points",
     "href": "slides/07-diag-unusual.html#r-lab-delivery-time-leverage-points",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab Delivery Time Leverage Points",
     "text": "R Lab Delivery Time Leverage Points\n\nhat_i &lt;- hatvalues(delivery_lm)\nsort(hat_i, decreasing = TRUE)\n\n    9    22    10    16    21    24    12     1    20     3    19    18    11 \n0.498 0.392 0.196 0.166 0.165 0.121 0.114 0.102 0.102 0.099 0.096 0.096 0.086 \n    4     7    14     5     2    25     8    13    17     6    23    15 \n0.085 0.082 0.078 0.075 0.071 0.067 0.064 0.061 0.059 0.043 0.041 0.041 \n\n\n\n\n\np &lt;- 3\nn &lt;- dim(delivery_data)[1]  ## n = 25\n2 * p/n\n\n[1] 0.24\n\nhat_i[hat_i &gt; 2 * p/n]\n\n   9   22 \n0.50 0.39 \n\n\n\nObservation 9 and 22 are identified as high-leverage points.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMost cutoff works better for large sample data\nproblem-specific unit change may be large after removing the influential point, even though the measures are not greater than the cutoff."
   },
   {
     "objectID": "slides/07-diag-unusual.html#detecting-outliers",
     "href": "slides/07-diag-unusual.html#detecting-outliers",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Detecting Outliers",
     "text": "Detecting Outliers\n\nMeasure the conditional unusualness of \\(y\\) given \\({\\bf x}\\).\n❌ Can’t just use residual \\(e_i\\) to measure the unusualness of \\(y_i\\)!\nIf the point is also a leverage point (large \\(h_{ii}\\)), it’s residual tends to be small.\n\n\n\nCan’t just use residual \\(e_i\\) to measure the unusualness of \\(y_i\\)! If the point is also a leverage point (large \\(h_{ii}\\)), it’s residual tends to be small. -&gt; Check plot: these points force the regression line or surface to be close to them.\n\n\n\n\nR-student residual: \\[t_i = \\frac{e_i}{\\sqrt{s^2_{(i)}(1-h_{ii})}}\\] where \\(s^2_{(i)}\\) estimates \\(\\sigma^2\\) based on the data with the \\(i\\)th point removed.\n\n\n\n\\(t_i \\sim t_{n-p-1}\\) and a formal testing procedure can be used for detecting outliers.\nA point with \\(|t_i| &gt; 2\\) needs to be examined with care.\n\n\n\n\n(Eq (4.12) in LRA)\nThere are lots variants of residuals that are for several different purposes.\nThe so-called R-student residual is recommended for detecting outliers.\nBonferroni correction is better for testing n residuals simultaneously.\nA point with \\(|t_i| &gt; 2\\) needs to be examined with care ( \\(5\\%\\) of the data)."
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-detecting-outliers---residual-plot",
     "href": "slides/07-diag-unusual.html#r-lab-detecting-outliers---residual-plot",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab Detecting Outliers - Residual Plot",
     "text": "R Lab Detecting Outliers - Residual Plot\n\nr_student &lt;- rstudent(delivery_lm)\nround(sort(r_student, decreasing = TRUE), 2)\n\n    9     4    18    10    11    19     8     2    14    13     7    15    17 \n 4.31  1.64  1.12  0.81  0.71  0.57  0.36  0.36  0.33  0.32  0.26  0.21  0.13 \n    3    25     6     5    12    16    21    23    22    24     1    20 \n-0.02 -0.07 -0.09 -0.14 -0.19 -0.22 -0.87 -1.48 -1.49 -1.54 -1.70 -2.00"
   },
   {
     "objectID": "slides/07-diag-unusual.html#measuring-influence",
     "href": "slides/07-diag-unusual.html#measuring-influence",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Measuring Influence",
     "text": "Measuring Influence\n\nThe influence measures are those that measure the effect of deleting the \\(i\\)th observation.\n\n \\(DFBETAS_{j, i}\\)  measures the effect on coefficient \\({b_j}\\) when the \\(i\\)th observation is removed.\n Cook’s Distance \\(D_i\\)  measures the effect of the \\(i\\)th observation on coefficient vector \\({\\bf b}\\).\n \\(DFFITS_{i}\\)  measures the effect on fitted value \\(\\hat{y}_i\\).\n \\(COVRATIO_{i}\\)  measures the effect on the precision of estimates (variance).\n\n\n\n\nNow we are going to learn some measures of influence.\nWith all these measures, we can quantify how large impact a point can make on the model coefficients or model fitting in general.\nAnd the idea is to check the difference between model coefficients or model fitting results when the point is in the data and those when the point is deleted."
   },
   {
     "objectID": "slides/07-diag-unusual.html#dfbetas_j-i",
     "href": "slides/07-diag-unusual.html#dfbetas_j-i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "\\(DFBETAS_{j, i}\\)",
     "text": "\\(DFBETAS_{j, i}\\)\n\n\\(DFBETAS_{j, i}\\) measures how much the regression coefficient \\(b_j\\) changes in standard error units if the \\(i\\)th observation is removed. \\[DFBETAS_{j, i} = \\frac{b_j - b_{j(i)}}{\\sqrt{s_{(i)}^2C_{jj}}} = \\frac{b_j - b_{j(i)}}{se_{(i)}(b_j)}\\] where\n\\(b_{j(i)}\\) is the \\(j\\)th coefficient estimate computed without the \\(i\\)th observation.\n\\(C_{jj}\\) is the diagonal element of \\(( {\\bf X}'{\\bf X})^{-1}\\) corresponding to \\(b_j\\).\n\n\n\nThe \\(i\\)th point is considered influential on \\(j\\)th coefficient if \\(|DFBETAS_{j, i}| &gt; 2/\\sqrt{n}\\).\nOne issue: there are \\(np\\) DFBETAS measures.\n\n\n\n\nDF means difference; S means standardized. \\[DFBETAS_{j, i} := \\frac{b_j - b_{j(i)}}{\\sqrt{S_{(i)}^2C_{jj}}} = \\frac{r_{j, i}}{\\sqrt{{\\bf r}_j'{\\bf r}_j}}{\\frac{1}{\\sqrt{1-h_{ii}}}}t_i\\]\nThe denominator provides a standardization since it estimates the standard error of \\(b_j\\). \n\\(DFBETAS_{j, i}\\) represents the combination of leverage measures and the impact of errors in the \\(y\\) direction.\nThe \\(n\\) elements in \\({\\bf r}_j'\\) produce the leverage that the \\(n\\) observations have on \\(b_j\\).\n\\(\\frac{r_{j, i}}{\\sqrt{{\\bf r}_j'{\\bf r}_j}}\\) is a normalized measure of the impact of the \\(i\\)th observation on the \\(j\\)th coefficient.\nThe measure is swelled by the leverage score \\(h_{ii}\\).\nPoint \\(i\\) is considered influential on \\(j\\)th coefficient if \\(|DFBETAS_{j, i}| &gt; 2/\\sqrt{n}\\).\n\n\\(b_{j(i)}\\): the \\(j\\)th coefficient computed without the \\(i\\)th observation\n\\(S_{(i)}^2\\): the estimate of \\(\\sigma^2\\) based on the data with no the \\(i\\)th point (Eq. (4.12))\n\\(C_{jj}\\): the \\(j\\)th diagonal element of \\({\\bf(X'X)}^{-1}\\)\n\\({\\bf r}_j'\\): the \\(j\\)th row of the \\(p \\times n\\) matrix \\({\\bf R = (X'X)^{-1}X'}\\) \\(({\\bf b = Ry})\\)\n\\(r_{j, i}\\): the \\(ji\\)th element of \\({\\bf R}\\)\n\\(t_i\\): the \\(i\\)th R-student residual The n elements in the j th row of R produce the leverage that the n observations in the sample have on ˆβj"
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-dfbetas_j-i",
     "href": "slides/07-diag-unusual.html#r-lab-dfbetas_j-i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab \\(DFBETAS_{j, i}\\)",
     "text": "R Lab \\(DFBETAS_{j, i}\\)\n\n\n\n\nround(dfbeta &lt;- dfbetas(delivery_lm), 2)\n\n   (Intercept) cases distance\n1        -0.19  0.41    -0.43\n2         0.09 -0.05     0.01\n3         0.00  0.00     0.00\n4         0.45  0.09    -0.27\n5        -0.03 -0.01     0.02\n6        -0.01  0.00     0.00\n7         0.08 -0.02    -0.01\n8         0.07  0.03    -0.05\n9        -2.58  0.93     1.51\n10        0.11 -0.34     0.34\n11       -0.03  0.09     0.00\n12       -0.03 -0.05     0.05\n13        0.07 -0.04     0.01\n14        0.05 -0.07     0.06\n15        0.02  0.00     0.01\n16        0.00  0.06    -0.08\n17        0.03  0.01    -0.02\n18        0.25  0.19    -0.27\n19        0.17  0.02    -0.10\n20        0.17 -0.21    -0.09\n21       -0.16 -0.30     0.34\n22        0.40 -1.03     0.57\n23       -0.16  0.04    -0.05\n24       -0.12  0.40    -0.47\n25       -0.02  0.00     0.01\n\n\n\n\n\n\n## cut-off = 0.4\napply(dfbeta, 2, \n      function(x) x[abs(x) &gt;  2 / sqrt(n)])\n\n$`(Intercept)`\n    4     9 \n 0.45 -2.58 \n\n$cases\n    1     9    22    24 \n 0.41  0.93 -1.03  0.40 \n\n$distance\n    1     9    22    24 \n-0.43  1.51  0.57 -0.47 \n\n\n\n\nPoint 9 is influential, as its deletion results in a displacement of every coefficient by at least 0.9 standard deviation of \\(b_j\\)."
   },
   {
     "objectID": "slides/07-diag-unusual.html#cooks-distance-d_i",
     "href": "slides/07-diag-unusual.html#cooks-distance-d_i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Cook’s Distance \\(D_i\\)",
     "text": "Cook’s Distance \\(D_i\\)\n\n\\(D_i\\) measures the squared distance that the vector of fitted values moves when the \\(i\\)th observation is deleted.\n\n\\[D_i = \\frac{(\\hat{{\\bf y}}_{(i)} - \\hat{{\\bf y}})'(\\hat{{\\bf y}}_{(i)}-\\hat{{\\bf y}})}{p s^2} = \\frac{r_i^2}{p}\\frac{h_{ii}}{1-h_{ii}}, \\quad i = 1, 2, \\dots, n\\] where \\(r_i = \\frac{e_i}{\\sqrt{s^2(1-h_{ii})}}\\) is the Studentized residuals.\n\nWhat contributes to \\(D_i\\):\n\nHow well the model fits the \\(i\\)th observation (larger \\(r_i^2\\) for poorer fit)\nHow far the point is away from the remaining data (larger \\(h_{ii}\\) for higher leverage)\n\\(\\text{Influence} = \\text{Leverage} \\times \\text{Outlyingness}\\)\n\n\n\nConsider points with \\(D_{i} &gt; 1\\) to be influential.\n\n\n\n\\(D_i &gt; 1\\) may risk missing unusual data. Use \\(4/(n-p)\\) instead. \\[\\begin{align} D_i& := \\frac{\\left( {\\bf b}_{(i)} - {\\bf b} \\right)' {\\bf X'X} \\left( {\\bf b}_{(i)} - {\\bf b} \\right)}{pMS_{res}}\\\\ &=\\frac{r_i^2}{p}\\frac{\\mathrm{Var}(\\hat{y}_i)}{\\mathrm{Var}(\\hat{e}_i)} =\\frac{r_i^2}{p}\\frac{h_{ii}}{1-h_{ii}}, \\quad i = 1, 2, \\dots, n \\end{align}\\]\nView \\(D_i\\) as the standardized distance between \\(b\\) and \\(b_{-i}\\).\n\\(D_i &gt; 0\\) since \\(X'X\\) is positive definite.\nThe magnitude of \\(D_i\\) is usually assessed by comparing it to \\(F_{\\alpha, p, n-p}\\).\nIf \\(D_i = F_{0.5, p , n − p}\\), then deleting point i would move \\(b_{-i}\\) to the boundary of an approximate 50% confidence region for \\(\\beta\\) based on the complete data set.\n\\(\\frac{h_{ii}}{1-h_{ii}}\\) This ratio can be shown to be the distance from the vector \\(x_i\\) to the centroid of the remaining data.\nIt is the squared Euclidean distance (apart from pMS_Res) that the vector of fitted values moves when the \\(i\\)th observation is deleted.\nD is a scale-invariant measure of the influence of the ith case on all of the regression coeffcients, that is the distance between b and b(-i)."
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-cooks-distance-d_i",
     "href": "slides/07-diag-unusual.html#r-lab-cooks-distance-d_i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab Cook’s Distance \\(D_i\\)",
     "text": "R Lab Cook’s Distance \\(D_i\\)\n\nDii &lt;- cooks.distance(delivery_lm)\nDii[Dii &gt; 1]\n\n  9 \n3.4 \n\nround(sort(Dii, decreasing = TRUE), 3)\n\n    9    22    20    24     1     4    10    21    18    23    11    19     2 \n3.419 0.451 0.132 0.102 0.100 0.078 0.054 0.051 0.044 0.030 0.016 0.012 0.003 \n   14    16     8    13     7    12    15     5    17     6    25     3 \n0.003 0.003 0.003 0.002 0.002 0.002 0.001 0.001 0.000 0.000 0.000 0.000 \n\n\n\nObservation 9 is influential using the cutoff of one, and the point 22 is not. \n\n\n\\(D_i &gt; 1\\) may risk missing unusual data. Use \\(4/(n-p)\\) instead.\n\n\n\nround(pf(Dii, df1 = 3, 22), 3)\n\n    1     2     3     4     5     6     7     8     9    10    11    12    13 \n0.041 0.000 0.000 0.029 0.000 0.000 0.000 0.000 0.965 0.017 0.003 0.000 0.000 \n   14    15    16    17    18    19    20    21    22    23    24    25 \n0.000 0.000 0.000 0.000 0.013 0.002 0.060 0.016 0.281 0.007 0.042 0.000 \n\npf(3.41835, 3, 22)\n\n[1] 0.96\n\npf(0.45106, 3, 22)\n\n[1] 0.28\n\n\nThe magnitude of D i is usually assessed by comparing it to F α , p , n − p . If D i = F 0.5, p , n − p , then deleting point i would move ˆb(i) to the boundary of an approximate 50% confidence region for β based on the complete data set."
   },
   {
     "objectID": "slides/07-diag-unusual.html#dffits_i",
     "href": "slides/07-diag-unusual.html#dffits_i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "\\(DFFITS_{i}\\)",
     "text": "\\(DFFITS_{i}\\)\n\n\\(DFFITS_{i}\\) measures the influence of the \\(i\\)th observation on the \\(i\\)th fitted value, again in standard deviation units. \\[DFFITS_{i} := \\frac{\\hat{y}_i - \\hat{y}_{(i)}}{\\sqrt{s_{(i)}^2h_{ii}}} = \\left(\\frac{h_{ii}}{1-h_{ii}}\\right)^{1/2}t_i\\] where \\(\\hat{y}_{(i)}\\) is the fitted value of \\(y_i\\) computed without the \\(i\\)th observation.\nThe denominator provides a standardization since \\(\\mathrm{Var}\\left( \\hat{y}_i\\right) = \\sigma^2h_{ii}\\). \n\\(DFFITS_{i}\\)is essentially the R-student residual scaled by the leverage \\([h_{ii}/(1-h_{ii})]^{1/2}\\).\n\n\nA point with \\(|DFFITS_{i}| &gt; 2\\sqrt{p/n}\\) needs attention.\n\n\n\nChatterjee and Hadi (1988): cutoff \\(2\\sqrt{p/(n-p)}\\)"
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-dffits_i",
     "href": "slides/07-diag-unusual.html#r-lab-dffits_i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab \\(DFFITS_{i}\\)",
     "text": "R Lab \\(DFFITS_{i}\\)\n\nround(dffit &lt;- dffits(delivery_lm), 2)\n\n    1     2     3     4     5     6     7     8     9    10    11    12    13 \n-0.57  0.10 -0.01  0.50 -0.04 -0.02  0.08  0.09  4.30  0.40  0.22 -0.07  0.08 \n   14    15    16    17    18    19    20    21    22    23    24    25 \n 0.10  0.04 -0.10  0.03  0.37  0.19 -0.67 -0.39 -1.20 -0.31 -0.57 -0.02 \n\n## cut-off = 0.69\ndffit[abs(dffit) &gt; 2 * sqrt(p/n)]  \n\n   9   22 \n 4.3 -1.2 \n\n\n\nDeleting point 9 displaces the predicted response \\(\\hat{y}_{(i)}\\) by over four standard deviations of \\(\\hat{y}_i.\\)"
   },
   {
     "objectID": "slides/07-diag-unusual.html#covratio_i",
     "href": "slides/07-diag-unusual.html#covratio_i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "\\(COVRATIO_{i}\\)",
     "text": "\\(COVRATIO_{i}\\)\n\n\\(DFFITS_{i}\\) and \\(DFBETAS_{j, i}\\) reflect influence on \\(\\hat{y}_i\\) and \\(b_j\\), but do not indicate whether or not the presence of the \\(i\\)th point appreciably sharpened the estimation of the coefficient. \nA scalar measure of precision, called generalized variance of \\({\\bf b}\\) is \\[GV({\\bf b}) = \\det\\left( \\mathrm{Cov}({\\bf b}) \\right) = \\det\\left( \\sigma^2 ({\\bf X'X})^{-1} \\right) \\]\nTo express the role of the \\(i\\)th observation on the precision of estimation, we use \\[COVRATIO_{i} = \\frac{ \\det \\left( \\left( {\\bf X}_{(i)}' {\\bf X}_{(i)} \\right)^{-1} s_{(i)}^2 \\right) }{\\det \\left(  \\left( {\\bf X'X} \\right)^{-1} s^2\\right)} = \\frac{ \\left( s_{(i)}^2 \\right)^p}{\\left( s^2 \\right) ^ p}\\left( \\frac{1}{1-h_{ii}}\\right)\\]\n\n\\({\\bf X}_{(i)}\\) denotes the \\((n-1) \\times p\\) data matrix with the \\(i\\)th observation eliminated."
   },
   {
     "objectID": "slides/07-diag-unusual.html#covratio_i-1",
     "href": "slides/07-diag-unusual.html#covratio_i-1",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "\\(COVRATIO_{i}\\)",
     "text": "\\(COVRATIO_{i}\\)\n\\[\\small COVRATIO_{i} = \\frac{ \\det \\left( \\left( {\\bf X}_{(i)}' {\\bf X}_{(i)} \\right)^{-1} s_{(i)}^2 \\right) }{\\det \\left(  \\left( {\\bf X'X} \\right)^{-1} s^2 \\right)} = \\frac{ \\left( s_{(i)}^2 \\right)^p}{\\left( s^2 \\right) ^ p}\\left( \\frac{1}{1-h_{ii}}\\right)\\]\n\nIf \\(COVRATIO_{i} &gt; 1\\), the \\(i\\)th case improves the precision.\nIf \\(COVRATIO_{i} &lt; 1\\), the \\(i\\)th case degrades the precision.\nHigher leverage \\(h_{ii}\\) leads to larger \\(COVRATIO_{i}\\) and improves the precision unless the point is an outlier in \\(y\\) space.\nIf \\(i\\)th point is an outlier, \\(\\frac{s_{(i)}^2}{s^2} &lt; 1\\).\n\n\nCutoffs:\n\n\\(COVRATIO_{i} &gt; 1 + 3p/n\\) or\n\\(COVRATIO_{i} &lt; 1 - 3p/n\\) provided that \\(n &gt; 3p\\).\n\n\n\n\n\\(\\frac{1}{1-h_{ii}}\\) is the ratio of \\(\\small \\det \\left( \\left( {\\bf X}_{(i)}' {\\bf X}_{(i)} \\right)^{-1} \\right)\\) to \\(\\small \\det \\left( \\left( {\\bf X}' {\\bf X} \\right)^{-1} \\right)\\)"
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-covratio_i",
     "href": "slides/07-diag-unusual.html#r-lab-covratio_i",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab \\(COVRATIO_{i}\\)",
     "text": "R Lab \\(COVRATIO_{i}\\)\n\n(covra &lt;- covratio(delivery_lm))\n\n   1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16 \n0.87 1.21 1.28 0.88 1.24 1.20 1.24 1.21 0.34 1.31 1.17 1.29 1.21 1.23 1.19 1.37 \n  17   18   19   20   21   22   23   24   25 \n1.22 1.07 1.22 0.76 1.24 1.40 0.89 0.95 1.23 \n\n## cutoff 1.36\ncovra[covra &gt; (1 + 3*p/n)]  \n\n 16  22 \n1.4 1.4 \n\n## cutoff 0.64\ncovra[covra &lt; (1 - 3*p/n)] \n\n   9 \n0.34 \n\n\n\nSince \\(COVRATIO_{9} &lt; 1\\), this observation degrades precision of estimation.\nSince \\(COVRATIO_{22} &gt; 1\\), this observation tends to improve precision of estimation.\nPoint 22 and 16 barely exceed the cutoff, so their influence is small."
   },
   {
     "objectID": "slides/07-diag-unusual.html#jointly-influential-points",
     "href": "slides/07-diag-unusual.html#jointly-influential-points",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Jointly Influential Points",
     "text": "Jointly Influential Points\n\nSubset of cases can be jointly influential or can offset each other’s influence.\n\n\n\n\nSometimes subset of cases can be jointly influential or can offset each other’s influence. One single point may not be that influential, but with another point, the fitting result changes a lot. Or one single point may be influential, but with another point, the influence power disappears.\nOften, influential subsets of cases or multiple outliers can be identified by applying single -case deletion diagnostics sequentially.\n\ntwo jointly influential cases located close to one another. Deletion of both cases has a much greater impact than deletion of only one.\n\n\ntwo jointly influential cases located on opposite sides of the data. Deletion of both cases has a much greater impact than deletion of only one.\n\n\ncases that offset one another: the regression with both cases deleted is nearlythe same as for the whole data set."
   },
   {
     "objectID": "slides/07-diag-unusual.html#detecting-joint-influence-added-variable-plot",
     "href": "slides/07-diag-unusual.html#detecting-joint-influence-added-variable-plot",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Detecting Joint Influence: Added-Variable Plot",
     "text": "Detecting Joint Influence: Added-Variable Plot\n\n\\(y_i= \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\dots + \\beta_kx_{ik} + \\epsilon_i\\).\n\nTo create the added-variable plot for \\(x_1\\),\n\nStep 1:  Regress \\(y\\) on all predictors except \\(x_1\\) and obtain residuals  \\[\\small \\begin{align}\\hat{y}_i(x_{(1)}) &= b_0^{(1)} + b_2^{(1)}x_{i2} + \\dots + b_k^{(1)}x_{ik}\\\\e_i(y \\mid x_{(1)}) &= y_i - \\hat{y}_i(x_{(1)}) \\end{align}\\]\n\n\n\nStep 2:  Regress \\(x_1\\) on all other predictors and obtain residuals \\[\\small \\begin{align}\\hat{x}_{i1}(x_{(1)}) &= a_0^{(1)} + a_2^{(1)}x_{i2} + \\dots + a_k^{(1)}x_{ik}\\\\e_i(x_1 \\mid x_{(1)}) &= x_{i1} - \\hat{x}_{i1}(x_{(1)}) \\end{align}\\]\n\n\n\n\nStep 3:  Plot \\(e_i(y \\mid x_{(1)})\\) vs. \\(e_i(x_1 \\mid x_{(1)}), \\quad i = 1, \\dots, n\\)\n\n\n\nAdded-Variable Plot is a quite useful plot. We can use it for many other purposes, not just detecting joint influence. We’ll talk about that later.\nFor each predictor, we can create its own Added-Variable Plot, so if we have k predictors, we can have k Added-Variable Plots.\nThe idea of the plot is that we would like to see the pure effect of a predictor on the response when all other predictors are in the model.\nSo how do we get the pure effect of \\(x_1\\)?\nStep 1: Regress y on all predictors except x1 and obtain residuals. The residuals are the variation of y that cannot be explained by x2 to xk. So if later we see the variation further goes down, that must be due to the inclusion of x1.\nStep 2: Regress x1 on all other predictors. The residuals are the variation of x1 that cannot be explained by x2 to xk. This gives us the\n\n\n\n\n\nFor any \\(x_j\\), \\(e_i(y \\mid x_{(j)})\\) vs. \\(e_i(x_j \\mid x_{(j)})\\)\n\n\n\nThe collection of of added-variable plots for x1, …, xk convert the graph for multiple regression into a sequence of 2-dimensional plot.\nplotting \\(e_i(y \\mid x_{(j)})\\) vs. \\(e_i(x_j \\mid x_{(j)}), \\quad i = 1, \\dots, n\\) allows us to examine the leverage and influence of the cases on \\(b_j\\)."
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-duncans-occupational-prestige-data",
     "href": "slides/07-diag-unusual.html#r-lab-duncans-occupational-prestige-data",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab Duncan’s Occupational Prestige Data",
     "text": "R Lab Duncan’s Occupational Prestige Data\n\n\n\nlibrary(carData)\ncarData::Duncan[sample(dim(Duncan)[1], 16), ]\n\n                   type income education prestige\nplumber              bc     44        25       29\nchemist            prof     64        86       90\ngas.stn.attendant    bc     15        29       10\nstore.manager      prof     42        44       45\nteacher            prof     48        91       73\ninsurance.agent      wc     55        71       41\nbookkeeper           wc     29        72       39\nauthor             prof     55        90       76\nelectrician          bc     47        39       53\nlawyer             prof     76        98       89\npoliceman            bc     34        47       41\nmail.carrier         wc     48        55       34\nsoda.clerk           bc     12        30        6\nmachinist            bc     36        32       57\nbanker             prof     78        82       92\nstreetcar.motorman   bc     42        26       19\n\n\n\n\ntype: Type of occupation\n\nprof (professional and managerial)\nwc (white-collar)\nbc (blue-collar)\n\nincome: Percentage who earned $3,500 or more per year\neducation: Percentage who were high school graduates\nprestige: Percentage of respondents in a survey who rated the occupation as “good” or better in prestige\n\n\n\n\n1950 data"
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-added-valued-plot",
     "href": "slides/07-diag-unusual.html#r-lab-added-valued-plot",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab Added-Valued Plot",
     "text": "R Lab Added-Valued Plot\n\nThe slope of the least square simple regression line of \\(e_i(y \\mid x_{(1)})\\) on \\(e_i(x_1 \\mid x_{(1)})\\) is the same as the slope \\(b_1\\) for \\(x_1\\) in the full multiple regression.\n\n\n\nduncan_fit &lt;- lm(prestige ~ income + education, data = Duncan)\ncar::avPlot(model = duncan_fit, variable = \"income\", id = list(method = \"mahal\", n = 3), \n            xlab = \"e(Income | Education)\", ylab = \"e(Prestige | Education)\", pch = 16)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMinister’s income is low given its education level.\nRailroad engineer and railroad conductor’s income is high given their education level. \nThe points for minister and conductor appear to be working jointly to decrease the income slope.\n\n\n\nidentifies the 3 points with the largest Mahalanobis distances from the center of the data."
   },
   {
     "objectID": "slides/07-diag-unusual.html#r-lab-bubble-plot",
     "href": "slides/07-diag-unusual.html#r-lab-bubble-plot",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "R Lab Bubble Plot",
     "text": "R Lab Bubble Plot\n\n\n\nEach point is plotted as a circle with area proportional to Cook’s distance.\nHorizontal lines are drawn R-Student residuals of 0 and \\(\\pm 2\\).\nThe vertical lines at \\(2\\bar{h}\\) and \\(3\\bar{h}\\).\n\n\n\ncar::influencePlot(duncan_fit)\n\n\n\n\n\n\n\n\n            StudRes   Hat CookD\nminister       3.13 0.173 0.566\nreporter      -2.40 0.054 0.099\nconductor     -1.70 0.195 0.224\nRR.engineer    0.81 0.269 0.081"
   },
   {
     "objectID": "slides/07-diag-unusual.html#treatment-of-unusual-data",
     "href": "slides/07-diag-unusual.html#treatment-of-unusual-data",
-    "title": "Regression Diagnostics: Unusual Data 👨‍💻",
+    "title": "Regression Diagnostics: Unusual Data 👩‍💻",
     "section": "Treatment of Unusual Data",
     "text": "Treatment of Unusual Data\n\nShould unusual data be discarded?\n\n\n\nFirst investigate why data are unusual.\nError in recording:\n\nIf the typo can be corrected, correct it and keep it.\nIf it cannot be corrected, discard it.\n\n\n\n\n\nIf the unusual point is known to be correct, understand why.\nOutliers or influential data may also motivate model respecification.\n\nThe pattern of outlying data may suggest introducing additional regressors.\n\n\n\nIt is tempting to remove outliers. Don’t do this without a very good reason. Models that ignore exceptional (and interesting) cases often perform poorly. For instance, if a financial firm ignored the largest market swings – the “outliers” – they would soon go bankrupt by making poorly thought-out investments. A compromise approach (Advanced): - Use robust estimation that downweights observations in proportion to residual magnitude or influence. - A highly influential observation will receive less weight than it would in a least-squares fit."
   },
   {
     "objectID": "slides/10-diag-linearity.html#assumptions-of-linear-regression",
     "href": "slides/10-diag-linearity.html#assumptions-of-linear-regression",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Assumptions of Linear Regression",
     "text": "Assumptions of Linear Regression\n\\(Y_i= \\beta_0 + \\beta_1X_{i1} + \\beta_2X_{i2} + \\dots + \\beta_kX_{ik} + \\epsilon_i\\)\n\n\n\n\\(E(Y \\mid X)\\) and \\(X\\) are linearly related.\n\\(\\small E(\\epsilon_i) = 0\\)\n\\(\\small \\mathrm{Var}(\\epsilon_i) = \\sigma^2\\)\n\\(\\small \\mathrm{Cov}(\\epsilon_i, \\epsilon_j) = 0\\) for all \\(i \\ne j\\).\n\\(\\small \\epsilon_i \\stackrel{iid}{\\sim} N(0, \\sigma^2)\\) (for statistical inference)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssuming \\(E(\\epsilon) = 0\\) implies that the regression surface captures the dependency of the conditional mean of \\(y\\) on the \\(x\\)s.\nViolating linearity implies that the model fails to represent the relationship between the mean response and the regressors. (Lack of fit)"
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-cia-example",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-cia-example",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Detecting Nonlinearity (CIA Example)",
     "text": "Detecting Nonlinearity (CIA Example)\n\nScatterplot \\(y\\) against each \\(x\\) can be misleading! It shows the marginal relationship between \\(y\\) and each \\(x\\), without controlling the level of other regressors."
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-residual-plots",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-residual-plots",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Detecting Nonlinearity: Residual Plots",
     "text": "Detecting Nonlinearity: Residual Plots\n\nCare about the partial relationship between \\(y\\) and each \\(x\\) with impact of other \\(x\\)s controlled.\nResidual-based plots are more relevant in detecting the departure of linearity.\n\n\n\n\n\nResidual plots cannot distinguish between monotone and non-monotone nonlinearity.\nThe distinction:\n\nMonotone: just transform \\(x\\) to \\(x^2\\)\nNon-monotone: need quadratic form\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe OLS ensures that the residuals and fitted values are uncorrelated."
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-partial-residual-plots",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-partial-residual-plots",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Detecting Nonlinearity: Partial Residual Plots",
     "text": "Detecting Nonlinearity: Partial Residual Plots\n\nPartial residual plots (Component-plus-Residual Plot) are for diagnosing nonlinearity.\nThe partial residuals for \\(x_j\\): \\[e_i^{(j)} = b_jx_{ij} + e_i\\]\n\n\\(b_j\\) is the coefficient of \\(x_j\\) in the full multiple regression\n\\(e_i\\)s are the residuals from the full multiple regression\n\nPartial residual plot \\(e_i^{(j)}\\) vs. \\(x_{ij}\\) for \\(x_j\\)\n\n\n\nThe nonlinear pattern can be highlighted or emphasized\nAdded-variable plots, for detecting influential data, are partial plots, but they don’t work well for detecting nonlinearity because they are biased towards linearity\nCook (1993): if the regressions of x_j on the other xs are approximately linear, then the regression function in the crPlot provides a visualization of transformation.\nIf the regressions among the predictors are strongly nonlinear and not well described by polynomials, then cvPlot may not be effective in recovering nonlinear partial relationships. =&gt; Use CERES plots (ceresPlots())\nAnd cvPlots can appear nonlinear even when the true partial regression is linear =&gt; called leakage."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-partial-residual-plots",
     "href": "slides/10-diag-linearity.html#r-lab-partial-residual-plots",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Partial Residual Plots",
     "text": "R Lab Partial Residual Plots\n\nlogciafit &lt;- lm(log(infant) ~ gdp + health + gini, data = CIA)\n# Component-plus-Residual Plot \ncar::crPlots(logciafit, ylab = \"partial residual\", layout = c(1, 3), grid = FALSE, main = \"\")"
   },
   {
     "objectID": "slides/10-diag-linearity.html#transformation-for-linearity",
     "href": "slides/10-diag-linearity.html#transformation-for-linearity",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Transformation for Linearity",
     "text": "Transformation for Linearity\n\nMonotone, simple: Power transformation on \\(x\\) and/or \\(y\\)\nMonotone, not simple: Polynomial regression (next week) or regression splines (MSSC 6250)\nNon-Monotone, simple: Quadratic regression \\(y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\epsilon\\)\n\n\n\n\nnot simple: direction of curvature changes\nTransform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s.\nTransforming \\(y\\) changes the shape of its relationship to all of the \\(x\\)s, and also changes the shape of the residual distribution."
   },
   {
     "objectID": "slides/10-diag-linearity.html#bulging-rule-for-simple-monotone-nonlinearity",
     "href": "slides/10-diag-linearity.html#bulging-rule-for-simple-monotone-nonlinearity",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Bulging Rule for Simple Monotone Nonlinearity",
     "text": "Bulging Rule for Simple Monotone Nonlinearity\n\n\n\n\n\nThe bulge points\nTransform\nLadder of powers/roots\n\n\n\n\nleft\n\\(x\\)\ndown, e.g., \\(\\log(x)\\)\n\n\nright\n\\(x\\)\nup\n\n\ndown\n\\(y\\)\ndown\n\n\nup\n\\(y\\)\nup\n\n\n\n\n\n\n\n\n\nPrefer to transform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMosteller and Tukey’s (1977) - Transform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s. - Transforming \\(y\\) changes the shape of its relationship to all of the \\(x\\)s, and also changes the shape of the residual distribution."
   },
   {
     "objectID": "slides/10-diag-linearity.html#transformation-on-xs",
     "href": "slides/10-diag-linearity.html#transformation-on-xs",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Transformation on \\(x\\)s",
     "text": "Transformation on \\(x\\)s\n\ngdp to log(gdp)\nhealth to health + health^2"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-partial-residual-plots-1",
     "href": "slides/10-diag-linearity.html#r-lab-partial-residual-plots-1",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Partial Residual Plots",
     "text": "R Lab Partial Residual Plots\n\n\nlogciafit2 &lt;- update(logciafit, . ~ log(gdp) + poly(health, degree = 2, raw = TRUE) + gini)\ncar::crPlots(logciafit2, ylab = \"partial residual\", layout = c(1, 3), grid = FALSE, main = \"\") \n\n\n\n\n\n\n\n\n\n\nif true, use raw and not orthogonal polynomials. - If the partial relationship of log(infant) to health expenditure is quadratic, its partial residual plot should be linear."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-improving-model-performance",
     "href": "slides/10-diag-linearity.html#r-lab-improving-model-performance",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Improving Model Performance",
     "text": "R Lab Improving Model Performance\n\ncar::brief(logciafit, digits = 2)\n\n           (Intercept)     gdp health   gini\nEstimate          3.02 -0.0439 -0.055 0.0216\nStd. Error        0.29  0.0037  0.022 0.0061\n\n Residual SD = 0.59 on 130 df, R-squared = 0.71 \n\ncar::brief(logciafit2, digits = 2)\n\n           (Intercept) log(gdp) poly(health, degree = 2, raw = TRUE)1\nEstimate          4.65   -0.720                                -0.221\nStd. Error        0.32    0.038                                 0.058\n           poly(health, degree = 2, raw = TRUE)2   gini\nEstimate                                  0.0096 0.0191\nStd. Error                                0.0034 0.0044\n\n Residual SD = 0.44 on 129 df, R-squared = 0.84"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-plotting-against-original-untransformed-x",
     "href": "slides/10-diag-linearity.html#r-lab-plotting-against-original-untransformed-x",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Plotting against Original Untransformed \\(x\\)",
     "text": "R Lab Plotting against Original Untransformed \\(x\\)\n\n\n\n\nCode\nlibrary(effects)\npar(mar = c(2, 2, 0, 0))\nplot(Effect(\"gdp\", logciafit2, residuals = TRUE), \n     lines = list(col = c(\"blue\", \"black\"), lty = 2), \n     axes = list(grid = TRUE), confint = FALSE, \n     partial.residuals = list(plot = TRUE, smooth.col = \"magenta\", \n                              lty = 1, \n                              span = 3/4), \n     xlab = \"GDP per Capita\", ylab = \"Partial Residual\", main = \"\", cex.lab = 2)\n\n\n\n\n\n\n\n\n\n\n\n\nCode\npar(mar = c(2, 2, 0, 0))\nplot(Effect(\"health\", logciafit2, residuals = TRUE), \n     lines = list(col = c(\"blue\", \"black\"), lty = 2), \n     axes = list(grid = TRUE), confint = FALSE, \n     partial.residuals = list(plot = TRUE, smooth.col = \"magenta\", \n                              lty = 1, \n                              span = 3/4),\n     xlab = \"Health Expenditures\", ylab = \"Partial Residual\", main = \"\", cex.lab = 2)\n\n\n\n\n\n\n\n\n\n\n\n\nplot(Effect(“gdp”, logciafit2, residuals = TRUE))\n\\(\\epsilon^{(1)}_i = f_1(x_{i1}) + e_i\\) either if the partial-regression function \\(f_1(x_1)\\) is linear after all or if the other \\(x\\)s are each linearly related to \\(x_1\\).\nIn practice, it’s only strongly nonlinearly related \\(x\\)s that seriously threaten the validity of component-plus-residuals plots.\nCorrelation between x1 and x2 can induce spurious nonlinearity in the CR plot for x1.\ntrying to correct nonlinearity for one x at a time, but in my experience, it’s rarely necessary to proceed sequentially."
   },
   {
     "objectID": "slides/10-diag-linearity.html#transforming-xs-analytically-box-and-tidwell-1962",
     "href": "slides/10-diag-linearity.html#transforming-xs-analytically-box-and-tidwell-1962",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Transforming \\(x\\)s Analytically: Box and Tidwell (1962)",
     "text": "Transforming \\(x\\)s Analytically: Box and Tidwell (1962)\n\nBox and Tidwell (1962) proposed a procedure for estimating \\(\\lambda_1, \\lambda_2, \\dots, \\lambda_k\\) in the model \\[y = \\beta_0 + \\beta_1x_1^{\\lambda_1} + \\cdots + \\beta_kx_k^{\\lambda_k}+ \\epsilon\\]\nAll \\(x_j\\)s are positive.\n\\(\\beta_0, \\beta_1, \\dots,  \\beta_k\\) are estimated after and conditional on the transformations.\n\\(x_j^{\\lambda_j} = \\log_e(x_j)\\) if \\(\\lambda_j = 0\\).\n\n\n\nIf some of the xs (for instance, dummy regressors) aren’t candidates for transformation, then these xs can simply enter the model linearly.\nall positive xs"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-box-and-tidwell-1962",
     "href": "slides/10-diag-linearity.html#r-lab-box-and-tidwell-1962",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Box and Tidwell (1962)",
     "text": "R Lab Box and Tidwell (1962)\nConsider the model \\[\\log(Infant) = \\beta_0 + \\beta_1 GDP^{\\lambda_1} + \\beta_2Gini^{\\lambda_2} + \\beta_3 Health + \\beta_4 Health ^ 2 + \\epsilon\\]\n\ncar::boxTidwell(log(infant) ~ gdp + gini, \n                other.x = ~poly(health, 2, raw = TRUE), data = CIA)\n\n...\n     MLE of lambda Score Statistic (t) Pr(&gt;|t|)    \ngdp            0.2                10.6   &lt;2e-16 ***\ngini          -0.5                -0.4      0.7    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n...\n\n\n\nThe point estimate of \\(\\lambda\\) is \\(\\hat{\\lambda}_1 = 0.2\\) and \\(\\hat{\\lambda}_2 = -0.5\\)\nThe test is for \\(H_0:\\) No transformation is needed \\((\\lambda = 1)\\).\n\nStrong evidence to transform \\(GDP\\)\nLittle evidence of the need to transform the Gini coefficient"
   },
   {
     "objectID": "slides/10-diag-linearity.html#other-methods-for-dealing-with-nonlinearity",
     "href": "slides/10-diag-linearity.html#other-methods-for-dealing-with-nonlinearity",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Other Methods for Dealing with Nonlinearity",
     "text": "Other Methods for Dealing with Nonlinearity\n\nLack-of-fit test (LRA Sec 4.5, CMR Sec. 3.6): Need repeated observations\n\n\n\nTransform a nonlinear function into a linear one (LRA Sec 5.3)\n\n\nCan the nonlinear model \\(y = \\beta_0e^{\\beta_1x}\\epsilon\\) be transformed into a linear one (intrinsically linear)?\n\n\n\n\nPolynomial Regression, Regression Splines or other nonparametric regression (MSSC 6250)\n\n\n\n\nA (pure) nonlinear model may be needed if the model assumptions cannot be satisfied."
   },
@@ -3202,7 +3202,7 @@
     "href": "slides/11-bootstrap.html#r-lab-the-bootstrap-sample",
     "title": "Simulation-based Inference 💻",
     "section": "R Lab The bootstrap Sample",
-    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2350, 2175, 2450, 2349, 2350, 2350, 2422, 2495, 2350, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
+    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2325, 2422, 2350, 2350, 2325, 2238, 2349, 2350, 2324, 2550, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
   },
   {
     "objectID": "slides/11-bootstrap.html#r-lab-visualize-the-bootstrap-distribution",

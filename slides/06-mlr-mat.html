@@ -501,20 +501,17 @@ distance 0.014</code></pre>
 <li>In SLR, <span class="math inline">\(\hat{y}_i = h_{i1}y_1 + h_{i2}y_2 + \cdots + h_{in}y_n = {\bf h}_i'{\bf y}\)</span> where <span class="math inline">\(h_{ij} = \frac{1}{n} + \frac{(x_i-\overline{x})(x_j-\overline{x})}{S_{xx}}\)</span> and <span class="math inline">\({\bf h}_i' = (h_{i1}, h_{i2}, \dots, h_{in})\)</span>. The <strong>hat matrix</strong> is <span class="math inline">\({\bf H} = (h_{ij})_{n \times n}\)</span>.</li>
 </ul>
 <div class="fragment">
-<p><span class="math display">\[\hat{\bf y} = {\bf X} {\bf b} = {\bf X} ({\bf X}' {\bf X}) ^{-1} {\bf X'} {\bf y} = {\bf H} {\bf y}\]</span></p>
-<ul>
-<li><p><span class="math inline">\({\bf H} = {\bf X} ({\bf X}' {\bf X}) ^{-1} \bf X'\)</span></p></li>
-<li><p>The vector of residuals <span class="math inline">\(e_i = y_i - \hat{y}_i\)</span> is <span class="math display">\[{\bf e} = {\bf y} - \hat{\bf y} ={ \bf y} - {\bf X} {\bf b} = {\bf y} -{\bf H} {\bf y} = ({\bf I} - {\bf H}) {\bf y}\]</span></p></li>
-</ul>
+<p><span class="math display">\[\hat{\bf y} = {\bf X} {\bf b} = \color{red}{{\bf X} ({\bf X}' {\bf X}) ^{-1} {\bf X'}} \color{black}{{\bf y} =} \color{red}{\bf H} \color{black}{\bf y}\]</span> - The residuals are <span class="math inline">\(e_i = y_i - \hat{y}_i\)</span>, and the residual vector is <span class="math display">\[{\bf e} = {\bf y} - \hat{\bf y} ={ \bf y} - {\bf X} {\bf b} = {\bf y} -{\bf H} {\bf y} = ({\bf I} - {\bf H}) {\bf y}\]</span></p>
 </div>
 <div class="fragment">
 <div class="alert">
 <ul>
-<li>Both <span class="math inline">\(\bf H\)</span> and <span class="math inline">\(\bf I-H\)</span> are <em>symmetric</em> and <em>idempotent</em>. They are <strong>projection</strong> matrices.</li>
-<li><span class="math inline">\(\bf H\)</span> projects <span class="math inline">\(\bf y\)</span> to <span class="math inline">\(\hat{\bf y}\)</span> on the <span class="math inline">\(p\)</span>-dimensional space spanned by columns of <span class="math inline">\(\bf X\)</span>, or the column space of <span class="math inline">\(\bf X\)</span>, <span class="math inline">\(Col(\bf X)\)</span>.</li>
-<li><span class="math inline">\(\bf I - H\)</span> projects <span class="math inline">\(\bf y\)</span> to <span class="math inline">\(\bf e\)</span> on the space <strong>perpendicular</strong> to <span class="math inline">\(Col(\bf X)\)</span>, or <span class="math inline">\(Col(\bf X)^{\bot}\)</span>.</li>
+<li>Both <span class="math inline">\(\mathbf{H}\)</span> and <span class="math inline">\(\mathbf{I} - \mathbf{H}\)</span> are <strong>symmetric and idempotent</strong>; hence, <strong>orthogonal projection matrices</strong>.</li>
+<li><span class="math inline">\(\mathbf{H}\)</span> projects <span class="math inline">\(\mathbf{y}\)</span> onto the column space of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(\qquad\qquad\qquad\hat{\mathbf{y}} = \mathbf{H}\mathbf{y}\in \operatorname{Col}(\mathbf{X}).\)</span></li>
+<li><span class="math inline">\(\mathbf{I} - \mathbf{H}\)</span> projects <span class="math inline">\(\mathbf{y}\)</span> onto the orthogonal complement of the <span class="math inline">\(\operatorname{Col}(\mathbf{X})\)</span>: <span class="math inline">\(\ \ \  \mathbf{e}=(\mathbf{I}-\mathbf{H})\mathbf{y}\in\operatorname{Col}(\mathbf{X})^\perp.\)</span></li>
 </ul>
 </div>
+<p><span class="math display">\[\boxed{\mathbf{y}=\hat{\mathbf{y}}+\mathbf{e},\qquad\hat{\mathbf{y}} \perp \mathbf{e}}\]</span></p>
 <aside class="notes">
 <ul>
 <li>The vector of fitted values <span class="math inline">\(\hat{y}_i\)</span> corresponding to <span class="math inline">\(y_i\)</span> is <span class="math display">\[\hat{\bf y} = \bf X \bf b = \bf X (\bf X' \bf X) ^{-1} \bf X' \bf y = \bf H \bf y\]</span></li>

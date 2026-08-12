@@ -366,14 +366,14 @@ Solutions
 </ol>
 <!-- $$({\bf X}_2'{\bf X}_2)^{-1} = \begin{bmatrix} 63.94 & -63.44 \\ -63.44 & 63.94 \end{bmatrix}$$  -->
 <ol start="2" type="1">
-<li>👉 Tends to produce LSE <span class="math inline">\(b_j\)</span> that are <strong>too large in absolute value</strong>. Therefore, the vector <span class="math inline">\({\bf b}\)</span>, on average, is much longer than the vector <span class="math inline">\(\boldsymbol \beta\)</span>.</li>
+<li>👉 The estimates <span class="math inline">\(b_j\)</span> become <strong>highly variable and unstable</strong>. They may have large magnitudes or unexpected signs, even though OLS remains unbiased.</li>
 </ol>
 <div class="alert">
 <ul>
-<li>Large variances and large magnitude of coefficients lead to <strong>instable</strong> and <strong>wrong signed</strong> coefficients.</li>
-<li>Poor coefficients do not necessarily imply bad fit or poor prediction.</li>
-<li>The predictions should be confined to the <span class="math inline">\(x\)</span> space where the collinearity holds approximately.</li>
-<li>Collinearity causes very poor <em>extrapolated</em> prediction.</li>
+<li>Large variances can produce <strong>unstable coefficient estimates</strong>, with large magnitudes and changing or unexpected signs.</li>
+<li>Unstable coefficient estimates do <strong>not necessarily imply poor fit or poor prediction</strong> within the observed predictor region.</li>
+<li>Predictions are generally most reliable within the region of the <span class="math inline">\(x\)</span>-space represented by the observed data.</li>
+<li>Collinearity can lead to <strong>poor extrapolated prediction</strong>, particularly away from the observed predictor structure.</li>
 </ul>
 </div>
 <aside class="notes">
