@@ -153,16 +153,12 @@ But what is the geometrical meaning of matrices?
 
 
 
-##
+## Matrices as Linear Transformations
 
-::: small
+{{< video https://youtu.be/kYB8IZa5AuE width="100%" height="80%" >}}
 
-```{r}
-#| fig-cap: "Source: https://gfycat.com/cooperativequerulousfirefly (3Blue1Brown)"
-#| echo: false
-knitr::include_graphics("https://thumbs.gfycat.com/CooperativeQuerulousFirefly-size_restricted.gif")
-```
-
+::: {.footer}
+3Blue1Brown, *Essence of Linear Algebra*, Chapter 3
 :::
 
 
@@ -581,16 +577,12 @@ sum(diag(G))
 
 
 
-##
+## Geometric Meaning of Eigenvalues and Eigenvectors
 
-::: small
+{{< video https://youtu.be/PFDu9oVAE-g width="100%" height="80%" >}}
 
-```{r}
-#| fig-cap: "https://gfycat.com/ifr/WickedSaltyAnemonecrab (3Blue1Brown)"
-#| echo: false
-knitr::include_graphics("https://thumbs.gfycat.com/WickedSaltyAnemonecrab-size_restricted.gif")
-```
-
+::: {.footer}
+3Blue1Brown, *Essence of Linear Algebra*, Chapter 14
 :::
 
 ## Eigen-decomposition
@@ -605,10 +597,13 @@ knitr::include_graphics("https://thumbs.gfycat.com/WickedSaltyAnemonecrab-size_r
 
 ## Eigenvalues and Eigenvectors
 
-- $\text{tr}({\bf A}) = \sum_{i=1}^n\lambda_i$
-- $|{\bf A}| = \prod_{i=1}^n \lambda_i$
-- $\text{rank}({\bf A}) =$ the number of non-zero $\lambda_i$
-- If ${\bf A}$ is symmetric, all $\lambda_i \in \mathbf{R}$
+Let ${\bf A} \in \mathbb{R}^{n \times n}$ be a square matrix with eigenvalues
+$\lambda_1, \ldots, \lambda_n$.
+
+- $\operatorname{tr}({\bf A}) = \sum_{i=1}^n \lambda_i$
+- $\det({\bf A}) = \prod_{i=1}^n \lambda_i$
+- If ${\bf A}$ is symmetric, $\operatorname{rank}({\bf A}) = \#\{i : \lambda_i \neq 0\}$
+- If ${\bf A}$ is symmetric, all $\lambda_i \in \mathbb{R}$
 
 
 

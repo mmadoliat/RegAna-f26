@@ -146,6 +146,7 @@ plot(x = 0:5, y = dbinom(0:5, size = 5, prob = 0.4),
      ylab = "P(Y = y)", lwd = 10, main = "Binomial(m = 5, pi = 0.4)")
 ```
 
+[Distribution Calculator](http://tinyurl.com/MLABshiny/DistCalc/ "Shiny App")
 
 ## Continuous Random Variables
 
@@ -194,7 +195,7 @@ axis(1, at = c(-3, -z_cri, 0, z_cri, 3), labels = c("", "a", "0", "b", ""),
      pos = 0, line = 1, cex.axis = 0.9)
 ```
 
-
+[Distribution Calculator](http://tinyurl.com/MLABshiny/DistCalc/ "Shiny App")
 
 ## Expected Value and Variance
 For a random variable $Y$,
@@ -464,6 +465,8 @@ If $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2), \quad i = 1, 2, \dots, n$,
 
 - $\frac{\overline{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}$
 
+- [t vs Normal](https://www.geogebra.org/m/IvVDw5y3 "Vis. App")
+
 . . .
 
 - **Inference**: $\mu$ and $\sigma^2$ are unknown, and $\overline{y}$ and $s^2$ are point estimates for $\mu$ and $\sigma^2$, respectively.
@@ -483,6 +486,7 @@ If $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2), \quad i = 1, 2, \dots, n$,
 include_graphics("images/03-prob-stat/clt.png")
 ```
 
+- [Sampling Distribution](http://www.mssc.mu.edu/~mehdi/applets/sample_dist/index.html "Vis. App")
 
 ::: notes
 - Alright. We know why we want large sample. You will find that we use normal distribution quite often. It is not because it is called normal or more normal than other distributions. There is a reason why we use it. 

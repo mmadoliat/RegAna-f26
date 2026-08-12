@@ -84,7 +84,7 @@ options(
   dplyr.print_max = 6,
   tibble.width = 80,
   width = 80,
-  digits = 2
+  digits = 4
   )
 hook_output <- knitr::knit_hooks$get("output")
 knitr::knit_hooks$set(output = function(x, options) {
@@ -231,38 +231,6 @@ abline(lm(advertising_data$sales ~ advertising_data$instagram), col = "red", lwd
 - A better approach is to extend the simple linear regression model so that it can directly accommodate multiple predictors.  
 
 :::
-
-
-##
-
-**I hope you don't feel...**
-
-::: small
-
-```{r}
-#| fig-cap: "Source: https://memegenerator.net/instance/62248186/first-world-problems-multiple-regression-more-like-multiple-depression"
-#| out-width: 46%
-knitr::include_graphics("./images/05-mlr/mlr_depress.jpeg")
-```
-
-:::
-
-
-
-##
-
-**What I hope is...**
-
-::: small
-
-```{r}
-#| fig-cap: "https://www.tldrpharmacy.com/content/how-to-be-awesome-at-biostatistics-and-literature-evaluation-part-iii"
-#| out-width: 82%
-knitr::include_graphics("./images/05-mlr/mlr_meme.jpeg")
-```
-:::
-
-
 
 ## Multiple Linear Regression (MLR) Model
 - We have $k$ distinct predictors. The (population) multiple linear regression model:
@@ -567,7 +535,7 @@ $$\begin{align}
 . . .
 
 ::: question
-`r emo::ji("tropical_drink")` `r emo::ji("beer")` `r emo::ji("cocktail")`  `r emo::ji("clinking_glasses")`  I buy you a drink if you solve the equations for $k \ge 2$ by hand without using matrix notations or operations!
+It's hard to solve the equations for $k \ge 2$ by hand without using matrix notation or operations!
 :::
 
 
@@ -1173,13 +1141,14 @@ $H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0 \quad H_1: \beta_j \ne 0 \text{ f
 <span style="color:blue">
 $H_0: \beta_{1} = \beta_{2} = 0 \quad H_1: \beta_j \ne 0 \text{ for at least one } j$ </span>
 
+::: shrink-code
 ```{r}
 #| echo: true
 #| output.lines: !expr c(9:19)
-#| class-output: my_class800
+#| class-output: my_classfull
 summ_delivery
 ```
-
+:::
 
 ::: notes
 - How do we obtain the ANOVA Table?

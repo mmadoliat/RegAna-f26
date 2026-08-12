@@ -428,3 +428,9 @@ height: 1000px;
 height: 100px;
 width: 200px;
 }
+
+.shrink-code pre {
+  max-height: 500px;
+  overflow-y: auto;
+  font-size: 0.65em;
+}

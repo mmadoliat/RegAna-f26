@@ -1092,26 +1092,41 @@ coef(summ_reg_fit)
 . . .
 
 ```{r}
-#| fig-asp: 0.5
-#| out-width: 65%
+#| include: false
 set.seed(9274)
 x1 <- seq(0, 6, by = 0.05)
 y_u <- (x1-3)^2 - 4 + rnorm(length(x1), mean = 0, sd = 1)
 x2 <- seq(-8, -2, by = 0.05)
 y_none <- rnorm(length(x2), mean = 0, sd = 1)
-# y_hockey_stick <-  2 * x^4 + -0.5 * x^3 + x^2 + x + rnorm(length(x), mean = 0, sd = 30)
-# y_pos_weak <- 3 * x + rnorm(length(x), mean = 0, sd = 20)
-# y_pos_weaker <- -3 * x + rnorm(length(x), mean = 0, sd = 10) 
-# y_neg_lin_weak <- -3 * x + rnorm(length(x), mean = 0, sd = 5) 
-par(mfrow = c(1, 2))
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| fig-asp: 0.75
 par(mar = c(0, 0, 0, 0))
 plot(y_none ~ x2, xlab = "", ylab = "",
      yaxt = "n", xaxt = "n", pch = 19, col = "lightblue")
 abline(h = 0, col = "blue", lwd = 2)
+```
+
+:::
+
+::: {.column width="50%" .fragment}
+
+```{r}
+#| fig-asp: 0.75
+par(mar = c(0, 0, 0, 0))
 plot(y_u ~ x1, xlab = "", ylab = "",
      yaxt = "n", xaxt = "n", pch = 19, col = "lightblue")
 abline(h = 0, col = "blue", lwd = 2)
 ```
+
+:::
+
+::::
 
 . . .
 
@@ -1143,22 +1158,40 @@ We have to be more careful and precise on what we are claiming.
   + better results could be obtained with a more complicated model
   
 ```{r}
-#| fig-asp: 0.5
-#| out-width: 65%
+#| include: false
 set.seed(9274)
 x <- seq(-3, 4, 0.05)
 y_s <-  -0.5 * x^3 + x^2 + x + rnorm(length(x), mean = 0, sd = 2)
 y_pos_lin_strong <- 3 * x + rnorm(length(x), mean = 0, sd = 2)
-par(mfrow = c(1, 2))
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| fig-asp: 0.75
 par(mar = c(0, 0, 0, 0))
 plot(y_pos_lin_strong ~ x, xlab = "", ylab = "",
      yaxt = "n", xaxt = "n", pch = 19, col = "lightblue")
 abline(lm(y_pos_lin_strong ~ x), col = "blue", lwd = 2)
+```
+
+:::
+
+::: {.column width="50%" .fragment}
+
+```{r}
+#| fig-asp: 0.75
+par(mar = c(0, 0, 0, 0))
 plot(y_s ~ x, xlab = "", ylab = "",
      yaxt = "n", xaxt = "n", pch = 19, col = "lightblue")
 abline(lm(y_s ~ x), col = "blue", lwd = 2)
 ```
 
+:::
+
+::::
 
 ::: notes
 
@@ -1565,13 +1598,13 @@ pi <- predict(reg_fit, newdata = data.frame(displ = newx), interval = "predictio
 lines(newx, ci[, 1], col = "#003366", lwd = 2)
 matlines(newx, ci[, 2:3], col = "red", lty = 1, lwd = 2)
 matlines(newx, pi[, 2:3], col = "blue", lty = 1, lwd = 2)
-abline(v = mean(mpg$displ))
+abline(v = mean(mpg$displ), col="grey", lty=2); abline(h = mean(mpg$hwy), col="grey", lty=2)
 segments(x0 = 5.52, y0 = 15.35839, y1 = 17.20043, col = "red", lwd = 3)
 segments(x0 = 5.48, y0 = 8.665682, y1 = 23.89314, col = "blue", lwd = 3)
 legend("topright", c("Regression line", "CI", "PI"),
        lty = c(1, 1, 1), lwd = c(3, 3, 3), col = c("#003366", "red", "blue"), bty = "n")
 ```
-
+[Regression Illustration](http://tinyurl.com/MLABshiny/Regression/ "Shiny App")
 
 :::  notes
 - CI is the shortest when $x = \bar{x}$. (Also PI)
