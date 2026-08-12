@@ -101,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-de3b831a9b3ad9875a472ca76c93aba3.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-aa3c25cd00179041a18f150a91e83d28.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -264,7 +264,8 @@ Dr.&nbsp;Mehdi Maadooliat
 <h2>Binomial Probability Function</h2>
 <p><span class="math inline">\(P(Y = y; m, \pi) = \frac{m!}{y!(m-y)!}\pi^y(1-\pi)^{m-y}, \quad y = 0, 1, 2, \dots, m\)</span></p>
 
-<img data-src="./images/03-prob-stat/binomial_plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<img data-src="./images/03-prob-stat/binomial_plot-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><p><a href="http://tinyurl.com/MLABshiny/DistCalc/" title="Shiny App">Distribution Calculator</a></p>
+</section>
 <section id="continuous-random-variables" class="slide level2">
 <h2>Continuous Random Variables</h2>
 <ul>
@@ -287,7 +288,8 @@ Dr.&nbsp;Mehdi Maadooliat
 <h2>Normal (Gaussian) Density Curve</h2>
 <p>For continuous variables, <strong><span class="math inline">\(P(a &lt; Y &lt; b)\)</span> is the area under the density curve between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</strong></p>
 
-<img data-src="./images/03-prob-stat/norm_den-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
+<img data-src="./images/03-prob-stat/norm_den-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"><p><a href="http://tinyurl.com/MLABshiny/DistCalc/" title="Shiny App">Distribution Calculator</a></p>
+</section>
 <section id="expected-value-and-variance" class="slide level2">
 <h2>Expected Value and Variance</h2>
 <p>For a random variable <span class="math inline">\(Y\)</span>,</p>
@@ -383,7 +385,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="do">## 10 binomial variable values with m = 5</span></span>
 <span id="cb1-2"><a aria-label="2"></a><span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 2 2 1 2 1 1 2 4 2</code></pre>
+<pre><code> [1] 1 3 3 0 2 2 3 2 3 1</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a><span class="do">## P(X = 3) of binom(5, 0.4)</span></span>
 <span id="cb3-2"><a aria-label="2"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -408,7 +410,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a><span class="do">## the default mean = 0 and sd = 1 (standard normal)</span></span>
 <span id="cb7-2"><a aria-label="2"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  0.483 -0.593 -1.100 -1.021 -1.629</code></pre>
+<pre><code>[1]  0.695 -1.535  1.038 -1.024  1.264</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -533,6 +535,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <ul>
 <li><p>Let the sample variance of <span class="math inline">\(Y\)</span> be <span class="math inline">\(S^2 = \frac{\sum_{i=1}^n(Y_i - \overline{Y})^2}{n-1}\)</span>.</p></li>
 <li><p><span class="math inline">\(\frac{\overline{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}\)</span></p></li>
+<li><p><a href="https://www.geogebra.org/m/IvVDw5y3" title="Vis. App">t vs Normal</a></p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -548,7 +551,10 @@ Dr.&nbsp;Mehdi Maadooliat
 <li><p>As <span class="math inline">\(n\)</span> increases, the sampling distribution of <span class="math inline">\(\overline{X}_n = \frac{\sum_{i=1}^nX_i}{n}\)</span> looks <strong>more and more like <span class="math inline">\(N(\mu, \frac{\sigma^2}{n})\)</span>, regardless of the distribution from which we are sampling <span class="math inline">\(X_i\)</span>!</strong></p></li>
 </ul>
 
-<img data-src="images/03-prob-stat/clt.png" class="quarto-figure quarto-figure-center r-stretch" style="width:89.0%"><aside class="notes">
+<img data-src="images/03-prob-stat/clt.png" class="quarto-figure quarto-figure-center r-stretch" style="width:89.0%"><ul>
+<li><a href="http://www.mssc.mu.edu/~mehdi/applets/sample_dist/index.html" title="Vis. App">Sampling Distribution</a></li>
+</ul>
+<aside class="notes">
 <ul>
 <li>Alright. We know why we want large sample. You will find that we use normal distribution quite often. It is not because it is called normal or more normal than other distributions. There is a reason why we use it.</li>
 <li>The reason is Central Limit Theorem.</li>
