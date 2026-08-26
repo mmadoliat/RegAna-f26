@@ -245,11 +245,11 @@ Non-constant Error Variance
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><span class="math inline">\(E(Y \mid X)\)</span> and <span class="math inline">\(X\)</span> are linearly related.</li>
+<li><span class="math inline">\(E(Y \mid X)\)</span> is linear in the regressors.</li>
 <li><span class="math inline">\(\small E(\epsilon_i) = 0\)</span></li>
 <li><span class="math inline">\(\small \mathrm{Var}(\epsilon_i) = \sigma^2\)</span></li>
 <li><span class="math inline">\(\small \mathrm{Cov}(\epsilon_i, \epsilon_j) = 0\)</span> for all <span class="math inline">\(i \ne j\)</span>.</li>
-<li><span class="math inline">\(\small \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span> (for statistical inference)</li>
+<li><span class="math inline">\(\small \epsilon_i \sim N(0, \sigma^2)\)</span> for exact <span class="math inline">\(t\)</span>- and <span class="math inline">\(F\)</span>-inference.</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -286,7 +286,7 @@ Non-constant Error Variance
 <div class="columns">
 <div class="column" style="width:30%;">
 <ul>
-<li>Residual plots cannot distinguish between monotone and non-monotone nonlinearity.</li>
+<li>Residual plots cannot distinguish between monotone and non-monotone non-linearity.</li>
 <li>The distinction:
 <ul>
 <li>Monotone: just transform <span class="math inline">\(x\)</span> to <span class="math inline">\(x^2\)</span></li>
@@ -364,9 +364,9 @@ Non-constant Error Variance
 <section id="transformation-for-linearity" class="slide level2">
 <h2>Transformation for Linearity</h2>
 <ul>
-<li><strong>Monotone, simple</strong>: Power transformation on <span class="math inline">\(x\)</span> and/or <span class="math inline">\(y\)</span></li>
-<li><strong>Monotone, not simple</strong>: Polynomial regression (next week) or regression splines (MSSC 6250)</li>
-<li><strong>Non-Monotone, simple</strong>: Quadratic regression <span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \epsilon\)</span></li>
+<li><strong>Monotone curvature</strong>: consider a power transformation of <span class="math inline">\(x\)</span> (and, when justified, of <span class="math inline">\(y\)</span>).</li>
+<li><strong>Curvature that changes direction</strong>: consider polynomial terms, e.g., <span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \epsilon\)</span>.</li>
+<li><strong>More complex structure</strong>: polynomial regression (next week) or regression splines (MSSC 6250).</li>
 </ul>
 
 <img data-src="./images/10-diag-linearity/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
@@ -517,6 +517,113 @@ Std. Error                                0.0034 0.0044
 </div>
 </div>
 </section>
+<section id="deleted-residuals-and-prediction-diagnostics" class="slide level2">
+<h2>Deleted Residuals and Prediction Diagnostics</h2>
+<ul>
+<li><p>The ordinary residual is <span class="math display">\[e_i = y_i - \hat y_i,\]</span> where observation <span class="math inline">\(i\)</span> was used to fit the model.</p></li>
+<li><p>To assess prediction for observation <span class="math inline">\(i\)</span>, delete that observation, refit the model, and compute <span class="math display">\[e_{(i)} = y_i - \hat y_{(i)}.\]</span></p></li>
+<li><p><span class="math inline">\(e_{(i)}\)</span> is called a <strong>deleted residual</strong> or <strong>PRESS residual</strong>.</p></li>
+</ul>
+<div class="fragment">
+<p>Fortunately, we do not need to refit the model <span class="math inline">\(n\)</span> times: <span class="math display">\[
+\boxed{e_{(i)} = \frac{e_i}{1-h_{ii}}},
+\]</span> where <span class="math inline">\(h_{ii}\)</span> is the leverage of observation <span class="math inline">\(i\)</span>.</p>
+<div class="alert">
+<p>Deleted residuals measure leave-one-out prediction error rather than in-sample fit.</p>
+</div>
+</div>
+</section>
+<section id="press-and-predicted-r2" class="slide level2">
+<h2>PRESS and Predicted <span class="math inline">\(R^2\)</span></h2>
+<p>The <strong>PRESS statistic</strong> summarizes the deleted residuals:</p>
+<p><span class="math display">\[
+\boxed{
+\operatorname{PRESS}
+= \sum_{i=1}^n e_{(i)}^2
+= \sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2
+}
+\]</span></p>
+<p>A convenient scale-free summary is the <strong>predicted <span class="math inline">\(R^2\)</span></strong>:</p>
+<p><span class="math display">\[
+\boxed{
+R^2_{\mathrm{pred}}
+= 1-\frac{\operatorname{PRESS}}{SS_T},
+\qquad
+SS_T=\sum_{i=1}^n (y_i-\bar y)^2
+}
+\]</span></p>
+<ul>
+<li>Smaller PRESS and larger <span class="math inline">\(R^2_{\mathrm{pred}}\)</span> indicate better leave-one-out predictive performance.</li>
+<li>For ordinary least squares, PRESS is based on <strong>leave-one-out cross-validation (LOOCV)</strong>.</li>
+<li>Unlike ordinary <span class="math inline">\(R^2\)</span>, <span class="math inline">\(R^2_{\mathrm{pred}}\)</span> evaluates how well the model predicts observations that were left out during fitting.</li>
+<li><span class="math inline">\(R^2_{\mathrm{pred}}\)</span> can be negative when predictive performance is poor.</li>
+</ul>
+<div class="alert">
+<p><strong><span class="math inline">\(R^2\)</span>:</strong> How well does the model explain the data used to fit it?<br>
+<strong><span class="math inline">\(R^2_{\mathrm{pred}}\)</span>:</strong> How well does the model predict observations not used in fitting?</p>
+</div>
+</section>
+<section id="r-lab-press-and-deleted-residuals" class="slide level2">
+<h2><span class="pink">R Lab</span> PRESS and Deleted Residuals</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>press <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(model)</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  e_press <span class="ot">&lt;-</span> e <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> h)</span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_press<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">model.response</span>(<span class="fu">model.frame</span>(model))</span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>  SST <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a>  R2_pred <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> PRESS <span class="sc">/</span> SST</span>
+<span id="cb7-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">PRESS =</span> PRESS,</span>
+<span id="cb7-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">R2_pred =</span> R2_pred,</span>
+<span id="cb7-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">RMSE_LOOCV =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(e_press<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb7-14"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(</span>
+<span id="cb7-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Original =</span> <span class="fu">press</span>(logciafit),</span>
+<span id="cb7-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Corrected =</span> <span class="fu">press</span>(logciafit2)</span>
+<span id="cb7-19"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          PRESS R2_pred RMSE_LOOCV
+Original   50.8   0.677      0.616
+Corrected  26.4   0.832      0.443</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:52%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<ul>
+<li>PRESS residuals are case-deletion prediction residuals, not merely another scaling of the ordinary residuals.</li>
+<li>Large deleted residuals identify observations that are difficult for the model to predict when they are not used in fitting.</li>
+<li>PRESS can be used to compare candidate regression models on predictive performance.</li>
+<li>Predicted <span class="math inline">\(R^2\)</span> puts PRESS on a familiar <span class="math inline">\(R^2\)</span> scale: values near 1 indicate strong predictive performance, while negative values indicate that the leave-one-out predictions are worse than simply using <span class="math inline">\(\bar y\)</span>.</li>
+<li>Ordinary <span class="math inline">\(R^2\)</span>, adjusted <span class="math inline">\(R^2\)</span>, and predicted <span class="math inline">\(R^2\)</span> answer different questions and should not be expected to agree.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="r-lab-plotting-against-original-untransformed-x" class="slide level2">
 <h2><span class="pink">R Lab</span> Plotting against Original Untransformed <span class="math inline">\(x\)</span></h2>
 <div class="columns">
@@ -524,20 +631,20 @@ Std. Error                                0.0034 0.0044
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"gdp"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
-<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
-<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
-<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>), </span>
-<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per Capita"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"gdp"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
+<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>), </span>
+<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per Capita"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -546,19 +653,19 @@ Std. Error                                0.0034 0.0044
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"health"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
-<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>),</span>
-<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Health Expenditures"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"health"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>),</span>
+<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Health Expenditures"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -613,8 +720,8 @@ Std. Error                                0.0034 0.0044
 <h2><span class="pink">R Lab</span> Box and Tidwell (1962)</h2>
 <p>Consider the model <span class="math display">\[\log(Infant) = \beta_0 + \beta_1 GDP^{\lambda_1} + \beta_2Gini^{\lambda_2} + \beta_3 Health + \beta_4 Health ^ 2 + \epsilon\]</span></p>
 <div class="cell" data-layout-align="center" data-output.lines="[1,2,3,4,5]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">boxTidwell</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> gini, </span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">other.x =</span> <span class="sc">~</span><span class="fu">poly</span>(health, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> CIA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">boxTidwell</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> gini, </span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">other.x =</span> <span class="sc">~</span><span class="fu">poly</span>(health, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> CIA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>...
      MLE of lambda Score Statistic (t) Pr(&gt;|t|)    
