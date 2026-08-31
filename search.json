@@ -15,7 +15,7 @@
     "href": "course-syllabus.html",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "",
-    "text": "Course Title: MATH 4780/MSSC 5780: Regression Analysis\nMeeting Time: TuTh 12:30pm - 1:45pm\nLocation: Cudahy Hall 131 (Microsoft Teams)\nWebsite: http://tinyurl.com/f26-4780",
+    "text": "Course Title: MATH 4780/MSSC 5780: Regression Analysis\nMeeting Time: TuTh 12:30pm - 1:45pm\nLocation: Cudahy Hall 131 (Microsoft Teams - if needed)\nWebsite: http://tinyurl.com/f26-4780",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -26,7 +26,7 @@
     "href": "course-syllabus.html#course-information",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "",
-    "text": "Course Title: MATH 4780/MSSC 5780: Regression Analysis\nMeeting Time: TuTh 12:30pm - 1:45pm\nLocation: Cudahy Hall 131 (Microsoft Teams)\nWebsite: http://tinyurl.com/f26-4780",
+    "text": "Course Title: MATH 4780/MSSC 5780: Regression Analysis\nMeeting Time: TuTh 12:30pm - 1:45pm\nLocation: Cudahy Hall 131 (Microsoft Teams - if needed)\nWebsite: http://tinyurl.com/f26-4780",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -59,7 +59,7 @@
     "href": "course-syllabus.html#course-topics",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "Course Topics",
-    "text": "Course Topics\n\nSimple and multiple linear regression\nEstimation, inference, and prediction\nModel interpretation and analysis of variance\nRegression diagnostics and residual analysis\nTransformations and remedial measures\nPolynomial and categorical predictors\nOutliers, leverage, and influential observations\nMulticollinearity and model selection\nRegression analysis, visualization, and reporting using R",
+    "text": "Course Topics\n\nSimple and multiple linear regression\nLeast-squares estimation and matrix formulation of regression\nEstimation, inference, and prediction\nModel interpretation and analysis of variance\nRegression diagnostics and residual analysis\nTransformations and remedial measures\nPolynomial, categorical, and interaction effects\nOutliers, leverage, and influential observations\nMulticollinearity, model selection, and model validation\nRegression analysis, visualization, and reporting using R",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -70,7 +70,7 @@
     "href": "course-syllabus.html#prerequisites",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "Prerequisites",
-    "text": "Prerequisites\n\nMATH 2780, or MATH 4720",
+    "text": "Prerequisites\n\nMATH 2780, or MATH 4720\nSome familiarity with R and basic matrix algebra is helpful but not required. Necessary computational and matrix concepts will be introduced as needed.",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -92,7 +92,7 @@
     "href": "course-syllabus.html#grading-breakdown",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "Grading Breakdown",
-    "text": "Grading Breakdown\n\nHomework: 30%\nIn-class Exam: 30%\nFinal Project: 30%\nBest of three: 10%\n\nFor students in MSSC 5780, there will be extra questions in Homework and/or Exam\nYou will NOT be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:\n\nGrading Scale\n\n\n\nGrade\nRange\n\n\n\n\nA\n93.5 - 100\n\n\nA-\n90.0 - 93.5\n\n\nB+\n86.5 - 90.0\n\n\nB\n83.5 - 86.5\n\n\nB-\n80.0 - 83.5\n\n\nC+\n76.5 - 80.0\n\n\nC\n73.5 - 76.5\n\n\nC-\n70.0 - 73.5\n\n\nD+\n66.5 - 70.0\n\n\nD\n63.5 - 66.5\n\n\nD-\n60.0 - 63.5\n\n\nF\nbelow 60.0\n\n\n\nNote: No late homework will be accepted, and no make-up work will be allowed unless in the case of an emergency. Submit incomplete work if necessary, but ensure scanned PDFs are legible before submission.",
+    "text": "Grading Breakdown\n\nHomework: 30%\nIn-class Exam: 30%\nFinal Project: 30%\nBest of three: 10%\n\nStudents enrolled in MSSC 5780 will complete additional or more advanced work on selected homework assignments, the exam, and/or the final project.\nYou will NOT be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:\n\nGrading Scale\n\n\n\nGrade\nRange\n\n\n\n\nA\n93.5 - 100\n\n\nA-\n90.0 - 93.5\n\n\nB+\n86.5 - 90.0\n\n\nB\n83.5 - 86.5\n\n\nB-\n80.0 - 83.5\n\n\nC+\n76.5 - 80.0\n\n\nC\n73.5 - 76.5\n\n\nC-\n70.0 - 73.5\n\n\nD+\n66.5 - 70.0\n\n\nD\n63.5 - 66.5\n\n\nD-\n60.0 - 63.5\n\n\nF\nbelow 60.0\n\n\n\nNote: No late homework will be accepted, and no make-up work will be allowed unless in the case of a university-recognized excused absence/documented emergency. Submit incomplete work if necessary, but ensure scanned PDFs are legible before submission.",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -103,7 +103,18 @@
     "href": "course-syllabus.html#homework-policy",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "Homework Policy",
-    "text": "Homework Policy\nHomework is required for a better understanding of the material and must be submitted to D2L. No late homework will be accepted, and two homework assignments will be dropped. It is recommended to submit even incomplete work. You can scan your homework and submit it as a PDF, but ensure it is readable.",
+    "text": "Homework Policy\n\nHomework is required for a better understanding of the material and must be submitted to D2L.\nNo late homework will be accepted, and the lowest homework assignments grade will be dropped. It is recommended to submit even incomplete work.\nYou can scan your homework and submit it as a PDF, but ensure it is readable.\nFor data-analysis problems, relevant R code and output should be included with the submitted work. Computational results should be clearly organized and accompanied by appropriate interpretation.",
+    "crumbs": [
+      "Course information",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "course-syllabus.html#generative-ai",
+    "href": "course-syllabus.html#generative-ai",
+    "title": "Syllabus - Regression Analysis - Fall 2026",
+    "section": "Generative AI ()",
+    "text": "Generative AI ()\nGenerative AI tools such as ChatGPT may be used for clarification, coding assistance, and take-home work unless otherwise stated. Students remain fully responsible for the correctness and interpretation of all submitted work and must disclose substantive use of generative AI. Generative AI is not permitted during the in-class exam.",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -125,7 +136,7 @@
     "href": "course-syllabus.html#make-up-policy",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "Make-up Policy",
-    "text": "Make-up Policy\nThere will be no make-up exams or homework unless there is an emergency.",
+    "text": "Make-up Policy\nThere will be no make-up exams or homework unless there is a university-recognized excused absence/documented emergency",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -147,7 +158,7 @@
     "href": "course-syllabus.html#important-dates",
     "title": "Syllabus - Regression Analysis - Fall 2026",
     "section": "Important dates",
-    "text": "Important dates\n\nMonday, August 31: Classes begin\nTuesday, September 8: Drop/add ends\nThursday - Friday, October 22 - 23: Fall Break\nFriday, November 20: Last day to withdraw with W\nWednesday - Sunday, November 25 - 29: Thanksgiving Break\nSaturday, December 12: Classes end\nWednesday, December 15th, 10:30 am - 12:30 pm: Final Project\n\nFor more important dates, see the full MU Academic Calendar.",
+    "text": "Important dates\n\nMonday, August 31: Classes begin\nTuesday, September 8: Drop/add ends\nThursday - Friday, October 22 - 23: Fall Break\nFriday, November 20: Last day to withdraw with W\nWednesday - Sunday, November 25 - 29: Thanksgiving Break\nSaturday, December 12: Classes end\nTuesday, December 15th, 10:30 am - 12:30 pm: Final Project\n\nFor more important dates, see the full MU Academic Calendar.",
     "crumbs": [
       "Course information",
       "Syllabus"
@@ -215,14 +226,14 @@
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 1 4 4 2 1 3 3 3 0 2\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
+    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 2 3 1 2 3 3 2 3 2 2\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1] -0.252  1.166  0.223 -0.449  0.928\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
+    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1] 0.1751 0.6081 0.3619 1.4992 0.0299\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-2",
@@ -1608,7 +1619,7 @@
     "href": "slides/11-bootstrap.html#r-lab-the-bootstrap-sample",
     "title": "Simulation-based Inference 💻",
     "section": "R Lab The bootstrap Sample",
-    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2349, 3267, 2350, 2450, 2300, 2350, 2250, 2349, 2350, 2522, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
+    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2349, 2324, 2522, 2325, 2350, 2422, 2450, 2350, 2875, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
   },
   {
     "objectID": "slides/11-bootstrap.html#r-lab-visualize-the-bootstrap-distribution",
@@ -3039,158 +3050,109 @@
     "text": "Eigenvalues and Eigenvectors\n\n\n\n(A &lt;- matrix(c(3, 1, 1, 2), 2, 2))\n\n     [,1] [,2]\n[1,]    3    1\n[2,]    1    2\n\neigen_decomp &lt;- eigen(A)\n(lam &lt;- eigen_decomp$values)\n\n[1] 3.6 1.4\n\n(V &lt;- eigen_decomp$vectors)\n\n      [,1]  [,2]\n[1,] -0.85  0.53\n[2,] -0.53 -0.85\n\n\n\n\nV %*% diag(lam) %*% t(V)\n\n     [,1] [,2]\n[1,]    3    1\n[2,]    1    2\n\nsum(diag(A))\n\n[1] 5\n\nsum(lam)\n\n[1] 5\n\ndet(A)\n\n[1] 5\n\nprod(lam)\n\n[1] 5"
   },
   {
-    "objectID": "slides/01-syllabus.html#my-journey",
-    "href": "slides/01-syllabus.html#my-journey",
+    "objectID": "slides/01-syllabus.html#welcome",
+    "href": "slides/01-syllabus.html#welcome",
     "title": "Welcome Aboard! 🙌",
-    "section": "My Journey",
-    "text": "My Journey\n\nAssistant Professor (2020/08 - )\n\n\n\n\n\n\n\n\n\n\n\nPostdoctoral Fellow\n\n\n\n\n\n\n\n\n\n\n\nPhD in Statistics\n\n\n\n\n\n\n\n\n\n\n\nMA in Economics/PhD program in Statistics\n\n\n\n\n\n\n\n\n\n\n\nAfter college, working and doing military service for several years, I came to the US for my PhD degree. Originally I would like to study economics, but then I switched my major to statistics.\n\nI got my master degree in economics from Indiana University Bloomington, then I transferred to UC Santa Cruz to finish my PhD studies.\nThen I spent two years doing my postdoctoral research at Rice University in Houston, Texas.\nFinally, in fall 2020, I came to Marquette as an assistant professor.\nMidwest/Indiana-West/California-South/Texas-Midwest/Wisconsin\nBeen to any one of these universities/cities?\nThe most beautiful campus.\nWho are international students? I can totally understand how hard studying and living in another country. Feel free to share your stories or difficulties, and I am more than happy to help you if you have any questions.\nPoor listening and speaking skills. I was shy.\nOK so, this is my background. How about you introducing yourself as well. You can share anything, your major, hobbies, your favorite food, what do you want to do after graduation, anything,\nI have the class list. I’d like to learn your face and remember your name. You know, you all wear a mask. It’s hard to recognize you and connect your name and your face.\nWhen I call your name, you can say something about yourself. No need to be long, couple of seconds are good."
+    "section": "Welcome",
+    "text": "Welcome\nMATH 4780 / MSSC 5780: Regression Analysis\nFall 2026\nInstructor: Mehdi Maadooliat, Ph.D.\nCourse website: http://tinyurl.com/f26-4780\nToday: course expectations, grading, logistics, and how we will work with R."
   },
   {
-    "objectID": "slides/01-syllabus.html#my-research",
-    "href": "slides/01-syllabus.html#my-research",
+    "objectID": "slides/01-syllabus.html#course-at-a-glance",
+    "href": "slides/01-syllabus.html#course-at-a-glance",
     "title": "Welcome Aboard! 🙌",
-    "section": "My Research",
-    "text": "My Research\n\nBayesian spatio-temporal modeling and machine learning algorithms in neuroimaging\nBayesian Deep Learning for image classification\nEfficient MCMC for big \\(n\\) big \\(p\\) streaming data\nGame-based learning for STEM and data science education\n\n\n\nfMRI\n\n\n\n\n\n\n\n\n\n\nEEG"
+    "section": "Course at a Glance",
+    "text": "Course at a Glance\n\n\n\nMeeting\nTuTh, 12:30–1:45 pm\n\n\nLocation\nCudahy Hall 131\n\n\nOffice\nCU 351\n\n\nOffice hours\nTu 1:45–3:15 pm; Th 10:45 am–12:15 pm\n\n\nCourse website\nhttp://tinyurl.com/f26-4780\n\n\n\nMicrosoft Teams may be used when needed."
   },
   {
-    "objectID": "slides/01-syllabus.html#how-to-reach-me",
-    "href": "slides/01-syllabus.html#how-to-reach-me",
+    "objectID": "slides/01-syllabus.html#what-is-this-course-about",
+    "href": "slides/01-syllabus.html#what-is-this-course-about",
     "title": "Welcome Aboard! 🙌",
-    "section": "How to Reach Me",
-    "text": "How to Reach Me\n\nOffice hours TuTh 3:20 - 4:50 PM in Cudahy Hall 353.\n📧 cheng-han.yu@marquette.edu\n\nAnswer questions within 24 hours.\nExpect a reply on Monday if shoot me a message on weekends.\nStart your subject line with [math4780] or [mssc5780] followed by a clear description of your question.\n\n\n\n\nI will NOT reply your e-mail if … Check the email policy in the syllabus!"
+    "section": "What Is This Course About?",
+    "text": "What Is This Course About?\nRegression helps us understand and quantify relationships between variables.\nBy the end of the course, you should be able to\n\nfit and interpret linear regression models,\nmake statistical inferences and predictions,\ndiagnose violations of model assumptions,\nidentify influential observations and multicollinearity,\nselect and compare useful models, and\nanalyze and communicate results using R."
   },
   {
-    "objectID": "slides/01-syllabus.html#textbook-lra",
-    "href": "slides/01-syllabus.html#textbook-lra",
+    "objectID": "slides/01-syllabus.html#main-topics",
+    "href": "slides/01-syllabus.html#main-topics",
     "title": "Welcome Aboard! 🙌",
-    "section": "Textbook (LRA)",
-    "text": "Textbook (LRA)\n\n\n\nIntroduction to Linear Regression Analysis, 6th edition, by D. C. Montgomery, E. A. Peck and G. G. Vining. Publisher: Wiley. \nCh 1 ~ 10, 13.\nCareful about typos.\n\nIn the Preface,\n\nThe book … for a course taken by seniors and 1st-year graduate students….\n\n\nSome knowledge of matrix algebra is also necessary.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCourse materials are grabbed from several books and resources.\nOur course website would be helpful."
+    "section": "Main Topics",
+    "text": "Main Topics\n\n\n\nSimple linear regression\nMultiple linear regression\nLeast squares and matrix formulation\nEstimation and inference\nPrediction\nAnalysis of variance\n\n\n\nResidual diagnostics\nTransformations\nPolynomial and categorical predictors\nOutliers, leverage, and influence\nMulticollinearity\nModel selection and validation"
   },
   {
-    "objectID": "slides/01-syllabus.html#reference-cmr",
-    "href": "slides/01-syllabus.html#reference-cmr",
+    "objectID": "slides/01-syllabus.html#textbook-and-computing",
+    "href": "slides/01-syllabus.html#textbook-and-computing",
     "title": "Welcome Aboard! 🙌",
-    "section": "Reference (CMR)",
-    "text": "Reference (CMR)\n\n\n\nClassical and Modern Regression with Applications, by Raymond Myers. Publisher: Duxbury Press.\nCh 1 ~ 8.\nThe textbook when I was a master student at Indiana University.\nOutdated (published in 1990) and no code involved.\nExplains concepts well.\n\nIn the Preface,\n\nThe book … for seniors and graduate students majoring in statistics or user subject-matter fields.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI also provide some other reference books. They are all optional, but some course materials may borrow from these books.\nIt’s a pretty old book which was published in 1990. So it’s a little bit outdated. But it explains basic ideas and concepts pretty well. I enjoyed reading it."
-  },
-  {
-    "objectID": "slides/01-syllabus.html#reference-car",
-    "href": "slides/01-syllabus.html#reference-car",
-    "title": "Welcome Aboard! 🙌",
-    "section": "Reference (CAR)",
-    "text": "Reference (CAR)\n\n\n\nAn R Companion to Applied Regression, by John Fox and Sanford Weisberg. Publisher: SAGE.\nCh 3, 5, 8.\nR scripts and data on the book Website\nDoing regression easier by the car and effects R packages.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIf you wanna learn how to use R to do regression, this book could be helpful.\nThe authors create 2 R packages car and effects that make doing regression so much easier.\nLater you’ll see we can just use some simple function calls to generate some important and useful graphics for regression analysis.\n\nJohn Fox received a BA from the City College of New York and a PhD from the University of Michigan, both in Sociology. Sanford Weisberg is Professor Emeritus of statistics at the University of Minnesota. He has also served as the director of the University′s Statistical Consulting Service, and has worked with hundreds of social scientists and others on the statistical aspects of their research. He earned a BA in statistics from the University of California, Berkeley, and a Ph.D., also in statistics, from Harvard University"
-  },
-  {
-    "objectID": "slides/01-syllabus.html#reference-isl",
-    "href": "slides/01-syllabus.html#reference-isl",
-    "title": "Welcome Aboard! 🙌",
-    "section": "Reference (ISL)",
-    "text": "Reference (ISL)\n\n\n\nAn Introduction to Statistical Learning, by James et. al. Publisher: Springer.\nCh 3.\nR and Python code\n\nIn the Preface,\n\nISL … for advanced undergraduates or master’s students in Statistics or related quantitative fields……"
-  },
-  {
-    "objectID": "slides/01-syllabus.html#more-references",
-    "href": "slides/01-syllabus.html#more-references",
-    "title": "Welcome Aboard! 🙌",
-    "section": "More References",
-    "text": "More References\n\nApplied Regression Analysis and Generalized Linear Models\nApplied Linear Regression\nLinear Models with R/Python\nApplied Linear Statistical Models\nRegression Daignostics\n\nand more!"
+    "section": "Textbook and Computing",
+    "text": "Textbook and Computing\n\n\nMain textbook\nMontgomery, Peck, and Vining\nIntroduction to Linear Regression Analysis\n6th edition, Wiley, 2021\nThe textbook is our main reference. Slides, examples, and additional material will be provided through the course website.\n\nComputing\nWe will use R for\n\ndata analysis,\nvisualization,\nregression modeling, and\ndiagnostics.\n\nFor data-analysis work, include relevant code, output, and interpretation."
   },
   {
     "objectID": "slides/01-syllabus.html#prerequisites",
     "href": "slides/01-syllabus.html#prerequisites",
     "title": "Welcome Aboard! 🙌",
     "section": "Prerequisites",
-    "text": "Prerequisites\n\nOn bulletin: MATH 2780 (Baby Regression), MATH 4720 (Intro Stats) or equivalent.\n\n\nHelpful if you\n\ncode (any language) 💻\n\n\n\n\nlearned basic linear algebra (MATH 3100) 🔢\n\n\n\n\ntook probability (MATH 4700) and statistical inference (MATH 4710) 🎲\n\n\n\nOn the Marquette bulletin, the prerequisite is either MATH 2780 or MATH 4720 or equivalent.\nBut this course requires more than basic statistics experience.\nNowadays, nobody is doing regression by hand, and we will write some code to do regression. So it would be helpful if you code any language before."
+    "text": "Prerequisites\nFormal prerequisite\n\nMATH 2780, or MATH 4720\n\nHelpful background\n\nbasic statistics,\nsome familiarity with R,\nbasic matrix algebra.\n\nNecessary computational and matrix concepts will be reviewed as needed."
   },
   {
-    "objectID": "slides/01-syllabus.html#my-statistics-book",
-    "href": "slides/01-syllabus.html#my-statistics-book",
+    "objectID": "slides/01-syllabus.html#how-your-grade-is-determined",
+    "href": "slides/01-syllabus.html#how-your-grade-is-determined",
     "title": "Welcome Aboard! 🙌",
-    "section": "My Statistics Book",
-    "text": "My Statistics Book\n\nPlease review probability distributions, confidence interval, and hypothesis testing!"
+    "section": "How Your Grade Is Determined",
+    "text": "How Your Grade Is Determined\n\n\n\nComponent\nWeight\n\n\n\n\nHomework\n30%\n\n\nIn-class exam\n30%\n\n\nFinal project\n30%\n\n\nBest of the three categories above\n10%\n\n\nTotal\n100%\n\n\n\nThe final 10% is based on your highest percentage among Homework, the In-class Exam, and the Final Project.\nThe complete letter-grade scale is listed in the syllabus."
   },
   {
-    "objectID": "slides/01-syllabus.html#course-website---httpsmath4780-f23.github.iowebsite",
-    "href": "slides/01-syllabus.html#course-website---httpsmath4780-f23.github.iowebsite",
+    "objectID": "slides/01-syllabus.html#homework-and-mssc-5780",
+    "href": "slides/01-syllabus.html#homework-and-mssc-5780",
     "title": "Welcome Aboard! 🙌",
-    "section": "Course Website - https://math4780-f23.github.io/website/",
-    "text": "Course Website - https://math4780-f23.github.io/website/\n\nAll course materials"
+    "section": "Homework and MSSC 5780",
+    "text": "Homework and MSSC 5780\nHomework\n\nSubmit homework to D2L as a readable PDF.\nNo late homework will be accepted.\nLowest grade homework assignment will be dropped.\nSubmit incomplete work rather than missing the deadline.\nFor data-analysis problems, include relevant R code, output, and interpretation.\n\nMSSC 5780\nGraduate students will complete additional or more advanced work on selected homework assignments, the exam, and/or the final project."
   },
   {
-    "objectID": "slides/01-syllabus.html#course-website---d2l",
-    "href": "slides/01-syllabus.html#course-website---d2l",
+    "objectID": "slides/01-syllabus.html#in-class-exam",
+    "href": "slides/01-syllabus.html#in-class-exam",
     "title": "Welcome Aboard! 🙌",
-    "section": "Course Website - D2L",
-    "text": "Course Website - D2L\n\nHomework submission\nGradebook"
+    "section": "In-Class Exam",
+    "text": "In-Class Exam\nTuesday, November 10\n\n70 minutes\nCovers material discussed in class, homework, and course notes\nNo make-up exam except for a university-recognized excused absence or documented emergency\n\nMSSC 5780 students may have additional or more advanced questions."
   },
   {
-    "objectID": "slides/01-syllabus.html#grading-policy",
-    "href": "slides/01-syllabus.html#grading-policy",
+    "objectID": "slides/01-syllabus.html#final-project",
+    "href": "slides/01-syllabus.html#final-project",
     "title": "Welcome Aboard! 🙌",
-    "section": "Grading Policy ✨",
-    "text": "Grading Policy ✨\n\nFor MATH 4780 (MSSC 5780) students, the grade is earned out of 1000 (1200) total points distributed as follows:\n\nHomework 1 to 6: 480 pts (80 pts each)\nIn-class Exam: 160 pts\nFinal project: 300 pts\nClass Participation: 60 pts\nMSSC 5780 work: 200 pts\n\n❌ No extra credit projects/homework/exam to compensate for a poor grade.\nIndividual grade will NOT be curved.\nWant to obtain a good grade? Study hard. No pain, no gain! ✍ ✍\n\n\n\nEveryone has the same opportunity to do well in this class.\n4780 students are encouraged to do MSSC problems: Up to 100 pts extra credit.\nI am not a harsh grader, but this is not an easy A course as well."
+    "section": "Final Project",
+    "text": "Final Project\nTuesday, December 15 · 10:30 am–12:30 pm\nThe project will emphasize your ability to\n\napply regression methods to real data,\nchoose and justify an appropriate model,\nassess assumptions and diagnostics,\ninterpret results, and\ncommunicate conclusions clearly.\n\nDetailed project instructions will be provided later."
   },
   {
-    "objectID": "slides/01-syllabus.html#grade-percentage-conversion",
-    "href": "slides/01-syllabus.html#grade-percentage-conversion",
+    "objectID": "slides/01-syllabus.html#generative-ai",
+    "href": "slides/01-syllabus.html#generative-ai",
     "title": "Welcome Aboard! 🙌",
-    "section": "Grade-Percentage Conversion",
-    "text": "Grade-Percentage Conversion\n\n\\([x, y)\\) means greater than or equal to \\(x\\) and less than \\(y\\).\nFor example, 94.0 is in [94, 100] and the grade is A and 93.8 is in [90, 94) and the grade is A-.\n\n\n\n\n\n\nGrade\nPercentage\n\n\n\n\nA\n[94, 100]\n\n\nA-\n[90, 94)\n\n\nB+\n[87, 90)\n\n\nB\n[84, 87)\n\n\nB-\n[80, 84)\n\n\nC+\n[77, 80)\n\n\nC\n[74, 77)\n\n\nC-\n[70, 74)\n\n\nD+\n[65, 70)\n\n\nD\n[60, 65)\n\n\nF\n[0, 60)"
+    "section": "Generative AI",
+    "text": "Generative AI\nGenerative AI tools such as ChatGPT may be used for clarification, coding assistance, and take-home work, unless otherwise stated.\nIf you use GenAI:\n\nyou remain responsible for the correctness of your work,\nyou must understand and be able to explain what you submit, and\nsubstantive use of GenAI must be disclosed.\n\nGenAI is not permitted during the in-class exam unless explicitly authorized."
   },
   {
-    "objectID": "slides/01-syllabus.html#homework-480-pts",
-    "href": "slides/01-syllabus.html#homework-480-pts",
+    "objectID": "slides/01-syllabus.html#attendance-integrity-and-accommodations",
+    "href": "slides/01-syllabus.html#attendance-integrity-and-accommodations",
     "title": "Welcome Aboard! 🙌",
-    "section": "Homework (480 pts)",
-    "text": "Homework (480 pts)\n\nHomework will be assigned through the course website in weekly schedule.\nD2L &gt; Assessments &gt; Dropbox and upload your homework in PDF format.\nYou must submit YOUR OWN work. 🙏\n❌ No make-up homework.\nDue Friday 11:59 PM (09/08, 09/22, 10/06, 10/27, 11/17, 12/08. Hard deadline and no late submission).\n❌ Handwriting is NOT allowed for data analysis part."
+    "section": "Attendance, Integrity, and Accommodations",
+    "text": "Attendance, Integrity, and Accommodations\n\nAttendance is required. The College of Arts and Sciences attendance policy applies.\nNo make-up exams or homework except for a university-recognized excused absence or documented emergency.\nAll students are expected to follow Marquette University’s academic-integrity standards.\nStudents needing disability-related accommodations should contact Marquette Disability Services and inform me as early as possible.\n\nSee the full syllabus for official policy language and links."
   },
   {
-    "objectID": "slides/01-syllabus.html#in-class-exam-160-pts",
-    "href": "slides/01-syllabus.html#in-class-exam-160-pts",
+    "objectID": "slides/01-syllabus.html#important-dates",
+    "href": "slides/01-syllabus.html#important-dates",
     "title": "Welcome Aboard! 🙌",
-    "section": "In-class Exam (160 pts)",
-    "text": "In-class Exam (160 pts)\n\nMidterm exam is held in class on 10/17.\n📄 One piece of letter size cheat sheet is allowed. It has to be turned-in with your in-class exam. (Or entirely open book?)\nExam covers materials in Week 1 to 7."
+    "section": "Important Dates",
+    "text": "Important Dates\n\n\n\nDate\nEvent\n\n\n\n\nAug 31\nClasses begin\n\n\nSep 8\nDrop/add ends\n\n\nOct 22–23\nFall Break\n\n\nNov 10\nIn-class exam\n\n\nNov 20\nLast day to withdraw with W\n\n\nNov 25–29\nThanksgiving Break\n\n\nDec 12\nClasses end\n\n\nDec 15, 10:30 am–12:30 pm\nFinal Project"
   },
   {
-    "objectID": "slides/01-syllabus.html#project-300-pts",
-    "href": "slides/01-syllabus.html#project-300-pts",
+    "objectID": "slides/01-syllabus.html#where-to-find-everything",
+    "href": "slides/01-syllabus.html#where-to-find-everything",
     "title": "Welcome Aboard! 🙌",
-    "section": "Project (300 pts)",
-    "text": "Project (300 pts)\n\nYou will be doing a team project.\nWhat is your project about?\nWritten report or oral presentation or both?\nHow is your projected evaluated?\nMore information will be released later.\n\n\nanalyzing real-world data using regression methods"
+    "section": "Where to Find Everything",
+    "text": "Where to Find Everything\nCourse website\nhttp://tinyurl.com/f26-4780\nUse it for\n\nlecture slides and notes,\nR examples,\nhomework assignments,\nproject information, and\ncourse updates.\n\nD2L\nUse D2L to submit homework and check grades."
   },
   {
-    "objectID": "slides/01-syllabus.html#class-participation-60-pts",
-    "href": "slides/01-syllabus.html#class-participation-60-pts",
+    "objectID": "slides/01-syllabus.html#ready-to-begin",
+    "href": "slides/01-syllabus.html#ready-to-begin",
     "title": "Welcome Aboard! 🙌",
-    "section": "Class Participation (60 pts)",
-    "text": "Class Participation (60 pts)\n\nFive minute presentation on exercise problems?\nMore details will be released later."
-  },
-  {
-    "objectID": "slides/01-syllabus.html#mssc-5780-work-200-pts",
-    "href": "slides/01-syllabus.html#mssc-5780-work-200-pts",
-    "title": "Welcome Aboard! 🙌",
-    "section": "MSSC 5780 Work (200 pts)",
-    "text": "MSSC 5780 Work (200 pts)\n\nSome extra work are for MSSC 5780 students.\n👍 MATH 4780 students are encouraged to do the MSSC problems to earn extra points!"
-  },
-  {
-    "objectID": "slides/01-syllabus.html#what-computing-language-we-use-i-teach",
-    "href": "slides/01-syllabus.html#what-computing-language-we-use-i-teach",
-    "title": "Welcome Aboard! 🙌",
-    "section": "What Computing Language We Use (I Teach)?",
-    "text": "What Computing Language We Use (I Teach)?\n\n🖖 The best language for statistical computing!\n\n\n\n#| fig-cap: ‘R Website’ - R is the best language for statistical computing. - Its code for doing regression analysis is pretty clean and concise. - You won’t regret learning R."
-  },
-  {
-    "objectID": "slides/01-syllabus.html#which-programming-language",
-    "href": "slides/01-syllabus.html#which-programming-language",
-    "title": "Welcome Aboard! 🙌",
-    "section": "Which Programming Language?",
-    "text": "Which Programming Language?\n\n✅ May use any other language (Python, MATLAB, etc) to do your work.\n❌ I would NOT debug your code or comment on your technical issues of those languages.\nIf time permitted, I’ll translate R to Python."
-  },
-  {
-    "objectID": "slides/01-syllabus.html#academic-integrity",
-    "href": "slides/01-syllabus.html#academic-integrity",
-    "title": "Welcome Aboard! 🙌",
-    "section": "Academic Integrity",
-    "text": "Academic Integrity\nThis course expects all students to follow University and College statements on academic integrity.\n\nHonor Pledge and Honor Code: I recognize the importance of personal integrity in all aspects of life and work. I commit myself to truthfulness, honor, and responsibility, by which I earn the respect of others. I support the development of good character, and commit myself to uphold the highest standards of academic integrity as an important aspect of personal integrity. My commitment obliges me to conduct myself according to the Marquette University Honor Code.\n\n\n\n❌ You know what I am talking about. Yes, DO NOT CHEAT."
+    "section": "Ready to Begin?",
+    "text": "Ready to Begin?\nBy the end of today, you should know\n\nwhat we will learn,\nhow your grade is determined,\nwhat is expected on homework and the project,\nhow R will be used, and\nwhere to find course materials.\n\nQuestions?"
   },
   {
     "objectID": "slides/12-nonpara-reg.html#nonparametric-statistics",
@@ -3323,7 +3285,7 @@
     "href": "index.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression\n🖥️01-syllabus🖥️02-overview\n\n\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review\n🖥️03-prob-stat\n📋Exercise 1 ✍️Homework 1\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR)\n🖥️04-slr\n\n\n\n\n\n\nThu, Sep 10\nSimple Linear Regression\n\n\n\n\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n📋Exercise 2\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n✍️Homework 2\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n\n\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n📋Exercise 3\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression\n\n\n✍️Homework 3\n\n\n6\nTue, Oct 6\nMatrix Algebra Review\n🖥️06-mat\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form (MSSC only)\n🖥️06-mlr-mat\n\n\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data\n🖥️07-diag-unusual\n\n\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality\n🖥️08-diag-normality\n\n\n\n\n8\nTue, Oct 20\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Constant Variance\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Linearity\n🖥️10-diag-linearity\n📋Exercise 4 ✍️Homework 4\n\n\n10\nTue, Nov 3\nDiagnostics: Lack of Fit\n\n\n\n\n\n\n\n\nThu, Nov 5\nBootstrapping and Simulation-based Inference\n🖥️11-bootstrap\n📋Exercise 5\n\n\n11\nTue, Nov 10\nPolynomial Regression\n🖥️11-poly-reg\n📋Exercise 6\n\n\n\n\nThu, Nov 12\nNonparametric Regression\n🖥️12-nonpara-reg\n📋Exercise 7 ✍️Homework 5\n\n\n12\nTue, Nov 17\nCategorical Variables\n🖥️13-cat-var\n\n\n\n\n\n\nThu, Nov 19\nCategorical Variables\n\n\n📋Exercise 8\n\n\n13\nTue, Nov 24\nCollinearity\n🖥️14-collinearity\n📋Exercise 9\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nCollinearity\n\n\n✍️Homework 6\n\n\n\n\nThu, Dec 3\nVariable Selection\n🖥️15-var-select\n📋Exercise 10 📂 Project\n\n\n15\nTue, Dec 8\nLogistic Regression\n🖥️16-logistic-reg\n📋Exercise 11\n\n\n\n\nThu, Dec 10\nLogistic Regression\n\n\n\n\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR)\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n\n\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression\n\n\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review\n🖥️06-mat\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form (MSSC only)\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data\n🖥️07-diag-unusual\n📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit\n\n\n\n\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference\n🖥️11-bootstrap\n\n\n\n\n\n\nThu, Nov 5\nPolynomial Regression\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity\n🖥️14-collinearity\n\n\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection\n\n\n📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression\n\n\n✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project",
     "crumbs": [
       "Course information",
       "Schedule"

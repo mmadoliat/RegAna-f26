@@ -129,8 +129,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/kePrint/kePrint.js"></script>
-  <link href="../site_libs/lightable/lightable.css" rel="stylesheet">
 <meta property="og:title" content="Welcome Aboard! r emo::ji('raised_hands') – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
@@ -160,625 +158,278 @@ Dr.&nbsp;Mehdi Maadooliat
 </div>
 
 </section>
-
-
 <section>
-<section id="taipei-taiwan" class="title-slide slide level1 center" data-background-image="images/01-syllabus/taiwan.jpeg" data-background-size="cover" data-background-position="50% 50%" data-background-color="#447099">
-<h1>Taipei, Taiwan</h1>
-<div class="absolute" style="bottom: 50px; right: 10px; ">
-<p><img data-src="images/01-syllabus/taiwan.svg" alt="Taiwan location" width="500"></p>
-</div>
-<aside class="notes">
-<ul>
-<li><p>Hello everyone, how are you? I hope you have a great winter break. Welcome to 3570 Introduction to Data Science course. I am your instructor Cheng-Han Yu.</p></li>
-<li><p>First thing first. Get to know each other. Let me first introduce my self. I was born and grew up in Taipei, Taiwan, my home country, which is a island right next to China. Taipei is a big city in terms of population. It is about the same population size as Chicago. This building is called Taipei 101, which is the tallest building in Taiwan.</p></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="my-journey" class="slide level2" data-background-image="images/01-syllabus/sample_gate.png" data-background-size="cover" data-background-position="50% 50%" data-background-opacity="0.3">
-<h2>My Journey</h2>
-<ul>
-<li>Assistant Professor (2020/08 - )</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/mu.svg" class="quarto-figure quarto-figure-center" style="width:20.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Postdoctoral Fellow</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/rice.png" class="quarto-figure quarto-figure-center" style="width:20.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>PhD in Statistics</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/ucsc.png" class="quarto-figure quarto-figure-center" style="width:20.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>MA in Economics/PhD program in Statistics</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/iub.png" class="quarto-figure quarto-figure-center" style="width:20.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<aside class="notes">
-<p>After college, working and doing military service for several years, I came to the US for my PhD degree. Originally I would like to study economics, but then I switched my major to statistics.</p>
-<ul>
-<li>I got my master degree in economics from Indiana University Bloomington, then I transferred to UC Santa Cruz to finish my PhD studies.</li>
-<li>Then I spent two years doing my postdoctoral research at Rice University in Houston, Texas.</li>
-<li>Finally, in fall 2020, I came to Marquette as an assistant professor.</li>
-<li>Midwest/Indiana-West/California-South/Texas-Midwest/Wisconsin</li>
-<li>Been to any one of these universities/cities?</li>
-<li>The most beautiful campus.</li>
-<li>Who are international students? I can totally understand how hard studying and living in another country. Feel free to share your stories or difficulties, and I am more than happy to help you if you have any questions.</li>
-<li>Poor listening and speaking skills. I was shy.</li>
-<li>OK so, this is my background. How about you introducing yourself as well. You can share anything, your major, hobbies, your favorite food, what do you want to do after graduation, anything,</li>
-<li>I have the class list. I’d like to learn your face and remember your name. You know, you all wear a mask. It’s hard to recognize you and connect your name and your face.</li>
-<li>When I call your name, you can say something about yourself. No need to be long, couple of seconds are good.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="my-research" class="slide level2">
-<h2>My Research</h2>
-<ul>
-<li>Bayesian spatio-temporal modeling and machine learning algorithms in neuroimaging</li>
-<li>Bayesian Deep Learning for image classification</li>
-<li>Efficient MCMC for big <span class="math inline">\(n\)</span> big <span class="math inline">\(p\)</span> streaming data</li>
-<li>Game-based learning for STEM and data science education</li>
-</ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>fMRI</strong></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/activate.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p><strong>EEG</strong></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/eeg.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="how-to-reach-me" class="slide level2">
-<h2>How to Reach Me</h2>
-<ul>
-<li>Office hours <strong>TuTh 3:20 - 4:50 PM</strong> in <strong>Cudahy Hall 353</strong>.</li>
-<li>📧 <a href="mailto:cheng-han.yu@marquette.edu" class="email">cheng-han.yu@marquette.edu</a>
-<ul>
-<li>Answer questions within 24 hours.</li>
-<li>Expect a reply on <strong>Monday</strong> if shoot me a message <strong>on weekends</strong>.</li>
-<li>Start your subject line with <strong>[math4780]</strong> or <strong>[mssc5780]</strong> followed by a <strong>clear description of your question</strong>.</li>
-</ul></li>
-</ul>
 
-<img data-src="./images/01-syllabus/email.png" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%"><ul>
-<li>I will <strong>NOT</strong> reply your e-mail if … <strong>Check the email policy in the <a href="https://math4780-f23.github.io/website/course-syllabus.html">syllabus</a></strong>!</li>
+<section id="welcome" class="slide level2">
+<h2>Welcome</h2>
+<h3 id="math-4780-mssc-5780-regression-analysis">MATH 4780 / MSSC 5780: Regression Analysis</h3>
+<p><strong>Fall 2026</strong></p>
+<p><strong>Instructor:</strong> Mehdi Maadooliat, Ph.D.<br>
+<strong>Course website:</strong> <a href="http://tinyurl.com/f26-4780" class="uri">http://tinyurl.com/f26-4780</a></p>
+<p>Today: course expectations, grading, logistics, and how we will work with <strong>R</strong>.</p>
+</section>
+<section id="course-at-a-glance" class="slide level2">
+<h2>Course at a Glance</h2>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td><strong>Meeting</strong></td>
+<td>TuTh, 12:30–1:45 pm</td>
+</tr>
+<tr class="even">
+<td><strong>Location</strong></td>
+<td>Cudahy Hall 131</td>
+</tr>
+<tr class="odd">
+<td><strong>Office</strong></td>
+<td>CU 351</td>
+</tr>
+<tr class="even">
+<td><strong>Office hours</strong></td>
+<td>Tu 1:45–3:15 pm; Th 10:45 am–12:15 pm</td>
+</tr>
+<tr class="odd">
+<td><strong>Course website</strong></td>
+<td><a href="http://tinyurl.com/f26-4780" class="uri">http://tinyurl.com/f26-4780</a></td>
+</tr>
+</tbody>
+</table>
+<p>Microsoft Teams may be used when needed.</p>
+</section>
+<section id="what-is-this-course-about" class="slide level2">
+<h2>What Is This Course About?</h2>
+<p>Regression helps us understand and quantify relationships between variables.</p>
+<p>By the end of the course, you should be able to</p>
+<ul>
+<li>fit and interpret linear regression models,</li>
+<li>make statistical inferences and predictions,</li>
+<li>diagnose violations of model assumptions,</li>
+<li>identify influential observations and multicollinearity,</li>
+<li>select and compare useful models, and</li>
+<li>analyze and communicate results using <strong>R</strong>.</li>
 </ul>
 </section>
-<section id="textbook-lra" class="slide level2">
-<h2>Textbook (LRA)</h2>
+<section id="main-topics" class="slide level2">
+<h2>Main Topics</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><a href="https://www.wiley.com/en-us/Introduction+to+Linear+Regression+Analysis%2C+6th+Edition-p-9781119578727"><em>Introduction to Linear Regression Analysis, 6th edition</em></a>, by D. C. Montgomery, E. A. Peck and G. G. Vining. Publisher: Wiley. <!-- - The 5th edition is sufficient. --></li>
-<li>Ch 1 ~ 10, 13.</li>
-<li>Careful about typos.</li>
+<li>Simple linear regression</li>
+<li>Multiple linear regression</li>
+<li>Least squares and matrix formulation</li>
+<li>Estimation and inference</li>
+<li>Prediction</li>
+<li>Analysis of variance</li>
 </ul>
-<p>In the Preface,</p>
-<blockquote>
-<p><em>The book … for a course taken by seniors and 1st-year graduate students….</em></p>
-</blockquote>
-<blockquote>
-<p><em>Some knowledge of matrix algebra is also necessary.</em></p>
-</blockquote>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/reg_book.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<aside class="notes">
 <ul>
-<li><p>Course materials are grabbed from several books and resources.</p></li>
-<li><p>Our <a href="https://math4780-f23.github.io/website">course website</a> would be helpful.</p></li>
+<li>Residual diagnostics</li>
+<li>Transformations</li>
+<li>Polynomial and categorical predictors</li>
+<li>Outliers, leverage, and influence</li>
+<li>Multicollinearity</li>
+<li>Model selection and validation</li>
 </ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+</div></div>
 </section>
-<section id="reference-cmr" class="slide level2">
-<h2>Reference (CMR)</h2>
+<section id="textbook-and-computing" class="slide level2">
+<h2>Textbook and Computing</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:55%;">
+<h3 id="main-textbook">Main textbook</h3>
+<p><strong>Montgomery, Peck, and Vining</strong><br>
+<em>Introduction to Linear Regression Analysis</em><br>
+6th edition, Wiley, 2021</p>
+<p>The textbook is our main reference. Slides, examples, and additional material will be provided through the course website.</p>
+</div><div class="column" style="width:45%;">
+<h3 id="computing">Computing</h3>
+<p>We will use <strong>R</strong> for</p>
 <ul>
-<li><a href="https://www.amazon.com/Classical-Regression-Applications-Duxbury-Classic/dp/0534380166/ref=pd_lpo_14_t_0/135-5067421-1903413?_encoding=UTF8&amp;pd_rd_i=0534380166&amp;pd_rd_r=03ae154d-b095-4e98-9a72-e3dc30666c1f&amp;pd_rd_w=tDw1K&amp;pd_rd_wg=OIjNY&amp;pf_rd_p=3b5203d9-bdd0-47f6-97e5-387010fc3251&amp;pf_rd_r=PY1Q3JBBS4PS1M7D7DZF&amp;psc=1&amp;refRID=PY1Q3JBBS4PS1M7D7DZF"><em>Classical and Modern Regression with Applications</em></a>, by Raymond Myers. Publisher: Duxbury Press.</li>
-<li>Ch 1 ~ 8.</li>
-<li>The textbook when I was a master student at Indiana University.</li>
-<li>Outdated (published in 1990) and no code involved.</li>
-<li>Explains concepts well.</li>
+<li>data analysis,</li>
+<li>visualization,</li>
+<li>regression modeling, and</li>
+<li>diagnostics.</li>
 </ul>
-<p>In the Preface,</p>
-<blockquote>
-<p><em>The book … for seniors and graduate students majoring in statistics or user subject-matter fields.</em></p>
-</blockquote>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/myers_book.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>For data-analysis work, include relevant <strong>code, output, and interpretation</strong>.</p>
 </div></div>
-<aside class="notes">
-<ul>
-<li>I also provide some other reference books. They are all optional, but some course materials may borrow from these books.</li>
-<li>It’s a pretty old book which was published in 1990. So it’s a little bit outdated. But it explains basic ideas and concepts pretty well. I enjoyed reading it.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="reference-car" class="slide level2">
-<h2>Reference (CAR)</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><a href="https://us.sagepub.com/en-us/nam/an-r-companion-to-applied-regression/book246125"><em>An R Companion to Applied Regression</em></a>, by John Fox and Sanford Weisberg. Publisher: SAGE.</li>
-<li>Ch 3, 5, 8.</li>
-<li>R scripts and data on the <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/">book Website</a></li>
-<li>Doing regression easier by the <strong>car</strong> and <strong>effects</strong> R packages.</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/car_pkg.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/car.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<aside class="notes">
-<ul>
-<li>If you wanna learn how to use R to do regression, this book could be helpful.</li>
-<li>The authors create 2 R packages car and effects that make doing regression so much easier.</li>
-<li>Later you’ll see we can just use some simple function calls to generate some important and useful graphics for regression analysis.</li>
-</ul>
-<p>John Fox received a BA from the City College of New York and a PhD from the University of Michigan, both in Sociology. Sanford Weisberg is Professor Emeritus of statistics at the University of Minnesota. He has also served as the director of the University′s Statistical Consulting Service, and has worked with hundreds of social scientists and others on the statistical aspects of their research. He earned a BA in statistics from the University of California, Berkeley, and a Ph.D., also in statistics, from Harvard University</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="reference-isl" class="slide level2">
-<h2>Reference (ISL)</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><a href="https://www.statlearning.com/"><em>An Introduction to Statistical Learning</em></a>, by James et. al.&nbsp;Publisher: Springer.</li>
-<li>Ch 3.</li>
-<li>R and Python code</li>
-</ul>
-<p>In the Preface,</p>
-<blockquote>
-<p><em>ISL … for advanced undergraduates or master’s students in Statistics or related quantitative fields……</em></p>
-</blockquote>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/01-syllabus/isl.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="more-references" class="slide level2">
-<h2>More References</h2>
-<ul>
-<li><p><a href="https://www.john-fox.ca/AppliedRegression/index.html">Applied Regression Analysis and Generalized Linear Models</a></p></li>
-<li><p><a href="https://www.stat.purdue.edu/~qfsong/teaching/525/book/Weisberg-Applied-Linear-Regression-Wiley.pdf">Applied Linear Regression</a></p></li>
-<li><p><a href="https://julianfaraway.github.io/faraway/LMR/">Linear Models with R/Python</a></p></li>
-<li><p><a href="https://users.stat.ufl.edu/~winner/sta4211/ALSM_5Ed_Kutner.pdf">Applied Linear Statistical Models</a></p></li>
-<li><p><a href="https://socialsciences.mcmaster.ca/jfox/Books/RegressionDiagnostics/index.html">Regression Daignostics</a></p></li>
-</ul>
-<p>and more!</p>
 </section>
 <section id="prerequisites" class="slide level2">
 <h2>Prerequisites</h2>
+<p><strong>Formal prerequisite</strong></p>
 <ul>
-<li>On bulletin: MATH 2780 (Baby Regression), MATH 4720 (Intro Stats) or equivalent.</li>
+<li>MATH 2780, or MATH 4720</li>
 </ul>
-<div class="fragment">
-<p>Helpful if you</p>
+<p><strong>Helpful background</strong></p>
 <ul>
-<li>code (any language) 💻</li>
+<li>basic statistics,</li>
+<li>some familiarity with R,</li>
+<li>basic matrix algebra.</li>
 </ul>
-</div>
-<div class="fragment">
-<ul>
-<li>learned basic linear algebra (MATH 3100) 🔢</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>took probability (MATH 4700) and statistical inference (MATH 4710) 🎲</li>
-</ul>
-<aside class="notes">
-<ul>
-<li>On the Marquette bulletin, the prerequisite is either MATH 2780 or MATH 4720 or equivalent.</li>
-<li>But this course requires more than basic statistics experience.</li>
-<li>Nowadays, nobody is doing regression by hand, and we will write some code to do regression. So it would be helpful if you code any language before.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
+<p>Necessary computational and matrix concepts will be reviewed as needed.</p>
 </section>
-<section id="my-statistics-book" class="slide level2">
-<h2><a href="https://chenghanyu-introstatsbook.netlify.app/">My Statistics Book</a></h2>
-<ul>
-<li>Please review probability distributions, confidence interval, and hypothesis testing!</li>
-</ul>
-
-<img data-src="./images/01-syllabus/introstats.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="course-website---httpsmath4780-f23.github.iowebsite" class="slide level2">
-<h2>Course Website - <a href="https://math4780-f23.github.io/website/" class="uri">https://math4780-f23.github.io/website/</a></h2>
-<ul>
-<li>All course materials</li>
-</ul>
-
-<img data-src="./images/01-syllabus/website.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
-<section id="course-website---d2l" class="slide level2">
-<h2>Course Website - <a href="https://d2l.mu.edu/d2l/home/525088">D2L</a></h2>
-<ul>
-<li>Homework submission</li>
-<li>Gradebook</li>
-</ul>
-
-<img data-src="./images/01-syllabus/d2l_4780.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="grading-policy" class="slide level2">
-<h2>Grading Policy ✨</h2>
-<ul>
-<li>For MATH 4780 (MSSC 5780) students, the grade is earned out of <strong>1000 (1200) total points</strong> distributed as follows:
-<ul>
-<li><strong>Homework 1 to 6: 480 pts (80 pts each)</strong></li>
-<li><strong>In-class Exam: 160 pts</strong></li>
-<li><strong>Final project: 300 pts</strong></li>
-<li><strong>Class Participation: 60 pts</strong></li>
-<li><strong>MSSC 5780 work: 200 pts</strong></li>
-</ul></li>
-<li>❌ No extra credit projects/homework/exam to compensate for a poor grade.</li>
-<li>Individual grade will <strong>NOT</strong> be curved.</li>
-<li>Want to obtain a good grade? Study hard. No pain, no gain! ✍ ✍</li>
-</ul>
-<aside class="notes">
-<ul>
-<li>Everyone has the same opportunity to do well in this class.</li>
-<li>4780 students are encouraged to do MSSC problems: Up to <strong>100 pts</strong> extra credit.</li>
-<li>I am not a harsh grader, but this is not an easy A course as well.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="grade-percentage-conversion" class="slide level2">
-<h2>Grade-Percentage Conversion</h2>
-<ul>
-<li><p><span class="math inline">\([x, y)\)</span> means greater than or equal to <span class="math inline">\(x\)</span> and less than <span class="math inline">\(y\)</span>.</p></li>
-<li><p>For example, 94.0 is in [94, 100] and the grade is A and 93.8 is in [90, 94) and the grade is A-.</p></li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="table caption-top" style="font-size: 35px; margin-left: auto; margin-right: auto;">
+<section id="how-your-grade-is-determined" class="slide level2">
+<h2>How Your Grade Is Determined</h2>
+<table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Grade</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Percentage</th>
+<th>Component</th>
+<th style="text-align: right;">Weight</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">[94, 100]</td>
+<td>Homework</td>
+<td style="text-align: right;">30%</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">A-</td>
-<td style="text-align: left;">[90, 94)</td>
+<td>In-class exam</td>
+<td style="text-align: right;">30%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">B+</td>
-<td style="text-align: left;">[87, 90)</td>
+<td>Final project</td>
+<td style="text-align: right;">30%</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">B</td>
-<td style="text-align: left;">[84, 87)</td>
+<td>Best of the three categories above</td>
+<td style="text-align: right;">10%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">B-</td>
-<td style="text-align: left;">[80, 84)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">C+</td>
-<td style="text-align: left;">[77, 80)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">C</td>
-<td style="text-align: left;">[74, 77)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">C-</td>
-<td style="text-align: left;">[70, 74)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">D+</td>
-<td style="text-align: left;">[65, 70)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">[60, 65)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: left;">[0, 60)</td>
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100%</strong></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+<p>The final 10% is based on your <strong>highest percentage</strong> among Homework, the In-class Exam, and the Final Project.</p>
+<p>The complete letter-grade scale is listed in the syllabus.</p>
 </section>
-<section id="homework-480-pts" class="slide level2">
-<h2>Homework (480 pts)</h2>
+<section id="homework-and-mssc-5780" class="slide level2">
+<h2>Homework and MSSC 5780</h2>
+<h3 id="homework">Homework</h3>
 <ul>
-<li><p>Homework will be assigned through the <a href="https://math4780-f23.github.io/website/">course website in weekly schedule</a>.</p></li>
-<li><p><strong>D2L &gt; Assessments &gt; Dropbox</strong> and upload your homework in <strong>PDF</strong> format.</p></li>
-<li><p>You must submit YOUR OWN work. 🙏</p></li>
-<li><p>❌ <strong>No make-up homework</strong>.</p></li>
-<li><p>Due <strong>Friday 11:59 PM</strong> (<strong>09/08, 09/22, 10/06, 10/27, 11/17, 12/08. Hard deadline and no late submission</strong>).</p></li>
-<li><p>❌ <strong>Handwriting is NOT allowed</strong> for data analysis part.</p></li>
+<li>Submit homework to <strong>D2L</strong> as a readable PDF.</li>
+<li><strong>No late homework</strong> will be accepted.</li>
+<li><strong>Lowest grade homework assignment will be dropped.</strong></li>
+<li>Submit incomplete work rather than missing the deadline.</li>
+<li>For data-analysis problems, include relevant R code, output, and interpretation.</li>
 </ul>
+<h3 id="mssc-5780">MSSC 5780</h3>
+<p>Graduate students will complete <strong>additional or more advanced work</strong> on selected homework assignments, the exam, and/or the final project.</p>
 </section>
-<section id="in-class-exam-160-pts" class="slide level2">
-<h2>In-class Exam (160 pts)</h2>
+<section id="in-class-exam" class="slide level2">
+<h2>In-Class Exam</h2>
+<h3 id="tuesday-november-10">Tuesday, November 10</h3>
 <ul>
-<li><p>Midterm exam is held in class on <strong>10/17</strong>.</p></li>
-<li><p>📄 One piece of <strong>letter size</strong> cheat sheet is allowed. It has to be turned-in with your in-class exam. (Or entirely open book?)</p></li>
-<li><p>Exam covers materials in <strong>Week 1 to 7</strong>.</p></li>
+<li><strong>70 minutes</strong></li>
+<li>Covers material discussed in class, homework, and course notes</li>
+<li>No make-up exam except for a university-recognized excused absence or documented emergency</li>
 </ul>
+<p>MSSC 5780 students may have additional or more advanced questions.</p>
 </section>
-<section id="project-300-pts" class="slide level2">
-<h2>Project (300 pts)</h2>
+<section id="final-project" class="slide level2">
+<h2>Final Project</h2>
+<h3 id="tuesday-december-15-1030-am1230-pm">Tuesday, December 15 · 10:30 am–12:30 pm</h3>
+<p>The project will emphasize your ability to</p>
 <ul>
-<li><p>You will be doing a <em>team</em> project.</p></li>
-<li><p>What is your project about?</p></li>
-<li><p>Written report or oral presentation or both?</p></li>
-<li><p>How is your projected evaluated?</p></li>
-<li><p>More information will be released later.</p></li>
+<li>apply regression methods to real data,</li>
+<li>choose and justify an appropriate model,</li>
+<li>assess assumptions and diagnostics,</li>
+<li>interpret results, and</li>
+<li>communicate conclusions clearly.</li>
 </ul>
-<aside class="notes">
-<p>analyzing real-world data using regression methods</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>Detailed project instructions will be provided later.</p>
 </section>
-<section id="class-participation-60-pts" class="slide level2">
-<h2>Class Participation (60 pts)</h2>
+<section id="generative-ai" class="slide level2">
+<h2>Generative AI</h2>
+<p>Generative AI tools such as ChatGPT may be used for <strong>clarification, coding assistance, and take-home work</strong>, unless otherwise stated.</p>
+<p>If you use GenAI:</p>
 <ul>
-<li><p>Five minute presentation on exercise problems?</p></li>
-<li><p>More details will be released later.</p></li>
+<li>you remain responsible for the correctness of your work,</li>
+<li>you must understand and be able to explain what you submit, and</li>
+<li>substantive use of GenAI must be disclosed.</li>
 </ul>
+<p><strong>GenAI is not permitted during the in-class exam unless explicitly authorized.</strong></p>
 </section>
-<section id="mssc-5780-work-200-pts" class="slide level2">
-<h2>MSSC 5780 Work (200 pts)</h2>
+<section id="attendance-integrity-and-accommodations" class="slide level2">
+<h2>Attendance, Integrity, and Accommodations</h2>
 <ul>
-<li>Some extra work are for MSSC 5780 students.</li>
-<li>👍 MATH 4780 students are encouraged to do the MSSC problems to earn extra points!</li>
+<li><strong>Attendance is required.</strong> The College of Arts and Sciences attendance policy applies.</li>
+<li>No make-up exams or homework except for a university-recognized excused absence or documented emergency.</li>
+<li>All students are expected to follow Marquette University’s <strong>academic-integrity</strong> standards.</li>
+<li>Students needing disability-related accommodations should contact <strong>Marquette Disability Services</strong> and inform me as early as possible.</li>
 </ul>
+<p>See the full syllabus for official policy language and links.</p>
 </section>
-<section id="what-computing-language-we-use-i-teach" class="slide level2">
-<h2>What Computing Language We Use (I Teach)?</h2>
-<ul>
-<li>🖖 The best language for statistical computing!</li>
-</ul>
-
-<img data-src="./images/01-syllabus/Rlogo.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><aside class="notes">
-<p>#| fig-cap: ‘<a href="https://www.r-project.org/">R Website</a>’ - R is the best language for statistical computing. - Its code for doing regression analysis is pretty clean and concise. - You won’t regret learning R.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<section id="important-dates" class="slide level2">
+<h2>Important Dates</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Aug 31</strong></td>
+<td>Classes begin</td>
+</tr>
+<tr class="even">
+<td><strong>Sep 8</strong></td>
+<td>Drop/add ends</td>
+</tr>
+<tr class="odd">
+<td><strong>Oct 22–23</strong></td>
+<td>Fall Break</td>
+</tr>
+<tr class="even">
+<td><strong>Nov 10</strong></td>
+<td>In-class exam</td>
+</tr>
+<tr class="odd">
+<td><strong>Nov 20</strong></td>
+<td>Last day to withdraw with W</td>
+</tr>
+<tr class="even">
+<td><strong>Nov 25–29</strong></td>
+<td>Thanksgiving Break</td>
+</tr>
+<tr class="odd">
+<td><strong>Dec 12</strong></td>
+<td>Classes end</td>
+</tr>
+<tr class="even">
+<td><strong>Dec 15, 10:30 am–12:30 pm</strong></td>
+<td>Final Project</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="which-programming-language" class="slide level2">
-<h2>Which Programming Language?</h2>
+<section id="where-to-find-everything" class="slide level2">
+<h2>Where to Find Everything</h2>
+<h3 id="course-website">Course website</h3>
+<p><a href="http://tinyurl.com/f26-4780" class="uri">http://tinyurl.com/f26-4780</a></p>
+<p>Use it for</p>
 <ul>
-<li><p>✅ May use <em>any other</em> language (Python, MATLAB, etc) to do your work.</p></li>
-<li><p>❌ I would NOT debug your code or comment on your technical issues of those languages.</p></li>
-<li><p>If time permitted, I’ll translate R to Python.</p></li>
+<li>lecture slides and notes,</li>
+<li>R examples,</li>
+<li>homework assignments,</li>
+<li>project information, and</li>
+<li>course updates.</li>
 </ul>
-<div class="columns">
-<div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Julia_Programming_Language_Logo.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
+<h3 id="d2l">D2L</h3>
+<p>Use D2L to <strong>submit homework</strong> and <strong>check grades</strong>.</p>
 </section>
-<section id="academic-integrity" class="slide level2">
-<h2>Academic Integrity</h2>
-<p>This course expects all students to follow University and College statements on <a href="https://bulletin.marquette.edu/undergrad/academicregulations/">academic integrity</a>.</p>
+<section id="ready-to-begin" class="slide level2">
+<h2>Ready to Begin?</h2>
+<p>By the end of today, you should know</p>
 <ul>
-<li><strong>Honor Pledge and Honor Code</strong>: <em>I recognize the importance of personal integrity in all aspects of life and work. I commit myself to truthfulness, honor, and responsibility, by which I earn the respect of others. I support the development of good character, and commit myself to uphold the highest standards of academic integrity as an important aspect of personal integrity. My commitment obliges me to conduct myself according to the Marquette University Honor Code</em>.</li>
+<li>what we will learn,</li>
+<li>how your grade is determined,</li>
+<li>what is expected on homework and the project,</li>
+<li>how R will be used, and</li>
+<li>where to find course materials.</li>
 </ul>
-<aside class="notes">
-<ul>
-<li>❌ You know what I am talking about. Yes, <strong>DO NOT CHEAT</strong>.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<h3 id="questions">Questions?</h3>
 
 
 </section></section>
