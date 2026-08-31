@@ -88,7 +88,7 @@ You will **NOT** be allowed any extra credit projects to compensate for a poor a
 - You can scan your homework and submit it as a PDF, but ensure it is readable. 
 - For data-analysis problems, relevant R code and output should be included with the submitted work. Computational results should be clearly organized and accompanied by appropriate interpretation.
 
-## Generative AI ()
+## Generative AI
 Generative AI tools such as ChatGPT may be used for clarification, coding assistance, and take-home work unless otherwise stated. Students remain fully responsible for the correctness and interpretation of all submitted work and must disclose substantive use of generative AI. Generative AI is not permitted during the in-class exam.
 
 ## Attendance Policy
