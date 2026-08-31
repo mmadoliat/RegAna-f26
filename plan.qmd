@@ -20,7 +20,7 @@ d <- read_sheet("https://docs.google.com/spreadsheets/d/1QNIrOsYO-phOMvbHSEu4Qly
 ```{r}
 #| echo: false
 
-d[d$date < max(today()+21, as.Date("2026-09-01")),] |>
+d[d$date < max(today()+21, as.Date("2027-09-01")),] |>
   #filter(!is.na(session)) |>
   select(-dow, -session, -prepare) |>
   mutate(date = as.Date(date)) |>
