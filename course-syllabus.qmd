@@ -9,7 +9,7 @@ format:
 
 **Course Title:** MATH 4780/MSSC 5780: Regression Analysis\
 **Meeting Time:** TuTh 12:30pm - 1:45pm\
-**Location:** Cudahy Hall 131 (Microsoft Teams)\
+**Location:** Cudahy Hall 131 (Microsoft Teams - if needed)\
 **Website:** <http://tinyurl.com/f26-4780>
 
 ## Instructor Details
@@ -25,18 +25,20 @@ This course introduces the theory and application of linear regression for analy
 ## Course Topics
 
 - Simple and multiple linear regression
+- Least-squares estimation and matrix formulation of regression
 - Estimation, inference, and prediction
 - Model interpretation and analysis of variance
 - Regression diagnostics and residual analysis
 - Transformations and remedial measures
-- Polynomial and categorical predictors
+- Polynomial, categorical, and interaction effects
 - Outliers, leverage, and influential observations
-- Multicollinearity and model selection
+- Multicollinearity, model selection, and model validation
 - Regression analysis, visualization, and reporting using R
 
 ## Prerequisites
 
 - MATH 2780, or MATH 4720
+- Some familiarity with R and basic matrix algebra is helpful but not required. Necessary computational and matrix concepts will be introduced as needed.
 
 ## Textbook
 
@@ -51,7 +53,7 @@ This course introduces the theory and application of linear regression for analy
 - **Final Project**: 30%
 - **Best of three**: 10%
 
-For students in MSSC 5780, there will be extra questions in Homework and/or Exam
+Students enrolled in MSSC 5780 will complete additional or more advanced work on selected homework assignments, the exam, and/or the final project.
 
 You will **NOT** be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:
 
@@ -72,16 +74,22 @@ You will **NOT** be allowed any extra credit projects to compensate for a poor a
 | D-    | 60.0 - 63.5 |
 | F     | below 60.0  |
 
-**Note:** No late homework will be accepted, and no make-up work will be allowed unless in the case of an emergency. Submit incomplete work if necessary, but ensure scanned PDFs are legible before submission.
+**Note:** No late homework will be accepted, and no make-up work will be allowed unless in the case of a university-recognized excused absence/documented emergency. Submit incomplete work if necessary, but ensure scanned PDFs are legible before submission.
 
 # Exam Dates
 
-- **In class Exam**: Oct 20th (70 minutes long)
+- **In class Exam**: Nov 10th (70 minutes long)
 - **Final Project**: Dec 15th from 10:30 am to 12:30 pm
 
 ## Homework Policy
 
-Homework is required for a better understanding of the material and must be submitted to D2L. No late homework will be accepted, and two homework assignments will be dropped. It is recommended to submit even incomplete work. You can scan your homework and submit it as a PDF, but ensure it is readable.
+- Homework is required for a better understanding of the material and must be submitted to D2L. 
+- No late homework will be accepted, and the lowest homework assignments grade will be dropped. It is recommended to submit even incomplete work. 
+- You can scan your homework and submit it as a PDF, but ensure it is readable. 
+- For data-analysis problems, relevant R code and output should be included with the submitted work. Computational results should be clearly organized and accompanied by appropriate interpretation.
+
+## Generative AI ()
+Generative AI tools such as ChatGPT may be used for clarification, coding assistance, and take-home work unless otherwise stated. Students remain fully responsible for the correctness and interpretation of all submitted work and must disclose substantive use of generative AI. Generative AI is not permitted during the in-class exam.
 
 ## Attendance Policy
 
@@ -89,7 +97,7 @@ Attendance is required, and the [College of Arts and Sciences attendance policy]
 
 ## Make-up Policy
 
-There will be no make-up exams or homework unless there is an emergency.
+There will be no make-up exams or homework unless there is a university-recognized excused absence/documented emergency
 
 ## Honor Code
 
@@ -104,9 +112,9 @@ Marquette University Honor Code:\
 - **Friday, November 20:** Last day to withdraw with W
 - **Wednesday - Sunday, November 25 - 29**: Thanksgiving Break
 - **Saturday, December 12**: Classes end
-- **Wednesday, December 15th, 10:30 am - 12:30 pm**: Final Project
+- **Tuesday, December 15th, 10:30 am - 12:30 pm**: Final Project
 
-For more important dates, see the full [MU Academic Calendar](https://www.marquette.edu/central/registrar/2025-spring-academic-calendar.php).
+For more important dates, see the full [MU Academic Calendar](https://www.marquette.edu/central/registrar/2026-fall-academic-calendar.php).
 
 ## Important Note
 
