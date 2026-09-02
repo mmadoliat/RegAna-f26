@@ -9,7 +9,7 @@ format:
 
 **Course Title:** MATH 4780/MSSC 5780: Regression Analysis\
 **Meeting Time:** TuTh 12:30pm - 1:45pm\
-**Location:** Cudahy Hall 131 (Microsoft Teams - if needed)\
+**Location:** Cudahy Hall 131 ([Microsoft Teams](https://teams.microsoft.com/meet/223091215458965?p=ICKnEKkWH7SNPs490N) - if needed)\
 **Website:** <http://tinyurl.com/f26-4780>
 
 ## Instructor Details
@@ -35,6 +35,31 @@ This course introduces the theory and application of linear regression for analy
 - Multicollinearity, model selection, and model validation
 - Regression analysis, visualization, and reporting using R
 
+## Learning Outcomes
+
+By the end of the course, students will be able to:
+
+- Fit and interpret simple and multiple linear regression models.
+- Apply least-squares estimation and use the matrix formulation of linear regression.
+- Perform estimation, hypothesis testing, confidence interval construction, and prediction for regression models.
+- Interpret regression coefficients and use analysis of variance to assess regression models.
+- Evaluate regression assumptions using residual analysis and diagnostic methods.
+- Apply appropriate transformations and remedial measures when model assumptions are not satisfied.
+- Model polynomial effects, categorical predictors, and interaction effects.
+- Identify and assess outliers, leverage points, and influential observations.
+- Diagnose multicollinearity and apply appropriate model-selection and validation techniques.
+- Use R to conduct regression analyses, visualize results, and communicate statistical findings effectively.
+
+### Additional Learning Outcomes for MSSC 5780
+
+In addition to the learning outcomes above, students enrolled in MSSC 5780 will be expected to:
+
+- Demonstrate a deeper theoretical understanding of regression methods and their assumptions.
+- Work with more advanced regression problems requiring greater mathematical and statistical reasoning.
+- Critically evaluate alternative modeling strategies and justify model-selection decisions.
+- Conduct more extensive independent data analysis and interpretation using R.
+- Communicate regression methodology and results at a level appropriate for graduate study.
+
 ## Prerequisites
 
 - MATH 2780, or MATH 4720
@@ -53,7 +78,8 @@ This course introduces the theory and application of linear regression for analy
 - **Final Project**: 30%
 - **Best of three**: 10%
 
-Students enrolled in MSSC 5780 will complete additional or more advanced work on selected homework assignments, the exam, and/or the final project.
+Students enrolled in MSSC 5780 will complete additional or more advanced work on selected homework assignments, the in-class exam, and/or the final project. These additional requirements are designed to assess the graduate-level learning outcomes described above.
+
 
 You will **NOT** be allowed any extra credit projects to compensate for a poor average. The final grade is based on the following scale:
 
@@ -84,7 +110,7 @@ You will **NOT** be allowed any extra credit projects to compensate for a poor a
 ## Homework Policy
 
 - Homework is required for a better understanding of the material and must be submitted to D2L. 
-- No late homework will be accepted, and the lowest homework assignments grade will be dropped. It is recommended to submit even incomplete work. 
+- No late homework will be accepted, and the lowest homework assignment grade will be dropped. It is recommended to submit even incomplete work. 
 - You can scan your homework and submit it as a PDF, but ensure it is readable. 
 - For data-analysis problems, relevant R code and output should be included with the submitted work. Computational results should be clearly organized and accompanied by appropriate interpretation.
 
