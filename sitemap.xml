@@ -2,106 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tinyurl.com/f26-4780/computing/computing-cheatsheets.html</loc>
-    <lastmod>2026-09-03T17:09:41.194Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/about.html</loc>
-    <lastmod>2026-09-03T17:09:41.181Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/01-syllabus.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/09-diag-const-var.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/04-slr.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/05-mlr.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/08-diag-normality.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/07-diag-unusual.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/15-var-select.html</loc>
-    <lastmod>2026-09-03T17:09:41.205Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/02-overview.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/03-prob-stat.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/course-overview.html</loc>
-    <lastmod>2026-09-03T17:09:41.195Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/plan.html</loc>
-    <lastmod>2026-09-03T17:09:41.200Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/index.html</loc>
-    <lastmod>2026-09-03T17:09:41.200Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/course-links.html</loc>
-    <lastmod>2026-09-03T17:09:41.195Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.555Z</lastmod>
   </url>
   <url>
     <loc>https://tinyurl.com/f26-4780/course-syllabus.html</loc>
-    <lastmod>2026-09-03T17:09:41.195Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.556Z</lastmod>
   </url>
   <url>
-    <loc>https://tinyurl.com/f26-4780/slides/14-collinearity.html</loc>
-    <lastmod>2026-09-03T17:09:41.205Z</lastmod>
+    <loc>https://tinyurl.com/f26-4780/index.html</loc>
+    <lastmod>2026-09-03T19:05:19.561Z</lastmod>
   </url>
   <url>
-    <loc>https://tinyurl.com/f26-4780/slides/06-mat.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
+    <loc>https://tinyurl.com/f26-4780/plan.html</loc>
+    <lastmod>2026-09-03T19:05:19.561Z</lastmod>
   </url>
   <url>
-    <loc>https://tinyurl.com/f26-4780/slides/11-poly-reg.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
+    <loc>https://tinyurl.com/f26-4780/slides/03-prob-stat.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
   </url>
   <url>
-    <loc>https://tinyurl.com/f26-4780/slides/06-mlr-mat.html</loc>
-    <lastmod>2026-09-03T17:09:41.203Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tinyurl.com/f26-4780/slides/16-logistic-reg.html</loc>
-    <lastmod>2026-09-03T17:09:41.205Z</lastmod>
+    <loc>https://tinyurl.com/f26-4780/slides/09-diag-const-var.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
   </url>
   <url>
     <loc>https://tinyurl.com/f26-4780/slides/10-diag-linearity.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
   </url>
   <url>
     <loc>https://tinyurl.com/f26-4780/slides/13-cat-var.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/14-collinearity.html</loc>
+    <lastmod>2026-09-03T19:05:19.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/16-logistic-reg.html</loc>
+    <lastmod>2026-09-03T19:05:19.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/11-poly-reg.html</loc>
+    <lastmod>2026-09-03T19:05:19.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/02-overview.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/06-mlr-mat.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
   </url>
   <url>
     <loc>https://tinyurl.com/f26-4780/slides/11-bootstrap.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/05-mlr.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/04-slr.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/15-var-select.html</loc>
+    <lastmod>2026-09-03T19:05:19.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/08-diag-normality.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/07-diag-unusual.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/06-mat.html</loc>
+    <lastmod>2026-09-03T19:05:19.565Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/slides/01-syllabus.html</loc>
+    <lastmod>2026-09-03T19:05:19.564Z</lastmod>
   </url>
   <url>
     <loc>https://tinyurl.com/f26-4780/slides/12-nonpara-reg.html</loc>
-    <lastmod>2026-09-03T17:09:41.204Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/about.html</loc>
+    <lastmod>2026-09-03T19:05:19.540Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/course-links.html</loc>
+    <lastmod>2026-09-03T19:05:19.556Z</lastmod>
   </url>
   <url>
     <loc>https://tinyurl.com/f26-4780/hw/hw-1.html</loc>
-    <lastmod>2026-09-03T17:09:41.195Z</lastmod>
+    <lastmod>2026-09-03T19:05:19.556Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tinyurl.com/f26-4780/course-overview.html</loc>
+    <lastmod>2026-09-03T19:05:19.556Z</lastmod>
   </url>
 </urlset>
