@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R cheatsheets – MATH 4780 (MSSC 5780)</title>
+<title>Homework 1 - Probability and Statistics Review – MATH 4780 (MSSC 5780)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -35,7 +35,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../course-links.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -78,17 +77,42 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<meta property="og:title" content="R cheatsheets – MATH 4780 (MSSC 5780)">
-<meta property="og:description" content="Homepage for ‘Regression Analysis’ at Marquette University, Fall 2026.">
-<meta property="og:image" content="https://tinyurl.com/f26-4780/computing/cheatsheets/data-visualization.png">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Homework 1 - Probability and Statistics Review – MATH 4780 (MSSC 5780)">
+<meta property="og:description" content="Due Friday, September 11, 11:59 PM on D2L">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta property="og:image:alt" content="ggplot2 cheat sheet">
-<meta property="og:image:height" content="850">
-<meta property="og:image:width" content="1100">
-<meta name="twitter:title" content="R cheatsheets – MATH 4780 (MSSC 5780)">
-<meta name="twitter:description" content="Homepage for ‘Regression Analysis’ at Marquette University, Fall 2026.">
-<meta name="twitter:image" content="https://tinyurl.com/f26-4780/computing/images/twitter-card.png">
+<meta name="twitter:title" content="Homework 1 - Probability and Statistics Review – MATH 4780 (MSSC 5780)">
+<meta name="twitter:description" content="Due Friday, September 11, 11:59 PM on D2L">
+<meta name="twitter:image" content="https://tinyurl.com/f26-4780/hw/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -264,7 +288,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../computing/computing-cheatsheets.html">Computing</a></li><li class="breadcrumb-item"><a href="../computing/computing-cheatsheets.html">Cheatsheets</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Homework 1 - Probability and Statistics Review</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -333,16 +357,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Computing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../computing/computing-cheatsheets.html" class="sidebar-item-text sidebar-link active">
+  <a href="../computing/computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cheatsheets</span></a>
   </div>
 </li>
@@ -353,16 +377,25 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#homework-instruction-and-requirement" id="toc-homework-instruction-and-requirement" class="nav-link active" data-scroll-target="#homework-instruction-and-requirement">Homework Instruction and Requirement</a></li>
+  <li><a href="#programming-and-computing" id="toc-programming-and-computing" class="nav-link" data-scroll-target="#programming-and-computing">Programming and Computing</a></li>
+  <li><a href="#probability-and-statistics-review" id="toc-probability-and-statistics-review" class="nav-link" data-scroll-target="#probability-and-statistics-review">Probability and Statistics Review</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/hw/hw-1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../computing/computing-cheatsheets.html">Computing</a></li><li class="breadcrumb-item"><a href="../computing/computing-cheatsheets.html">Cheatsheets</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R cheatsheets</h1>
+<h1 class="title">Homework 1 - Probability and Statistics Review</h1>
+<p class="subtitle lead">Due Friday, September 11, 11:59 PM on D2L</p>
 </div>
 
 
@@ -379,60 +412,86 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The following cheatsheets come from <a href="https://posit.co/resources/cheatsheets" class="uri">https://posit.co/resources/cheatsheets</a>. We haven’t covered every function and functionality listed on them, but you might still find them useful as references.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf"><img src="cheatsheets/data-visualization.png" class="img-fluid quarto-figure quarto-figure-left figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-<p><br></p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf"><img src="cheatsheets/tidyr.png" class="img-fluid quarto-figure quarto-figure-left figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-<p><br></p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/strings.pdf"><img src="cheatsheets/strings.png" class="img-fluid quarto-figure quarto-figure-left figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-<p><br></p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/lubridate.pdf"><img src="cheatsheets/lubridate.png" class="img-fluid quarto-figure quarto-figure-left figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-right">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf"><img src="cheatsheets/data-transformation.png" class="img-fluid quarto-figure quarto-figure-right figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-<p><br></p>
-<div class="quarto-figure quarto-figure-right">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><img src="cheatsheets/data-import.png" class="img-fluid quarto-figure quarto-figure-right figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-<p><br></p>
-<div class="quarto-figure quarto-figure-right">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf"><img src="cheatsheets/factors.png" class="img-fluid quarto-figure quarto-figure-right figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-<p><br></p>
-<div class="quarto-figure quarto-figure-right">
-<figure class="figure">
-<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf"><img src="cheatsheets/rstudio-ide.png" class="img-fluid quarto-figure quarto-figure-right figure-img" alt="ggplot2 cheat sheet" width="300"></a></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="homework-instruction-and-requirement" class="level1">
+<h1>Homework Instruction and Requirement</h1>
+<ul>
+<li><p>Homework 1 covers course materials from Weeks 1 to 2.</p></li>
+<li><p><strong>MSSC 5780 students:</strong> Complete <strong>all six questions</strong>.</p></li>
+<li><p><strong>MATH 4780 students:</strong> Complete <strong>any five out of the six questions</strong>.</p></li>
+<li><p>Please submit your work in <strong>one PDF file</strong> to <strong>D2L &gt; Assessments &gt; Dropbox</strong>. <em>Multiple files or files that are not in PDF format are not allowed.</em></p></li>
+<li><p>In your homework, please number and answer questions <strong>in order</strong>.</p></li>
+<li><p>It is your responsibility to make your work clear and understandable. If you type your answers, make sure there are no typos. I grade your work based on <em>what you show, not what you intend to show</em>. If you choose to handwrite your answers, please write neatly. If your handwriting cannot be read, your answer may be judged as incorrect.</p></li>
+<li><p><strong>Relevant code should be attached.</strong></p></li>
+</ul>
+</section>
+<section id="programming-and-computing" class="level1">
+<h1>Programming and Computing</h1>
+<p>Please sharpen your coding skills using R or any language you prefer. <strong>No need</strong> to show your work on this part!</p>
+</section>
+<section id="probability-and-statistics-review" class="level1">
+<h1>Probability and Statistics Review</h1>
+<!-- We will use some facts or properties discussed in MATH 4700 and 4710. Here we don't learn why (which should be taught in MATH 4700 and 4710), but just know what they are, and apply them for regression analysis. -->
+<!-- 1. Use the linearity of expected value $E(X+Y) = E(X) + E(Y)$ and $E(aX) = aE(X)$ where $X$ and $Y$ are random variables and $a$ is a constant to show that for a random variable $Y$, $$\mathrm{Var}(Y) = E(Y^2) - [E(Y)]^2$$ -->
+<ol type="1">
+<li><span class="math inline">\(Y_1 \sim N(3, 8)\)</span> and <span class="math inline">\(Y_2 \sim N(1, 4)\)</span>, and <span class="math inline">\(Y_1\)</span> and <span class="math inline">\(Y_2\)</span> are independent. What is the distribution the variable <span class="math inline">\(2Y_1 + 3Y_2\)</span> follows?</li>
+</ol>
+<!-- 3. Suppose $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2)$, $i = 1, 2, \dots, n$. Show that $\overline{Y} \sim N\left(\mu,\frac{\sigma^2}{n} \right)$, where $\overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$. -->
+<!-- 4. Let the sample variance be $S^2 = \frac{\sum_{i=1}^n(Y_i - \overline{Y})^2}{n-1}$. The two facts are -->
+<!--     i. $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$ -->
+<!--     ii. $\frac{\overline{Y} - \mu}{\sigma/\sqrt{n}}$ and $\frac{(n-1)S^2}{\sigma^2}$ are independent.   -->
+<!--     Use i. and ii. and the fact that *If $Z \sim N(0, 1)$, $V \sim \chi^2_v$ and $Z$ and $V$ are independent, then $\frac{Z}{\sqrt{V/v}} \sim t_{v}$* to show that $$\frac{\overline{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}$$ -->
+<ol start="2" type="1">
+<li><p>Plot normal density curves with different choices of mean and standard deviation.</p></li>
+<li><p>Install the R package <code>ISLR2</code>. Choose a continuous variable in the <code>ISLR2::Boston</code> data set. Use the <code>sample()</code> function to draw a simple random sample of size 20 from this population. Calculate the sample average.</p></li>
+<li><p>Repeat the sampling in 3. several times to plot a sampling distribution of the sample mean.</p></li>
+<li><p>Suppose <span class="math inline">\(Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2)\)</span>, <span class="math inline">\(i = 1, 2, \dots, n\)</span>, with unknown <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. The <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval (CI) for the population mean <span class="math inline">\(\mu\)</span> is <span class="math inline">\(\left( \overline{y}- t_{\alpha/2, n-1}\frac{s}{\sqrt{n}}, \overline{y} + t_{\alpha/2, n-1}\frac{s}{\sqrt{n}} \right)\)</span>. Use simulation with <span class="math inline">\(\alpha = 0.1\)</span>, <span class="math inline">\(\mu = 4\)</span> and <span class="math inline">\(\sigma = 2\)</span> to verify that such CIs contain <span class="math inline">\(\mu\)</span> about <span class="math inline">\(100(1-\alpha)\%\)</span> of times. Fill the percentage in the following table, and comment on your results.</p></li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Simulation times</th>
+<th><span class="math inline">\(n=5\)</span></th>
+<th><span class="math inline">\(n=30\)</span></th>
+<th><span class="math inline">\(n=200\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(20\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1000\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(20000\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol start="6" type="1">
+<li>If <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span> are independent and both are uniform random variables over <span class="math inline">\([0, 1]\)</span> interval <a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution" class="uri">https://en.wikipedia.org/wiki/Continuous_uniform_distribution</a>, then <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> defined by</li>
+</ol>
+<p><span class="math display">\[
+X_1 = \sqrt{-2\ln(U_1)}\cos(2\pi U_2), \quad
+X_2 = \sqrt{-2\ln(U_1)}\sin(2\pi U_2)
+\]</span></p>
+<p>are independent <span class="math inline">\(N(0, 1)\)</span> variables. Draw 10,000 samples for <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span> using the <code>runif()</code> function, and use the transformation to generate the samples of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. Verify:</p>
+<ul>
+<li>the standard normality of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> by plotting their histograms with a superimposed standard normal density;</li>
+<li>the independence of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> by plotting the scatterplot of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> and computing their correlation coefficient.</li>
+</ul>
+<!-- 7. **(MSSC)** Suppose $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2)$, $i = 1, 2, \dots, n$. Show that $\overline{Y} \sim N\left(\mu,\frac{\sigma^2}{n} \right)$, where $\overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$. -->
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -848,15 +907,6 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../course-links.html" class="pagination-link" aria-label="Useful links">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Useful links</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -865,7 +915,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/computing/computing-cheatsheets.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/hw/hw-1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
