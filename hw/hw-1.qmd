@@ -1,0 +1,71 @@
+---
+title: "Homework 1 - Probability and Statistics Review"
+subtitle: "Due Friday, September 11, 11:59 PM on D2L"
+editor: source
+---
+
+# Homework Instruction and Requirement
+
+- Homework 1 covers course materials from Weeks 1 to 2.
+
+- **MSSC 5780 students:** Complete **all six questions**.
+
+- **MATH 4780 students:** Complete **any five out of the six questions**.
+
+- Please submit your work in **one PDF file** to **D2L > Assessments > Dropbox**. *Multiple files or files that are not in PDF format are not allowed.*
+
+- In your homework, please number and answer questions **in order**.
+
+- It is your responsibility to make your work clear and understandable. If you type your answers, make sure there are no typos. I grade your work based on *what you show, not what you intend to show*. If you choose to handwrite your answers, please write neatly. If your handwriting cannot be read, your answer may be judged as incorrect.
+
+- **Relevant code should be attached.**
+
+
+# Programming and Computing
+
+Please sharpen your coding skills using R or any language you prefer. **No need** to show your work on this part!
+
+
+# Probability and Statistics Review
+
+<!-- We will use some facts or properties discussed in MATH 4700 and 4710. Here we don't learn why (which should be taught in MATH 4700 and 4710), but just know what they are, and apply them for regression analysis. -->
+
+
+<!-- 1. Use the linearity of expected value $E(X+Y) = E(X) + E(Y)$ and $E(aX) = aE(X)$ where $X$ and $Y$ are random variables and $a$ is a constant to show that for a random variable $Y$, $$\mathrm{Var}(Y) = E(Y^2) - [E(Y)]^2$$ -->
+
+1. $Y_1 \sim N(3, 8)$ and $Y_2 \sim N(1, 4)$, and $Y_1$ and $Y_2$ are independent. What is the distribution the variable $2Y_1 + 3Y_2$ follows?
+
+<!-- 3. Suppose $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2)$, $i = 1, 2, \dots, n$. Show that $\overline{Y} \sim N\left(\mu,\frac{\sigma^2}{n} \right)$, where $\overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$. -->
+
+<!-- 4. Let the sample variance be $S^2 = \frac{\sum_{i=1}^n(Y_i - \overline{Y})^2}{n-1}$. The two facts are -->
+<!--     i. $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$ -->
+<!--     ii. $\frac{\overline{Y} - \mu}{\sigma/\sqrt{n}}$ and $\frac{(n-1)S^2}{\sigma^2}$ are independent.   -->
+<!--     Use i. and ii. and the fact that *If $Z \sim N(0, 1)$, $V \sim \chi^2_v$ and $Z$ and $V$ are independent, then $\frac{Z}{\sqrt{V/v}} \sim t_{v}$* to show that $$\frac{\overline{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}$$ -->
+
+2. Plot normal density curves with different choices of mean and standard deviation.
+
+3. Install the R package `ISLR2`. Choose a continuous variable in the `ISLR2::Boston` data set. Use the `sample()` function to draw a simple random sample of size 20 from this population. Calculate the sample average.
+
+4. Repeat the sampling in 3. several times to plot a sampling distribution of the sample mean.
+
+5. Suppose $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2)$, $i = 1, 2, \dots, n$, with unknown $\mu$ and $\sigma$. The $100(1-\alpha)\%$ confidence interval (CI) for the population mean $\mu$ is $\left( \overline{y}- t_{\alpha/2, n-1}\frac{s}{\sqrt{n}}, \overline{y} + t_{\alpha/2, n-1}\frac{s}{\sqrt{n}} \right)$. Use simulation with $\alpha = 0.1$, $\mu = 4$ and $\sigma = 2$ to verify that such CIs contain $\mu$ about $100(1-\alpha)\%$ of times. Fill the percentage in the following table, and comment on your results.
+
+| Simulation times | $n=5$ | $n=30$ | $n=200$ |
+|------------------|-------|--------|---------|
+| $20$             |       |        |         |
+| $1000$           |       |        |         |
+| $20000$          |       |        |         |
+
+6. If $U_1$ and $U_2$ are independent and both are uniform random variables over $[0, 1]$ interval <https://en.wikipedia.org/wiki/Continuous_uniform_distribution>, then $X_1$ and $X_2$ defined by
+
+$$
+X_1 = \sqrt{-2\ln(U_1)}\cos(2\pi U_2), \quad
+X_2 = \sqrt{-2\ln(U_1)}\sin(2\pi U_2)
+$$
+
+are independent $N(0, 1)$ variables. Draw 10,000 samples for $U_1$ and $U_2$ using the `runif()` function, and use the transformation to generate the samples of $X_1$ and $X_2$. Verify:
+
+- the standard normality of $X_1$ and $X_2$ by plotting their histograms with a superimposed standard normal density;
+- the independence of $X_1$ and $X_2$ by plotting the scatterplot of $X_1$ and $X_2$ and computing their correlation coefficient.
+
+<!-- 7. **(MSSC)** Suppose $Y_i \stackrel{iid}{\sim} N(\mu, \sigma^2)$, $i = 1, 2, \dots, n$. Show that $\overline{Y} \sim N\left(\mu,\frac{\sigma^2}{n} \right)$, where $\overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$. -->
