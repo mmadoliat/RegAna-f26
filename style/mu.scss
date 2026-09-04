@@ -4,13 +4,14 @@
 
 $font-family: "Atkinson Hyperlegible", sans-serif;
 
-// Inline code color
-$code-color: #003366;
-
 /*-- scss:rules --*/
 
-:not(pre) > code {
+/* Inline code in LIGHT mode only */
+body.quarto-light code:not(.sourceCode) {
   color: #003366 !important;
+  background-color: #eef2f6 !important;
+  padding: 0.1em 0.25em;
+  border-radius: 3px;
 }
 
 .render-commit-push {
