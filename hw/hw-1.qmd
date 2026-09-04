@@ -6,8 +6,6 @@ editor: source
 
 # Homework Instruction and Requirement
 
-- Homework 1 covers course materials from Weeks 1 to 2.
-
 - **MSSC 5780 students:** Complete **all six questions**.
 
 - **MATH 4780 students:** Complete **any five out of the six questions**.
