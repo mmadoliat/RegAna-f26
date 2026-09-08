@@ -15,7 +15,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site!"
+    "text": "About this site"
   },
   {
     "objectID": "slides/01-syllabus.html#welcome",
@@ -1499,14 +1499,14 @@
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 2 3 3 2 1 2 2 0 2 3\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
+    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 2 4 3 2 2 2 1 2 3 3\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1] -0.0127  0.8341 -0.3387  1.8032 -1.3532\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
+    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1]  0.866 -2.005 -0.179 -0.908 -1.093\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-2",
@@ -1626,14 +1626,14 @@
     "href": "plan.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR)\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n\n\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression\n\n\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review\n🖥️06-mat\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form (MSSC only)\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data\n🖥️07-diag-unusual\n📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit\n\n\n\n\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference\n🖥️11-bootstrap\n\n\n\n\n\n\nThu, Nov 5\nPolynomial Regression\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity\n🖥️14-collinearity\n\n\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection\n\n\n📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression\n\n\n✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n\n\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression\n\n\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review\n🖥️06-mat\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form (MSSC only)\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data\n🖥️07-diag-unusual\n📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit\n\n\n\n\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference\n🖥️11-bootstrap\n\n\n\n\n\n\nThu, Nov 5\nPolynomial Regression\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity\n🖥️14-collinearity\n\n\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection\n\n\n📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression\n\n\n✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR)\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n\n\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n\n\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2",
     "crumbs": [
       "Course information",
       "Schedule"
@@ -2669,119 +2669,119 @@
   {
     "objectID": "slides/10-diag-linearity.html#assumptions-of-linear-regression",
     "href": "slides/10-diag-linearity.html#assumptions-of-linear-regression",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Assumptions of Linear Regression",
     "text": "Assumptions of Linear Regression\n\\(Y_i= \\beta_0 + \\beta_1X_{i1} + \\beta_2X_{i2} + \\dots + \\beta_kX_{ik} + \\epsilon_i\\)\n\n\n\n\\(E(Y \\mid X)\\) is linear in the regressors.\n\\(\\small E(\\epsilon_i) = 0\\)\n\\(\\small \\mathrm{Var}(\\epsilon_i) = \\sigma^2\\)\n\\(\\small \\mathrm{Cov}(\\epsilon_i, \\epsilon_j) = 0\\) for all \\(i \\ne j\\).\n\\(\\small \\epsilon_i \\sim N(0, \\sigma^2)\\) for exact \\(t\\)- and \\(F\\)-inference.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssuming \\(E(\\epsilon) = 0\\) implies that the regression surface captures the dependency of the conditional mean of \\(y\\) on the \\(x\\)s.\nViolating linearity implies that the model fails to represent the relationship between the mean response and the regressors. (Lack of fit)"
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-cia-example",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-cia-example",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Detecting Nonlinearity (CIA Example)",
     "text": "Detecting Nonlinearity (CIA Example)\n\nScatterplot \\(y\\) against each \\(x\\) can be misleading! It shows the marginal relationship between \\(y\\) and each \\(x\\), without controlling the level of other regressors."
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-residual-plots",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-residual-plots",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Detecting Nonlinearity: Residual Plots",
     "text": "Detecting Nonlinearity: Residual Plots\n\nCare about the partial relationship between \\(y\\) and each \\(x\\) with impact of other \\(x\\)s controlled.\nResidual-based plots are more relevant in detecting the departure of linearity.\n\n\n\n\n\nResidual plots cannot distinguish between monotone and non-monotone non-linearity.\nThe distinction:\n\nMonotone: just transform \\(x\\) to \\(x^2\\)\nNon-monotone: need quadratic form\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe OLS ensures that the residuals and fitted values are uncorrelated."
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-partial-residual-plots",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-partial-residual-plots",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Detecting Nonlinearity: Partial Residual Plots",
     "text": "Detecting Nonlinearity: Partial Residual Plots\n\nPartial residual plots (Component-plus-Residual Plot) are for diagnosing nonlinearity.\nThe partial residuals for \\(x_j\\): \\[e_i^{(j)} = b_jx_{ij} + e_i\\]\n\n\\(b_j\\) is the coefficient of \\(x_j\\) in the full multiple regression\n\\(e_i\\)s are the residuals from the full multiple regression\n\nPartial residual plot \\(e_i^{(j)}\\) vs. \\(x_{ij}\\) for \\(x_j\\)\n\n\n\nThe nonlinear pattern can be highlighted or emphasized\nAdded-variable plots, for detecting influential data, are partial plots, but they don’t work well for detecting nonlinearity because they are biased towards linearity\nCook (1993): if the regressions of x_j on the other xs are approximately linear, then the regression function in the crPlot provides a visualization of transformation.\nIf the regressions among the predictors are strongly nonlinear and not well described by polynomials, then cvPlot may not be effective in recovering nonlinear partial relationships. =&gt; Use CERES plots (ceresPlots())\nAnd cvPlots can appear nonlinear even when the true partial regression is linear =&gt; called leakage."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-partial-residual-plots",
     "href": "slides/10-diag-linearity.html#r-lab-partial-residual-plots",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "R Lab Partial Residual Plots",
     "text": "R Lab Partial Residual Plots\n\nlogciafit &lt;- lm(log(infant) ~ gdp + health + gini, data = CIA)\n# Component-plus-Residual Plot \ncar::crPlots(logciafit, ylab = \"partial residual\", layout = c(1, 3), grid = FALSE, main = \"\")"
   },
   {
     "objectID": "slides/10-diag-linearity.html#transformation-for-linearity",
     "href": "slides/10-diag-linearity.html#transformation-for-linearity",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Transformation for Linearity",
     "text": "Transformation for Linearity\n\nMonotone curvature: consider a power transformation of \\(x\\) (and, when justified, of \\(y\\)).\nCurvature that changes direction: consider polynomial terms, e.g., \\(y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\epsilon\\).\nMore complex structure: polynomial regression (next week) or regression splines (MSSC 6250).\n\n\n\n\nnot simple: direction of curvature changes\nTransform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s.\nTransforming \\(y\\) changes the shape of its relationship to all of the \\(x\\)s, and also changes the shape of the residual distribution."
   },
   {
     "objectID": "slides/10-diag-linearity.html#bulging-rule-for-simple-monotone-nonlinearity",
     "href": "slides/10-diag-linearity.html#bulging-rule-for-simple-monotone-nonlinearity",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Bulging Rule for Simple Monotone Nonlinearity",
     "text": "Bulging Rule for Simple Monotone Nonlinearity\n\n\n\n\n\nThe bulge points\nTransform\nLadder of powers/roots\n\n\n\n\nleft\n\\(x\\)\ndown, e.g., \\(\\log(x)\\)\n\n\nright\n\\(x\\)\nup\n\n\ndown\n\\(y\\)\ndown\n\n\nup\n\\(y\\)\nup\n\n\n\n\n\n\n\n\n\nPrefer to transform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMosteller and Tukey’s (1977) - Transform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s. - Transforming \\(y\\) changes the shape of its relationship to all of the \\(x\\)s, and also changes the shape of the residual distribution."
   },
   {
     "objectID": "slides/10-diag-linearity.html#transformation-on-xs",
     "href": "slides/10-diag-linearity.html#transformation-on-xs",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Transformation on \\(x\\)s",
     "text": "Transformation on \\(x\\)s\n\ngdp to log(gdp)\nhealth to health + health^2"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-partial-residual-plots-1",
     "href": "slides/10-diag-linearity.html#r-lab-partial-residual-plots-1",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "R Lab Partial Residual Plots",
     "text": "R Lab Partial Residual Plots\n\n\nlogciafit2 &lt;- update(logciafit, . ~ log(gdp) + poly(health, degree = 2, raw = TRUE) + gini)\ncar::crPlots(logciafit2, ylab = \"partial residual\", layout = c(1, 3), grid = FALSE, main = \"\") \n\n\n\n\n\n\n\n\n\n\nif true, use raw and not orthogonal polynomials. - If the partial relationship of log(infant) to health expenditure is quadratic, its partial residual plot should be linear."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-improving-model-performance",
     "href": "slides/10-diag-linearity.html#r-lab-improving-model-performance",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "R Lab Improving Model Performance",
     "text": "R Lab Improving Model Performance\n\ncar::brief(logciafit, digits = 2)\n\n           (Intercept)     gdp health   gini\nEstimate          3.02 -0.0439 -0.055 0.0216\nStd. Error        0.29  0.0037  0.022 0.0061\n\n Residual SD = 0.59 on 130 df, R-squared = 0.71 \n\ncar::brief(logciafit2, digits = 2)\n\n           (Intercept) log(gdp) poly(health, degree = 2, raw = TRUE)1\nEstimate          4.65   -0.720                                -0.221\nStd. Error        0.32    0.038                                 0.058\n           poly(health, degree = 2, raw = TRUE)2   gini\nEstimate                                  0.0096 0.0191\nStd. Error                                0.0034 0.0044\n\n Residual SD = 0.44 on 129 df, R-squared = 0.84"
   },
   {
     "objectID": "slides/10-diag-linearity.html#deleted-residuals-and-prediction-diagnostics",
     "href": "slides/10-diag-linearity.html#deleted-residuals-and-prediction-diagnostics",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Deleted Residuals and Prediction Diagnostics",
     "text": "Deleted Residuals and Prediction Diagnostics\n\nThe ordinary residual is \\[e_i = y_i - \\hat y_i,\\] where observation \\(i\\) was used to fit the model.\nTo assess prediction for observation \\(i\\), delete that observation, refit the model, and compute \\[e_{(i)} = y_i - \\hat y_{(i)}.\\]\n\\(e_{(i)}\\) is called a deleted residual or PRESS residual.\n\n\nFortunately, we do not need to refit the model \\(n\\) times: \\[\n\\boxed{e_{(i)} = \\frac{e_i}{1-h_{ii}}},\n\\] where \\(h_{ii}\\) is the leverage of observation \\(i\\).\n\nDeleted residuals measure leave-one-out prediction error rather than in-sample fit."
   },
   {
     "objectID": "slides/10-diag-linearity.html#press-and-predicted-r2",
     "href": "slides/10-diag-linearity.html#press-and-predicted-r2",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "PRESS and Predicted \\(R^2\\)",
     "text": "PRESS and Predicted \\(R^2\\)\nThe PRESS statistic summarizes the deleted residuals:\n\\[\n\\boxed{\n\\operatorname{PRESS}\n= \\sum_{i=1}^n e_{(i)}^2\n= \\sum_{i=1}^n \\left(\\frac{e_i}{1-h_{ii}}\\right)^2\n}\n\\]\nA convenient scale-free summary is the predicted \\(R^2\\):\n\\[\n\\boxed{\nR^2_{\\mathrm{pred}}\n= 1-\\frac{\\operatorname{PRESS}}{SS_T},\n\\qquad\nSS_T=\\sum_{i=1}^n (y_i-\\bar y)^2\n}\n\\]\n\nSmaller PRESS and larger \\(R^2_{\\mathrm{pred}}\\) indicate better leave-one-out predictive performance.\nFor ordinary least squares, PRESS is based on leave-one-out cross-validation (LOOCV).\nUnlike ordinary \\(R^2\\), \\(R^2_{\\mathrm{pred}}\\) evaluates how well the model predicts observations that were left out during fitting.\n\\(R^2_{\\mathrm{pred}}\\) can be negative when predictive performance is poor.\n\n\n\\(R^2\\): How well does the model explain the data used to fit it?\n\\(R^2_{\\mathrm{pred}}\\): How well does the model predict observations not used in fitting?"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-press-and-deleted-residuals",
     "href": "slides/10-diag-linearity.html#r-lab-press-and-deleted-residuals",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "R Lab PRESS and Deleted Residuals",
     "text": "R Lab PRESS and Deleted Residuals\n\n\n\npress &lt;- function(model) {\n  e &lt;- residuals(model)\n  h &lt;- hatvalues(model)\n  e_press &lt;- e / (1 - h)\n\n  PRESS &lt;- sum(e_press^2)\n  y &lt;- model.response(model.frame(model))\n  SST &lt;- sum((y - mean(y))^2)\n  R2_pred &lt;- 1 - PRESS / SST\n\n  c(PRESS = PRESS,\n    R2_pred = R2_pred,\n    RMSE_LOOCV = sqrt(mean(e_press^2)))\n}\n\nrbind(\n  Original = press(logciafit),\n  Corrected = press(logciafit2)\n)\n\n          PRESS R2_pred RMSE_LOOCV\nOriginal   50.8   0.677      0.616\nCorrected  26.4   0.832      0.443\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPRESS residuals are case-deletion prediction residuals, not merely another scaling of the ordinary residuals.\nLarge deleted residuals identify observations that are difficult for the model to predict when they are not used in fitting.\nPRESS can be used to compare candidate regression models on predictive performance.\nPredicted \\(R^2\\) puts PRESS on a familiar \\(R^2\\) scale: values near 1 indicate strong predictive performance, while negative values indicate that the leave-one-out predictions are worse than simply using \\(\\bar y\\).\nOrdinary \\(R^2\\), adjusted \\(R^2\\), and predicted \\(R^2\\) answer different questions and should not be expected to agree."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-plotting-against-original-untransformed-x",
     "href": "slides/10-diag-linearity.html#r-lab-plotting-against-original-untransformed-x",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "R Lab Plotting against Original Untransformed \\(x\\)",
     "text": "R Lab Plotting against Original Untransformed \\(x\\)\n\n\n\n\nCode\nlibrary(effects)\npar(mar = c(2, 2, 0, 0))\nplot(Effect(\"gdp\", logciafit2, residuals = TRUE), \n     lines = list(col = c(\"blue\", \"black\"), lty = 2), \n     axes = list(grid = TRUE), confint = FALSE, \n     partial.residuals = list(plot = TRUE, smooth.col = \"magenta\", \n                              lty = 1, \n                              span = 3/4), \n     xlab = \"GDP per Capita\", ylab = \"Partial Residual\", main = \"\", cex.lab = 2)\n\n\n\n\n\n\n\n\n\n\n\n\nCode\npar(mar = c(2, 2, 0, 0))\nplot(Effect(\"health\", logciafit2, residuals = TRUE), \n     lines = list(col = c(\"blue\", \"black\"), lty = 2), \n     axes = list(grid = TRUE), confint = FALSE, \n     partial.residuals = list(plot = TRUE, smooth.col = \"magenta\", \n                              lty = 1, \n                              span = 3/4),\n     xlab = \"Health Expenditures\", ylab = \"Partial Residual\", main = \"\", cex.lab = 2)\n\n\n\n\n\n\n\n\n\n\n\n\nplot(Effect(“gdp”, logciafit2, residuals = TRUE))\n\\(\\epsilon^{(1)}_i = f_1(x_{i1}) + e_i\\) either if the partial-regression function \\(f_1(x_1)\\) is linear after all or if the other \\(x\\)s are each linearly related to \\(x_1\\).\nIn practice, it’s only strongly nonlinearly related \\(x\\)s that seriously threaten the validity of component-plus-residuals plots.\nCorrelation between x1 and x2 can induce spurious nonlinearity in the CR plot for x1.\ntrying to correct nonlinearity for one x at a time, but in my experience, it’s rarely necessary to proceed sequentially."
   },
   {
     "objectID": "slides/10-diag-linearity.html#transforming-xs-analytically-box-and-tidwell-1962",
     "href": "slides/10-diag-linearity.html#transforming-xs-analytically-box-and-tidwell-1962",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Transforming \\(x\\)s Analytically: Box and Tidwell (1962)",
     "text": "Transforming \\(x\\)s Analytically: Box and Tidwell (1962)\n\nBox and Tidwell (1962) proposed a procedure for estimating \\(\\lambda_1, \\lambda_2, \\dots, \\lambda_k\\) in the model \\[y = \\beta_0 + \\beta_1x_1^{\\lambda_1} + \\cdots + \\beta_kx_k^{\\lambda_k}+ \\epsilon\\]\nAll \\(x_j\\)s are positive.\n\\(\\beta_0, \\beta_1, \\dots,  \\beta_k\\) are estimated after and conditional on the transformations.\n\\(x_j^{\\lambda_j} = \\log_e(x_j)\\) if \\(\\lambda_j = 0\\).\n\n\n\nIf some of the xs (for instance, dummy regressors) aren’t candidates for transformation, then these xs can simply enter the model linearly.\nall positive xs"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-box-and-tidwell-1962",
     "href": "slides/10-diag-linearity.html#r-lab-box-and-tidwell-1962",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "R Lab Box and Tidwell (1962)",
     "text": "R Lab Box and Tidwell (1962)\nConsider the model \\[\\log(Infant) = \\beta_0 + \\beta_1 GDP^{\\lambda_1} + \\beta_2Gini^{\\lambda_2} + \\beta_3 Health + \\beta_4 Health ^ 2 + \\epsilon\\]\n\ncar::boxTidwell(log(infant) ~ gdp + gini, \n                other.x = ~poly(health, 2, raw = TRUE), data = CIA)\n\n...\n     MLE of lambda Score Statistic (t) Pr(&gt;|t|)    \ngdp            0.2                10.6   &lt;2e-16 ***\ngini          -0.5                -0.4      0.7    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n...\n\n\n\nThe point estimate of \\(\\lambda\\) is \\(\\hat{\\lambda}_1 = 0.2\\) and \\(\\hat{\\lambda}_2 = -0.5\\)\nThe test is for \\(H_0:\\) No transformation is needed \\((\\lambda = 1)\\).\n\nStrong evidence to transform \\(GDP\\)\nLittle evidence of the need to transform the Gini coefficient"
   },
   {
     "objectID": "slides/10-diag-linearity.html#other-methods-for-dealing-with-nonlinearity",
     "href": "slides/10-diag-linearity.html#other-methods-for-dealing-with-nonlinearity",
-    "title": "Regression Diagnostics - Linearity ▶️",
+    "title": "Regression Diagnostics - Linearity ⏯",
     "section": "Other Methods for Dealing with Nonlinearity",
     "text": "Other Methods for Dealing with Nonlinearity\n\nLack-of-fit test (LRA Sec 4.5, CMR Sec. 3.6): Need repeated observations\n\n\n\nTransform a nonlinear function into a linear one (LRA Sec 5.3)\n\n\nCan the nonlinear model \\(y = \\beta_0e^{\\beta_1x}\\epsilon\\) be transformed into a linear one (intrinsically linear)?\n\n\n\n\nPolynomial Regression, Regression Splines or other nonparametric regression (MSSC 6250)\n\n\n\n\nA (pure) nonlinear model may be needed if the model assumptions cannot be satisfied."
   },
@@ -3084,7 +3084,7 @@
     "href": "slides/11-bootstrap.html#r-lab-the-bootstrap-sample",
     "title": "Simulation-based Inference 💻",
     "section": "R Lab The bootstrap Sample",
-    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2324, 2450, 2350, 2349, 2350, 2324, 2349, 2522, 2325, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
+    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2325, 2350, 2300, 2324, 2350, 2350, 2350, 2350, 2250, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
   },
   {
     "objectID": "slides/11-bootstrap.html#r-lab-visualize-the-bootstrap-distribution",
