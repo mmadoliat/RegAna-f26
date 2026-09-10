@@ -1,0 +1,150 @@
+---
+title: "Lab 4: Added-Variable Plots"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+Use added-variable (partial regression) plots to understand the contribution
+of one predictor after adjusting for the remaining predictors.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(car)
+```
+
+## 1. New York restaurant data
+
+The Zagat data contain price and customer ratings for Italian restaurants in
+New York City.
+
+```{r}
+nyc <- nyc_restaurants
+head(nyc)
+```
+
+We focus on `Price`, `Food`, `Decor`, `Service`, and `East`.
+
+```{r}
+vars <- c("Price", "Food", "Decor", "Service", "East")
+round(cor(nyc[vars]), 2)
+pairs(nyc[vars])
+```
+
+::: {.question}
+1. Which variables have the strongest marginal correlations with `Price`?
+2. Which predictors are strongly correlated with one another?
+:::
+
+## 2. Fit the full model
+
+```{r}
+mfull <- lm(Price ~ Food + Decor + Service + East, data = nyc)
+summary(mfull)
+```
+
+```{r}
+car::vif(mfull)
+```
+
+::: {.question}
+Why can a predictor have a reasonably strong correlation with `Price` but a
+small or nonsignificant coefficient in the multiple regression model?
+:::
+
+## 3. Construct an added-variable plot by hand
+
+To study `Service` after adjusting for `Food`, `Decor`, and `East`:
+
+```{r}
+m_y <- lm(Price ~ Food + Decor + East, data = nyc)
+m_x <- lm(Service ~ Food + Decor + East, data = nyc)
+
+av_service <- data.frame(
+  y_resid = resid(m_y),
+  x_resid = resid(m_x)
+)
+
+ggplot(av_service, aes(x_resid, y_resid)) +
+  geom_point(size = 2.5, alpha = 0.65) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Service residual after adjusting for Food, Decor, East",
+    y = "Price residual after adjusting for Food, Decor, East"
+  )
+```
+
+The slope in this partial regression equals the coefficient of `Service` in
+the full model.
+
+```{r}
+coef(lm(y_resid ~ x_resid, data = av_service))[2]
+coef(mfull)["Service"]
+```
+
+::: {.question}
+Explain in words why residualizing both variables isolates the partial
+relationship between `Service` and `Price`.
+:::
+
+## 4. Use `car` for all added-variable plots
+
+```{r}
+car::avPlots(mfull, id = TRUE)
+```
+
+::: {.question}
+Compare the added-variable plots. Which predictor contributes the clearest
+additional linear information about price after controlling for the others?
+Do any observations appear influential?
+:::
+
+## 5. Added-variable plots and diagnostics
+
+```{r}
+car::influencePlot(mfull, id = "noteworthy")
+```
+
+::: {.question}
+An added-variable plot can reveal curvature, unusual cases, or changes in
+spread associated with one predictor. What do you see here that is less
+obvious in the ordinary residual-versus-fitted plot?
+:::
+
+## Takeaway
+
+A marginal scatterplot asks, "How are \(X_j\) and \(Y\) related?" An
+added-variable plot asks the more relevant multiple-regression question,
+"How are \(X_j\) and \(Y\) related **after the other predictors have been
+accounted for**?"

@@ -1,0 +1,197 @@
+---
+title: "Lab 6: Variable Selection and Prediction"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+Compare best-subsets and stepwise procedures, evaluate candidate models using
+adjusted \(R^2\), Mallows' \(C_p\), AIC, BIC, and PRESS/predicted \(R^2\), and
+recognize why automated selection cannot replace model checking.
+
+```{r}
+library(leaps)
+library(dplyr)
+```
+
+## 1. Hospital manpower data
+
+We use the same data as the 2026 variable-selection slides.
+
+```{r}
+fit_full <- lm(y ~ ., data = manpower)
+summary(fit_full)
+```
+
+## 2. Best-subsets regression
+
+```{r}
+best <- leaps::regsubsets(y ~ ., data = manpower, nvmax = 5)
+best_summary <- summary(best)
+
+best_table <- data.frame(
+  size = seq_along(best_summary$rsq),
+  R2 = best_summary$rsq,
+  adj_R2 = best_summary$adjr2,
+  Cp = best_summary$cp,
+  BIC = best_summary$bic
+)
+
+best_table
+```
+
+```{r}
+best_summary$which
+```
+
+::: {.question}
+Which model size is favored by adjusted \(R^2\), \(C_p\), and BIC? Do the
+criteria agree?
+:::
+
+## 3. A function for PRESS and predicted \(R^2\)
+
+For a fitted linear model,
+
+\[
+\operatorname{PRESS}
+ = \sum_{i=1}^n \left(\frac{e_i}{1-h_{ii}}\right)^2,
+\qquad
+R^2_{\mathrm{pred}}
+ = 1-\frac{\operatorname{PRESS}}{SST}.
+\]
+
+```{r}
+press_stats <- function(fit) {
+  e <- resid(fit)
+  h <- hatvalues(fit)
+  press <- sum((e / (1 - h))^2)
+  y <- model.response(model.frame(fit))
+  sst <- sum((y - mean(y))^2)
+
+  c(PRESS = press, R2_pred = 1 - press / sst)
+}
+
+press_stats(fit_full)
+```
+
+## 4. Compare the best model of each size
+
+```{r}
+which_mat <- best_summary$which
+
+model_metrics <- lapply(seq_len(nrow(which_mat)), function(i) {
+  selected <- names(which_mat[i, ])[which_mat[i, ]]
+  selected <- setdiff(selected, "(Intercept)")
+  form <- reformulate(selected, response = "y")
+  fit <- lm(form, data = manpower)
+  ps <- press_stats(fit)
+
+  data.frame(
+    size = length(selected),
+    predictors = paste(selected, collapse = " + "),
+    adj_R2 = summary(fit)$adj.r.squared,
+    Cp = best_summary$cp[i],
+    AIC = AIC(fit),
+    BIC = BIC(fit),
+    PRESS = unname(ps["PRESS"]),
+    R2_pred = unname(ps["R2_pred"])
+  )
+})
+
+bind_rows(model_metrics)
+```
+
+::: {.question}
+Which model would you choose if prediction were the primary goal? Is it the
+same model selected by BIC or \(C_p\)?
+:::
+
+## 5. Forward, backward, and bidirectional stepwise AIC
+
+Base R's `step()` uses AIC by default.
+
+```{r}
+fit_null <- lm(y ~ 1, data = manpower)
+
+forward_aic <- step(
+  fit_null,
+  scope = list(lower = fit_null, upper = fit_full),
+  direction = "forward",
+  trace = 0
+)
+
+backward_aic <- step(fit_full, direction = "backward", trace = 0)
+
+both_aic <- step(
+  fit_full,
+  scope = list(lower = fit_null, upper = fit_full),
+  direction = "both",
+  trace = 0
+)
+
+formula(forward_aic)
+formula(backward_aic)
+formula(both_aic)
+```
+
+::: {.question}
+Do all three search directions arrive at the same model? Why can greedy
+search procedures depend on the path they take?
+:::
+
+## 6. Final model checking
+
+Choose one candidate model and inspect it.
+
+```{r}
+final_fit <- both_aic
+summary(final_fit)
+
+par(mfrow = c(2, 2))
+plot(final_fit)
+par(mfrow = c(1, 1))
+
+press_stats(final_fit)
+```
+
+::: {.question}
+Would you report this model solely because an automated procedure selected it?
+What additional checks and subject-matter considerations are needed?
+:::
+
+::: {.callout-tip}
+## Important
+Variable selection is a **model-building aid**, not a substitute for
+scientific judgment, diagnostics, validation, or careful interpretation.
+:::

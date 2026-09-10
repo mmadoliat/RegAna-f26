@@ -1,0 +1,189 @@
+---
+title: "Lab 1: Understanding Regression Output"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+By the end of this lab, you should be able to connect the output from `lm()`
+and `summary()` to the quantities developed in simple linear regression:
+least-squares estimates, residual variation, \(R^2\), coefficient tests, and
+the ANOVA decomposition.
+
+We use the **rocket propellant** data from the earlier course slides. The
+response is propellant **strength**, and the explanatory variable is propellant
+**age**.
+
+```{r}
+library(ggplot2)
+library(broom)
+
+rocket_propellant
+```
+
+## 1. Explore the relationship
+
+```{r}
+ggplot(rocket_propellant, aes(x = age, y = strength)) +
+  geom_point(size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Age", y = "Strength")
+```
+
+::: {.question}
+1. Describe the direction, form, and strength of the relationship.
+2. Are there any observations that look unusual?
+:::
+
+## 2. Fit the model
+
+```{r}
+fit <- lm(strength ~ age, data = rocket_propellant)
+summary(fit)
+```
+
+::: {.question}
+Interpret the estimated intercept and slope in context. Is the intercept
+scientifically meaningful over the observed range of the data?
+:::
+
+## 3. Reconstruct the least-squares estimates
+
+Let \(x_i\) denote age and \(y_i\) denote strength. Compute
+
+\[
+S_{xx}=\sum (x_i-\bar{x})^2,\qquad
+S_{xy}=\sum (x_i-\bar{x})(y_i-\bar{y}).
+\]
+
+```{r}
+x <- rocket_propellant$age
+y <- rocket_propellant$strength
+
+xbar <- mean(x)
+ybar <- mean(y)
+Sxx <- sum((x - xbar)^2)
+Sxy <- sum((x - xbar) * (y - ybar))
+
+b1 <- Sxy / Sxx
+b0 <- ybar - b1 * xbar
+
+c(intercept = b0, slope = b1)
+coef(fit)
+```
+
+::: {.question}
+Verify that your calculations agree with `coef(fit)`.
+:::
+
+## 4. Sums of squares and \(R^2\)
+
+```{r}
+yhat <- fitted(fit)
+e <- resid(fit)
+
+SSE <- sum(e^2)
+SST <- sum((y - ybar)^2)
+SSR <- sum((yhat - ybar)^2)
+
+c(SST = SST, SSR = SSR, SSE = SSE, check = SST - SSR - SSE)
+```
+
+```{r}
+R2 <- SSR / SST
+R2
+summary(fit)$r.squared
+```
+
+::: {.question}
+Interpret \(R^2\) in the context of propellant strength and age.
+:::
+
+## 5. Test the slope
+
+For simple linear regression,
+
+\[
+SE(\hat\beta_1)=\frac{s}{\sqrt{S_{xx}}}, \qquad
+s=\sqrt{\frac{SSE}{n-2}}.
+\]
+
+```{r}
+n <- nrow(rocket_propellant)
+s <- sqrt(SSE / (n - 2))
+se_b1 <- s / sqrt(Sxx)
+t_b1 <- b1 / se_b1
+p_b1 <- 2 * pt(-abs(t_b1), df = n - 2)
+
+c(s = s, SE_slope = se_b1, t = t_b1, p_value = p_b1)
+```
+
+```{r}
+broom::tidy(fit, conf.int = TRUE)
+```
+
+::: {.question}
+State the null and alternative hypotheses for the slope test and give a
+conclusion in context.
+:::
+
+## 6. ANOVA table
+
+```{r}
+anova(fit)
+```
+
+::: {.question}
+For a simple linear regression, compare the \(F\)-statistic in the ANOVA table
+with the squared \(t\)-statistic for the slope. What do you notice?
+:::
+
+## 7. Prediction
+
+```{r}
+predict(fit,
+        newdata = data.frame(age = c(5, 10, 15)),
+        interval = "prediction",
+        level = 0.95)
+```
+
+::: {.question}
+Explain the difference between a confidence interval for the mean response and
+a prediction interval for a new observation.
+:::
+
+## Takeaway
+
+R output is not a separate procedure from the formulas: it is a compact
+summary of the same least-squares calculations, uncertainty estimates, and
+ANOVA decomposition developed in class.

@@ -1,0 +1,184 @@
+---
+title: "Lab 5: Multicollinearity and VIF"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+Diagnose multicollinearity using correlations and variance inflation factors
+(VIFs), understand its effect on coefficient estimates, and compare nested
+models.
+
+```{r}
+library(ggplot2)
+library(car)
+```
+
+## 1. Hospital manpower data
+
+This is the same hospital manpower dataset used in the 2026 multicollinearity
+slides.
+
+- \(y\): monthly man-hours
+- \(x_1\): average daily patient load
+- \(x_2\): monthly X-ray exposures
+- \(x_3\): monthly occupied bed days
+- \(x_4\): eligible population in the area / 1000
+- \(x_5\): average length of patient stay in days
+
+```{r}
+manpower
+pairs(manpower)
+```
+
+## 2. The full model
+
+```{r}
+fit_full <- lm(y ~ ., data = manpower)
+summary(fit_full)
+```
+
+::: {.question}
+Do any coefficient signs or significance tests seem surprising relative to
+the marginal relationships in the pairs plot?
+:::
+
+## 3. Correlations among the predictors
+
+```{r}
+round(cor(manpower[-1]), 3)
+```
+
+::: {.question}
+Which pairs of predictors appear most strongly correlated? Why is a
+correlation matrix not sufficient to diagnose every form of
+multicollinearity?
+:::
+
+## 4. Variance inflation factors
+
+```{r}
+vif_full <- car::vif(fit_full)
+vif_full
+```
+
+Recall
+
+\[
+\operatorname{VIF}_j=\frac{1}{1-R_j^2},
+\]
+
+where \(R_j^2\) is obtained by regressing predictor \(X_j\) on all the other
+predictors.
+
+Verify one VIF manually.
+
+```{r}
+aux_x3 <- lm(x3 ~ x1 + x2 + x4 + x5, data = manpower)
+1 / (1 - summary(aux_x3)$r.squared)
+vif_full["x3"]
+```
+
+::: {.question}
+Explain why a large \(R_j^2\) in the auxiliary regression inflates the
+variance of \(\hat\beta_j\).
+:::
+
+## 5. Remove one redundant predictor
+
+The 2026 slides investigate a model without `x3`.
+
+```{r}
+fit_no_x3 <- update(fit_full, . ~ . - x3)
+
+summary(fit_no_x3)
+car::vif(fit_no_x3)
+```
+
+Compare the models with a nested \(F\)-test.
+
+```{r}
+anova(fit_no_x3, fit_full)
+```
+
+::: {.question}
+1. How do the coefficient estimates and standard errors change?
+2. How do the VIFs change?
+3. Is deleting `x3` justified by the nested \(F\)-test alone?
+4. What substantive information might be lost by deleting a predictor?
+:::
+
+## 6. Prediction versus coefficient stability
+
+```{r}
+c(
+  full_R2 = summary(fit_full)$r.squared,
+  reduced_R2 = summary(fit_no_x3)$r.squared
+)
+```
+
+::: {.question}
+Why can a model have substantial multicollinearity and still fit the observed
+responses well? Why is extrapolation particularly risky?
+:::
+
+
+## 7. A matrix view: condition number
+
+VIFs diagnose predictor-specific inflation. A complementary global diagnostic
+comes from the geometry of the standardized predictor matrix.
+
+```{r}
+X <- model.matrix(fit_full)[, -1, drop = FALSE]
+Xz <- scale(X)
+
+eigenvalues <- eigen(cor(Xz), symmetric = TRUE)$values
+condition_index <- sqrt(max(eigenvalues) / eigenvalues)
+
+data.frame(
+  eigenvalue = eigenvalues,
+  condition_index = condition_index
+)
+```
+
+::: {.question}
+Why can a very small eigenvalue indicate that some linear combination of the
+predictors is nearly redundant?
+:::
+
+## Takeaway
+
+Multicollinearity is primarily a problem of **unstable estimation and
+interpretation**, not necessarily poor in-sample fit. VIF quantifies how much
+the variance of an individual coefficient is inflated by linear dependence
+among the predictors.

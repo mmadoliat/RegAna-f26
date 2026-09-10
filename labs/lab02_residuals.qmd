@@ -1,0 +1,226 @@
+---
+title: "Lab 2: Residual Diagnostics"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+Use residual plots to diagnose violations of linearity, constant variance, and
+normality, and recognize unusual observations.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(broom)
+```
+
+## 1. Start with a well-behaved model
+
+```{r}
+set.seed(4780)
+
+n <- 100
+x <- runif(n, 0, 10)
+good <- data.frame(
+  x = x,
+  y = 5 + 2 * x + rnorm(n, sd = 3)
+)
+
+fit_good <- lm(y ~ x, data = good)
+
+augment(fit_good) |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_point() +
+  labs(x = "Fitted values", y = "Residuals")
+```
+
+```{r}
+augment(fit_good) |>
+  ggplot(aes(sample = .std.resid)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical quantiles", y = "Standardized residuals")
+```
+
+::: {.question}
+What features of these plots would make you comfortable with the linear model?
+:::
+
+## 2. Nonlinearity
+
+```{r}
+nonlinear <- data.frame(
+  x = x,
+  y = 5 + 2 * x + 0.7 * x^2 + rnorm(n, sd = 3)
+)
+
+fit_nonlinear <- lm(y ~ x, data = nonlinear)
+
+augment(fit_nonlinear) |>
+  ggplot(aes(.fitted, .resid)) +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_point()
+```
+
+::: {.question}
+What pattern indicates that the linear mean function is inadequate?
+:::
+
+## 3. Nonconstant variance
+
+```{r}
+hetero <- data.frame(
+  x = x,
+  y = 5 + 2 * x + rnorm(n, sd = 0.4 + 0.6 * x)
+)
+
+fit_hetero <- lm(y ~ x, data = hetero)
+
+augment(fit_hetero) |>
+  ggplot(aes(.fitted, .resid)) +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_point()
+```
+
+::: {.question}
+Describe the change in residual spread as fitted values increase.
+:::
+
+## 4. Nonnormal errors
+
+```{r}
+nonnormal <- data.frame(
+  x = x,
+  y = 5 + 2 * x + (rchisq(n, df = 2) - 2)
+)
+
+fit_nonnormal <- lm(y ~ x, data = nonnormal)
+
+augment(fit_nonnormal) |>
+  ggplot(aes(sample = .std.resid)) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+::: {.question}
+Where does the Q-Q plot depart from the reference line?
+:::
+
+## 5. A real-data diagnostic example
+
+The **delivery time** data are used repeatedly in the course. Fit delivery
+time using number of cases and distance.
+
+```{r}
+fit_delivery <- lm(time ~ cases + distance, data = delivery)
+summary(fit_delivery)
+```
+
+Use the four standard diagnostic plots:
+
+```{r}
+par(mfrow = c(2, 2))
+plot(fit_delivery)
+par(mfrow = c(1, 1))
+```
+
+Then inspect several case diagnostics directly.
+
+```{r}
+delivery_diag <- augment(fit_delivery) |>
+  mutate(
+    observation = row_number(),
+    leverage = hatvalues(fit_delivery),
+    cooks_d = cooks.distance(fit_delivery),
+    rstudent = rstudent(fit_delivery)
+  )
+
+delivery_diag |>
+  select(observation, .fitted, .resid, rstudent, leverage, cooks_d) |>
+  arrange(desc(cooks_d)) |>
+  head(6)
+```
+
+::: {.question}
+1. Which assumptions appear most questionable?
+2. Which observations deserve closer investigation?
+3. Does an unusual observation automatically imply that it should be deleted?
+:::
+
+## 6. Deleted residuals and PRESS
+
+```{r}
+press_resid <- resid(fit_delivery) / (1 - hatvalues(fit_delivery))
+PRESS <- sum(press_resid^2)
+PRESS
+```
+
+::: {.question}
+Why are deleted residuals generally larger in magnitude than ordinary
+residuals? How does PRESS connect residual diagnostics with prediction?
+:::
+
+
+## 7. Leverage and influence are different ideas
+
+A point can have an unusual predictor value (high leverage) without having a
+large residual, and a large residual does not necessarily imply high leverage.
+Influence combines these features by asking how much the fitted model changes.
+
+```{r}
+n <- nrow(delivery)
+p_coef <- length(coef(fit_delivery))
+
+delivery_diag |>
+  mutate(
+    high_leverage = leverage > 2 * p_coef / n,
+    large_studentized = abs(rstudent) > 2
+  ) |>
+  select(observation, rstudent, leverage, cooks_d,
+         high_leverage, large_studentized) |>
+  arrange(desc(cooks_d))
+```
+
+::: {.question}
+Identify an observation that is unusual mainly because of leverage and one
+that is unusual mainly because of its residual, if such observations exist.
+Which observations are most influential according to Cook's distance?
+:::
+
+::: {.callout-tip}
+## A modeling principle
+Diagnostics identify observations that deserve investigation. They do **not**
+provide an automatic rule for deleting data. First check data quality,
+scientific context, and sensitivity of conclusions.
+:::

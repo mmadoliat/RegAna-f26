@@ -1,0 +1,49 @@
+/*-- scss:rules --*/
+
+
+/* MATH 4780 / MSSC 5780 — Regression Analysis */
+:root {
+  --mu-blue: #003366;
+  --mu-gold: #ffcc00;
+  --mu-light: #f5f7fa;
+}
+
+body {
+  font-size: 1.02rem;
+}
+
+h1, h2, h3, h4 {
+  color: var(--mu-blue);
+}
+
+h1.title {
+  border-bottom: 5px solid var(--mu-gold);
+  padding-bottom: .25rem;
+}
+
+.sidebar-title, .toc-title {
+  color: var(--mu-blue);
+}
+
+.callout-note {
+  border-left-color: var(--mu-blue) !important;
+}
+
+.callout-tip {
+  border-left-color: #6c757d !important;
+}
+
+code {
+  font-size: 0.95em;
+}
+
+.cell-output {
+  background: #fbfbfb;
+}
+
+.question {
+  background: var(--mu-light);
+  border-left: 4px solid var(--mu-gold);
+  padding: .75rem 1rem;
+  margin: 1rem 0;
+}

@@ -1,0 +1,314 @@
+---
+title: "Lab 7: Logistic Regression"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+Fit and interpret a logistic regression model, work with probabilities,
+log-odds, and odds ratios, assess model fit, and use fitted probabilities for
+classification.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(broom)
+```
+
+## 1. Fastener data
+
+The `fastener` dataset from the 2026 logistic-regression slides contains:
+
+- `load`: applied load,
+- `m`: number of fasteners tested,
+- `y`: number with the event of interest.
+
+```{r}
+fastener
+```
+
+Create the observed proportion.
+
+```{r}
+fastener <- fastener |>
+  mutate(prop = y / m)
+
+ggplot(fastener, aes(load, prop)) +
+  geom_point(size = 3) +
+  labs(x = "Load", y = "Observed event proportion") +
+  coord_cartesian(ylim = c(0, 1))
+```
+
+::: {.question}
+Why would an ordinary linear regression of `prop` on `load` be problematic?
+:::
+
+## 2. Fit a grouped-binomial logistic model
+
+For grouped binomial data, use the numbers of successes and failures.
+
+```{r}
+fit_logit <- glm(
+  cbind(y, m - y) ~ load,
+  family = binomial(link = "logit"),
+  data = fastener
+)
+
+summary(fit_logit)
+```
+
+The model is
+
+\[
+\log\left(\frac{\pi(x)}{1-\pi(x)}\right)
+ = \beta_0 + \beta_1 x.
+\]
+
+## 3. Interpret the coefficients
+
+```{r}
+broom::tidy(fit_logit, conf.int = TRUE)
+```
+
+Exponentiating a coefficient converts a change in log-odds into an **odds
+ratio**.
+
+```{r}
+exp(coef(fit_logit))
+exp(confint.default(fit_logit))
+```
+
+::: {.question}
+Interpret \(\exp(\hat\beta_1)\): how are the odds expected to change for a
+one-unit increase in load?
+:::
+
+## 4. Fitted probabilities
+
+```{r}
+grid <- data.frame(
+  load = seq(min(fastener$load), max(fastener$load), length.out = 200)
+)
+
+grid$prob <- predict(fit_logit, newdata = grid, type = "response")
+
+ggplot(fastener, aes(load, prop)) +
+  geom_point(size = 3) +
+  geom_line(data = grid, aes(load, prob), linewidth = 1) +
+  labs(x = "Load", y = "Probability") +
+  coord_cartesian(ylim = c(0, 1))
+```
+
+::: {.question}
+At approximately what load does the fitted event probability cross 0.5?
+:::
+
+You can solve this directly from the fitted coefficients.
+
+```{r}
+b <- coef(fit_logit)
+load_at_half <- -b[1] / b[2]
+load_at_half
+```
+
+## 5. Predictions on three scales
+
+```{r}
+new_load <- data.frame(load = c(
+  min(fastener$load),
+  median(fastener$load),
+  max(fastener$load)
+))
+
+data.frame(
+  new_load,
+  linear_predictor = predict(fit_logit, newdata = new_load, type = "link"),
+  probability = predict(fit_logit, newdata = new_load, type = "response")
+)
+```
+
+::: {.question}
+Explain the distinction among probability, odds, and log-odds.
+:::
+
+## 6. Likelihood-based model comparison
+
+Compare the logistic model with an intercept-only model.
+
+```{r}
+fit_null <- glm(
+  cbind(y, m - y) ~ 1,
+  family = binomial,
+  data = fastener
+)
+
+anova(fit_null, fit_logit, test = "Chisq")
+```
+
+::: {.question}
+What hypothesis is being tested by this likelihood-ratio comparison?
+:::
+
+## 7. Classification as a decision rule
+
+A 0.5 probability threshold is common, but it is not universally optimal.
+
+Expand the grouped counts only for this illustration.
+
+```{r}
+fastener_binary <- fastener |>
+  rowwise() |>
+  reframe(
+    load = load,
+    outcome = c(rep(1, y), rep(0, m - y))
+  ) |>
+  ungroup() |>
+  mutate(
+    prob = predict(fit_logit, newdata = data.frame(load = load),
+                   type = "response"),
+    class = if_else(prob >= 0.5, 1, 0)
+  )
+
+with(fastener_binary, table(observed = outcome, predicted = class))
+mean(fastener_binary$outcome == fastener_binary$class)
+```
+
+::: {.question}
+Why might a threshold other than 0.5 be preferable in an application where
+false positives and false negatives have different consequences?
+:::
+
+
+## 8. Extension: individual-level logistic regression with Whickham data
+
+The grouped `fastener` example is useful because it matches the current course
+slides. The `Whickham` data provide a complementary example in which each row
+is an individual and one predictor is categorical.
+
+```{r}
+names(Whickham)
+head(Whickham)
+table(Whickham$outcome, Whickham$smoker)
+```
+
+Create a binary response equal to 1 for an individual who was alive at the
+follow-up.
+
+```{r}
+whickham <- Whickham |>
+  mutate(
+    isAlive = as.integer(outcome == "Alive"),
+    smoker = factor(smoker)
+  )
+```
+
+Fit a model using age and smoking status.
+
+```{r}
+fit_whickham <- glm(
+  isAlive ~ age + smoker,
+  family = binomial,
+  data = whickham
+)
+
+summary(fit_whickham)
+```
+
+Display coefficient estimates as odds ratios.
+
+```{r}
+broom::tidy(fit_whickham, conf.int = TRUE, exponentiate = TRUE)
+```
+
+::: {.question}
+1. Interpret the odds ratio associated with age.
+2. Interpret the smoking-status odds ratio while holding age fixed.
+3. Why can a marginal comparison between smokers and nonsmokers differ from
+   the age-adjusted logistic-regression comparison?
+:::
+
+Visualize the fitted probabilities by smoking status.
+
+```{r}
+whickham_grid <- expand.grid(
+  age = seq(min(whickham$age), max(whickham$age), length.out = 200),
+  smoker = levels(whickham$smoker)
+)
+
+whickham_grid$prob <- predict(
+  fit_whickham,
+  newdata = whickham_grid,
+  type = "response"
+)
+
+ggplot(whickham_grid, aes(age, prob, linetype = smoker)) +
+  geom_line(linewidth = 1) +
+  labs(
+    x = "Age",
+    y = "Estimated probability of being alive",
+    linetype = "Smoking status"
+  ) +
+  coord_cartesian(ylim = c(0, 1))
+```
+
+### Does the age effect differ by smoking status?
+
+```{r}
+fit_whickham_int <- glm(
+  isAlive ~ age * smoker,
+  family = binomial,
+  data = whickham
+)
+
+anova(fit_whickham, fit_whickham_int, test = "Chisq")
+```
+
+::: {.question}
+What does the likelihood-ratio test say about adding the age-by-smoking
+interaction? Distinguish statistical evidence from substantive importance.
+:::
+
+::: {.callout-tip}
+## Why use both logistic examples?
+The `fastener` data illustrate **grouped binomial** logistic regression, while
+`Whickham` illustrates **individual binary outcomes**, adjustment for a
+categorical predictor, odds ratios, and possible interaction. Together they
+show that the same logistic-regression framework handles both data structures.
+:::
+
+## Takeaway
+
+Logistic regression models a linear relationship on the **log-odds** scale,
+which guarantees fitted probabilities between 0 and 1. Coefficients are most
+naturally interpreted through odds ratios, while classification requires an
+additional decision threshold.

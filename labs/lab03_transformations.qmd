@@ -1,0 +1,205 @@
+---
+title: "Lab 3: Transformations and Model Improvement"
+subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    theme:
+      - cosmo
+      - lab-style.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: FALSE
+load("regression_datasets.rda")
+options(digits = 3)
+```
+
+::: {.callout-note}
+## Course data
+This lab uses objects in `regression_datasets.rda`. Put the `.qmd` file and
+`regression_datasets.rda` in the same folder before rendering or working
+through the lab.
+:::
+
+## Learning goals
+
+
+::: {.callout-note}
+## Connection to model adequacy
+Use transformations only after examining the original-scale relationship and
+diagnostics. A useful transformation should improve the **structure of the
+model** (linearity, variance stability, or error behavior) and remain
+interpretable in the application.
+:::
+
+
+Recognize when a transformation may improve a regression model, compare
+candidate transformations graphically, and use the Box-Cox profile as a
+systematic guide.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(MASS)
+```
+
+## 1. Electric utility data
+
+The `electric_utility` object comes from the older course materials. Begin by
+checking its variable names.
+
+```{r}
+names(electric_utility)
+head(electric_utility)
+```
+
+For this lab, the first column is electricity use \(x\) and the second is peak
+demand \(y\). We create local names so the analysis is robust to descriptive
+column names in the course file.
+
+```{r}
+utility <- data.frame(
+  x = electric_utility[[1]],
+  y = electric_utility[[2]]
+)
+```
+
+```{r}
+ggplot(utility, aes(x, y)) +
+  geom_point(size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+fit0 <- lm(y ~ x, data = utility)
+par(mfrow = c(1, 2))
+plot(fit0, which = 1)
+plot(fit0, which = 2)
+par(mfrow = c(1, 1))
+```
+
+::: {.question}
+What evidence suggests that the original-scale model may be inadequate?
+:::
+
+## 2. Try common response transformations
+
+```{r}
+utility <- utility |>
+  mutate(
+    sqrt_y = sqrt(y),
+    log_y = log(y)
+  )
+```
+
+```{r}
+ggplot(utility, aes(x, sqrt_y)) +
+  geom_point(size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(y = expression(sqrt(y)))
+```
+
+```{r}
+ggplot(utility, aes(x, log_y)) +
+  geom_point(size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(y = "log(y)")
+```
+
+::: {.question}
+Which transformation gives the most nearly linear relationship and the most
+stable spread?
+:::
+
+## 3. Compare diagnostics
+
+```{r}
+fit_sqrt <- lm(sqrt(y) ~ x, data = utility)
+fit_log  <- lm(log(y) ~ x, data = utility)
+
+par(mfrow = c(2, 2))
+plot(fit_sqrt, which = 1:2)
+plot(fit_log,  which = 1:2)
+par(mfrow = c(1, 1))
+```
+
+## 4. Box-Cox transformation
+
+The Box-Cox profile provides a more systematic way to choose a power
+transformation for a **positive** response.
+
+```{r}
+bc <- MASS::boxcox(fit0, lambda = seq(-2, 2, by = 0.05))
+lambda_hat <- bc$x[which.max(bc$y)]
+lambda_hat
+```
+
+::: {.question}
+Is the estimated \(\lambda\) close to a familiar transformation such as
+\(\lambda=1\) (none), \(1/2\) (square root), or \(0\) (log)?
+:::
+
+## 5. Windmill data: transforming the predictor
+
+The older course slides also contain a windmill example. Here the transformed
+predictor can be more useful than transforming the response.
+
+```{r}
+names(windmill)
+head(windmill)
+```
+
+Use the first two columns as the original \(x\) and \(y\).
+
+```{r}
+wind <- data.frame(
+  x = windmill[[1]],
+  y = windmill[[2]]
+)
+
+ggplot(wind, aes(x, y)) +
+  geom_point(size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+Compare a linear model in \(x\) with a model in \(1/x\).
+
+```{r}
+fit_x <- lm(y ~ x, data = wind)
+fit_inv <- lm(y ~ I(1 / x), data = wind)
+
+c(
+  original_R2 = summary(fit_x)$r.squared,
+  inverse_x_R2 = summary(fit_inv)$r.squared
+)
+```
+
+```{r}
+par(mfrow = c(1, 2))
+plot(fit_x, which = 1)
+plot(fit_inv, which = 1)
+par(mfrow = c(1, 1))
+```
+
+::: {.question}
+Which representation is easier to justify from the scatterplot and residual
+plot? Remember that a high \(R^2\) alone is not enough to establish model
+adequacy.
+:::
+
+## Takeaway
+
+Transformations should be motivated by the scientific relationship and by
+model diagnostics. They are not simply a device for maximizing \(R^2\).
