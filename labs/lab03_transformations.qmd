@@ -4,9 +4,7 @@ subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 author: "Mehdi Maadooliat"
 format:
   html:
-    theme:
-      - cosmo
-      - lab-style.scss
+    css: lab-style.css
     toc: true
     toc-depth: 3
     code-copy: true
