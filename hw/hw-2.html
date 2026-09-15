@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression Analysis - Fall 2026 – MATH 4780 (MSSC 5780)</title>
+<title>Homework 2: Simple Linear Regression – MATH 4780 (MSSC 5780)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,31 +26,64 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./course-links.html" rel="next">
-<link href="./course-syllabus.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f6536f3837664eba112f7544014d9b3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-1e793883ff26e66741bc17ded684d5f4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-f6536f3837664eba112f7544014d9b3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f6536f3837664eba112f7544014d9b3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-1e793883ff26e66741bc17ded684d5f4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f6536f3837664eba112f7544014d9b3b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -80,15 +113,13 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Regression Analysis - Fall 2026 – MATH 4780 (MSSC 5780)">
-<meta property="og:description" content="Homepage for ‘Regression Analysis’ at Marquette University, Fall 2026.">
+<meta property="og:title" content="Homework 2: Simple Linear Regression – MATH 4780 (MSSC 5780)">
+<meta property="og:description" content="Due date: September 25, 11:59 PM on D2L">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Regression Analysis - Fall 2026 – MATH 4780 (MSSC 5780)">
-<meta name="twitter:description" content="Homepage for ‘Regression Analysis’ at Marquette University, Fall 2026.">
-<meta name="twitter:image" content="https://tinyurl.com/f26-4780/images/twitter-card.png">
+<meta name="twitter:title" content="Homework 2: Simple Linear Regression – MATH 4780 (MSSC 5780)">
+<meta name="twitter:description" content="Due date: September 25, 11:59 PM on D2L">
+<meta name="twitter:image" content="https://tinyurl.com/f26-4780/hw/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
-<meta name="twitter:image-height" content="941">
-<meta name="twitter:image-width" content="1672">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -263,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./course-overview.html">Course information</a></li><li class="breadcrumb-item"><a href="./index.html">Schedule</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Homework 2: Simple Linear Regression</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -277,9 +308,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/mmadoliat/RegAna-f26/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
@@ -297,34 +328,34 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Course information</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syllabus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-links.html" class="sidebar-item-text sidebar-link">
+  <a href="../course-links.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Useful links</span></a>
   </div>
 </li>
@@ -341,7 +372,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./computing/computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
+  <a href="../computing/computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cheatsheets</span></a>
   </div>
 </li>
@@ -352,16 +383,31 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#statistical-computing-and-data-analysis" id="toc-statistical-computing-and-data-analysis" class="nav-link" data-scroll-target="#statistical-computing-and-data-analysis">Statistical Computing and Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#automobile-gasoline-mileage-data" id="toc-automobile-gasoline-mileage-data" class="nav-link" data-scroll-target="#automobile-gasoline-mileage-data">Automobile gasoline mileage data</a></li>
+  </ul></li>
+  <li><a href="#mathematical-derivation-and-reasoning" id="toc-mathematical-derivation-and-reasoning" class="nav-link" data-scroll-target="#mathematical-derivation-and-reasoning">Mathematical Derivation and Reasoning</a>
+  <ul class="collapse">
+  <li><a href="#submission-checklist" id="toc-submission-checklist" class="nav-link" data-scroll-target="#submission-checklist">Submission checklist</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/hw/hw-2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./course-overview.html">Course information</a></li><li class="breadcrumb-item"><a href="./index.html">Schedule</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regression Analysis - Fall 2026</h1>
+<h1 class="title">Homework 2: Simple Linear Regression</h1>
+<p class="subtitle lead">Due date: September 25, 11:59 PM on D2L</p>
 </div>
 
 
@@ -378,595 +424,136 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.</p>
+<section id="instructions" class="level1">
+<h1>Instructions</h1>
+<ul>
+<li><p>Homework 2 covers the material on <strong>simple linear regression</strong> developed in class.</p></li>
+<li><p><strong>MSSC 5780 students must complete all questions.</strong></p></li>
+<li><p><strong>MATH 4780 students may omit one question.</strong> They may complete it for extra practice.</p></li>
+<li><p>Submit your work as <strong>one PDF file</strong> to <strong>D2L &gt; Assessments &gt; Dropbox</strong>. Multiple files or files in formats other than PDF are not accepted.</p></li>
+<li><p>Number your answers and present them <strong>in the same order as the questions</strong>.</p></li>
+<li><p>The <strong>Statistical Computing and Data Analysis</strong> section must be completed electronically using R or another statistical computing environment. Include relevant code and computer output. Handwritten work is not accepted for this section.</p></li>
+<li><p>For the <strong>Mathematical Derivation and Reasoning</strong> section, handwritten work is allowed. If you write by hand, scan your work clearly and include it in the single PDF submission.</p></li>
+<li><p>Show enough work to make your reasoning clear. Statistical conclusions should be stated in context, not reported only as numerical output.</p></li>
+</ul>
+</section>
+<section id="statistical-computing-and-data-analysis" class="level1">
+<h1>Statistical Computing and Data Analysis</h1>
+<p>Use <strong>R</strong> (preferred) or another statistical computing environment. All numerical results, tables, confidence intervals, hypothesis tests, and figures in this section should be generated by computer. Include the relevant code.</p>
+<section id="automobile-gasoline-mileage-data" class="level2">
+<h2 class="anchored" data-anchor-id="automobile-gasoline-mileage-data">Automobile gasoline mileage data</h2>
+<p>The data are the <strong>Table B.3 automobile gasoline mileage data</strong> used in the regression textbook. The data contain measurements on 32 automobiles.</p>
+<p>The dataset is already included in the <a href="../slides/data/regression_datasets.rda">course data file</a>. In R, load it using</p>
 <div class="cell">
-<div class="cell-output-display">
-<div id="ppjvcnhloi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ppjvcnhloi table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#ppjvcnhloi thead, #ppjvcnhloi tbody, #ppjvcnhloi tfoot, #ppjvcnhloi tr, #ppjvcnhloi td, #ppjvcnhloi th {
-  border-style: none;
-}
-
-#ppjvcnhloi p {
-  margin: 0;
-  padding: 0;
-}
-
-#ppjvcnhloi .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#ppjvcnhloi .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#ppjvcnhloi .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#ppjvcnhloi .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#ppjvcnhloi .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#ppjvcnhloi .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#ppjvcnhloi .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#ppjvcnhloi .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#ppjvcnhloi .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#ppjvcnhloi .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#ppjvcnhloi .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#ppjvcnhloi .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#ppjvcnhloi .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#ppjvcnhloi .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#ppjvcnhloi .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ppjvcnhloi .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#ppjvcnhloi .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#ppjvcnhloi .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#ppjvcnhloi .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ppjvcnhloi .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#ppjvcnhloi .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ppjvcnhloi .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#ppjvcnhloi .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ppjvcnhloi .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ppjvcnhloi .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ppjvcnhloi .gt_left {
-  text-align: left;
-}
-
-#ppjvcnhloi .gt_center {
-  text-align: center;
-}
-
-#ppjvcnhloi .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#ppjvcnhloi .gt_font_normal {
-  font-weight: normal;
-}
-
-#ppjvcnhloi .gt_font_bold {
-  font-weight: bold;
-}
-
-#ppjvcnhloi .gt_font_italic {
-  font-style: italic;
-}
-
-#ppjvcnhloi .gt_super {
-  font-size: 65%;
-}
-
-#ppjvcnhloi .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#ppjvcnhloi .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#ppjvcnhloi .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#ppjvcnhloi .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#ppjvcnhloi .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#ppjvcnhloi .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#ppjvcnhloi .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#ppjvcnhloi .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#ppjvcnhloi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_col_headings header">
-<th id="week" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>WEEK</strong></th>
-<th id="date" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><strong>DATE</strong></th>
-<th id="topic" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>TOPIC</strong></th>
-<th id="materials" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>MATERIALS</strong></th>
-<th id="due" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>DUE</strong></th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_center" headers="week">1</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Tue, Sep 1</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Greetings + Overview of Regression <a href="https://marq.sharepoint.com/:v:/t/SIS_1820_1_0052/IQBYgX3c94NBSrwW4FYZpafpAdiEuzStJWJzxUFfWjbA6Sc?e=aWscKz">🎥 Lecture 1</a></td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">🖥️<a href="./slides/01-syllabus.html">syllabus</a><br>🖥️<a href="./slides/02-overview.html">01-overview</a></td>
-<td class="gt_row gt_left" headers="due">📑 Old Slides: <a href="slides/old/Chapter_01.pdf">Ch. 1</a></td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="week"><br>
-</td>
-<td class="gt_row gt_right gt_striped" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Thu, Sep 3</td>
-<td class="gt_row gt_left gt_striped" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Probability and Statistics Review <a href="https://marq.sharepoint.com/:v:/t/SIS_1820_1_0052/IQDGIeUzE7s4QqV4ruEHF4SlAQ98CCDAgHFmCQb4KBGH9n8?e=UdeR4K">🎥 Lecture 2</a></td>
-<td class="gt_row gt_left gt_striped" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">📃<a href="./slides/Learn-R.zip">02-Learn-R-in-R</a><br>🖥️<a href="./slides/03-prob-stat.html">03-prob-stat</a></td>
-<td class="gt_row gt_left gt_striped" headers="due"><br>
-</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="week"><br>
-</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Fri, Sep 4</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="due">✍️ <a href="https://swirlstats.com/">Homework 0</a></td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="week">2</td>
-<td class="gt_row gt_right gt_striped" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Tue, Sep 8</td>
-<td class="gt_row gt_left gt_striped" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Simple Linear Regression (SLR) <a href="https://marq.sharepoint.com/:v:/t/SIS_1820_1_0052/IQDyhcMfbiIGQZDGv6jzTB6ZAR542-1fdwE-VtXib6Bdsv0?e=UMFLGP">🎥 Lecture 3</a></td>
-<td class="gt_row gt_left gt_striped" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">🖥️<a href="./slides/04-slr.html">04-slr</a></td>
-<td class="gt_row gt_left gt_striped" headers="due">📑 Old Slides: <a href="slides/old/Chapter_02.pdf">Ch. 2</a></td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="week"><br>
-</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Thu, Sep 10</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Simple Linear Regression <a href="https://marq.sharepoint.com/:v:/t/SIS_1820_1_0052/IQDVNYRFNxC8S7rOZ6luCAUaAQUu575TLxf6liZ8TZ93HH0?e=Exoqj0">🎥 Lecture 4</a></td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="due"><br>
-</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="week"><br>
-</td>
-<td class="gt_row gt_right gt_striped" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Fri, Sep 11</td>
-<td class="gt_row gt_left gt_striped" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left gt_striped" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left gt_striped" headers="due">✍️<a href="hw/hw-1.html">Homework 1</a></td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="week">3</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Tue, Sep 15</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Simple Linear Regression</td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="due"><br>
-</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="week"><br>
-</td>
-<td class="gt_row gt_right gt_striped" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Thu, Sep 17</td>
-<td class="gt_row gt_left gt_striped" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Simple Linear Regression</td>
-<td class="gt_row gt_left gt_striped" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left gt_striped" headers="due">🔬<a href="labs/lab01_regression_summary.html">Lab 1</a></td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="week">4</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Tue, Sep 22</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Multiple Linear Regression (MLR)</td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">🖥️<a href="slides/05-mlr.html">05-mlr</a></td>
-<td class="gt_row gt_left" headers="due">📑 Old Slides: <a href="slides/old/Chapter_03.pdf">Ch. 3</a></td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="week"><br>
-</td>
-<td class="gt_row gt_right gt_striped" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Thu, Sep 24</td>
-<td class="gt_row gt_left gt_striped" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Multiple Linear Regression</td>
-<td class="gt_row gt_left gt_striped" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left gt_striped" headers="due"><br>
-</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="week"><br>
-</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Fri, Sep 25</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="due">✍️<a href="hw/hw-2.html">Homework 2</a></td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="week">5</td>
-<td class="gt_row gt_right gt_striped" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Tue, Sep 29</td>
-<td class="gt_row gt_left gt_striped" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Multiple Linear Regression</td>
-<td class="gt_row gt_left gt_striped" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left gt_striped" headers="due"><br>
-</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="week"><br>
-</td>
-<td class="gt_row gt_right" headers="date" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Thu, Oct 1</td>
-<td class="gt_row gt_left" headers="topic" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3">Multiple Linear Regression</td>
-<td class="gt_row gt_left" headers="materials" style="border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3"><br>
-</td>
-<td class="gt_row gt_left" headers="due"><br>
-</td>
-</tr>
-</tbody>
-</table>
-
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"./data/regression_datasets.rda"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mpg_data <span class="ot">&lt;-</span> table_B3</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mpg_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If your copy of <code>regression_datasets.rda</code> is stored in a different folder, modify the path accordingly.</p>
+<p>The variables are:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>(y): miles per gallon</li>
+<li>(x_1): displacement (cubic inches)</li>
+<li>(x_2): horsepower (ft-lb)</li>
+<li>(x_3): torque (ft-lb)</li>
+<li>(x_4): compression ratio</li>
+<li>(x_5): rear axle ratio</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>(x_6): carburetor (barrels)</li>
+<li>(x_7): number of transmission speeds</li>
+<li>(x_8): overall length (inches)</li>
+<li>(x_9): width (inches)</li>
+<li>(x_{10}): weight (lb)</li>
+<li>(x_{11}): transmission indicator ((1=) automatic, (0=) manual)</li>
+</ul>
 </div>
 </div>
-</div>
+<p>For this homework, we focus on the simple linear regression relating <strong>gasoline mileage</strong> (y) to <strong>engine displacement</strong> (x_1).</p>
+<ol type="1">
+<li><p><strong>Fit and interpret the model.</strong> Fit the simple linear regression model</p>
+<p>[ Y_i=_0+<em>1x</em>{1i}+_i. ]</p>
+<p>Report the fitted regression equation and interpret both estimated coefficients in context. Comment on whether interpretation of the intercept is practically meaningful.</p></li>
+<li><p><strong>Confidence intervals for model parameters.</strong> Construct 95% confidence intervals for</p>
+<p>[ _0,_1,^2. ]</p>
+<p>For the confidence interval for (^2), use the appropriate chi-square distribution. Show the formula or procedure used.</p></li>
+<li><p><strong>Test the slope.</strong> At significance level (), test</p>
+<p>[ H_0:_1=0 H_1:_1. ]</p>
+<p>Clearly report the hypotheses, test statistic, degrees of freedom, (p)-value (or rejection rule), decision, and conclusion in context.</p></li>
+<li><p><strong>ANOVA and significance of regression.</strong> Construct the ANOVA table for the fitted model and use it to test the significance of regression at (). State the hypotheses and conclusion. Explain how this test is related to the slope test in Question 3.</p></li>
+<li><p><strong>Coefficient of determination.</strong> What percentage of the total variability in gasoline mileage is explained by the linear relationship with engine displacement? State and interpret the appropriate statistic.</p></li>
+<li><p><strong>Confidence interval for the mean response.</strong> Find a 95% confidence interval for the <strong>mean gasoline mileage</strong> among automobiles with engine displacement</p>
+<p>[ x_1=275^3. ]</p>
+<p>Interpret the interval in context.</p></li>
+<li><p><strong>Prediction for a new automobile.</strong> Suppose we want to predict the gasoline mileage of a <strong>new automobile</strong> with a 275 in(^3) engine.</p>
+<ol type="a">
+<li><p>Give the point prediction.</p></li>
+<li><p>Construct a 95% prediction interval.</p></li>
+<li><p>Compare this prediction interval with the confidence interval from Question 6. Which interval is wider, and why?</p></li>
+</ol></li>
+<li><p><strong>Visualize fitted values and uncertainty.</strong> Create one figure containing</p>
+<ul>
+<li>the observed data ({(x_{1i},y_i)}_{i=1}^{32}),</li>
+<li>the fitted simple linear regression line,</li>
+<li>the 95% confidence band for the mean response (_{YX=x}), and</li>
+<li>the 95% prediction band for a future response (YX=x).</li>
+</ul>
+<p>Use clear axis labels, an informative title, and a legend. The confidence and prediction bands should be visually distinguishable.</p>
+<p><em>Hint:</em> Create a fine sequence of engine-displacement values over the observed range and use <code>predict()</code> with <code>interval = "confidence"</code> and <code>interval = "prediction"</code>.</p></li>
+<li><p><strong>Verify least-squares properties numerically.</strong> Using the observed data and your fitted model, verify the following properties to reasonable numerical precision:</p>
+<ol type="a">
+<li>[ <em>{i=1}^{32}e_i = </em>{i=1}^{32}(y_i-y_i) =</li>
+</ol>
+<ol start="0" type="1">
+<li>]</li>
+</ol>
+<ol start="2" type="a">
+<li><p>[ <em>{i=1}^{32}y_i = </em>{i=1}^{32}y_i. ]</p></li>
+<li><p>The fitted least-squares line passes through the centroid</p></li>
+</ol>
+<p>[ (x,y). ]</p>
+<ol start="4" type="a">
+<li><p>[ <em>{i=1}^{32}x</em>{1i}e_i=0. ]</p></li>
+<li><p>[ _{i=1}^{32}y_i e_i=0. ]</p></li>
+</ol>
+<p>For each part, show the R calculation and briefly explain why the result is expected from least-squares theory.</p></li>
+</ol>
+</section>
+</section>
+<section id="mathematical-derivation-and-reasoning" class="level1">
+<h1>Mathematical Derivation and Reasoning</h1>
+<p>Throughout this section, consider the simple linear regression model</p>
+<p>[ Y_i=_0+_1x_i+_i, _iN(0,^2), ]</p>
+<p>for (i=1,,n), with the predictor values (x_1,,x_n) treated as fixed.</p>
+<ol start="10" type="1">
+<li><strong>Unbiasedness of the intercept estimator.</strong> Before the sample is observed, the (Y_i)’s are random variables. Show that (b_0) is an unbiased estimator of (_0), that is,</li>
+</ol>
+<p>[ E(b_0)=_0. ]</p>
+<ol start="11" type="1">
+<li><strong>ANOVA decomposition.</strong> Show that</li>
+</ol>
+<p>[ <em>{i=1}^n(y_i-y)^2 = </em>{i=1}^n(y_i-y)^2 + _{i=1}^n(y_i-y_i)^2. ]</p>
+<p>In other words, show that</p>
+<p>[ SS_T=SS_R+SS_{}. ]</p>
+<section id="submission-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="submission-checklist">Submission checklist</h2>
+<p>Before submitting, make sure that:</p>
+<ul>
+<li>your submission is one PDF file;</li>
+<li>all required questions for your course number are answered;</li>
+<li>mathematical derivations are readable and logically organized;</li>
+<li>computer-generated results include relevant code;</li>
+<li>confidence intervals and hypothesis tests are interpreted in context;</li>
+<li>figures have appropriate labels and legends.</li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1382,18 +969,6 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="./course-syllabus.html" class="pagination-link" aria-label="Syllabus">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Syllabus</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./course-links.html" class="pagination-link" aria-label="Useful links">
-        <span class="nav-page-text">Useful links</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1402,7 +977,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/hw/hw-2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
