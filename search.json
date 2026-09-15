@@ -22,7 +22,7 @@
     "href": "hw/hw-2.html#automobile-gasoline-mileage-data",
     "title": "Homework 2: Simple Linear Regression",
     "section": "Automobile gasoline mileage data",
-    "text": "Automobile gasoline mileage data\nThe data are the Table B.3 automobile gasoline mileage data used in the regression textbook. The data contain measurements on 32 automobiles.\nThe dataset is already included in the course data file. In R, load it using\n\nload(\"./data/regression_datasets.rda\")\nmpg_data &lt;- table_B3\n\nhead(mpg_data)\n\nIf your copy of regression_datasets.rda is stored in a different folder, modify the path accordingly.\nThe variables are:\n\n\n\n(y): miles per gallon\n(x_1): displacement (cubic inches)\n(x_2): horsepower (ft-lb)\n(x_3): torque (ft-lb)\n(x_4): compression ratio\n(x_5): rear axle ratio\n\n\n\n(x_6): carburetor (barrels)\n(x_7): number of transmission speeds\n(x_8): overall length (inches)\n(x_9): width (inches)\n(x_{10}): weight (lb)\n(x_{11}): transmission indicator ((1=) automatic, (0=) manual)\n\n\n\nFor this homework, we focus on the simple linear regression relating gasoline mileage (y) to engine displacement (x_1).\n\nFit and interpret the model. Fit the simple linear regression model\n[ Y_i=_0+1x{1i}+_i. ]\nReport the fitted regression equation and interpret both estimated coefficients in context. Comment on whether interpretation of the intercept is practically meaningful.\nConfidence intervals for model parameters. Construct 95% confidence intervals for\n[ _0,_1,^2. ]\nFor the confidence interval for (^2), use the appropriate chi-square distribution. Show the formula or procedure used.\nTest the slope. At significance level (), test\n[ H_0:_1=0 H_1:_1. ]\nClearly report the hypotheses, test statistic, degrees of freedom, (p)-value (or rejection rule), decision, and conclusion in context.\nANOVA and significance of regression. Construct the ANOVA table for the fitted model and use it to test the significance of regression at (). State the hypotheses and conclusion. Explain how this test is related to the slope test in Question 3.\nCoefficient of determination. What percentage of the total variability in gasoline mileage is explained by the linear relationship with engine displacement? State and interpret the appropriate statistic.\nConfidence interval for the mean response. Find a 95% confidence interval for the mean gasoline mileage among automobiles with engine displacement\n[ x_1=275^3. ]\nInterpret the interval in context.\nPrediction for a new automobile. Suppose we want to predict the gasoline mileage of a new automobile with a 275 in(^3) engine.\n\nGive the point prediction.\nConstruct a 95% prediction interval.\nCompare this prediction interval with the confidence interval from Question 6. Which interval is wider, and why?\n\nVisualize fitted values and uncertainty. Create one figure containing\n\nthe observed data ({(x_{1i},y_i)}_{i=1}^{32}),\nthe fitted simple linear regression line,\nthe 95% confidence band for the mean response (_{YX=x}), and\nthe 95% prediction band for a future response (YX=x).\n\nUse clear axis labels, an informative title, and a legend. The confidence and prediction bands should be visually distinguishable.\nHint: Create a fine sequence of engine-displacement values over the observed range and use predict() with interval = \"confidence\" and interval = \"prediction\".\nVerify least-squares properties numerically. Using the observed data and your fitted model, verify the following properties to reasonable numerical precision:\n\n[ {i=1}^{32}e_i = {i=1}^{32}(y_i-y_i) =\n\n\n]\n\n\n[ {i=1}^{32}y_i = {i=1}^{32}y_i. ]\nThe fitted least-squares line passes through the centroid\n\n[ (x,y). ]\n\n[ {i=1}^{32}x{1i}e_i=0. ]\n[ _{i=1}^{32}y_i e_i=0. ]\n\nFor each part, show the R calculation and briefly explain why the result is expected from least-squares theory."
+    "text": "Automobile gasoline mileage data\nThe data are the Table B.3 automobile gasoline mileage data used in the regression textbook. The data contain measurements on 32 automobiles.\nThe dataset is already included in the course data file. In R, load it using\n\nload(\"./data/regression_datasets.rda\")\nmpg_data &lt;- table_B3\n\nhead(mpg_data)\n\nIf your copy of regression_datasets.rda is stored in a different folder, modify the path accordingly.\nThe variables are:\n\n\n\n\\(y\\): miles per gallon\n\\(x_1\\): displacement (cubic inches)\n\\(x_2\\): horsepower (ft-lb)\n\\(x_3\\): torque (ft-lb)\n\\(x_4\\): compression ratio\n\\(x_5\\): rear axle ratio\n\n\n\n\\(x_6\\): carburetor (barrels)\n\\(x_7\\): number of transmission speeds\n\\(x_8\\): overall length (inches)\n\\(x_9\\): width (inches)\n\\(x_{10}\\): weight (lb)\n\\(x_{11}\\): transmission indicator (\\(1=\\) automatic, \\(0=\\) manual)\n\n\n\nFor this homework, we focus on the simple linear regression relating gasoline mileage \\(y\\) to engine displacement \\(x_1\\).\n\nFit and interpret the model. Fit the simple linear regression model\n\\[\nY_i=\\beta_0+\\beta_1x_{1i}+\\varepsilon_i.\n\\]\nReport the fitted regression equation and interpret both estimated coefficients in context. Comment on whether interpretation of the intercept is practically meaningful.\nConfidence intervals for model parameters. Construct 95% confidence intervals for\n\\[\n\\beta_0,\\qquad \\beta_1,\\qquad \\sigma^2.\n\\]\nFor the confidence interval for \\(\\sigma^2\\), use the appropriate chi-square distribution. Show the formula or procedure used.\nTest the slope. At significance level \\(\\alpha=0.05\\), test\n\\[\nH_0:\\beta_1=0\n\\qquad\\text{versus}\\qquad\nH_1:\\beta_1\\neq0.\n\\]\nClearly report the hypotheses, test statistic, degrees of freedom, \\(p\\)-value (or rejection rule), decision, and conclusion in context.\nANOVA and significance of regression. Construct the ANOVA table for the fitted model and use it to test the significance of regression at \\(\\alpha=0.05\\). State the hypotheses and conclusion. Explain how this test is related to the slope test in Question 3.\nCoefficient of determination. What percentage of the total variability in gasoline mileage is explained by the linear relationship with engine displacement? State and interpret the appropriate statistic.\nConfidence interval for the mean response. Find a 95% confidence interval for the mean gasoline mileage among automobiles with engine displacement\n\\[\nx_1=275\\text{ in}^3.\n\\]\nInterpret the interval in context.\nPrediction for a new automobile. Suppose we want to predict the gasoline mileage of a new automobile with a 275 in\\(^3\\) engine.\n\nGive the point prediction.\nConstruct a 95% prediction interval.\nCompare this prediction interval with the confidence interval from Question 6. Which interval is wider, and why?\n\nVisualize fitted values and uncertainty. Create one figure containing\n\nthe observed data \\(\\{(x_{1i},y_i)\\}_{i=1}^{32}\\),\nthe fitted simple linear regression line,\nthe 95% confidence band for the mean response \\(\\mu_{Y\\mid X=x}\\), and\nthe 95% prediction band for a future response \\(Y\\mid X=x\\).\n\nUse clear axis labels, an informative title, and a legend. The confidence and prediction bands should be visually distinguishable.\nHint: Create a fine sequence of engine-displacement values over the observed range and use predict() with interval = \"confidence\" and interval = \"prediction\".\nVerify least-squares properties numerically. Using the observed data and your fitted model, verify the following properties to reasonable numerical precision:\n\n$$ {i=1}^{32}e_i = {i=1}^{32}(y_i-y_i) =\n\n\n$$\n\n\n\\[\n\\sum_{i=1}^{32}y_i\n=\n\\sum_{i=1}^{32}\\hat y_i.\n\\]\nThe fitted least-squares line passes through the centroid\n\n\\[\n(\\bar x,\\bar y).\n\\]\n\n\\[\n\\sum_{i=1}^{32}x_{1i}e_i=0.\n\\]\n\\[\n\\sum_{i=1}^{32}\\hat y_i e_i=0.\n\\]\n\nFor each part, show the R calculation and briefly explain why the result is expected from least-squares theory."
   },
   {
     "objectID": "hw/hw-2.html#submission-checklist",
@@ -260,7 +260,7 @@
     "href": "slides/11-bootstrap.html#r-lab-the-bootstrap-sample",
     "title": "Simulation-based Inference 💻",
     "section": "R Lab The bootstrap Sample",
-    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2350, 2550, 3234, 2350, 2350, 2300, 2350, 2325, 2349, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
+    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2262, 2350, 2350, 2175, 2350, 2324, 2422, 2350, 2350, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
   },
   {
     "objectID": "slides/11-bootstrap.html#r-lab-visualize-the-bootstrap-distribution",
@@ -1189,175 +1189,175 @@
   {
     "objectID": "slides/06-mat.html#matrix",
     "href": "slides/06-mat.html#matrix",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Matrix",
     "text": "Matrix\n\nA matrix \\({\\bf A}\\) that has \\(n\\) rows and \\(m\\) columns is defined as \\[{\\bf A} = (a_{ij})_{n \\times m}\\begin{bmatrix} a_{11} & a_{12} & \\cdots & a_{1m} \\\\ a_{21} & a_{22} & \\cdots & a_{2m} \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ a_{n1} & a_{n2} & \\cdots & a_{nm} \\end{bmatrix}_{n \\times m}\\]\n\n\n\n\n\n(A &lt;- matrix(data = 1:6, \n             nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nclass(A)\n\n[1] \"matrix\" \"array\" \n\n\n\n\nattributes(A)\n\n$dim\n[1] 2 3\n\n\n\n\n\n\nBut what is the geometrical meaning of matrices?\n\n\n\nFirst index is for row and the second index is for column\nUse command matrix() to create a matrix.\nA matrix is a two-dimensional analog of a vector.\nLike all elements of a matrix must be of the same type."
   },
   {
     "objectID": "slides/06-mat.html#matrices-as-linear-transformations",
     "href": "slides/06-mat.html#matrices-as-linear-transformations",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Matrices as Linear Transformations",
     "text": "Matrices as Linear Transformations\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 3\n\n\n\nA matrix is actually a numerical representation of a linear transformation in a linear space which is a function that takes an vector as an input and produces another vector as an output.\nIf we use the grid lines to represent the entire coordinate system, we will see that when we use (1, 0) and (0, 1) as the two bases, all lines are vertical and horizontal, showing, for example, the integer values of each coordinate.\nLinear transformation means we stretch or rotate the lines, but at the same time, all lines remains lines and origin remain fixed.\nGrids lines are parallel and evenly spaced after linear transformation.\n(-1, 3) is the transformed vector of (-1, 2) when the two new transformed basis are (3, 1) and (1, 2)"
   },
   {
     "objectID": "slides/06-mat.html#column-vector",
     "href": "slides/06-mat.html#column-vector",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Column Vector",
     "text": "Column Vector\n\nIf \\(m = 1\\), it becomes a \\(n\\) by 1 matrix or a column vector of size \\(n\\). \\[\\small {\\bf y} = \\begin{bmatrix} y_{1}  \\\\ y_{2}  \\\\ \\vdots  \\\\  y_{n} \\end{bmatrix}_{n \\times 1} \\quad {\\bf 1} = \\begin{bmatrix} 1  \\\\ 1  \\\\ \\vdots  \\\\  1 \\end{bmatrix}_{n \\times 1}\\]\n\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n## 2nd column\nA[, 2]\n\n[1] 3 4\n\n## becomes a numeric vector\nclass(A[, 2]) \n\n[1] \"integer\"\n\n\n\n\n## keep its matrix class\nA[, 2, drop = FALSE] \n\n     [,1]\n[1,]    3\n[2,]    4\n\nclass(A[, 2, drop = FALSE])  \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#row-vector",
     "href": "slides/06-mat.html#row-vector",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Row Vector",
     "text": "Row Vector\n\nIf \\(n = 1\\), it becomes a \\(1\\) by \\(m\\) matrix or a row vector of size \\(m\\). \\[{\\bf x} = \\begin{bmatrix} x_{1} &  x_{2}  & \\dots  &  x_{m} \\end{bmatrix}_{1 \\times m}\\]\nBy default, a vector means a column vector.\n\n\n## 2nd row\nA[2, , drop = FALSE]\n\n     [,1] [,2] [,3]\n[1,]    2    4    6\n\n## keep its matrix class\nclass(A[2, , drop = FALSE]) \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#transpose",
     "href": "slides/06-mat.html#transpose",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Transpose",
     "text": "Transpose\n\nLet \\({\\bf A}\\) be an \\(n \\times m\\) matrix. The transpose of \\({\\bf A}\\), denoted by \\({\\bf A}'\\) or \\({\\bf A}^T\\), is a \\(m \\times n\\) matrix whose columns are the rows of \\({\\bf A}\\). \\[{\\bf A} = \\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6\\end{bmatrix}\\] \\[{\\bf X}_{n \\times 2}\\begin{bmatrix} 1 & x_1 \\\\ 1 & x_{2} \\\\ \\vdots  & \\vdots  \\\\ 1 & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1} & {\\bf x} \\end{bmatrix}\\] \\[{\\bf X}'_{2 \\times n} = \\begin{bmatrix} 1 & 1 & \\cdots & 1 \\\\ x_1 & x_2 & \\cdots & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1}' \\\\ {\\bf x}' \\end{bmatrix}\\]"
   },
   {
     "objectID": "slides/06-mat.html#transpose-in-r",
     "href": "slides/06-mat.html#transpose-in-r",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Transpose in R",
     "text": "Transpose in R\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nt(A)\n\n     [,1] [,2]\n[1,]    1    2\n[2,]    3    4\n[3,]    5    6"
   },
   {
     "objectID": "slides/06-mat.html#linear-independence",
     "href": "slides/06-mat.html#linear-independence",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\n\n\nVectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if for scalars \\(c_{1},c_{2},\\dots,c_{k} \\in \\mathbf{R},\\) \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0\\) for all \\(i = 1, 2, \\dots, k\\).\n\n\nAre \\({\\bf v}_1 = (1, 1)'\\) and \\({\\bf v}_2 = (-3, 2)'\\) linearly independent?\n\n\nWays to check linear independence:\n\nsolve the homogeneous linear system \\(\\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix}\\begin{bmatrix} c_1 \\\\ c_2 \\end{bmatrix}=\\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix}\\) for \\(c_1\\) and \\(c_2\\).\ncheck if \\(\\text{det} \\left( \\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix} \\right)\\) is non-zero."
   },
   {
     "objectID": "slides/06-mat.html#linear-independence-1",
     "href": "slides/06-mat.html#linear-independence-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\nV &lt;- matrix(c(1, 1, -3, 2), nrow = 2, ncol = 2)\nsolve(a = V, b = rep(0, 2))\n\n[1] 0 0\n\ndet(V)\n\n[1] 5\n\n\n\n\nA is invertible, that is, A has an inverse, is nonsingular, and is nondegenerate.\nA is row-equivalent to the n-by-n identity matrix In.\nA is column-equivalent to the n-by-n identity matrix In.\nA has n pivot positions.\nA has full rank; that is, rank A = n.\nBased on the rank A=n, the equation Ax = 0 has only the trivial solution x = 0. and the equation Ax = b has exactly one solution for each b in Kn.\nThe kernel (null space) of A is trivial\nThe columns of A are linearly independent.\nThe columns of A span Kn.\nThe columns of A form a basis of Kn.\ndet A ≠ 0.\nThe number 0 is not an eigenvalue of A.\nThe transpose AT is an invertible matrix"
   },
   {
     "objectID": "slides/06-mat.html#rank",
     "href": "slides/06-mat.html#rank",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Rank",
     "text": "Rank\n\nThe rank of a matrix \\({\\bf A} = \\begin{bmatrix} {\\bf a}_1 & {\\bf a}_2 & \\cdots & {\\bf a}_m \\end{bmatrix}\\) is the number of linearly independent columns (dimension of the column space).\nIf \\(k\\) of the \\(m\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_m\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\).\nThe remaining \\(m-k\\) columns of \\({\\bf A}\\) can be written as a linear combination of the \\(k\\) linearly independent columns.\n\n\n\nIf \\(k = m\\), it is full rank\nIf \\(k\\) of the \\(n\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_n\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\). The remaining \\(n-k\\) columns can be written as a linear combination of the \\(k\\) columns.\nThe vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly dependent if there exist scalars \\(c_{1},c_{2},\\dots,c_{k},\\) not all zero, such that \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\]\nThe column vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if it is not linearly dependent, that is, if \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0, i = 1, 2, \\dots, k.\\)"
   },
   {
     "objectID": "slides/06-mat.html#rank-1",
     "href": "slides/06-mat.html#rank-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Rank",
     "text": "Rank\n\n(M &lt;- matrix(1:9, nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n# install.packages(\"Matrix\")\nlibrary(Matrix)\nrankMatrix(M)[1]\n\n[1] 2\n\n\n\nCan you see why the rank is 2, meaning that one column can be written as a linear combo of the other two?\n\n\n\n\\({\\bf a}_3 = 2{\\bf a_2}-{\\bf a}_1\\)\n\n\n2 * M[, 2] - 1 * M[, 1]\n\n[1] 7 8 9\n\n\n\n\nFind the row or column basis of A using reduced row echelon form\nthe dimension of the vector space generated (or spanned) by its columns\ndimension: number of basis in the vector space."
   },
   {
     "objectID": "slides/06-mat.html#operations-addition",
     "href": "slides/06-mat.html#operations-addition",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Addition",
     "text": "Operations: Addition\n\nAddition: \\({\\bf A + B}\\) is adding the corresponding elements together \\(a_{ij} + b_{ij}\\).\n\\({\\bf A}\\) and \\({\\bf B}\\) must have an equal number of rows and columns.\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(6:1, nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    6    4    2\n[2,]    5    3    1\n\nA + B\n\n     [,1] [,2] [,3]\n[1,]    7    7    7\n[2,]    7    7    7\n\n\n\n\n\n(B &lt;- matrix(1:4, nrow = 2, ncol = 2))\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nA + B\n\nError in `A + B`:\n! non-conformable arrays"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication",
     "href": "slides/06-mat.html#operations-multiplication",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\nMultiplication: The product of matrices \\({\\bf A}\\) and \\({\\bf B}\\) is denoted as \\({\\bf AB}\\).\n\n\n\nThe number of columns in \\({\\bf A}\\) must be equal to the number of rows \\({\\bf B}\\).\nThe result matrix \\({\\bf C}\\) has the number of rows of \\({\\bf A}\\) and the number of columns of the \\({\\bf B}\\).\n\n\n\nThe number of columns in the first matrix \\({\\bf A}\\) must be equal to the number of rows in the second matrix of \\({\\bf B}\\).\nThe resulting matrix \\({\\bf C}\\) has dimension of the number of rows of the first and the number of columns of the second matrix."
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-1",
     "href": "slides/06-mat.html#operations-multiplication-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(1:12, nrow = 3, ncol = 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n\n\n\n\n(C &lt;- A %*% B)\n\n     [,1] [,2] [,3] [,4]\n[1,]   22   49   76  103\n[2,]   28   64  100  136\n\n(B &lt;- matrix(1:8, nrow = 2, ncol = 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    3    5    7\n[2,]    2    4    6    8\n\nA %*% B\n\nError in `A %*% B`:\n! non-conformable arguments"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-2",
     "href": "slides/06-mat.html#operations-multiplication-2",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\\({\\bf A}{\\bf B} \\ne {\\bf B}{\\bf A}\\) in general.\n\\(({\\bf A}{\\bf B})' =  {\\bf B}'{\\bf A}'\\).\n\n\n\n\n\n(C &lt;- matrix(1:4, 2, 2))\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\n(D &lt;- matrix(2:5, 2, 2))\n\n     [,1] [,2]\n[1,]    2    4\n[2,]    3    5\n\nC %*% D\n\n     [,1] [,2]\n[1,]   11   19\n[2,]   16   28\n\n\n\n\n\nD %*% C\n\n     [,1] [,2]\n[1,]   10   22\n[2,]   13   29\n\nt(C %*% D)\n\n     [,1] [,2]\n[1,]   11   16\n[2,]   19   28\n\nt(D) %*% t(C)\n\n     [,1] [,2]\n[1,]   11   16\n[2,]   19   28"
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-symmetric-and-identity",
     "href": "slides/06-mat.html#special-matrices-symmetric-and-identity",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Special Matrices: Symmetric and Identity",
     "text": "Special Matrices: Symmetric and Identity\n\nA square matrix \\((m = n)\\) \\({\\bf A}_{n \\times n}\\) is a symmetric matrix if \\({\\bf A = A}'\\).\n\n\\[{\\bf A} = \\begin{bmatrix} 1 & 2  \\\\ 2 & 5 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 2 \\\\ 2 & 5 \\end{bmatrix}\\]\n\nA square matrix \\({\\bf I}_{n \\times n}\\) whose diagonal elements are 1’s and off diagonal elements are 0’s is called an identity matrix of order \\(n\\). \\[{\\bf I} = \\begin{bmatrix} 1 & 0 & \\cdots & 0 \\\\ 0 & 1 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & 1 \\end{bmatrix}\\]\n\n\n\nIf the inverse exists, it is unique."
   },
   {
     "objectID": "slides/06-mat.html#identity-and-diagonal-matrix",
     "href": "slides/06-mat.html#identity-and-diagonal-matrix",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Identity and Diagonal Matrix",
     "text": "Identity and Diagonal Matrix\n\n\n\n## Identity matrix\nI &lt;- diag(5)\nI\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    0    0    0    0\n[2,]    0    1    0    0    0\n[3,]    0    0    1    0    0\n[4,]    0    0    0    1    0\n[5,]    0    0    0    0    1\n\n## A diagonal matrix\ndiag(c(4, 2, 5))\n\n     [,1] [,2] [,3]\n[1,]    4    0    0\n[2,]    0    2    0\n[3,]    0    0    5\n\n\n\n\n## Extract diagonal elements\nD &lt;- matrix(1:4, 2, 2)\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\ndiag(D)\n\n[1] 1 4"
   },
   {
     "objectID": "slides/06-mat.html#inverse-matrix",
     "href": "slides/06-mat.html#inverse-matrix",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Inverse Matrix",
     "text": "Inverse Matrix\n\nThe inverse of a square matrix \\({\\bf A}\\), denoted by \\({\\bf A}^{-1}\\), is a square matrix such that \\[{\\bf A}^{-1}{\\bf A} = {\\bf A}{\\bf A}^{-1} = {\\bf I}\\]\n\n\n\n\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nD_inv &lt;- solve(D)\nD_inv\n\n     [,1] [,2]\n[1,]   -2  1.5\n[2,]    1 -0.5\n\n\n\n\nD_inv %*% D\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1\n\nD %*% D_inv\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1"
   },
   {
     "objectID": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
     "href": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Idempotent, Orthogonal, Positive Definite",
     "text": "Idempotent, Orthogonal, Positive Definite\n\nA square matrix \\({\\bf A}\\) is idempotent if \\({\\bf A}{\\bf A} = {\\bf A}\\).\nA square matrix \\({\\bf A}\\) is orthogonal if \\({\\bf A}^{-1} = {\\bf A}'\\) and hence \\({\\bf A}'{\\bf A} = {\\bf I}\\).\n\n\n\nLet \\({\\bf A}\\) be a \\(n \\times n\\) matrix and \\({\\bf y}\\) be a \\(n \\times 1\\) vector. \\[{\\bf y}'{\\bf A} {\\bf y} = \\sum_{i=1}^n\\sum_{j=1}^na_{ij}y_iy_j\\] is called a quadratic form of \\({\\bf y}\\).\n\n\n\n\nA symmetric matrix \\({\\bf A}\\) is said to be \n\npositive definite if \\({\\bf y}'{\\bf A} {\\bf y} &gt; 0\\) for all \\({\\bf y \\ne 0}\\).\npositive semi-definite if \\({\\bf y}'{\\bf A} {\\bf y} \\ge 0\\) for all \\({\\bf y \\ne 0}\\) and \\({\\bf y}'{\\bf A} {\\bf y} = 0\\) for some \\({\\bf y \\ne 0}\\).\n\nIf \\({\\bf A}\\) is symmetric and idempotent, then \\({\\bf A}\\) is positive semi-definite.\n\n\n\nHow about negative definite"
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
     "href": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Special Matrices: Idempotent, Orthogonal",
     "text": "Special Matrices: Idempotent, Orthogonal\n\n\n\n## Idempotent and symmetric matrix\n(A &lt;- matrix(1, 2, 2)/2)\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\nA %*% A\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\n## positive semi-definite\ny &lt;- c(-2, 5)\nt(y) %*% A %*% y\n\n     [,1]\n[1,]  4.5\n\n\n\n\n## Orthogonal matrix\n(E &lt;- matrix(c(0, 1, 0, -1, 0, 0, 0, 0, -1), \n             nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    0   -1    0\n[2,]    1    0    0\n[3,]    0    0   -1\n\nsolve(E)\n\n     [,1] [,2] [,3]\n[1,]    0    1    0\n[2,]   -1    0    0\n[3,]    0    0   -1\n\nt(E) %*% E\n\n     [,1] [,2] [,3]\n[1,]    1    0    0\n[2,]    0    1    0\n[3,]    0    0    1"
   },
   {
     "objectID": "slides/06-mat.html#trace",
     "href": "slides/06-mat.html#trace",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Trace",
     "text": "Trace\n\nThe trace of \\({\\bf A}_{n \\times n}\\), denoted by \\(\\text{tr}({\\bf A})\\), is defined as \\[\\text{tr}({\\bf A}) = a_{11} + a_{22} + \\dots + a_{nn}\\]\n\\(\\text{tr}({\\bf A}{\\bf B}) = \\text{tr}({\\bf B}{\\bf A})\\)\n\n\n(G &lt;- matrix(1:9, 3, 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\nsum(diag(G))\n\n[1] 15"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\nFor a square matrix \\({\\bf A}\\), if we can find a scalar \\(\\lambda\\) and a non-zero vector \\({\\bf x}\\) such that \\[{\\bf Ax} = \\lambda {\\bf x},\\]\n\n\\(\\lambda\\) is an eigenvalue of \\({\\bf A}\\)\n\\({\\bf x}\\) is a corresponding eigenvector of \\({\\bf A}\\).\n\nA \\(n \\times n\\) matrix \\({\\bf A}\\) will have \\(n\\) eigenvalues and \\(n\\) corresponding eigenvectors."
   },
   {
     "objectID": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Geometric Meaning of Eigenvalues and Eigenvectors",
     "text": "Geometric Meaning of Eigenvalues and Eigenvectors\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 14"
   },
   {
     "objectID": "slides/06-mat.html#eigen-decomposition",
     "href": "slides/06-mat.html#eigen-decomposition",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigen-decomposition",
     "text": "Eigen-decomposition\n\nEigen-decomposition: Any symmetric matrix \\({\\bf A}_{n \\times n}\\) can be decomposed as \\[{\\bf A} = {\\bf V\\boldsymbol \\Lambda V'}\\]\n\\(\\boldsymbol \\Lambda\\) is a \\(n \\times n\\) diagnonal matrix whose elements are eigenvalues \\(\\lambda_j\\) of \\({\\bf A}\\) \\[\\boldsymbol \\Lambda= \\begin{bmatrix} \\lambda_1 & 0 & \\cdots & 0 \\\\ 0 & \\lambda_2 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & \\lambda_n \\end{bmatrix}\\]\n\\({\\bf V} = [{\\bf v}_1 \\quad {\\bf v}_2 \\quad \\dots \\quad {\\bf v}_n]\\) is a \\(n \\times n\\) orthogonal matrix whose columns are the eigenvectors of \\({\\bf A}.\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\nLet \\({\\bf A} \\in \\mathbb{R}^{n \\times n}\\) be a square matrix with eigenvalues \\(\\lambda_1, \\ldots, \\lambda_n\\).\n\n\\(\\operatorname{tr}({\\bf A}) = \\sum_{i=1}^n \\lambda_i\\)\n\\(\\det({\\bf A}) = \\prod_{i=1}^n \\lambda_i\\)\nIf \\({\\bf A}\\) is symmetric, \\(\\operatorname{rank}({\\bf A}) = \\#\\{i : \\lambda_i \\neq 0\\}\\)\nIf \\({\\bf A}\\) is symmetric, all \\(\\lambda_i \\in \\mathbb{R}\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\n\n\n(A &lt;- matrix(c(3, 1, 1, 2), 2, 2))\n\n     [,1] [,2]\n[1,]    3    1\n[2,]    1    2\n\neigen_decomp &lt;- eigen(A)\n(lam &lt;- eigen_decomp$values)\n\n[1] 3.6 1.4\n\n(V &lt;- eigen_decomp$vectors)\n\n      [,1]  [,2]\n[1,] -0.85  0.53\n[2,] -0.53 -0.85\n\n\n\n\nV %*% diag(lam) %*% t(V)\n\n     [,1] [,2]\n[1,]    3    1\n[2,]    1    2\n\nsum(diag(A))\n\n[1] 5\n\nsum(lam)\n\n[1] 5\n\ndet(A)\n\n[1] 5\n\nprod(lam)\n\n[1] 5"
   },
@@ -1935,14 +1935,14 @@
     "href": "plan.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression\n\n\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review\n🖥️06-mat\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form (MSSC only)\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit\n\n\n🔬Lab 3\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference\n🖥️11-bootstrap\n🔬Lab 4\n\n\n\n\nThu, Nov 5\nPolynomial Regression\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity\n🖥️14-collinearity\n🔬Lab 5\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection\n\n\n🔬Lab 6  📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression\n\n\n🔬Lab 7 ✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression\n\n\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review\n🖥️06-mat\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form (MSSC only)\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit\n\n\n🔬Lab 3\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference\n🖥️11-bootstrap\n🔬Lab 4\n\n\n\n\nThu, Nov 5\nPolynomial Regression\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity\n🖥️14-collinearity\n🔬Lab 5\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection\n\n\n🔬Lab 6  📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression\n\n\n🔬Lab 7 ✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR)\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2\n\n\n5\nTue, Sep 29\nMultiple Linear Regression\n\n\n\n\n\n\n\n\nThu, Oct 1\nMultiple Linear Regression",
     "crumbs": [
       "Course information",
       "Schedule"
@@ -2251,14 +2251,14 @@
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 0 2 2 3 2 0 2 1 2 4\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
+    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 3 2 2 2 2 3 3 3 4 1\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1] -0.672 -0.172 -1.102  0.510 -0.468\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
+    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1] -0.571 -0.630 -0.845 -0.654  0.447\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-2",
