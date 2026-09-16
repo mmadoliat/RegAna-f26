@@ -100,13 +100,7 @@ For this homework, we focus on the simple linear regression relating **gasoline 
 
 5. **Coefficient of determination.** What percentage of the total variability in gasoline mileage is explained by the linear relationship with engine displacement? State and interpret the appropriate statistic.
 
-6. **Confidence interval for the mean response.** Find a 95% confidence interval for the **mean gasoline mileage** among automobiles with engine displacement
-
-   $$
-   x_1=275\text{ in}^3.
-   $$
-
-   Interpret the interval in context.
+6. **Confidence interval for the mean response.** Find a 95% confidence interval for the **mean gasoline mileage** among automobiles with engine displacement $x_1=275\text{ in}^3.$ Interpret the interval in context.
 
 7. **Prediction for a new automobile.** Suppose we want to predict the gasoline mileage of a **new automobile** with a 275 in$^3$ engine.
 
@@ -129,37 +123,15 @@ For this homework, we focus on the simple linear regression relating **gasoline 
 
 9. **Verify least-squares properties numerically.** Using the observed data and your fitted model, verify the following properties to reasonable numerical precision:
 
-   a. 
-   $$
-   \sum_{i=1}^{32}e_i
-   =
-   \sum_{i=1}^{32}(y_i-\hat y_i)
-   =
-   0.
-   $$
+   a. $\sum_{i=1}^{32}e_i=\sum_{i=1}^{32}(y_i-\hat y_i)=0.$
 
-   b.
-   $$
-   \sum_{i=1}^{32}y_i
-   =
-   \sum_{i=1}^{32}\hat y_i.
-   $$
+   b. $\sum_{i=1}^{32}y_i=\sum_{i=1}^{32}\hat y_i.$
 
-   c. The fitted least-squares line passes through the centroid
+   c. The fitted least-squares line passes through the centroid $(\bar x,\bar y).$
 
-   $$
-   (\bar x,\bar y).
-   $$
+   d. $\sum_{i=1}^{32}x_{1i}e_i=0.$
 
-   d.
-   $$
-   \sum_{i=1}^{32}x_{1i}e_i=0.
-   $$
-
-   e.
-   $$
-   \sum_{i=1}^{32}\hat y_i e_i=0.
-   $$
+   e. $\sum_{i=1}^{32}\hat y_i e_i=0.$
 
    For each part, show the R calculation and briefly explain why the result is expected from least-squares theory.
 
