@@ -523,11 +523,7 @@ H_1:\beta_1\neq0.
 <p>Clearly report the hypotheses, test statistic, degrees of freedom, <span class="math inline">\(p\)</span>-value (or rejection rule), decision, and conclusion in context.</p></li>
 <li><p><strong>ANOVA and significance of regression.</strong> Construct the ANOVA table for the fitted model and use it to test the significance of regression at <span class="math inline">\(\alpha=0.05\)</span>. State the hypotheses and conclusion. Explain how this test is related to the slope test in Question 3.</p></li>
 <li><p><strong>Coefficient of determination.</strong> What percentage of the total variability in gasoline mileage is explained by the linear relationship with engine displacement? State and interpret the appropriate statistic.</p></li>
-<li><p><strong>Confidence interval for the mean response.</strong> Find a 95% confidence interval for the <strong>mean gasoline mileage</strong> among automobiles with engine displacement</p>
-<p><span class="math display">\[
-x_1=275\text{ in}^3.
-\]</span></p>
-<p>Interpret the interval in context.</p></li>
+<li><p><strong>Confidence interval for the mean response.</strong> Find a 95% confidence interval for the <strong>mean gasoline mileage</strong> among automobiles with engine displacement <span class="math inline">\(x_1=275\text{ in}^3.\)</span> Interpret the interval in context.</p></li>
 <li><p><strong>Prediction for a new automobile.</strong> Suppose we want to predict the gasoline mileage of a <strong>new automobile</strong> with a 275 in<span class="math inline">\(^3\)</span> engine.</p>
 <ol type="a">
 <li><p>Give the point prediction.</p></li>
@@ -545,29 +541,11 @@ x_1=275\text{ in}^3.
 <p><em>Hint:</em> Create a fine sequence of engine-displacement values over the observed range and use <code>predict()</code> with <code>interval = "confidence"</code> and <code>interval = "prediction"</code>.</p></li>
 <li><p><strong>Verify least-squares properties numerically.</strong> Using the observed data and your fitted model, verify the following properties to reasonable numerical precision:</p>
 <ol type="a">
-<li>$$ <em>{i=1}^{32}e_i = </em>{i=1}^{32}(y_i-y_i) =</li>
-</ol>
-<ol start="0" type="1">
-<li>$$</li>
-</ol>
-<ol start="2" type="a">
-<li><p><span class="math display">\[
-\sum_{i=1}^{32}y_i
-=
-\sum_{i=1}^{32}\hat y_i.
-\]</span></p></li>
-<li><p>The fitted least-squares line passes through the centroid</p></li>
-</ol>
-<p><span class="math display">\[
-(\bar x,\bar y).
-\]</span></p>
-<ol start="4" type="a">
-<li><p><span class="math display">\[
-\sum_{i=1}^{32}x_{1i}e_i=0.
-\]</span></p></li>
-<li><p><span class="math display">\[
-\sum_{i=1}^{32}\hat y_i e_i=0.
-\]</span></p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^{32}e_i=\sum_{i=1}^{32}(y_i-\hat y_i)=0.\)</span></p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^{32}y_i=\sum_{i=1}^{32}\hat y_i.\)</span></p></li>
+<li><p>The fitted least-squares line passes through the centroid <span class="math inline">\((\bar x,\bar y).\)</span></p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^{32}x_{1i}e_i=0.\)</span></p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^{32}\hat y_i e_i=0.\)</span></p></li>
 </ol>
 <p>For each part, show the R calculation and briefly explain why the result is expected from least-squares theory.</p></li>
 </ol>
