@@ -1,0 +1,214 @@
+---
+title: "Homework 1 Solutions"
+subtitle: "MATH 4780 / MSSC 5780 · Regression Analysis"
+author: "Mehdi Maadooliat"
+format:
+  html:
+    toc: true
+    code-fold: false
+    embed-resources: true
+editor: source
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+This solution covers all six questions. MATH 4780 students were required to complete any five; MSSC 5780 students were required to complete all six. Numerical simulation results depend on the random seed.
+
+## Question 1: A linear combination of independent normal variables
+
+We use the convention $N(\mu,\sigma^2)$, so the second parameter is the **variance**, not the standard deviation. Let $W=2Y_1+3Y_2$. A linear combination of independent normal variables is normal, and
+
+$$
+E(W)=2E(Y_1)+3E(Y_2)=2(3)+3(1)=9.
+$$
+
+Independence gives $\operatorname{Cov}(Y_1,Y_2)=0$, so
+
+$$
+\operatorname{Var}(W)=2^2\operatorname{Var}(Y_1)+3^2\operatorname{Var}(Y_2)
+=4(8)+9(4)=68.
+$$
+
+Therefore,
+
+$$
+\boxed{2Y_1+3Y_2\sim N(9,68).}
+$$
+
+Its standard deviation is $\sqrt{68}\approx8.246$.
+
+## Question 2: Normal density curves
+
+The following curves compare means of 0 and 3 and standard deviations of 1 and 2. The `sd` argument of `dnorm()` is the standard deviation.
+
+```{r}
+#| label: normal-curves
+#| fig-cap: "Changing the mean shifts the center; changing the standard deviation changes the spread."
+x <- seq(-8, 11, length.out = 1000)
+parameters <- data.frame(mu = c(0, 3, 0, 3), sigma = c(1, 1, 2, 2))
+colors <- c("#0072B2", "#D55E00", "#009E73", "#CC79A7")
+plot(x, dnorm(x, parameters$mu[1], parameters$sigma[1]),
+     type = "l", lwd = 2, col = colors[1], ylim = c(0, 0.43),
+     xlab = "x", ylab = "Density")
+for (j in 2:nrow(parameters)) {
+  lines(x, dnorm(x, parameters$mu[j], parameters$sigma[j]),
+        lwd = 2, col = colors[j], lty = j)
+}
+legend("topright", bty = "n", lwd = 2, lty = 1:4, col = colors,
+       legend = paste0("Mean = ", parameters$mu, ", SD = ", parameters$sigma))
+```
+
+Increasing the mean moves the curve to the right without changing its shape. Increasing the standard deviation makes the curve wider and lowers its peak. Every density has total area 1, and half of its probability lies on each side of its mean.
+
+## Question 3: A simple random sample from Boston
+
+Install `ISLR2` once if needed by running `install.packages("ISLR2")` in the R console. We choose `medv`, the median value of owner-occupied homes in thousands of dollars for each census tract. We treat the 506 recorded values as the finite population for this exercise.
+
+```{r}
+#| label: boston-sample
+if (!requireNamespace("ISLR2", quietly = TRUE)) {
+  stop('Install ISLR2 first: install.packages("ISLR2")')
+}
+population <- ISLR2::Boston$medv
+set.seed(123)
+sample20 <- sample(population, size = 20, replace = FALSE)
+sample20
+sample_average <- mean(sample20)
+sample_average
+```
+
+The sample average is **`r round(sample_average, 3)` thousand dollars**. The population average is `r round(mean(population), 3)` thousand dollars. These need not match: different random samples produce different sample averages. Sampling without replacement implements a simple random sample of 20 population entries.
+
+## Question 4: The sampling distribution of the sample mean
+
+Repeat the same sampling procedure 1,000 times. Each repetition draws a fresh sample of 20 from the full population and records one mean. Plot the resulting means, rather than the original observations or the means against their repetition numbers.
+
+```{r}
+#| label: sampling-distribution
+#| fig-cap: "Approximate sampling distribution of the mean of 20 medv values."
+set.seed(123)
+B <- 1000
+sample_means <- replicate(B, {
+  mean(sample(population, size = 20, replace = FALSE))
+})
+hist(sample_means, breaks = 30, probability = TRUE,
+     col = "#B8D8E8", border = "white",
+     main = "Sampling distribution of the sample mean",
+     xlab = "Sample mean of medv (thousands of dollars)")
+abline(v = mean(population), col = "#D55E00", lwd = 2, lty = 2)
+legend("topright", "Population mean", col = "#D55E00",
+       lwd = 2, lty = 2, bty = "n")
+c(mean_of_sample_means = mean(sample_means),
+  population_mean = mean(population),
+  SD_of_sample_means = sd(sample_means))
+```
+
+The sampling distribution is centered near the population mean and is roughly bell-shaped, with some possible right skew at this sample size. The means vary less than individual observations. More repetitions make the histogram more stable; they do not change the underlying sampling distribution when the sample size remains 20.
+
+For reference, the exact standard error under sampling without replacement is
+
+$$
+\operatorname{SE}(\overline Y)=\frac{S_{\mathrm{pop}}}{\sqrt{n}}
+\sqrt{1-\frac{n}{N}},
+$$
+
+where $N=506$, $n=20$, and $S_{\mathrm{pop}}$ is calculated using denominator $N-1$, as in R's `sd(population)`.
+
+## Question 5: Coverage of 90% confidence intervals
+
+Here $\alpha=0.1$, $\mu=4$, and $\sigma=2$. Generate a fresh sample from $N(4,2^2)$ on each repetition, calculate its mean and sample standard deviation, and form
+
+$$
+\overline y\ \pm\ t_{0.95,n-1}\frac{s}{\sqrt n},
+$$
+
+where $t_{0.95,n-1}$ denotes the 95th percentile of the $t$ distribution. This is the positive critical value denoted by $t_{\alpha/2,n-1}$ under the assignment's upper-tail notation. In R, use `qt(1 - alpha/2, df = n - 1)`.
+
+```{r}
+#| label: ci-coverage
+coverage <- function(n, B, mu = 4, sigma = 2, alpha = 0.1) {
+  t_critical <- qt(1 - alpha / 2, df = n - 1)
+  contains_mu <- replicate(B, {
+    y <- rnorm(n, mean = mu, sd = sigma)
+    margin <- t_critical * sd(y) / sqrt(n)
+    lower <- mean(y) - margin
+    upper <- mean(y) + margin
+    lower <= mu && mu <= upper
+  })
+  100 * mean(contains_mu)
+}
+
+set.seed(123)
+simulation_times <- c(20, 1000, 20000)
+sample_sizes <- c(5, 30, 200)
+coverage_table <- matrix(NA_real_, nrow = 3, ncol = 3)
+for (i in seq_along(simulation_times)) {
+  for (j in seq_along(sample_sizes)) {
+    coverage_table[i, j] <- coverage(sample_sizes[j], simulation_times[i])
+  }
+}
+results <- data.frame(`Simulation times` = simulation_times,
+                      coverage_table, check.names = FALSE)
+names(results)[-1] <- paste0("n = ", sample_sizes)
+knitr::kable(results, digits = 2,
+             caption = "Percentage of simulated intervals containing the true mean 4.")
+```
+
+**Interpretation.** The coverage should be near 90% for all three sample sizes. With only 20 repetitions, the percentage can vary substantially and can change only in increments of 5 percentage points. With 1,000 or 20,000 repetitions, the estimated coverage is usually closer to 90%, although it need not approach 90% monotonically.
+
+Under the assumed normal model, the $t$ interval has exactly 90% theoretical coverage for every $n$ considered. Increasing $n$ generally makes the intervals narrower; it does **not** raise their confidence level. Increasing the number of simulations reduces Monte Carlo error. The Monte Carlo standard error of the reported percentage is approximately $100\sqrt{0.9(0.1)/B}$, or 6.71, 0.95, and 0.21 percentage points for the three simulation counts.
+
+## Question 6: Box–Muller transformation
+
+Generate two independent vectors of uniform random variables and apply the given transformation element by element.
+
+```{r}
+#| label: box-muller-generation
+set.seed(123)
+B <- 10000
+U1 <- runif(B)
+U2 <- runif(B)
+X1 <- sqrt(-2 * log(U1)) * cos(2 * pi * U2)
+X2 <- sqrt(-2 * log(U1)) * sin(2 * pi * U2)
+```
+
+### Marginal normality
+
+Use density-scaled histograms so they can be compared with the standard normal density. Plot `X2` in the second histogram.
+
+```{r}
+#| label: normal-histograms
+#| fig-width: 9
+#| fig-height: 4
+#| fig-cap: "Both simulated marginal distributions closely follow the standard normal density."
+par(mfrow = c(1, 2))
+for (j in 1:2) {
+  values <- if (j == 1) X1 else X2
+  hist(values, breaks = 40, probability = TRUE,
+       col = "#B8D8E8", border = "white",
+       main = paste0("Histogram of X", j), xlab = paste0("X", j))
+  curve(dnorm(x, mean = 0, sd = 1), add = TRUE,
+        col = "#D55E00", lwd = 2)
+}
+par(mfrow = c(1, 1))
+round(rbind(X1 = c(mean = mean(X1), SD = sd(X1)),
+            X2 = c(mean = mean(X2), SD = sd(X2))), 4)
+```
+
+The histograms should be bell-shaped, centered near 0, and close to the overlaid $N(0,1)$ density. Their sample standard deviations should be near 1.
+
+### Independence diagnostics
+
+```{r}
+#| label: independence-diagnostics
+#| fig-cap: "The scatterplot shows a roughly circular cloud with no apparent association."
+plot(X1, X2, pch = 16, cex = 0.35,
+     col = adjustcolor("#0072B2", alpha.f = 0.2), asp = 1,
+     xlab = "X1", ylab = "X2", main = "Box–Muller pairs")
+r <- cor(X1, X2)
+r
+```
+
+The sample correlation is **`r round(r, 4)`**, close to zero. Together with the scatterplot, this is consistent with independence. A near-zero correlation alone does not prove independence, and a finite simulation is not a mathematical proof. Independence here follows from the stated Box–Muller result; the plots and correlation provide the requested empirical verification.
