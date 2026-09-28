@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
-  <title>MATH 4780 (MSSC 5780) – Multiple Linear Regression 👩‍💻</title>
+  <title>MATH 4780 (MSSC 5780) – Multiple Linear Regression 👨‍💻</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -209,7 +209,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
-  <h1 class="title">Multiple Linear Regression 👩‍💻</h1>
+  <h1 class="title">Multiple Linear Regression 👨‍💻</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
@@ -1268,6 +1268,9 @@ distance        -0.2243 -0.8242   1.0000</code></pre>
 Test for Significance of Regression
 </h2>
 <h2>
+Type I, II, and III Sums of Squares
+</h2>
+<h2>
 Tests on Individual Coefficients
 </h2>
 <h2>
@@ -1275,12 +1278,11 @@ Tests on Subsets of Coefficients (Later)
 </h2>
 <aside class="notes">
 <ul>
-<li>Test for Significance: test if there is any regressor that has a significant effect on predicting <span class="math inline">\(Y\)</span> or explaining the variation of <span class="math inline">\(Y\)</span>.</li>
-<li>In a Test for Significance, we are looking all the regressors.</li>
-<li>Tests on Individual Coefficients: we are only interested in single one predictor’s effect.</li>
-<li>But sometimes, we may be interested in a subset of Coefficients, not all, not single one, but two or three coefficients. And we’ll see how to do this kind of test later.</li>
-<li>Finally, we’ll learn the so-called General Linear Hypothesis that can perform a quite general test.</li>
-<li>The three tests above are in fact special case of the General Linear Hypothesis.</li>
+<li>Test for Significance: test whether at least one regressor contributes to explaining or predicting <span class="math inline">\(Y\)</span>.</li>
+<li>In a Test for Significance, we are looking at all regressors together.</li>
+<li>Tests on Individual Coefficients: we are interested in one predictor’s contribution given the other predictors in the model.</li>
+<li>Sometimes we may be interested in a subset of coefficients, not all and not just one. We will see this later using nested-model comparisons.</li>
+<li>The same model-comparison idea is behind all of these tests.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1294,25 +1296,224 @@ Tests on Subsets of Coefficients (Later)
           display:block!important;
       }</style></aside>
 </section>
+<section id="where-does-the-variation-in-y-go" class="slide level2">
+<h2>Where Does the Variation in <span class="math inline">\(Y\)</span> Go?</h2>
+<p>For a regression model with an intercept,</p>
+<p><span class="math display">\[
+\boxed{SS_T = SS_R + SS_{res}}
+\]</span></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h3 id="total">Total</h3>
+<p><span class="math display">\[
+SS_T = \sum_{i=1}^n (y_i-\bar y)^2
+\]</span></p>
+<p>Total variation in the response.</p>
+<p><span class="math display">\[
+df_T=n-1
+\]</span></p>
+</div><div class="column" style="width:33%;">
+<h3 id="regression">Regression</h3>
+<p><span class="math display">\[
+SS_R = \sum_{i=1}^n (\hat y_i-\bar y)^2
+\]</span></p>
+<p>Variation <strong>explained</strong> by the regression.</p>
+<p><span class="math display">\[
+df_R=k
+\]</span></p>
+</div><div class="column" style="width:33%;">
+<h3 id="residual">Residual</h3>
+<p><span class="math display">\[
+SS_{res} = \sum_{i=1}^n (y_i-\hat y_i)^2
+\]</span></p>
+<p>Variation <strong>not explained</strong> by the regression.</p>
+<p><span class="math display">\[
+df_{res}=n-k-1
+\]</span></p>
+</div></div>
+<aside class="notes">
+<ul>
+<li>This is the ANOVA decomposition for regression.</li>
+<li>SS_T asks how much variability there is in Y before using any predictors.</li>
+<li>SS_R is the amount of that variability explained by the fitted regression.</li>
+<li>SS_res is what remains after fitting the regression.</li>
+<li>Do not confuse these three quantities with Type I, Type II, and Type III sums of squares, which we will discuss shortly.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="understanding-the-decomposition" class="slide level2">
+<h2>Understanding the Decomposition</h2>
+<p>For each observation,</p>
+<p><span class="math display">\[
+y_i-\bar y
+=
+(\hat y_i-\bar y)
++
+(y_i-\hat y_i).
+\]</span></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Total deviation</strong></p>
+<p><span class="math display">\[
+y_i-\bar y
+\]</span></p>
+<p>How far is the observation from the overall mean?</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Explained deviation</strong></p>
+<p><span class="math display">\[
+\hat y_i-\bar y
+\]</span></p>
+<p>How much is explained by the fitted model?</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Residual deviation</strong></p>
+<p><span class="math display">\[
+y_i-\hat y_i=e_i
+\]</span></p>
+<p>What remains unexplained?</p>
+</div></div>
+<div class="fragment">
+<p>For least squares regression with an intercept,</p>
+<p><span class="math display">\[
+\boxed{SS_T=SS_R+SS_{res}}.
+\]</span></p>
+</div>
+</section>
+<section id="r-lab-the-three-sums-of-squares" class="slide level2">
+<h2><span class="pink">R Lab</span> The Three Sums of Squares</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Total variation</span></span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>SS_T <span class="ot">&lt;-</span> <span class="fu">sum</span>((delivery_data<span class="sc">$</span>time <span class="sc">-</span></span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span>(delivery_data<span class="sc">$</span>time))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Unexplained variation</span></span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>SS_res <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(delivery_lm)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb33-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Explained variation</span></span>
+<span id="cb33-9"><a aria-hidden="true" tabindex="-1"></a>SS_R <span class="ot">&lt;-</span> SS_T <span class="sc">-</span> SS_res</span>
+<span id="cb33-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">SS_T =</span> SS_T,</span>
+<span id="cb33-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">SS_R =</span> SS_R,</span>
+<span id="cb33-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">SS_res =</span> SS_res)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  SS_T   SS_R SS_res 
+5784.5 5550.8  233.7 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>SS_R <span class="sc">+</span> SS_res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5785</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>SS_T</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5785</code></pre>
+</div>
+</div>
+<div class="question">
+<p>What proportion of the total variation is explained by the regression?</p>
+</div>
+</div>
+</section>
 <section id="test-for-significance-of-regression" class="slide level2">
 <h2>Test for Significance of Regression</h2>
 <ul>
-<li><strong>Test for significance</strong>: Determine if there is a <strong>linear</strong> relationship between the response and <strong>any</strong> of the regressor variables.</li>
-<li><span style="color:blue"> <span class="math inline">\(H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0 \quad H_1: \beta_j \ne 0 \text{ for at least one } j\)</span> </span> <!-- - The $F$ test of ANOVA performs the test. --></li>
+<li>Determine whether there is a <strong>linear contribution from at least one</strong> regressor.</li>
 </ul>
-<!-- # ```{r} -->
-<!-- # knitr::include_graphics("./images/05-mlr/anova_mlr.png") -->
-<!-- # ``` -->
-<!-- - $SS_T = {\bf y'y} - \frac{\left(\sum_{i=1}^n y_i \right)^2}{n}$, $SS_R = {\bf b'X'y}-\frac{\left(\sum_{i=1}^n y_i \right)^2}{n}$, $SS_{res} = {\bf y'y} - {\bf b'X'y}$ -->
+<p><span style="color:blue"></span></p>
+<p><span class="math display">\[
+H_0:\beta_1=\beta_2=\cdots=\beta_k=0
+\]</span></p>
+<p><span class="math display">\[
+H_1:\beta_j\ne0 \text{ for at least one }j
+\]</span></p>
+<p></p>
 <div class="fragment">
-<table class="caption-top" style="width:100%;">
+<div class="alert">
+<p>This test can be viewed as a comparison of <strong>two nested models</strong>.</p>
+</div>
+</div>
+</section>
+<section id="null-model-vs.-full-model" class="slide level2">
+<h2>Null Model vs.&nbsp;Full Model</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<h3 id="null-model">Null model</h3>
+<p>Under <span class="math inline">\(H_0\)</span>,</p>
+<p><span class="math display">\[
+Y_i=\beta_0+\epsilon_i.
+\]</span></p>
+<p>The fitted value for every observation is</p>
+<p><span class="math display">\[
+\hat y_i=\bar y.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+SS_{res,\;Null}=SS_T.
+\]</span></p>
+</div><div class="column" style="width:48%;">
+<h3 id="full-model">Full model</h3>
+<p><span class="math display">\[
+Y_i=\beta_0+\beta_1X_{i1}
++\cdots+\beta_kX_{ik}+\epsilon_i.
+\]</span></p>
+<p>Its unexplained variation is</p>
+<p><span class="math display">\[
+SS_{res,\;Full}=SS_{res}.
+\]</span></p>
+</div></div>
+<div class="fragment">
+<p>The reduction in unexplained variation is</p>
+<p><span class="math display">\[
+\boxed{
+SS_{res,\;Null}-SS_{res,\;Full}=SS_R
+}
+\]</span></p>
+</div>
+</section>
+<section id="from-sums-of-squares-to-the-f-test" class="slide level2">
+<h2>From Sums of Squares to the <span class="math inline">\(F\)</span> Test</h2>
+<p>Adding predictors will always reduce <span class="math inline">\(SS_{res}\)</span>, even if they have little useful information.</p>
+<p>So compare the reduction <strong>per predictor</strong> with the remaining residual variation:</p>
+<p><span class="math display">\[
+MS_R=\frac{SS_R}{k},
+\qquad
+MS_{res}=\frac{SS_{res}}{n-k-1}.
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\boxed{
+F_{test}=\frac{MS_R}{MS_{res}}
+}
+\]</span></p>
+<p>Under <span class="math inline">\(H_0\)</span>,</p>
+<p><span class="math display">\[
+F_{test}\sim F_{k,n-k-1}.
+\]</span></p>
+<div class="alert">
+<p>A large <span class="math inline">\(F\)</span> means that adding the predictors reduces unexplained variation by much more than we would expect from random error alone.</p>
+</div>
+</div>
+</section>
+<section id="anova-table-for-the-overall-f-test" class="slide level2">
+<h2>ANOVA Table for the Overall <span class="math inline">\(F\)</span> Test</h2>
+<table class="caption-top">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1321,7 +1522,6 @@ Tests on Subsets of Coefficients (Later)
 <th style="text-align: center;">df</th>
 <th style="text-align: center;">MS</th>
 <th style="text-align: center;">F</th>
-<th style="text-align: center;"><span class="math inline">\(p\)</span>-value</th>
 </tr>
 </thead>
 <tbody>
@@ -1329,38 +1529,35 @@ Tests on Subsets of Coefficients (Later)
 <td style="text-align: center;">Regression</td>
 <td style="text-align: center;"><span class="math inline">\(SS_R\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(k\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(MS_R\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{MS_R}{MS_{res}} = F_{test}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(P(F_{k, n-k-1} &gt; F_{test})\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(MS_R=SS_R/k\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{MS_R}{MS_{res}}\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Residual</td>
 <td style="text-align: center;"><span class="math inline">\(SS_{res}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(n-k-1\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(MS_{res}\)</span></td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(MS_{res}=\dfrac{SS_{res}}{n-k-1}\)</span></td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Total</td>
-<td style="text-align: center;"><span class="math inline">\(SS_{T}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(SS_T\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
-<td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 </tr>
 </tbody>
 </table>
+<p><span class="math display">\[
+SS_T=SS_R+SS_{res}
+\]</span></p>
 <ul>
-<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(F_{test} &gt; F_{\alpha, k, n - k - 1}\)</span>.</li>
+<li>Reject <span class="math inline">\(H_0\)</span> for a sufficiently large <span class="math inline">\(F_{test}\)</span>, or equivalently when the <span class="math inline">\(p\)</span>-value is less than <span class="math inline">\(\alpha\)</span>.</li>
 </ul>
 <aside class="notes">
 <ul>
-<li>In SLR, test for significance is the same as testing individual coefficient <span class="math inline">\(\beta_1 = 0\)</span>.</li>
-<li>We may reject the null when the truth is all beta’s are nonzero, or only one single beta is nonzero.</li>
-<li>If there is only one nonzero beta, and we reject the null, basically, the nearly all the variation of Y is explained by the corresponding predictor that has the nonzero beta.</li>
-<li>We can still say the model is significant because that particular predictor has a significant effect on explaining y.</li>
-<li>Another way to represent SS_T</li>
+<li>In SLR, the overall F test is equivalent to the two-sided t test for beta_1 = 0.</li>
+<li>In MLR, rejecting H0 tells us that at least one slope is nonzero; it does not tell us which one.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1373,14 +1570,19 @@ Tests on Subsets of Coefficients (Later)
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 <section id="r-lab-test-for-significance" class="slide level2">
 <h2><span class="pink">R Lab</span> Test for Significance</h2>
-<p><span style="color:blue"> <span class="math inline">\(H_0: \beta_{1} = \beta_{2} = 0 \quad H_1: \beta_j \ne 0 \text{ for at least one } j\)</span> </span></p>
+<p><span style="color:blue"></span></p>
+<p><span class="math display">\[
+H_0:\beta_1=\beta_2=0
+\qquad
+H_1:\beta_j\ne0 \text{ for at least one }j
+\]</span></p>
+<p></p>
 <div class="shrink-code">
 <div class="cell" data-layout-align="center" data-output.lines="[9,10,11,12,13,14,15,16,17,18,19]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre class="my_classfull"><code>...
 Coefficients:
@@ -1400,7 +1602,7 @@ F-statistic:  261 on 2 and 22 DF,  p-value: 4.69e-16
 </div>
 <aside class="notes">
 <ul>
-<li>How do we obtain the ANOVA Table?</li>
+<li>The F statistic reported by summary() is the overall test comparing the full regression with the intercept-only model.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1414,56 +1616,129 @@ F-statistic:  261 on 2 and 22 DF,  p-value: 4.69e-16
           display:block!important;
       }</style></aside>
 </section>
-<section id="r-lab-wrong-anova-table" class="slide level2">
-<h2><span class="pink">R Lab</span> Wrong ANOVA Table</h2>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Source of Variation</th>
-<th style="text-align: center;">SS</th>
-<th style="text-align: center;">df</th>
-<th style="text-align: center;">MS</th>
-<th style="text-align: center;">F</th>
-<th style="text-align: center;"><span class="math inline">\(p\)</span>-value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Regression</td>
-<td style="text-align: center;"><span class="math inline">\(SS_R\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(k\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(MS_R\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{MS_R}{MS_{res}} = F_{test}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(P(F_{k, n-k-1} &gt; F_{test})\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Residual</td>
-<td style="text-align: center;"><span class="math inline">\(SS_{res}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n-k-1\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(MS_{res}\)</span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Total</td>
-<td style="text-align: center;"><span class="math inline">\(SS_{T}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
+<section id="r-lab-anova-table-null-vs.-full" class="slide level2">
+<h2><span class="pink">R Lab</span> ANOVA Table: Null vs.&nbsp;Full</h2>
+<div class="alert">
+<p>Testing coefficients can be viewed as model comparison:<br>
+<strong>compare the full model with the model under <span class="math inline">\(H_0\)</span>.</strong></p>
+</div>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li><strong>Full model</strong>: <code>cases</code> and <code>distance</code></li>
+<li><strong>Null model</strong>: intercept only</li>
+</ul>
+<p><span class="math display">\[
+H_0:\beta_1=\beta_2=0
+\]</span></p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(delivery_lm) <span class="do">## This is for sequential F-test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/05-mlr/anova_ex.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> delivery_data)</span>
+<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(null_model, delivery_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: time ~ 1
+Model 2: time ~ cases + distance
+  Res.Df  RSS Df Sum of Sq   F  Pr(&gt;F)    
+1     24 5785                             
+2     22  234  2      5551 261 4.7e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<ul>
+<li>The null-model SSE is SS_T because every fitted value is y-bar.</li>
+<li>The reduction in SSE from the null model to the full model is SS_R.</li>
+<li>anova(null_model, delivery_lm) directly performs the nested-model F test.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="another-meaning-of-sums-of-squares" class="slide level2">
+<h2>Another Meaning of “Sums of Squares”</h2>
+<p>So far we used</p>
+<p><span class="math display">\[
+SS_T,\qquad SS_R,\qquad SS_{res}.
+\]</span></p>
+<p>These describe <strong>total, explained, and unexplained variation</strong>.</p>
+<div class="fragment">
+<p>With several predictors, another question arises:</p>
+<blockquote>
+<p>How should the regression sum of squares be attributed to individual model terms?</p>
+</blockquote>
+<p>There are three commonly used approaches:</p>
+<ul>
+<li><strong>Type I SS:</strong> sequential</li>
+<li><strong>Type II SS:</strong> each main effect adjusted for the other main effects</li>
+<li><strong>Type III SS:</strong> each term adjusted for all other terms</li>
+</ul>
+<div class="danger">
+<p><strong>Type I, II, and III SS are not the same thing as</strong> <span class="math inline">\(SS_T\)</span>, <span class="math inline">\(SS_R\)</span>, and <span class="math inline">\(SS_{res}\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="type-i-sum-of-squares-sequential" class="slide level2">
+<h2>Type I Sum of Squares: Sequential</h2>
+<p>Type I SS evaluates predictors <strong>in the order they enter the model</strong>.</p>
+<p>For</p>
+<p><span class="math display">\[
+Y=\beta_0+\beta_1X_1+\beta_2X_2+\epsilon,
+\]</span></p>
+<p>the first ordering gives</p>
+<p><span class="math display">\[
+SS(X_1)
+=
+SSE(1)-SSE(X_1),
+\]</span></p>
+<p><span class="math display">\[
+SS(X_2\mid X_1)
+=
+SSE(X_1)-SSE(X_1,X_2).
+\]</span></p>
+<div class="fragment">
+<p>If the order is reversed, we instead obtain</p>
+<p><span class="math display">\[
+SS(X_2),\qquad SS(X_1\mid X_2).
+\]</span></p>
+<div class="alert">
+<p>When predictors are correlated, <strong>Type I sums of squares depend on predictor order</strong>.</p>
+</div>
+</div>
+</section>
+<section id="r-lab-type-i-ss-does-order-matter" class="slide level2">
+<h2><span class="pink">R Lab</span> Type I SS: Does Order Matter?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a>model_cd <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>  time <span class="sc">~</span> cases <span class="sc">+</span> distance,</span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> delivery_data</span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_cd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1476,60 +1751,99 @@ Residuals 22    234      11
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<ul>
-<li>This is so called <strong>Type-I</strong> ANOVA table for a <em>sequential F-test</em>, which is <strong>NOT</strong> what we want.</li>
-</ul>
-<!-- # ```{r} -->
-<!-- #  -->
-<!-- # knitr::include_graphics("./images/05-mlr/anova_mlr.png") -->
-<!-- # ``` -->
-</section>
-<section id="r-lab-anova-table-null-vs.-full" class="slide level2">
-<h2><span class="pink">R Lab</span> ANOVA Table: Null vs.&nbsp;Full</h2>
-<div class="alert">
-<p>Testing coefficients is like model comparison: <strong>Compare the full model with the model under <span class="math inline">\(H_0\)</span></strong>!</p>
-</div>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><strong>Full model</strong>: including both <code>cases</code> and <code>distance</code> predictors</li>
-<li><strong>Null model</strong>: no predictors <span class="math inline">\((\beta_1 = \beta_2 = 0)\)</span></li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/05-mlr/anova_ex.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
 </div><div class="column" style="width:50%;">
-<div class="fragment">
-<div class="cell" data-layout-align="center" data-output.lines="[1,2,3,4,5,6,7]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## regression with intercept only</span></span>
-<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> delivery_data)</span>
-<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(null_model, delivery_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>model_dc <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>  time <span class="sc">~</span> distance <span class="sc">+</span> cases,</span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> delivery_data</span>
+<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_dc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>...
-Analysis of Variance Table
+<pre><code>Analysis of Variance Table
 
-Model 1: time ~ 1
-Model 2: time ~ cases + distance
-  Res.Df  RSS Df Sum of Sq   F  Pr(&gt;F)    
-1     24 5785                             
-2     22  234  2      5551 261 4.7e-16 ***
-...</code></pre>
-</div>
+Response: time
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+distance   1   4599    4599   432.9 5.8e-16 ***
+cases      1    952     952    89.6 3.3e-09 ***
+Residuals 22    234      11                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div></div>
+<div class="question">
+<p>What changes when we reverse the order of <code>cases</code> and <code>distance</code>?</p>
+</div>
+</section>
+<section id="same-model-different-type-i-partition" class="slide level2">
+<h2>Same Model, Different Type I Partition</h2>
+<p>Reversing the order of the predictors does <strong>not</strong> change the fitted model:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model_cd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)       cases    distance 
+    2.34123     1.61591     0.01438 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model_dc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)    distance       cases 
+    2.34123     0.01438     1.61591 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">R2_cd =</span> <span class="fu">summary</span>(model_cd)<span class="sc">$</span>r.squared,</span>
+<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">R2_dc =</span> <span class="fu">summary</span>(model_dc)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> R2_cd  R2_dc 
+0.9596 0.9596 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">SSE_cd =</span> <span class="fu">deviance</span>(model_cd),</span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">SSE_dc =</span> <span class="fu">deviance</span>(model_dc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SSE_cd SSE_dc 
+ 233.7  233.7 </code></pre>
+</div>
+</div>
+<div class="alert">
+<p>The fitted values, <span class="math inline">\(SS_{res}\)</span>, <span class="math inline">\(R^2\)</span>, and overall <span class="math inline">\(F\)</span> test are unchanged.</p>
+<p>Only the <strong>sequential allocation</strong> of <span class="math inline">\(SS_R\)</span> changes.</p>
+</div>
+</div>
+</section>
+<section id="type-ii-sum-of-squares" class="slide level2">
+<h2>Type II Sum of Squares</h2>
+<p>Type II SS evaluates each <strong>main effect after adjusting for the other main effects</strong>.</p>
+<p>For two predictors:</p>
+<p><span class="math display">\[
+SS(X_1\mid X_2),
+\qquad
+SS(X_2\mid X_1).
+\]</span></p>
+<ul>
+<li>Does <strong>not</strong> depend on the order in which predictors are written.</li>
+<li>Natural for additive models containing only main effects.</li>
+<li>Each predictor is assessed after accounting for the other predictors.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(model_cd, <span class="at">type =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type II tests)
+
+Response: time
+          Sum Sq Df F value  Pr(&gt;F)    
+cases        952  1    89.6 3.3e-09 ***
+distance     168  1    15.8 0.00063 ***
+Residuals    234 22                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
 <aside class="notes">
 <ul>
-<li>first row: info of SS_T</li>
-<li>second row: info of SS_R and SS_res</li>
-<li>does not show MS</li>
+<li>For the current additive model, Type II tests have a straightforward interpretation.</li>
+<li>Type II is particularly useful when there are no interactions.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1543,13 +1857,117 @@ Model 2: time ~ cases + distance
           display:block!important;
       }</style></aside>
 </section>
+<section id="type-iii-sum-of-squares" class="slide level2">
+<h2>Type III Sum of Squares</h2>
+<p>Type III SS tests each term <strong>after adjusting for every other term in the model</strong>.</p>
+<p>For an interaction model,</p>
+<p><span class="math display">\[
+Y=\beta_0+\beta_1X_1+\beta_2X_2
++\beta_{12}X_1X_2+\epsilon,
+\]</span></p>
+<p>Type III tests each of</p>
+<p><span class="math display">\[
+X_1,\quad X_2,\quad X_1X_2
+\]</span></p>
+<p>while the other terms remain in the model.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(model_cd, <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type III tests)
+
+Response: time
+            Sum Sq Df F value  Pr(&gt;F)    
+(Intercept)     48  1    4.56 0.04417 *  
+cases          952  1   89.58 3.3e-09 ***
+distance       168  1   15.85 0.00063 ***
+Residuals      234 22                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>In the present model, which contains only quantitative main effects, the Type II and Type III tests for cases and distance agree.</li>
+<li>With interactions or categorical predictors, interpretation of Type III main-effect tests requires more care.</li>
+<li>For factor models, Type III results also depend on contrast coding; we will discuss this when categorical predictors and interactions are introduced.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="type-i-vs.-type-ii-vs.-type-iii" class="slide level2">
+<h2>Type I vs.&nbsp;Type II vs.&nbsp;Type III</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Question</th>
+<th style="text-align: center;">Depends on order?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>I</strong></td>
+<td style="text-align: left;">What does this term add <strong>after terms entered before it</strong>?</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>II</strong></td>
+<td style="text-align: left;">What does this main effect add <strong>after the other main effects</strong>?</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>III</strong></td>
+<td style="text-align: left;">What does this term add <strong>after all other terms</strong>?</td>
+<td style="text-align: center;">No</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="alert">
+<p>If predictors are orthogonal, the different types agree.</p>
+<p>Differences arise when predictors share explanatory information.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Type I is sequential.</li>
+<li>Type II compares each main effect after the other main effects.</li>
+<li>Type III compares each term after every other term.</li>
+<li>None of these changes the fitted full model itself; they change the hypothesis being tested for individual terms.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="r2-and-adjusted-r2" class="slide level2">
 <h2><span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span></h2>
 <ul>
 <li><span class="math inline">\(R^2 = \frac{SS_R}{SS_T} = 1 - \frac{SS_{res}}{SS_T}\)</span>
 <ul>
 <li>calculated as in SLR.</li>
-<li>accesses how well the regression model fits the data.</li>
+<li>assesses how well the regression model fits the data.</li>
 <li>measures the proportion of variability in <span class="math inline">\(Y\)</span> that is explained by the regression or the <span class="math inline">\(k\)</span> predictors.</li>
 <li>The model with one additional predictor <strong>always gets a higher <span class="math inline">\(R^2\)</span></strong>.</li>
 </ul></li>
@@ -1624,7 +2042,7 @@ Model 2: time ~ cases + distance
 <section id="r-lab-r2-and-adjusted-r2" class="slide level2">
 <h2><span class="pink">R Lab</span> <span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span></h2>
 <div class="cell" data-layout-align="center" data-output.lines="[16,17,18]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>...
 
@@ -1634,11 +2052,11 @@ Multiple R-squared:  0.96,  Adjusted R-squared:  0.956
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery<span class="sc">$</span>r.squared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery<span class="sc">$</span>r.squared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9596</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery<span class="sc">$</span>adj.r.squared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery<span class="sc">$</span>adj.r.squared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9559</code></pre>
 </div>
@@ -1682,7 +2100,7 @@ Multiple R-squared:  0.96,  Adjusted R-squared:  0.956
 <li><span style="color:blue"> <span class="math inline">\(H_0: \beta_{2} = 0 \quad H_1: \beta_2 \ne 0\)</span> </span></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery<span class="sc">$</span>coefficients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a>summ_delivery<span class="sc">$</span>coefficients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
 (Intercept)  2.34123   1.096730   2.135 4.417e-02
