@@ -1,0 +1,372 @@
+---
+title: "Homework 2: Simple Linear Regression — Solutions"
+subtitle: "MATH 4780 / MSSC 5780 · Fall 2026"
+editor: source
+format:
+  html:
+    toc: true
+    code-copy: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Statistical Computing and Data Analysis
+
+The answers below follow the question numbering in `hw-2.qmd`. Numerical results use the **32-car Table B.3 data** and the simple linear regression of mileage (`y`) on engine displacement (`x1`). The printed values are rounded; R retains full precision for calculations.
+
+```{r}
+#| label: setup
+#| include: false
+# Locate the course bundle when rendering from the homework folder or
+# from another location within the course project.
+candidates <- c("./data/regression_datasets.rda",
+                "../data/regression_datasets.rda",
+                "./regression_datasets.rda",
+                "./slides/data/regression_datasets.rda",
+                "../slides/data/regression_datasets.rda")
+data_path <- candidates[file.exists(candidates)][1]
+if (is.na(data_path)) {
+  stop("Place regression_datasets.rda in ./data/ or adjust candidates in the setup chunk.")
+}
+load(data_path)
+stopifnot(exists("table_B3"), nrow(table_B3) == 32,
+          all(c("y", "x1") %in% names(table_B3)))
+mpg_data <- table_B3
+fit <- lm(y ~ x1, data = mpg_data)
+n <- nrow(mpg_data)
+df <- df.residual(fit)
+x <- mpg_data$x1
+y <- mpg_data$y
+b <- coef(fit)
+yhat <- fitted(fit)
+e <- resid(fit)
+SST <- sum((y - mean(y))^2)
+SSE <- sum(e^2)
+SSR <- sum((yhat - mean(y))^2)
+MSE <- SSE / df
+s <- sqrt(MSE)
+alpha <- 0.05
+new_car <- data.frame(x1 = 275)
+ci_mean <- predict(fit, newdata = new_car, interval = "confidence", level = .95)
+pi_car <- predict(fit, newdata = new_car, interval = "prediction", level = .95)
+```
+
+## 1. Fit and interpret the model
+
+```{r}
+summary(fit)
+coef(fit)
+range(mpg_data$x1)
+```
+
+The fitted equation is
+
+$$
+\widehat{\mathrm{MPG}} = 33.7227 - 0.04736\,\mathrm{Displacement}.
+$$
+
+The estimated slope means that an increase of **one cubic inch** in engine displacement is associated with a decrease of about **0.0474 miles per gallon in predicted mileage**, on average within the range of these data. The intercept predicts **33.72 mpg at zero displacement**. A zero-displacement engine is outside the observed range and not practically meaningful, so the intercept should not be interpreted as the fuel economy of an actual automobile.
+
+## 2. Confidence intervals for $\beta_0$, $\beta_1$, and $\sigma^2$
+
+For $j=0,1$, a two-sided 95% confidence interval is
+
+$$
+b_j \pm t_{0.975,n-2}\operatorname{SE}(b_j).
+$$
+
+```{r}
+confint(fit, level = .95)
+```
+
+Thus, approximately,
+
+$$
+\begin{aligned}
+\beta_0 &: (30.7738,\ 36.6715),\\
+\beta_1 &: (-0.05695,\ -0.03777).
+\end{aligned}
+$$
+
+Under the normal-error assumption, $SSE/\sigma^2\sim\chi^2_{n-2}$. Hence
+
+$$
+\boxed{\left(
+\frac{(n-2)MSE}{\chi^2_{0.975,n-2}},
+\frac{(n-2)MSE}{\chi^2_{0.025,n-2}}
+\right)}
+$$
+
+is a 95% confidence interval for $\sigma^2$.
+
+```{r}
+sigma2_ci <- c(
+  lower = df * MSE / qchisq(.975, df = df),
+  upper = df * MSE / qchisq(.025, df = df)
+)
+c(n = n, df = df, SSE = SSE, MSE = MSE)
+sigma2_ci
+```
+
+The variance interval is **approximately $(5.9989,\ 16.7845)$ mpg$^2$**. This is an interval for the *error variance*, not for the standard deviation $\sigma$.
+
+## 3. Test the slope
+
+$$
+H_0:\beta_1=0,\qquad H_1:\beta_1\ne0.
+$$
+
+Under $H_0$, the statistic $t=b_1/\operatorname{SE}(b_1)$ has a $t_{n-2}$ distribution. Reject $H_0$ when $|t|>t_{0.975,30}$ or equivalently when $p<0.05$.
+
+```{r}
+slope_row <- summary(fit)$coefficients["x1", ]
+slope_row
+t_critical <- qt(.975, df = df)
+c(critical_value = t_critical,
+  t_statistic = slope_row["t value"],
+  p_value = slope_row["Pr(>|t|)"])
+```
+
+Here $t\approx-10.0864$ on **30 degrees of freedom**, with $p\approx 3.743\times10^{-11}$. **Reject $H_0$:** displacement has a statistically significant linear association with gasoline mileage. The estimated association is negative.
+
+## 4. ANOVA and significance of regression
+
+```{r}
+anova(fit)
+```
+
+The ANOVA quantities are $SSR\approx955.7197$, $SSE\approx281.8244$, and $SST\approx1237.5441$. The corresponding table is
+
+| Source | df | SS | MS | $F$ |
+|:--|--:|--:|--:|--:|
+| Regression | 1 | 955.7197 | 955.7197 | 101.7357 |
+| Residual | 30 | 281.8244 | 9.3941 | |
+| Total | 31 | 1237.5441 | | |
+
+For significance of regression, test $H_0:\beta_1=0$ against $H_1:\beta_1\ne0$. The statistic is
+
+$$
+F=\frac{MS_R}{MS_{\mathrm{res}}}
+  =\frac{955.7197}{9.3941}\approx101.7357,
+$$
+
+with $(1,30)$ degrees of freedom and $p\approx3.743\times10^{-11}$. **Reject $H_0$ at the 5% level**: regression on displacement is significant.
+
+```{r}
+F_stat <- SSR / MSE
+c(F_statistic = F_stat,
+  F_from_t_squared = unname(slope_row["t value"]^2),
+  p_value = pf(F_stat, df1 = 1, df2 = df, lower.tail = FALSE))
+```
+
+In simple linear regression with an intercept, **$F=t^2$** for the slope, so the ANOVA $F$-test and the two-sided slope $t$-test give identical $p$-values and decisions.
+
+## 5. Coefficient of determination
+
+```{r}
+R2 <- summary(fit)$r.squared
+c(R_squared = R2, percent_explained = 100 * R2,
+  check = SSR / SST)
+```
+
+$R^2\approx0.7723$, so approximately **77.23%** of the observed variation in gasoline mileage is accounted for by its fitted linear relationship with engine displacement. This does not establish that displacement *causes* the variation.
+
+## 6. Confidence interval for the mean mileage at 275 in$^3$
+
+```{r}
+ci_mean
+```
+
+The fitted mean mileage is **20.6988 mpg**. Its 95% confidence interval is approximately **$(19.5881,\ 21.8095)$ mpg**. This interval estimates the *average* mileage for the population of automobiles with a 275 in$^3$ engine under the fitted model.
+
+For reference, the standard error of the estimated mean at $x_0=275$ is
+
+$$
+\operatorname{SE}\{\hat\mu(x_0)\}
+=s\sqrt{\frac1n+\frac{(x_0-\bar x)^2}{S_{xx}}}.
+$$
+
+## 7. Prediction for a new automobile at 275 in$^3$
+
+**(a)** The point prediction is $\hat y(275)=\mathbf{20.6988}$ mpg.
+
+**(b)** The 95% prediction interval is approximately **$(14.3415,\ 27.0561)$ mpg**.
+
+```{r}
+pi_car
+```
+
+**(c)** The prediction interval is wider than the confidence interval in Question 6 because it must account for both uncertainty in the fitted *mean* and the variability of an individual automobile around that mean. Specifically,
+
+$$
+\begin{aligned}
+\operatorname{SE}\{\hat\mu(x_0)\}
+ &=s\sqrt{\frac1n+\frac{(x_0-\bar x)^2}{S_{xx}}},\\
+\operatorname{SE}_{\mathrm{pred}}(x_0)
+ &=s\sqrt{1+\frac1n+\frac{(x_0-\bar x)^2}{S_{xx}}}.
+\end{aligned}
+$$
+
+The additional $1$ under the second square root represents the variation of a *new response* around its conditional mean.
+
+## 8. Plot observations, fitted line, confidence band, and prediction band
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+#| fig-cap: "Mileage versus displacement, with 95% confidence and prediction bands."
+xgrid <- data.frame(x1 = seq(min(x), max(x), length.out = 300))
+ci_grid <- as.data.frame(predict(fit, newdata = xgrid,
+                                 interval = "confidence", level = .95))
+pi_grid <- as.data.frame(predict(fit, newdata = xgrid,
+                                 interval = "prediction", level = .95))
+
+plot(x, y, pch = 19, col = "black",
+     xlab = expression("Engine displacement (in"^3*")"),
+     ylab = "Gasoline mileage (mpg)",
+     main = "Simple linear regression: gasoline mileage")
+polygon(c(xgrid$x1, rev(xgrid$x1)),
+        c(pi_grid$lwr, rev(pi_grid$upr)),
+        col = adjustcolor("orange", alpha.f = 0.16), border = NA)
+polygon(c(xgrid$x1, rev(xgrid$x1)),
+        c(ci_grid$lwr, rev(ci_grid$upr)),
+        col = adjustcolor("steelblue", alpha.f = 0.28), border = NA)
+points(x, y, pch = 19, col = "black")
+lines(xgrid$x1, ci_grid$fit, col = "blue4", lwd = 2)
+lines(xgrid$x1, ci_grid$lwr, col = "blue4", lty = 2)
+lines(xgrid$x1, ci_grid$upr, col = "blue4", lty = 2)
+lines(xgrid$x1, pi_grid$lwr, col = "darkorange3", lty = 3)
+lines(xgrid$x1, pi_grid$upr, col = "darkorange3", lty = 3)
+legend("topright",
+       legend = c("Observed mileage", "Fitted mean", "95% CI for mean",
+                  "95% prediction band"),
+       col = c("black", "blue4", "blue4", "darkorange3"),
+       pch = c(19, NA, NA, NA),
+       lty = c(NA, 1, 2, 3), lwd = c(NA, 2, 1.5, 1.5),
+       bg = "white")
+```
+
+The outer prediction band covers the uncertainty in a *new individual response* and is therefore wider than the inner confidence band for the conditional mean.
+
+## 9. Numerical verification of least-squares identities
+
+The sums below are approximately zero up to floating-point rounding; in exact arithmetic the corresponding least-squares identities hold exactly for a model with an intercept.
+
+**(a) Residuals sum to zero.**
+
+```{r}
+sum(e)
+```
+
+The intercept normal equation is $\sum_i(y_i-\hat y_i)=\sum_i e_i=0$.
+
+**(b) Observed and fitted responses have the same sum.**
+
+```{r}
+c(sum_y = sum(y), sum_fitted = sum(yhat), difference = sum(y) - sum(yhat))
+```
+
+Because $\sum_i e_i=0$, we have $\sum_i y_i-\sum_i\hat y_i=0$. Both sums are approximately **647.14**.
+
+**(c) The fitted line passes through the centroid.**
+
+```{r}
+c(xbar = mean(x), ybar = mean(y),
+  fitted_at_xbar = unname(predict(fit, newdata = data.frame(x1 = mean(x)))),
+  difference = unname(predict(fit, newdata = data.frame(x1 = mean(x)))) - mean(y))
+```
+
+The centroid is approximately $(285.0438,\ 20.2231)$, and $b_0+b_1\bar x=\bar y$ because $b_0=\bar y-b_1\bar x$.
+
+**(d) Predictor and residuals are orthogonal.**
+
+```{r}
+sum(x * e)
+```
+
+The slope normal equation gives $\sum_i x_i(y_i-\hat y_i)=0$.
+
+**(e) Fitted values and residuals are orthogonal.**
+
+```{r}
+sum(yhat * e)
+```
+
+Since $\hat y_i=b_0+b_1x_i$,
+
+$$
+\sum_i\hat y_i e_i
+=b_0\sum_i e_i+b_1\sum_i x_ie_i=0.
+$$
+
+# Mathematical Derivation and Reasoning
+
+## 10. Unbiasedness of the intercept estimator
+
+In simple linear regression,
+
+$$
+b_1=\frac{\sum_i(x_i-\bar x)Y_i}{S_{xx}},
+\qquad b_0=\bar Y-b_1\bar x,
+\qquad S_{xx}=\sum_i(x_i-\bar x)^2.
+$$
+
+As the $x_i$'s are fixed and $E(Y_i)=\beta_0+\beta_1x_i$,
+
+$$
+\begin{aligned}
+E(b_1)
+&=\frac{\sum_i(x_i-\bar x)E(Y_i)}{S_{xx}}\\
+&=\frac{\beta_0\sum_i(x_i-\bar x)
+   +\beta_1\sum_i(x_i-\bar x)x_i}{S_{xx}}\\
+&=\frac{0+\beta_1S_{xx}}{S_{xx}}
+=\beta_1.
+\end{aligned}
+$$
+
+Also $E(\bar Y)=\beta_0+\beta_1\bar x$. Therefore
+
+$$
+\boxed{E(b_0)=E(\bar Y)-\bar x\,E(b_1)
+=(\beta_0+\beta_1\bar x)-\bar x\beta_1=\beta_0.}
+$$
+
+Thus the least-squares intercept estimator is unbiased. **Normality is not required** for this expectation calculation; fixed predictors, the correct conditional mean model, and zero-mean errors suffice.
+
+## 11. ANOVA decomposition
+
+Write $e_i=y_i-\hat y_i$. Since $y_i-\bar y=(\hat y_i-\bar y)+e_i$,
+
+$$
+\begin{aligned}
+\sum_i(y_i-\bar y)^2
+&=\sum_i\bigl[(\hat y_i-\bar y)+e_i\bigr]^2\\
+&=\sum_i(\hat y_i-\bar y)^2
+ +\sum_i e_i^2
+ +2\sum_i(\hat y_i-\bar y)e_i.
+\end{aligned}
+$$
+
+The cross term is zero because the least-squares normal equations imply
+$\sum_i e_i=0$ and $\sum_i x_ie_i=0$, while
+$\hat y_i=b_0+b_1x_i$:
+
+$$
+\begin{aligned}
+\sum_i(\hat y_i-\bar y)e_i
+&=\sum_i(b_0+b_1x_i-\bar y)e_i\\
+&=(b_0-\bar y)\sum_i e_i+b_1\sum_i x_ie_i=0.
+\end{aligned}
+$$
+
+Consequently,
+
+$$
+\boxed{\underbrace{\sum_i(y_i-\bar y)^2}_{SS_T}
+=\underbrace{\sum_i(\hat y_i-\bar y)^2}_{SS_R}
++\underbrace{\sum_i(y_i-\hat y_i)^2}_{SS_{\mathrm{res}}}.}
+$$
+
+This decomposition holds for ordinary least squares **with an intercept**.

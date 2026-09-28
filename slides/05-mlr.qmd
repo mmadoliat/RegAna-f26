@@ -1091,55 +1091,327 @@ with(delivery_data,
 
 # Hypothesis Testing
 <h2> Test for Significance of Regression </h2>
+<h2> Type I, II, and III Sums of Squares </h2>
 <h2> Tests on Individual Coefficients </h2>
 <h2> Tests on Subsets of Coefficients (Later) </h2>
 
 
 ::: notes
-- Test for Significance: test if there is any regressor that has a significant effect on predicting $Y$ or explaining the variation of $Y$.
-- In a Test for Significance, we are looking all the regressors.
-- Tests on Individual Coefficients: we are only interested in single one predictor's effect.
-- But sometimes, we may be interested in a subset of Coefficients, not all, not single one, but two or three coefficients. And we'll see how to do this kind of test later.
-- Finally, we'll learn the so-called General Linear Hypothesis that can perform a quite general test.
-- The three tests above are in fact special case of the General Linear Hypothesis.
+- Test for Significance: test whether at least one regressor contributes to explaining or predicting $Y$.
+- In a Test for Significance, we are looking at all regressors together.
+- Tests on Individual Coefficients: we are interested in one predictor's contribution given the other predictors in the model.
+- Sometimes we may be interested in a subset of coefficients, not all and not just one. We will see this later using nested-model comparisons.
+- The same model-comparison idea is behind all of these tests.
+:::
+
+
+## Where Does the Variation in $Y$ Go?
+
+For a regression model with an intercept,
+
+$$
+\boxed{SS_T = SS_R + SS_{res}}
+$$
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+### Total
+
+$$
+SS_T = \sum_{i=1}^n (y_i-\bar y)^2
+$$
+
+Total variation in the response.
+
+$$
+df_T=n-1
+$$
+
+:::
+
+::: {.column width="33%"}
+
+### Regression
+
+$$
+SS_R = \sum_{i=1}^n (\hat y_i-\bar y)^2
+$$
+
+Variation **explained** by the regression.
+
+$$
+df_R=k
+$$
+
+:::
+
+::: {.column width="33%"}
+
+### Residual
+
+$$
+SS_{res} = \sum_{i=1}^n (y_i-\hat y_i)^2
+$$
+
+Variation **not explained** by the regression.
+
+$$
+df_{res}=n-k-1
+$$
+
+:::
+
+::::
+
+
+::: notes
+- This is the ANOVA decomposition for regression.
+- SS_T asks how much variability there is in Y before using any predictors.
+- SS_R is the amount of that variability explained by the fitted regression.
+- SS_res is what remains after fitting the regression.
+- Do not confuse these three quantities with Type I, Type II, and Type III sums of squares, which we will discuss shortly.
+:::
+
+
+## Understanding the Decomposition
+
+For each observation,
+
+$$
+y_i-\bar y
+=
+(\hat y_i-\bar y)
++
+(y_i-\hat y_i).
+$$
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+**Total deviation**
+
+$$
+y_i-\bar y
+$$
+
+How far is the observation from the overall mean?
+
+:::
+
+::: {.column width="33%"}
+
+**Explained deviation**
+
+$$
+\hat y_i-\bar y
+$$
+
+How much is explained by the fitted model?
+
+:::
+
+::: {.column width="33%"}
+
+**Residual deviation**
+
+$$
+y_i-\hat y_i=e_i
+$$
+
+What remains unexplained?
+
+:::
+
+::::
+
+. . .
+
+For least squares regression with an intercept,
+
+$$
+\boxed{SS_T=SS_R+SS_{res}}.
+$$
+
+
+## [R Lab]{.pink} The Three Sums of Squares
+
+```{r}
+#| echo: true
+
+# Total variation
+SS_T <- sum((delivery_data$time -
+              mean(delivery_data$time))^2)
+
+# Unexplained variation
+SS_res <- sum(residuals(delivery_lm)^2)
+
+# Explained variation
+SS_R <- SS_T - SS_res
+
+c(SS_T = SS_T,
+  SS_R = SS_R,
+  SS_res = SS_res)
+```
+
+. . .
+
+```{r}
+#| echo: true
+SS_R + SS_res
+SS_T
+```
+
+::: question
+What proportion of the total variation is explained by the regression?
 :::
 
 
 ## Test for Significance of Regression
-- **Test for significance**: Determine if there is a **linear** relationship between the response and **any** of the regressor variables.
-- <span style="color:blue">
-$H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0 \quad H_1: \beta_j \ne 0 \text{ for at least one } j$ </span>
-<!-- - The $F$ test of ANOVA performs the test. -->
 
-<!-- # ```{r} -->
-<!-- # knitr::include_graphics("./images/05-mlr/anova_mlr.png") -->
-<!-- # ``` -->
-<!-- - $SS_T = {\bf y'y} - \frac{\left(\sum_{i=1}^n y_i \right)^2}{n}$, $SS_R = {\bf b'X'y}-\frac{\left(\sum_{i=1}^n y_i \right)^2}{n}$, $SS_{res} = {\bf y'y} - {\bf b'X'y}$ -->
+- Determine whether there is a **linear contribution from at least one** regressor.
+
+<span style="color:blue">
+
+$$
+H_0:\beta_1=\beta_2=\cdots=\beta_k=0
+$$
+
+$$
+H_1:\beta_j\ne0 \text{ for at least one }j
+$$
+
+</span>
 
 . . .
 
+::: alert
+This test can be viewed as a comparison of **two nested models**.
+:::
 
-| Source of Variation | SS | df | MS | F | $p$-value |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-| Regression | $SS_R$| $k$ | $MS_R$  |  $\frac{MS_R}{MS_{res}} = F_{test}$ |  $P(F_{k, n-k-1} > F_{test})$ |
-| Residual | $SS_{res}$ | $n-k-1$   |  $MS_{res}$ |   |  | 
-| Total | $SS_{T}$ | $n-1$   |   |   |  | 
 
-- Reject $H_0$ if $F_{test} > F_{\alpha, k, n - k - 1}$.
+## Null Model vs. Full Model
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+### Null model
+
+Under $H_0$,
+
+$$
+Y_i=\beta_0+\epsilon_i.
+$$
+
+The fitted value for every observation is
+
+$$
+\hat y_i=\bar y.
+$$
+
+Therefore,
+
+$$
+SS_{res,\;Null}=SS_T.
+$$
+
+:::
+
+::: {.column width="48%"}
+
+### Full model
+
+$$
+Y_i=\beta_0+\beta_1X_{i1}
++\cdots+\beta_kX_{ik}+\epsilon_i.
+$$
+
+Its unexplained variation is
+
+$$
+SS_{res,\;Full}=SS_{res}.
+$$
+
+:::
+
+::::
+
+. . .
+
+The reduction in unexplained variation is
+
+$$
+\boxed{
+SS_{res,\;Null}-SS_{res,\;Full}=SS_R
+}
+$$
+
+
+## From Sums of Squares to the $F$ Test
+
+Adding predictors will always reduce $SS_{res}$, even if they have little useful information.
+
+So compare the reduction **per predictor** with the remaining residual variation:
+
+$$
+MS_R=\frac{SS_R}{k},
+\qquad
+MS_{res}=\frac{SS_{res}}{n-k-1}.
+$$
+
+. . .
+
+$$
+\boxed{
+F_{test}=\frac{MS_R}{MS_{res}}
+}
+$$
+
+Under $H_0$,
+
+$$
+F_{test}\sim F_{k,n-k-1}.
+$$
+
+::: alert
+A large $F$ means that adding the predictors reduces unexplained variation by much more than we would expect from random error alone.
+:::
+
+
+## ANOVA Table for the Overall $F$ Test
+
+| Source of Variation | SS | df | MS | F |
+|:-----:|:-----:|:-----:|:-----:|:-----:|
+| Regression | $SS_R$ | $k$ | $MS_R=SS_R/k$ | $\dfrac{MS_R}{MS_{res}}$ |
+| Residual | $SS_{res}$ | $n-k-1$ | $MS_{res}=\dfrac{SS_{res}}{n-k-1}$ | |
+| Total | $SS_T$ | $n-1$ | | |
+
+$$
+SS_T=SS_R+SS_{res}
+$$
+
+- Reject $H_0$ for a sufficiently large $F_{test}$, or equivalently when the $p$-value is less than $\alpha$.
 
 ::: notes
-- In SLR, test for significance is the same as testing individual coefficient $\beta_1 = 0$.
-- We may reject the null when the truth is all beta's are nonzero, or only one single beta is nonzero.
-- If there is only one nonzero beta, and we reject the null, basically, the nearly all the variation of Y is explained by the corresponding predictor that has the nonzero beta.
-- We can still say the model is significant because that particular predictor has a significant effect on explaining y.
-- Another way to represent SS_T
+- In SLR, the overall F test is equivalent to the two-sided t test for beta_1 = 0.
+- In MLR, rejecting H0 tells us that at least one slope is nonzero; it does not tell us which one.
 :::
 
 
 ## [R Lab]{.pink} Test for Significance
 
 <span style="color:blue">
-$H_0: \beta_{1} = \beta_{2} = 0 \quad H_1: \beta_j \ne 0 \text{ for at least one } j$ </span>
+
+$$
+H_0:\beta_1=\beta_2=0
+\qquad
+H_1:\beta_j\ne0 \text{ for at least one }j
+$$
+
+</span>
 
 ::: shrink-code
 ```{r}
@@ -1151,45 +1423,27 @@ summ_delivery
 :::
 
 ::: notes
-- How do we obtain the ANOVA Table?
+- The F statistic reported by summary() is the overall test comparing the full regression with the intercept-only model.
 :::
 
 
-## [R Lab]{.pink} Wrong ANOVA Table
-
-| Source of Variation | SS | df | MS | F | $p$-value |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-| Regression | $SS_R$| $k$ | $MS_R$  |  $\frac{MS_R}{MS_{res}} = F_{test}$ |  $P(F_{k, n-k-1} > F_{test})$ |
-| Residual | $SS_{res}$ | $n-k-1$   |  $MS_{res}$ |   |  | 
-| Total | $SS_{T}$ | $n-1$   |   |   |  | 
-
-
-```{r}
-#| echo: true
-anova(delivery_lm) ## This is for sequential F-test
-```
-
-- This is so called **Type-I** ANOVA table for a *sequential F-test*, which is **NOT** what we want.
-
-
-<!-- # ```{r} -->
-<!-- #  -->
-<!-- # knitr::include_graphics("./images/05-mlr/anova_mlr.png") -->
-<!-- # ``` -->
-
-
-
 ## [R Lab]{.pink} ANOVA Table: Null vs. Full
+
 ::: alert
-Testing coefficients is like model comparison: **Compare the full model with the model under $H_0$**!
+Testing coefficients can be viewed as model comparison:  
+**compare the full model with the model under $H_0$.**
 :::
 
 :::: {.columns}
 
-::: {.column width="50%"}
-+ **Full model**: including both `cases` and `distance` predictors
-+ **Null model**: no predictors $(\beta_1 = \beta_2 = 0)$
+::: {.column width="45%"}
 
++ **Full model**: `cases` and `distance`
++ **Null model**: intercept only
+
+$$
+H_0:\beta_1=\beta_2=0
+$$
 
 ```{r}
 #| out-width: 100%
@@ -1198,37 +1452,252 @@ knitr::include_graphics("./images/05-mlr/anova_ex.png")
 
 :::
 
-::: {.column width="50%"}
-::: {.fragment}
+::: {.column width="55%"}
+
 ```{r}
 #| echo: true
-#| output.lines: !expr c(1:7)
 
-## regression with intercept only
 null_model <- lm(time ~ 1,
                  data = delivery_data)
+
 anova(null_model, delivery_lm)
 ```
+
 :::
-:::
+
 ::::
 
-
-
-
 ::: notes
-- first row: info of SS_T
-- second row: info of SS_R and SS_res
-- does not show MS
+- The null-model SSE is SS_T because every fitted value is y-bar.
+- The reduction in SSE from the null model to the full model is SS_R.
+- anova(null_model, delivery_lm) directly performs the nested-model F test.
 :::
 
 
+## Another Meaning of "Sums of Squares"
+
+So far we used
+
+$$
+SS_T,\qquad SS_R,\qquad SS_{res}.
+$$
+
+These describe **total, explained, and unexplained variation**.
+
+. . .
+
+With several predictors, another question arises:
+
+> How should the regression sum of squares be attributed to individual model terms?
+
+There are three commonly used approaches:
+
+- **Type I SS:** sequential
+- **Type II SS:** each main effect adjusted for the other main effects
+- **Type III SS:** each term adjusted for all other terms
+
+::: danger
+**Type I, II, and III SS are not the same thing as**
+$SS_T$, $SS_R$, and $SS_{res}$.
+:::
+
+
+## Type I Sum of Squares: Sequential
+
+Type I SS evaluates predictors **in the order they enter the model**.
+
+For
+
+$$
+Y=\beta_0+\beta_1X_1+\beta_2X_2+\epsilon,
+$$
+
+the first ordering gives
+
+$$
+SS(X_1)
+=
+SSE(1)-SSE(X_1),
+$$
+
+$$
+SS(X_2\mid X_1)
+=
+SSE(X_1)-SSE(X_1,X_2).
+$$
+
+. . .
+
+If the order is reversed, we instead obtain
+
+$$
+SS(X_2),\qquad SS(X_1\mid X_2).
+$$
+
+::: alert
+When predictors are correlated, **Type I sums of squares depend on predictor order**.
+:::
+
+
+## [R Lab]{.pink} Type I SS: Does Order Matter?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+
+model_cd <- lm(
+  time ~ cases + distance,
+  data = delivery_data
+)
+
+anova(model_cd)
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+
+model_dc <- lm(
+  time ~ distance + cases,
+  data = delivery_data
+)
+
+anova(model_dc)
+```
+
+:::
+
+::::
+
+::: question
+What changes when we reverse the order of `cases` and `distance`?
+:::
+
+
+## Same Model, Different Type I Partition
+
+Reversing the order of the predictors does **not** change the fitted model:
+
+```{r}
+#| echo: true
+
+coef(model_cd)
+coef(model_dc)
+```
+
+. . .
+
+```{r}
+#| echo: true
+
+c(R2_cd = summary(model_cd)$r.squared,
+  R2_dc = summary(model_dc)$r.squared)
+
+c(SSE_cd = deviance(model_cd),
+  SSE_dc = deviance(model_dc))
+```
+
+::: alert
+The fitted values, $SS_{res}$, $R^2$, and overall $F$ test are unchanged.
+
+Only the **sequential allocation** of $SS_R$ changes.
+:::
+
+
+## Type II Sum of Squares
+
+Type II SS evaluates each **main effect after adjusting for the other main effects**.
+
+For two predictors:
+
+$$
+SS(X_1\mid X_2),
+\qquad
+SS(X_2\mid X_1).
+$$
+
+- Does **not** depend on the order in which predictors are written.
+- Natural for additive models containing only main effects.
+- Each predictor is assessed after accounting for the other predictors.
+
+```{r}
+#| echo: true
+
+car::Anova(model_cd, type = 2)
+```
+
+::: notes
+- For the current additive model, Type II tests have a straightforward interpretation.
+- Type II is particularly useful when there are no interactions.
+:::
+
+
+## Type III Sum of Squares
+
+Type III SS tests each term **after adjusting for every other term in the model**.
+
+For an interaction model,
+
+$$
+Y=\beta_0+\beta_1X_1+\beta_2X_2
++\beta_{12}X_1X_2+\epsilon,
+$$
+
+Type III tests each of
+
+$$
+X_1,\quad X_2,\quad X_1X_2
+$$
+
+while the other terms remain in the model.
+
+```{r}
+#| echo: true
+
+car::Anova(model_cd, type = 3)
+```
+
+::: notes
+- In the present model, which contains only quantitative main effects, the Type II and Type III tests for cases and distance agree.
+- With interactions or categorical predictors, interpretation of Type III main-effect tests requires more care.
+- For factor models, Type III results also depend on contrast coding; we will discuss this when categorical predictors and interactions are introduced.
+:::
+
+
+## Type I vs. Type II vs. Type III
+
+| Type | Question | Depends on order? |
+|:--|:--|:--:|
+| **I** | What does this term add **after terms entered before it**? | Yes |
+| **II** | What does this main effect add **after the other main effects**? | No |
+| **III** | What does this term add **after all other terms**? | No |
+
+. . .
+
+::: alert
+If predictors are orthogonal, the different types agree.
+
+Differences arise when predictors share explanatory information.
+:::
+
+::: notes
+- Type I is sequential.
+- Type II compares each main effect after the other main effects.
+- Type III compares each term after every other term.
+- None of these changes the fitted full model itself; they change the hypothesis being tested for individual terms.
+:::
 
 
 ## $R^2$ and Adjusted $R^2$
 - $R^2 = \frac{SS_R}{SS_T} = 1 - \frac{SS_{res}}{SS_T}$
    + calculated as in SLR.
-   + accesses how well the regression model fits the data.
+   + assesses how well the regression model fits the data.
    + measures the proportion of variability in $Y$ that is explained by the regression or the $k$ predictors.
    + The model with one additional predictor **always gets a higher $R^2$**.
 
