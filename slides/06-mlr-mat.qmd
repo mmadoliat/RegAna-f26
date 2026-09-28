@@ -345,6 +345,13 @@ $$\hat{\bf y} = \bf X \bf b = \bf X (\bf X' \bf X) ^{-1} \bf X' \bf y = \bf H \b
 - ${\bf y} \notin Col({\bf X})$
 - $\hat{{\bf y}} = {\bf Xb} = {\bf H} {\bf y} \in Col({\bf X})$
 - Minimize the distance of $\color{red}{A}$ to $Col(\bf X)$: Find the point in $Col(\bf X)$ that is closest to $A$.
+- Also,
+
+$$
+{\bf X}'({\bf y}-{\bf H}{\bf y})={\bf 0},
+$$
+
+so the residual vector is orthogonal to $\operatorname{Col}({\bf X})$.
 :::
 
 ::: {.column width="70%"}

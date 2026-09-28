@@ -40,6 +40,7 @@ execute:
 \def\bg{\mathbf{g}}
 \def\bw{\mathbf{w}}
 \def\bbeta{\boldsymbol \beta}
+\def\beps{\boldsymbol \epsilon}
 \def\bsLambda{\boldsymbol \Lambda}
 \def\bX{\mathbf{X}}
 \def\by{\mathbf{y}}
@@ -109,6 +110,48 @@ knitr::knit_hooks$set(output = function(x, options) {
 })
 ```
 
+
+## Matrix Algebra for Regression
+
+$$y_i= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_kx_{ik} + \epsilon_i, \quad \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2), \quad i = 1, 2, \dots, n$$
+
+<!-- - $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$ -->
+
+. . .
+
+
+$$\bf y = \bf X \bbeta + \beps$$ where
+
+$$\begin{align}
+\bf y = \begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n \end{bmatrix},\quad
+\bf X = \begin{bmatrix}
+  1 & x_{11} & x_{12} & \cdots & x_{1k} \\
+  1 & x_{21} & x_{22} & \cdots & x_{2k} \\
+  \vdots & \vdots  & \vdots  & \ddots & \vdots  \\
+  1 & x_{n1} & x_{n2} & \cdots & x_{nk} \end{bmatrix}, \quad
+\bbeta = \begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_k \end{bmatrix} , \quad
+\beps = \begin{bmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\vdots \\
+\epsilon_n\end{bmatrix}
+\end{align}$$
+
+::: alert
+The main goal is not matrix computation by hand. It is to understand the geometry and algebra behind
+
+$$
+{\bf b}=({\bf X}'{\bf X})^{-1}{\bf X}'{\bf y}.
+$$
+:::
 
 
 ## Matrix
@@ -217,6 +260,160 @@ A[2, , drop = FALSE]
 class(A[2, , drop = FALSE]) 
 ```
 
+
+## Vectors: Addition and Scalar Multiplication
+
+Let
+
+$$
+{\bf u}=
+\begin{bmatrix}
+u_1\\u_2
+\end{bmatrix},
+\qquad
+{\bf v}=
+\begin{bmatrix}
+v_1\\v_2
+\end{bmatrix}.
+$$
+
+Then
+
+$$
+{\bf u}+{\bf v}
+=
+\begin{bmatrix}
+u_1+v_1\\
+u_2+v_2
+\end{bmatrix},
+\qquad
+c{\bf u}
+=
+\begin{bmatrix}
+cu_1\\
+cu_2
+\end{bmatrix}.
+$$
+
+```{r}
+u <- c(1, 2)
+v <- c(3, -1)
+
+u + v
+2 * u
+```
+
+
+## Linear Combinations
+
+A **linear combination** of vectors ${\bf v}_1,\dots,{\bf v}_k$ is
+
+$$
+c_1{\bf v}_1+\cdots+c_k{\bf v}_k.
+$$
+
+For example,
+
+$$
+2
+\begin{bmatrix}1\\0\end{bmatrix}
++
+3
+\begin{bmatrix}0\\1\end{bmatrix}
+=
+\begin{bmatrix}2\\3\end{bmatrix}.
+$$
+
+. . .
+
+::: alert
+Matrix multiplication ${\bf Xb}$ is a linear combination of the **columns of ${\bf X}$**.
+:::
+
+If
+
+$$
+{\bf X}=
+\begin{bmatrix}
+{\bf x}_1 & {\bf x}_2 & \cdots & {\bf x}_p
+\end{bmatrix},
+$$
+
+then
+
+$$
+{\bf Xb}
+=
+b_1{\bf x}_1+\cdots+b_p{\bf x}_p.
+$$
+
+
+## Span and Column Space
+
+The **span** of vectors ${\bf v}_1,\ldots,{\bf v}_k$ is the set of all their linear combinations:
+
+$$
+\operatorname{span}({\bf v}_1,\dots,{\bf v}_k)
+=
+\left\{
+c_1{\bf v}_1+\cdots+c_k{\bf v}_k
+\right\}.
+$$
+
+For a matrix
+
+$$
+{\bf X}=
+\begin{bmatrix}
+{\bf x}_1 & \cdots & {\bf x}_p
+\end{bmatrix},
+$$
+
+the **column space** is
+
+$$
+\operatorname{Col}({\bf X})
+=
+\operatorname{span}({\bf x}_1,\dots,{\bf x}_p).
+$$
+
+::: alert
+In regression, every fitted-value vector
+
+$$
+\hat{\bf y}={\bf Xb}
+$$
+
+must lie in $\operatorname{Col}({\bf X})$.
+:::
+
+
+## Why Column Space Matters for Regression
+
+Suppose
+
+$$
+{\bf X}
+=
+\begin{bmatrix}
+{\bf 1} & {\bf x}_1 & {\bf x}_2
+\end{bmatrix}.
+$$
+
+Then every possible fitted vector has the form
+
+$$
+{\bf Xb}
+=
+b_0{\bf 1}+b_1{\bf x}_1+b_2{\bf x}_2.
+$$
+
+. . .
+
+- Changing ${\bf b}$ moves us to a different point in $\operatorname{Col}({\bf X})$.
+- Least squares chooses the point in $\operatorname{Col}({\bf X})$ closest to ${\bf y}$.
+- This geometric viewpoint will explain the normal equations later.
+
 ## Transpose
 - Let ${\bf A}$ be an $n \times m$ matrix. The transpose of ${\bf A}$, denoted by ${\bf A}'$ or ${\bf A}^T$, is a $m \times n$ matrix whose columns are the rows of ${\bf A}$.
 $${\bf A} = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ \end{bmatrix} \quad {\bf A}' =\begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6\end{bmatrix}$$
@@ -229,6 +426,51 @@ $${\bf X}'_{2 \times n} = \begin{bmatrix} 1 & 1 & \cdots & 1 \\ x_1 & x_2 & \cdo
 A
 t(A)
 ```
+
+
+## Determinant
+
+For a square matrix ${\bf A}=\begin{bmatrix}a & b\\ c & d\end{bmatrix},$
+
+the determinant is $\det({\bf A})=ad-bc.$
+
+```{r}
+A2 <- matrix(c(2, 1,
+               3, 4), nrow = 2, byrow = TRUE)
+A2
+det(A2)
+```
+
+. . .
+
+For a square matrix,
+
+$$
+\boxed{\det({\bf A})\ne0
+\quad\Longleftrightarrow\quad
+{\bf A}\text{ is invertible}}
+$$
+
+::: notes
+- Geometrically, the absolute determinant gives the factor by which the linear transformation scales area in 2D or volume in higher dimensions.
+- A zero determinant means that the transformation collapses the space into a lower-dimensional subspace.
+:::
+
+
+## Determinant: Geometric Interpretation
+
+For a $2\times2$ matrix, $|\det({\bf A})|$ is the factor by which areas are scaled.
+
+- $|\det({\bf A})|>1$: area expands.
+- $0<|\det({\bf A})|<1$: area contracts.
+- $\det({\bf A})<0$: orientation is reversed.
+- $\det({\bf A})=0$: the plane is collapsed to a line or a point.
+
+::: alert
+If $\det({\bf A})=0$, some column information is redundant.  
+That is exactly the kind of issue that appears with perfect multicollinearity.
+:::
+
 
 ## Linear Independence
 <!-- - Vectors ${\bf v}_1, {\bf v}_2, \dots, {\bf v}_k$ is said to be **linearly dependent** if there exists scalars $c_{1},c_{2},\dots,c_{k},$ not all zero, such that  -->
@@ -324,6 +566,72 @@ Can you see why the rank is 2, meaning that one column can be written as a linea
 :::
 
 
+
+## Linear Systems: ${\bf Ax}={\bf b}$
+
+A system of linear equations can be written compactly as
+
+$$
+{\bf Ax}={\bf b}.
+$$
+
+Example:
+
+$$
+\begin{aligned}
+2x_1+x_2 &=5,\\
+x_1+3x_2 &=7.
+\end{aligned}
+$$
+
+becomes
+
+$$
+\begin{bmatrix}
+2&1\\
+1&3
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+5\\7
+\end{bmatrix}.
+$$
+
+```{r}
+A_sys <- matrix(c(2, 1,
+                  1, 3), nrow = 2, byrow = TRUE)
+b_sys <- c(5, 7)
+
+solve(A_sys, b_sys)
+```
+
+
+## Unique Solutions and Rank
+
+For a square matrix ${\bf A}_{n\times n}$, the following statements are equivalent:
+
+- ${\bf A}$ has full rank $n$.
+- The columns of ${\bf A}$ are linearly independent.
+- $\det({\bf A})\ne0$.
+- ${\bf A}^{-1}$ exists.
+- ${\bf Ax}={\bf b}$ has a unique solution for every ${\bf b}$.
+
+. . .
+
+::: alert
+Regression connection:
+
+$$
+{\bf b}=({\bf X}'{\bf X})^{-1}{\bf X}'{\bf y}
+$$
+
+requires ${\bf X}$ to have full column rank.
+:::
+
+
 ## Operations: Addition
 
 - **Addition:** ${\bf A + B}$ is adding the corresponding elements together $a_{ij} + b_{ij}$. 
@@ -395,8 +703,7 @@ A
 ```{r}
 #| error: true
 (C <- A %*% B)
-(B <- matrix(1:8, nrow = 2, ncol = 4))
-A %*% B
+(D <- B %*% A)
 ```
 :::
 
@@ -409,7 +716,7 @@ A %*% B
 
 - ${\bf A}{\bf B} \ne {\bf B}{\bf A}$ in general.
 
-- $({\bf A}{\bf B})' =  {\bf B}'{\bf A}'$.
+- $({\bf A}{\bf B})' =  {\bf B}'{\bf A}'$. 
 
 <br>
 
@@ -417,13 +724,12 @@ A %*% B
 ::: {.column width="50%"}
 
 ```{r}
-(C <- matrix(1:4, 2, 2))
-(D <- matrix(2:5, 2, 2))
+(C <- matrix(1:6, 3, 2))
+(D <- matrix(2:7, 2, 3))
 C %*% D
 ```
 
 :::
-
 
 ::: {.column width="50%"}
 
@@ -440,6 +746,219 @@ t(D) %*% t(C)
 
 ::::
 
+
+
+
+
+## [R Lab]{.pink} Crossproducts
+
+In regression we repeatedly encounter products such as ${\bf X}'{\bf X}$ and ${\bf X}'{\bf y}.$ In R,
+
+:::: {.columns}
+::: {.column width="50%"}
+
+::: shrink-code
+```{r}
+X_cp <- matrix(1:6, nrow = 3, ncol = 2)
+y_cp <- c(2, 4, 7)
+
+t(X_cp) %*% X_cp
+crossprod(X_cp)
+
+t(X_cp) %*% y_cp
+crossprod(X_cp, y_cp)
+```
+:::
+
+`crossprod(X, Y)` computes ${\bf X}'{\bf Y}$ directly.
+
+:::
+
+::: {.column width="50%"}
+
+::: fragment
+Similarly,
+
+```{r}
+tcrossprod(X_cp)
+```
+
+computes ${\bf X}{\bf X}'$.
+:::
+
+<br>
+
+::: fragment
+::: alert
+`crossprod()` and `tcrossprod()` are convenient and efficient for matrix products that occur constantly in regression.
+:::
+:::
+
+:::
+::::
+
+# Geometry of Vectors
+
+## Inner Product (Dot Product)
+
+For vectors ${\bf x},{\bf y}\in\mathbb R^n$,
+
+$$
+{\bf x}'{\bf y}
+=
+\sum_{i=1}^n x_i y_i.
+$$
+
+```{r}
+x <- c(1, 2, 3)
+y <- c(4, -1, 2)
+
+sum(x * y)
+t(x) %*% y
+```
+
+The dot product measures how strongly two vectors point in the same direction.
+
+
+
+## Outer Product
+
+For column vectors ${\bf x}\in\mathbb R^m$ and ${\bf y}\in\mathbb R^n$,
+
+$$
+{\bf x}{\bf y}'
+$$
+
+is an $m\times n$ matrix.
+
+For example,
+
+$$
+\begin{bmatrix}1\\2\end{bmatrix}
+\begin{bmatrix}3&4&5\end{bmatrix}
+=
+\begin{bmatrix}
+3&4&5\\
+6&8&10
+\end{bmatrix}.
+$$
+
+```{r}
+x <- c(1, 2)
+y <- c(3, 4, 5)
+
+x %o% y
+```
+
+::: notes
+- Contrast the inner product x'y, which is a scalar, with the outer product xy', which is a matrix.
+- Outer products appear naturally in covariance matrices and matrix decompositions.
+:::
+
+
+## Length and Distance
+
+The Euclidean norm of ${\bf x}$ is $\|{\bf x}\|=\sqrt{{\bf x}'{\bf x}}=\sqrt{\sum_{i=1}^n x_i^2}.$
+
+The distance between ${\bf x}$ and ${\bf y}$ is $\|{\bf x}-{\bf y}\|.$
+
+```{r}
+x <- c(1, 2)
+y <- c(4, 6)
+
+sqrt(sum(x^2))
+sqrt(sum((x - y)^2))
+```
+
+::: alert
+Least squares minimizes a squared Euclidean distance:
+
+$$
+\|{\bf y}-{\bf Xb}\|^2.
+$$
+:::
+
+
+## Angle Between Vectors
+
+The angle $\theta$ between nonzero vectors ${\bf x}$ and ${\bf y}$ satisfies
+
+$$
+\cos(\theta)
+=
+\frac{{\bf x}'{\bf y}}
+{\|{\bf x}\|\,\|{\bf y}\|}.
+$$
+
+```{r}
+x <- c(1, 0)
+y <- c(1, 1)
+
+theta <- acos(
+  sum(x * y) /
+    (sqrt(sum(x^2)) * sqrt(sum(y^2)))
+)
+
+theta * 180 / pi
+```
+
+- $\theta=0^\circ$: same direction
+- $\theta=90^\circ$: orthogonal
+- $\theta=180^\circ$: opposite directions
+
+
+## Orthogonality
+
+Two vectors are **orthogonal** if
+
+$$
+{\bf x}'{\bf y}=0.
+$$
+
+```{r}
+x <- c(1, 2)
+y <- c(2, -1)
+
+t(x) %*% y
+```
+
+::: alert
+In least squares,
+
+$$
+{\bf X}'{\bf e}={\bf 0}.
+$$
+
+The residual vector is orthogonal to every column of ${\bf X}$.
+:::
+
+
+## Projection onto a Vector
+
+The projection of ${\bf y}$ onto a nonzero vector ${\bf x}$ is
+
+$$
+\operatorname{proj}_{\bf x}({\bf y})
+=
+\frac{{\bf x}'{\bf y}}{{\bf x}'{\bf x}}{\bf x}.
+$$
+
+```{r}
+x <- c(1, 2)
+y <- c(4, 1)
+
+proj_y <- as.numeric(t(x) %*% y / as.numeric(t(x) %*% x)) * x
+proj_y
+
+# residual from projection
+e <- y - proj_y
+t(x) %*% e
+```
+
+::: notes
+- The residual from the projection is orthogonal to x.
+- This is the one-dimensional version of least squares projection onto the column space of X.
+:::
 
 
 ## Special Matrices: Symmetric and Identity
@@ -507,6 +1026,32 @@ D %*% D_inv
 
 
 
+
+## Inverse vs. Solving a System in R
+
+Mathematically, ${\bf x}={\bf A}^{-1}{\bf b}$ solves ${\bf Ax}={\bf b}.$
+
+In computation, it is usually better to solve the system directly:
+
+```{r}
+A <- matrix(c(4, 1,
+              1, 3), nrow = 2, byrow = TRUE)
+b <- c(1, 2)
+
+# preferred
+solve(A, b)
+
+# mathematically equivalent
+solve(A) %*% b
+```
+
+::: alert
+Use `solve(A, b)` when you want the solution to ${\bf Ax}={\bf b}$.
+
+Avoid forming an inverse explicitly unless you actually need the inverse matrix.
+:::
+
+
 ## Idempotent, Orthogonal, Positive Definite
 - A square matrix ${\bf A}$ is **idempotent** if ${\bf A}{\bf A} = {\bf A}$.
 - A square matrix ${\bf A}$ is **orthogonal** if ${\bf A}^{-1} = {\bf A}'$ and hence ${\bf A}'{\bf A} = {\bf I}$.
@@ -528,6 +1073,39 @@ D %*% D_inv
 :::
 
 
+
+## Positive Definite Matrices and Regression
+
+If ${\bf X}$ has full column rank, then for every nonzero vector ${\bf a}$,
+
+$$
+{\bf a}'{\bf X}'{\bf X}{\bf a}
+=
+({\bf Xa})'({\bf Xa})
+=
+\|{\bf Xa}\|^2
+>0.
+$$
+
+Therefore, $\boxed{{\bf X}'{\bf X}\text{ is positive definite}}$ and hence invertible.
+
+. . .
+
+If the columns of ${\bf X}$ are linearly dependent, there is a nonzero ${\bf a}$ with ${\bf Xa}={\bf 0},$
+
+so
+
+$$
+{\bf a}'{\bf X}'{\bf X}{\bf a}=0,
+$$
+
+and ${\bf X}'{\bf X}$ is not positive definite.
+
+::: alert
+This is another way to understand why perfect multicollinearity prevents unique least-squares coefficients.
+:::
+
+
 ## Special Matrices: Idempotent, Orthogonal
 :::: {.columns}
 ::: {.column width="50%"}
@@ -536,11 +1114,12 @@ D %*% D_inv
 (A <- matrix(1, 2, 2)/2)
 A %*% A
 ## positive semi-definite
-y <- c(-2, 5)
-t(y) %*% A %*% y
+y <- c(-2, 5); t(y) %*% A %*% y
+z <- c(-1, 1); t(z) %*% A %*% z
 ```
 :::
 ::: {.column width="50%"}
+::: fragment
 ```{r}
 ## Orthogonal matrix
 (E <- matrix(c(0, 1, 0, -1, 0, 0, 0, 0, -1), 
@@ -548,6 +1127,7 @@ t(y) %*% A %*% y
 solve(E)
 t(E) %*% E
 ```
+:::
 :::
 ::::
 
@@ -560,10 +1140,48 @@ t(E) %*% E
 
 
 ```{r}
-(G <- matrix(1:9, 3, 3))
-sum(diag(G))
+(G <- matrix(1:6, 3, 2)); (H <- matrix(6:1, 2, 3));
+sum(diag(G%*%H)); sum(diag(H%*%G))
 ```
 
+
+
+
+## Useful Properties of the Trace
+
+For conformable matrices,
+
+$$
+\operatorname{tr}({\bf A}+{\bf B})
+=
+\operatorname{tr}({\bf A})
++
+\operatorname{tr}({\bf B}),
+$$
+
+$$
+\operatorname{tr}(c{\bf A})
+=
+c\,\operatorname{tr}({\bf A}),
+$$
+
+and
+
+$$
+\boxed{
+\operatorname{tr}({\bf AB})
+=
+\operatorname{tr}({\bf BA})
+}.
+$$
+
+For a symmetric matrix,
+
+$$
+\operatorname{tr}({\bf A})=\sum_j \lambda_j,\quad \textrm{and}\quad \operatorname{det}({\bf A})=\prod_j \lambda_j.
+$$
+
+where $\lambda_j$'s are eigenvalues of ${\bf A}.$
 
 
 ## Eigenvalues and Eigenvectors
@@ -572,7 +1190,8 @@ sum(diag(G))
   + $\lambda$ is an **eigenvalue** of ${\bf A}$
   + ${\bf x}$ is a corresponding **eigenvector** of ${\bf A}$.
 
-- A $n \times n$ matrix ${\bf A}$ will have $n$ eigenvalues and $n$ corresponding eigenvectors.
+- A general $n\times n$ matrix has $n$ eigenvalues over the complex numbers when counted with multiplicity, but it may not have $n$ linearly independent eigenvectors.
+- A **real symmetric** matrix has $n$ real eigenvalues and an orthonormal basis of eigenvectors.
 
 
 
@@ -611,7 +1230,7 @@ $\lambda_1, \ldots, \lambda_n$.
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
-(A <- matrix(c(3, 1, 1, 2), 2, 2))
+(A <- matrix(c(5, 1, 1, 2), 2, 2))
 eigen_decomp <- eigen(A)
 (lam <- eigen_decomp$values)
 (V <- eigen_decomp$vectors)
@@ -627,3 +1246,250 @@ prod(lam)
 ```
 :::
 ::::
+
+## Eigenvalues and Positive Definiteness
+
+For a real symmetric matrix ${\bf A}$:
+
+- ${\bf A}$ is positive definite iff all eigenvalues are positive.
+- ${\bf A}$ is positive semi-definite iff all eigenvalues are nonnegative.
+- ${\bf A}$ is singular iff at least one eigenvalue is zero.
+
+::: alert
+For regression, small eigenvalues of ${\bf X}'{\bf X}$ indicate nearly dependent predictor directions and therefore potential multicollinearity.
+:::
+
+
+## Eigenvalues of ${\bf X}'{\bf X}$
+
+```{r}
+set.seed(123)
+
+x1 <- rnorm(100)
+x2 <- x1 + rnorm(100, sd = 0.05)
+
+X_col <- cbind(1, x1, x2)
+
+eigen(t(X_col) %*% X_col)$values
+```
+
+Compare with less-correlated predictors:
+
+```{r}
+x3 <- rnorm(100)
+X_ok <- cbind(1, x1, x3)
+
+eigen(t(X_ok) %*% X_ok)$values
+```
+
+::: notes
+- When two columns are almost linearly dependent, one direction in X'X has very little variation.
+- That appears as a small eigenvalue.
+- We will revisit this idea when we discuss multicollinearity.
+:::
+
+
+
+# Matrix Decompositions
+
+## Why Matrix Decompositions?
+
+A matrix decomposition writes a matrix as a product of simpler matrices.
+
+They are useful for
+
+- solving systems of equations,
+- obtaining numerically stable computations,
+- understanding the structure and rank of a matrix,
+- obtaining low-rank approximations.
+
+We will briefly connect four decompositions to regression:
+
+1. eigenvalue decomposition,
+2. Cholesky decomposition,
+3. QR decomposition,
+4. singular value decomposition.
+
+::: notes
+- The goal is not to derive every algorithm.
+- Students should recognize what each decomposition does and why regression software uses such decompositions.
+:::
+
+
+## Cholesky Decomposition
+
+For a symmetric positive-definite matrix ${\bf A}$,
+
+$$
+\boxed{
+{\bf A}={\bf L}{\bf L}'
+}
+$$
+
+where ${\bf L}$ is lower triangular.
+
+Because ${\bf X}'{\bf X}$ is positive definite when ${\bf X}$ has full column rank, Cholesky decomposition can be used to solve systems involving ${\bf X}'{\bf X}$.
+
+```{r}
+A_chol <- matrix(c(4, 2,
+                   2, 3), nrow = 2, byrow = TRUE)
+
+R <- chol(A_chol)
+R
+t(R) %*% R
+```
+
+::: notes
+- R returns the upper-triangular factor R such that A = R'R.
+- Cholesky is useful for positive-definite systems, including covariance matrices.
+:::
+
+
+## QR Decomposition
+
+For a tall matrix ${\bf X}$ with $n\ge p$, $\boxed{{\bf X}={\bf Q}{\bf R}}$, where
+
+- ${\bf Q}'{\bf Q}={\bf I}$, so the columns of ${\bf Q}$ are orthonormal;
+- ${\bf R}$ is upper triangular.
+
+```{r}
+X_qr <- matrix(c(1, 1,
+                 1, 2,
+                 1, 3,
+                 1, 4), nrow = 4, byrow = TRUE)
+qrX <- qr(X_qr); Q <- qr.Q(qrX); R <- qr.R(qrX)
+Q %*% R
+```
+
+::: alert
+QR decomposition is especially important for least squares because it lets us solve the regression problem **without explicitly forming** $({\bf X}'{\bf X})^{-1}$.
+:::
+
+
+## Least Squares Using QR
+
+Suppose ${\bf X}={\bf Q}{\bf R}.$ Then the least-squares problem $$\min_{\bf b}\|{\bf y}-{\bf Xb}\|^2$$
+
+becomes $$\min_{\bf b}\|{\bf y}-{\bf QRb}\|^2.$$
+
+Using the orthogonality of ${\bf Q}$ leads to the triangular system $\boxed{{\bf Rb}={\bf Q}'{\bf y}}.$
+
+```{r}
+y_qr <- c(2, 3, 5, 8)
+(b_qr <- backsolve(R, t(Q) %*% y_qr))
+coef(lm(y_qr ~ X_qr[, 2]))
+```
+
+::: notes
+- This is computationally preferable to explicitly computing (X'X)^(-1).
+- The details of the numerical algorithm are not needed here; the conceptual point is that orthogonalization simplifies least squares.
+:::
+
+
+# Singular Value Decomposition
+
+## Singular Value Decomposition (SVD)
+
+Every $n\times p$ matrix ${\bf X}$ can be written as
+
+$$
+\boxed{
+{\bf X}={\bf U}{\bf D}{\bf V}'
+}
+$$
+
+where
+
+- ${\bf U}$ has orthonormal columns,
+- ${\bf V}$ has orthonormal columns,
+- ${\bf D}$ is diagonal with nonnegative singular values
+
+$$
+d_1\ge d_2\ge\cdots\ge0.
+$$
+
+Unlike eigendecomposition, the SVD applies to **rectangular matrices**.
+
+
+## SVD in R
+
+```{r}
+X_demo <- matrix(c(1, 2,
+                   2, 1,
+                   3, 4), nrow = 3, byrow = TRUE)
+sv <- svd(X_demo)
+sv$d; sv$u; sv$v
+```
+
+Reconstruct ${\bf X}$:
+
+```{r}
+sv$u %*% diag(sv$d) %*% t(sv$v)
+```
+
+
+## Rank and Singular Values
+
+The rank of a matrix equals the number of nonzero singular values:
+
+$$
+\operatorname{rank}({\bf X})
+=
+\#\{j:d_j>0\}.
+$$
+
+If a singular value is very small rather than exactly zero, the matrix is **nearly rank deficient**.
+
+::: alert
+Regression connection:
+
+- zero singular value $\rightarrow$ perfect multicollinearity;
+- very small singular value $\rightarrow$ near multicollinearity and unstable coefficient estimates.
+:::
+
+
+## Connecting SVD and ${\bf X}'{\bf X}$
+
+If ${\bf X}={\bf U}{\bf D}{\bf V}'$, then $${\bf X}'{\bf X}={\bf V}{\bf D}^2{\bf V}'.$$
+
+Therefore, $$\lambda_j({\bf X}'{\bf X})=d_j^2.$$
+
+::: alert
+The eigenvalues of ${\bf X}'{\bf X}$ are the squared singular values of ${\bf X}$.
+:::
+
+This connects
+
+- rank,
+- multicollinearity,
+- eigendecomposition,
+- SVD,
+- and least squares.
+
+
+# Regression Takeaways
+
+## Why Did We Review All This?
+
+| Linear algebra idea | Regression role |
+|---|---|
+| Linear combination | ${\bf Xb}$ combines columns of ${\bf X}$ |
+| Column space | contains all possible fitted-value vectors |
+| Rank | determines whether coefficients are uniquely estimable |
+| Inner product | defines orthogonality |
+| Projection | $\hat{\bf y}$ is projection of ${\bf y}$ onto $\operatorname{Col}({\bf X})$ |
+| Inverse / solve | solves the normal equations |
+| Positive definiteness | guarantees invertibility of ${\bf X}'{\bf X}$ |
+| Eigenvalues / SVD | diagnose dependent or nearly dependent directions |
+
+::: alert
+The central geometric idea:
+
+$$
+\boxed{
+\hat{\bf y}\in\operatorname{Col}({\bf X}),
+\qquad
+{\bf e}\perp\operatorname{Col}({\bf X})
+}
+$$
+:::

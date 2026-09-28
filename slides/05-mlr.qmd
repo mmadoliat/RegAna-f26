@@ -1545,6 +1545,7 @@ When predictors are correlated, **Type I sums of squares depend on predictor ord
 
 ::: {.column width="50%"}
 
+::: shrink-code
 ```{r}
 #| echo: true
 
@@ -1555,11 +1556,13 @@ model_cd <- lm(
 
 anova(model_cd)
 ```
+:::
 
 :::
 
 ::: {.column width="50%"}
 
+::: shrink-code
 ```{r}
 #| echo: true
 
@@ -1570,6 +1573,7 @@ model_dc <- lm(
 
 anova(model_dc)
 ```
+:::
 
 :::
 
@@ -1626,11 +1630,13 @@ $$
 - Natural for additive models containing only main effects.
 - Each predictor is assessed after accounting for the other predictors.
 
+::: shrink-code
 ```{r}
 #| echo: true
 
 car::Anova(model_cd, type = 2)
 ```
+:::
 
 ::: notes
 - For the current additive model, Type II tests have a straightforward interpretation.
@@ -1657,11 +1663,13 @@ $$
 
 while the other terms remain in the model.
 
+::: shrink-code
 ```{r}
 #| echo: true
 
 car::Anova(model_cd, type = 3)
 ```
+:::
 
 ::: notes
 - In the present model, which contains only quantitative main effects, the Type II and Type III tests for cases and distance agree.
