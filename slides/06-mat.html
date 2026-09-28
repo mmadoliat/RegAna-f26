@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
-  <title>MATH 4780 (MSSC 5780) – Matrix Algebra 👩‍💻</title>
+  <title>MATH 4780 (MSSC 5780) – Matrix Algebra 👨‍💻</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -209,7 +209,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
-  <h1 class="title">Matrix Algebra 👩‍💻</h1>
+  <h1 class="title">Matrix Algebra 👨‍💻</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
@@ -226,6 +226,42 @@ Dr.&nbsp;Mehdi Maadooliat
 </section>
 <section>
 
+<section id="matrix-algebra-for-regression" class="slide level2">
+<h2>Matrix Algebra for Regression</h2>
+<p><span class="math display">\[y_i= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_kx_{ik} + \epsilon_i, \quad \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2), \quad i = 1, 2, \dots, n\]</span></p>
+<!-- - $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$ -->
+<div class="fragment">
+<p><span class="math display">\[\bf y = \bf X \boldsymbol \beta+ \boldsymbol \epsilon\]</span> where</p>
+<p><span class="math display">\[\begin{align}
+\bf y = \begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n \end{bmatrix},\quad
+\bf X = \begin{bmatrix}
+  1 &amp; x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1k} \\
+  1 &amp; x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2k} \\
+  \vdots &amp; \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+  1 &amp; x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nk} \end{bmatrix}, \quad
+\boldsymbol \beta= \begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_k \end{bmatrix} , \quad
+\boldsymbol \epsilon= \begin{bmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\vdots \\
+\epsilon_n\end{bmatrix}
+\end{align}\]</span></p>
+<div class="alert">
+<p>The main goal is not matrix computation by hand. It is to understand the geometry and algebra behind</p>
+<p><span class="math display">\[
+{\bf b}=({\bf X}'{\bf X})^{-1}{\bf X}'{\bf y}.
+\]</span></p>
+</div>
+</div>
+</section>
 <section id="matrix" class="slide level2">
 <h2>Matrix</h2>
 <ul>
@@ -370,6 +406,140 @@ Dr.&nbsp;Mehdi Maadooliat
 </div>
 </div>
 </section>
+<section id="vectors-addition-and-scalar-multiplication" class="slide level2">
+<h2>Vectors: Addition and Scalar Multiplication</h2>
+<p>Let</p>
+<p><span class="math display">\[
+{\bf u}=
+\begin{bmatrix}
+u_1\\u_2
+\end{bmatrix},
+\qquad
+{\bf v}=
+\begin{bmatrix}
+v_1\\v_2
+\end{bmatrix}.
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+{\bf u}+{\bf v}
+=
+\begin{bmatrix}
+u_1+v_1\\
+u_2+v_2
+\end{bmatrix},
+\qquad
+c{\bf u}
+=
+\begin{bmatrix}
+cu_1\\
+cu_2
+\end{bmatrix}.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>u <span class="sc">+</span> v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> u</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 4</code></pre>
+</div>
+</div>
+</section>
+<section id="linear-combinations" class="slide level2">
+<h2>Linear Combinations</h2>
+<p>A <strong>linear combination</strong> of vectors <span class="math inline">\({\bf v}_1,\dots,{\bf v}_k\)</span> is</p>
+<p><span class="math display">\[
+c_1{\bf v}_1+\cdots+c_k{\bf v}_k.
+\]</span></p>
+<p>For example,</p>
+<p><span class="math display">\[
+2
+\begin{bmatrix}1\\0\end{bmatrix}
++
+3
+\begin{bmatrix}0\\1\end{bmatrix}
+=
+\begin{bmatrix}2\\3\end{bmatrix}.
+\]</span></p>
+<div class="fragment">
+<div class="alert">
+<p>Matrix multiplication <span class="math inline">\({\bf Xb}\)</span> is a linear combination of the <strong>columns of <span class="math inline">\({\bf X}\)</span></strong>.</p>
+</div>
+<p>If</p>
+<p><span class="math display">\[
+{\bf X}=
+\begin{bmatrix}
+{\bf x}_1 &amp; {\bf x}_2 &amp; \cdots &amp; {\bf x}_p
+\end{bmatrix},
+\]</span></p>
+<p>then</p>
+<p><span class="math display">\[
+{\bf Xb}
+=
+b_1{\bf x}_1+\cdots+b_p{\bf x}_p.
+\]</span></p>
+</div>
+</section>
+<section id="span-and-column-space" class="slide level2">
+<h2>Span and Column Space</h2>
+<p>The <strong>span</strong> of vectors <span class="math inline">\({\bf v}_1,\ldots,{\bf v}_k\)</span> is the set of all their linear combinations:</p>
+<p><span class="math display">\[
+\operatorname{span}({\bf v}_1,\dots,{\bf v}_k)
+=
+\left\{
+c_1{\bf v}_1+\cdots+c_k{\bf v}_k
+\right\}.
+\]</span></p>
+<p>For a matrix</p>
+<p><span class="math display">\[
+{\bf X}=
+\begin{bmatrix}
+{\bf x}_1 &amp; \cdots &amp; {\bf x}_p
+\end{bmatrix},
+\]</span></p>
+<p>the <strong>column space</strong> is</p>
+<p><span class="math display">\[
+\operatorname{Col}({\bf X})
+=
+\operatorname{span}({\bf x}_1,\dots,{\bf x}_p).
+\]</span></p>
+<div class="alert">
+<p>In regression, every fitted-value vector</p>
+<p><span class="math display">\[
+\hat{\bf y}={\bf Xb}
+\]</span></p>
+<p>must lie in <span class="math inline">\(\operatorname{Col}({\bf X})\)</span>.</p>
+</div>
+</section>
+<section id="why-column-space-matters-for-regression" class="slide level2">
+<h2>Why Column Space Matters for Regression</h2>
+<p>Suppose</p>
+<p><span class="math display">\[
+{\bf X}
+=
+\begin{bmatrix}
+{\bf 1} &amp; {\bf x}_1 &amp; {\bf x}_2
+\end{bmatrix}.
+\]</span></p>
+<p>Then every possible fitted vector has the form</p>
+<p><span class="math display">\[
+{\bf Xb}
+=
+b_0{\bf 1}+b_1{\bf x}_1+b_2{\bf x}_2.
+\]</span></p>
+<div class="fragment">
+<ul>
+<li>Changing <span class="math inline">\({\bf b}\)</span> moves us to a different point in <span class="math inline">\(\operatorname{Col}({\bf X})\)</span>.</li>
+<li>Least squares chooses the point in <span class="math inline">\(\operatorname{Col}({\bf X})\)</span> closest to <span class="math inline">\({\bf y}\)</span>.</li>
+<li>This geometric viewpoint will explain the normal equations later.</li>
+</ul>
+</div>
+</section>
 <section id="transpose" class="slide level2">
 <h2>Transpose</h2>
 <ul>
@@ -379,19 +549,76 @@ Dr.&nbsp;Mehdi Maadooliat
 <section id="transpose-in-r" class="slide level2">
 <h2>Transpose in R</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    2
 [2,]    3    4
 [3,]    5    6</code></pre>
 </div>
+</div>
+</section>
+<section id="determinant" class="slide level2">
+<h2>Determinant</h2>
+<p>For a square matrix <span class="math inline">\({\bf A}=\begin{bmatrix}a &amp; b\\ c &amp; d\end{bmatrix},\)</span></p>
+<p>the determinant is <span class="math inline">\(\det({\bf A})=ad-bc.\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>A2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>               <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>A2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    2    1
+[2,]    3    4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>For a square matrix,</p>
+<p><span class="math display">\[
+\boxed{\det({\bf A})\ne0
+\quad\Longleftrightarrow\quad
+{\bf A}\text{ is invertible}}
+\]</span></p>
+<aside class="notes">
+<ul>
+<li>Geometrically, the absolute determinant gives the factor by which the linear transformation scales area in 2D or volume in higher dimensions.</li>
+<li>A zero determinant means that the transformation collapses the space into a lower-dimensional subspace.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="determinant-geometric-interpretation" class="slide level2">
+<h2>Determinant: Geometric Interpretation</h2>
+<p>For a <span class="math inline">\(2\times2\)</span> matrix, <span class="math inline">\(|\det({\bf A})|\)</span> is the factor by which areas are scaled.</p>
+<ul>
+<li><span class="math inline">\(|\det({\bf A})|&gt;1\)</span>: area expands.</li>
+<li><span class="math inline">\(0&lt;|\det({\bf A})|&lt;1\)</span>: area contracts.</li>
+<li><span class="math inline">\(\det({\bf A})&lt;0\)</span>: orientation is reversed.</li>
+<li><span class="math inline">\(\det({\bf A})=0\)</span>: the plane is collapsed to a line or a point.</li>
+</ul>
+<div class="alert">
+<p>If <span class="math inline">\(\det({\bf A})=0\)</span>, some column information is redundant.<br>
+That is exactly the kind of issue that appears with perfect multicollinearity.</p>
 </div>
 </section>
 <section id="linear-independence" class="slide level2">
@@ -415,12 +642,12 @@ Dr.&nbsp;Mehdi Maadooliat
 <section id="linear-independence-1" class="slide level2">
 <h2>Linear Independence</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="at">a =</span> V, <span class="at">b =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="at">a =</span> V, <span class="at">b =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 0</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(V)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(V)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5</code></pre>
 </div>
@@ -482,16 +709,16 @@ Dr.&nbsp;Mehdi Maadooliat
 <section id="rank-1" class="slide level2">
 <h2>Rank</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>(M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>(M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("Matrix")</span></span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
-<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(M)[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("Matrix")</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(M)[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -504,7 +731,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <li><span class="math inline">\({\bf a}_3 = 2{\bf a_2}-{\bf a}_1\)</span></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> M[, <span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> M[, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> M[, <span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> M[, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7 8 9</code></pre>
 </div>
@@ -528,6 +755,64 @@ Dr.&nbsp;Mehdi Maadooliat
       }</style></aside>
 </div>
 </section>
+<section id="linear-systems-bf-axbf-b" class="slide level2">
+<h2>Linear Systems: <span class="math inline">\({\bf Ax}={\bf b}\)</span></h2>
+<p>A system of linear equations can be written compactly as</p>
+<p><span class="math display">\[
+{\bf Ax}={\bf b}.
+\]</span></p>
+<p>Example:</p>
+<p><span class="math display">\[
+\begin{aligned}
+2x_1+x_2 &amp;=5,\\
+x_1+3x_2 &amp;=7.
+\end{aligned}
+\]</span></p>
+<p>becomes</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+2&amp;1\\
+1&amp;3
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+5\\7
+\end{bmatrix}.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a>A_sys <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>                  <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>b_sys <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A_sys, b_sys)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.6 1.8</code></pre>
+</div>
+</div>
+</section>
+<section id="unique-solutions-and-rank" class="slide level2">
+<h2>Unique Solutions and Rank</h2>
+<p>For a square matrix <span class="math inline">\({\bf A}_{n\times n}\)</span>, the following statements are equivalent:</p>
+<ul>
+<li><span class="math inline">\({\bf A}\)</span> has full rank <span class="math inline">\(n\)</span>.</li>
+<li>The columns of <span class="math inline">\({\bf A}\)</span> are linearly independent.</li>
+<li><span class="math inline">\(\det({\bf A})\ne0\)</span>.</li>
+<li><span class="math inline">\({\bf A}^{-1}\)</span> exists.</li>
+<li><span class="math inline">\({\bf Ax}={\bf b}\)</span> has a unique solution for every <span class="math inline">\({\bf b}\)</span>.</li>
+</ul>
+<div class="fragment">
+<div class="alert">
+<p>Regression connection:</p>
+<p><span class="math display">\[
+{\bf b}=({\bf X}'{\bf X})^{-1}{\bf X}'{\bf y}
+\]</span></p>
+<p>requires <span class="math inline">\({\bf X}\)</span> to have full column rank.</p>
+</div>
+</div>
+</section>
 <section id="operations-addition" class="slide level2">
 <h2>Operations: Addition</h2>
 <ul>
@@ -537,19 +822,19 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    6    4    2
 [2,]    5    3    1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    7    7    7
@@ -559,13 +844,13 @@ Dr.&nbsp;Mehdi Maadooliat
 </div><div class="column" style="width:50%;">
 <div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    3
 [2,]    2    4</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `A + B`:
 ! non-conformable arrays</code></pre>
@@ -606,13 +891,13 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    4    7   10
@@ -623,21 +908,15 @@ Dr.&nbsp;Mehdi Maadooliat
 </div><div class="column" style="width:50%;">
 <div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a>(C <span class="ot">&lt;-</span> A <span class="sc">%*%</span> B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a>(C <span class="ot">&lt;-</span> A <span class="sc">%*%</span> B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]   22   49   76  103
 [2,]   28   64  100  136</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a>(B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,]    1    3    5    7
-[2,]    2    4    6    8</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a>(D <span class="ot">&lt;-</span> B <span class="sc">%*%</span> A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `A %*% B`:
+<pre><code>Error in `B %*% A`:
 ! non-conformable arguments</code></pre>
 </div>
 </div>
@@ -654,49 +933,305 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a>(C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a>(C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
-[1,]    1    3
-[2,]    2    4</code></pre>
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a>(D <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a>(D <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    2    4
-[2,]    3    5</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    2    4    6
+[2,]    3    5    7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a>C <span class="sc">%*%</span> D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a>C <span class="sc">%*%</span> D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]   11   19
-[2,]   16   28</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]   14   24   34
+[2,]   19   33   47
+[3,]   24   42   60</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a>D <span class="sc">%*%</span> C</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a>D <span class="sc">%*%</span> C</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
-[1,]   10   22
-[2,]   13   29</code></pre>
+[1,]   28   64
+[2,]   34   79</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(C <span class="sc">%*%</span> D)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(C <span class="sc">%*%</span> D)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]   11   16
-[2,]   19   28</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]   14   19   24
+[2,]   24   33   42
+[3,]   34   47   60</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(D) <span class="sc">%*%</span> <span class="fu">t</span>(C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(D) <span class="sc">%*%</span> <span class="fu">t</span>(C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]   11   16
-[2,]   19   28</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]   14   19   24
+[2,]   24   33   42
+[3,]   34   47   60</code></pre>
 </div>
 </div>
 </div>
 </div></div>
+</section>
+<section id="r-lab-crossproducts" class="slide level2">
+<h2><span class="pink">R Lab</span> Crossproducts</h2>
+<p>In regression we repeatedly encounter products such as <span class="math inline">\({\bf X}'{\bf X}\)</span> and <span class="math inline">\({\bf X}'{\bf y}.\)</span> In R,</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="shrink-code">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a aria-hidden="true" tabindex="-1"></a>X_cp <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb75-2"><a aria-hidden="true" tabindex="-1"></a>y_cp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>)</span>
+<span id="cb75-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(X_cp) <span class="sc">%*%</span> X_cp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]   14   32
+[2,]   32   77</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">crossprod</span>(X_cp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]   14   32
+[2,]   32   77</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(X_cp) <span class="sc">%*%</span> y_cp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]   31
+[2,]   70</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">crossprod</span>(X_cp, y_cp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]   31
+[2,]   70</code></pre>
+</div>
+</div>
+</div>
+<p><code>crossprod(X, Y)</code> computes <span class="math inline">\({\bf X}'{\bf Y}\)</span> directly.</p>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p>Similarly,</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">tcrossprod</span>(X_cp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]   17   22   27
+[2,]   22   29   36
+[3,]   27   36   45</code></pre>
+</div>
+</div>
+<p>computes <span class="math inline">\({\bf X}{\bf X}'\)</span>.</p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="alert">
+<p><code>crossprod()</code> and <code>tcrossprod()</code> are convenient and efficient for matrix products that occur constantly in regression.</p>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="geometry-of-vectors" class="title-slide slide level1 center">
+<h1>Geometry of Vectors</h1>
+
+</section>
+<section id="inner-product-dot-product" class="slide level2">
+<h2>Inner Product (Dot Product)</h2>
+<p>For vectors <span class="math inline">\({\bf x},{\bf y}\in\mathbb R^n\)</span>,</p>
+<p><span class="math display">\[
+{\bf x}'{\bf y}
+=
+\sum_{i=1}^n x_i y_i.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb85-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb85-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">*</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(x) <span class="sc">%*%</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    8</code></pre>
+</div>
+</div>
+<p>The dot product measures how strongly two vectors point in the same direction.</p>
+</section>
+<section id="outer-product" class="slide level2">
+<h2>Outer Product</h2>
+<p>For column vectors <span class="math inline">\({\bf x}\in\mathbb R^m\)</span> and <span class="math inline">\({\bf y}\in\mathbb R^n\)</span>,</p>
+<p><span class="math display">\[
+{\bf x}{\bf y}'
+\]</span></p>
+<p>is an <span class="math inline">\(m\times n\)</span> matrix.</p>
+<p>For example,</p>
+<p><span class="math display">\[
+\begin{bmatrix}1\\2\end{bmatrix}
+\begin{bmatrix}3&amp;4&amp;5\end{bmatrix}
+=
+\begin{bmatrix}
+3&amp;4&amp;5\\
+6&amp;8&amp;10
+\end{bmatrix}.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a aria-hidden="true" tabindex="-1"></a>x <span class="sc">%o%</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    3    4    5
+[2,]    6    8   10</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Contrast the inner product x’y, which is a scalar, with the outer product xy’, which is a matrix.</li>
+<li>Outer products appear naturally in covariance matrices and matrix decompositions.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="length-and-distance" class="slide level2">
+<h2>Length and Distance</h2>
+<p>The Euclidean norm of <span class="math inline">\({\bf x}\)</span> is <span class="math inline">\(\|{\bf x}\|=\sqrt{{\bf x}'{\bf x}}=\sqrt{\sum_{i=1}^n x_i^2}.\)</span></p>
+<p>The distance between <span class="math inline">\({\bf x}\)</span> and <span class="math inline">\({\bf y}\)</span> is <span class="math inline">\(\|{\bf x}-{\bf y}\|.\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb91-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb91-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> y)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<div class="alert">
+<p>Least squares minimizes a squared Euclidean distance:</p>
+<p><span class="math display">\[
+\|{\bf y}-{\bf Xb}\|^2.
+\]</span></p>
+</div>
+</section>
+<section id="angle-between-vectors" class="slide level2">
+<h2>Angle Between Vectors</h2>
+<p>The angle <span class="math inline">\(\theta\)</span> between nonzero vectors <span class="math inline">\({\bf x}\)</span> and <span class="math inline">\({\bf y}\)</span> satisfies</p>
+<p><span class="math display">\[
+\cos(\theta)
+=
+\frac{{\bf x}'{\bf y}}
+{\|{\bf x}\|\,\|{\bf y}\|}.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb95-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb95-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">acos</span>(</span>
+<span id="cb95-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span></span>
+<span id="cb95-6"><a aria-hidden="true" tabindex="-1"></a>    (<span class="fu">sqrt</span>(<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(y<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb95-7"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb95-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-9"><a aria-hidden="true" tabindex="-1"></a>theta <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 45</code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\theta=0^\circ\)</span>: same direction</li>
+<li><span class="math inline">\(\theta=90^\circ\)</span>: orthogonal</li>
+<li><span class="math inline">\(\theta=180^\circ\)</span>: opposite directions</li>
+</ul>
+</section>
+<section id="orthogonality" class="slide level2">
+<h2>Orthogonality</h2>
+<p>Two vectors are <strong>orthogonal</strong> if</p>
+<p><span class="math display">\[
+{\bf x}'{\bf y}=0.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb97-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb97-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(x) <span class="sc">%*%</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    0</code></pre>
+</div>
+</div>
+<div class="alert">
+<p>In least squares,</p>
+<p><span class="math display">\[
+{\bf X}'{\bf e}={\bf 0}.
+\]</span></p>
+<p>The residual vector is orthogonal to every column of <span class="math inline">\({\bf X}\)</span>.</p>
+</div>
+</section>
+<section id="projection-onto-a-vector" class="slide level2">
+<h2>Projection onto a Vector</h2>
+<p>The projection of <span class="math inline">\({\bf y}\)</span> onto a nonzero vector <span class="math inline">\({\bf x}\)</span> is</p>
+<p><span class="math display">\[
+\operatorname{proj}_{\bf x}({\bf y})
+=
+\frac{{\bf x}'{\bf y}}{{\bf x}'{\bf x}}{\bf x}.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb99-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>)</span>
+<span id="cb99-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-4"><a aria-hidden="true" tabindex="-1"></a>proj_y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> y <span class="sc">/</span> <span class="fu">as.numeric</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x)) <span class="sc">*</span> x</span>
+<span id="cb99-5"><a aria-hidden="true" tabindex="-1"></a>proj_y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.2 2.4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># residual from projection</span></span>
+<span id="cb101-2"><a aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> proj_y</span>
+<span id="cb101-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(x) <span class="sc">%*%</span> e</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    0</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>The residual from the projection is orthogonal to x.</li>
+<li>This is the one-dimensional version of least squares projection onto the column space of X.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="special-matrices-symmetric-and-identity" class="slide level2">
 <h2>Special Matrices: Symmetric and Identity</h2>
@@ -728,9 +1263,9 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Identity matrix</span></span>
-<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">5</span>)</span>
-<span id="cb67-3"><a aria-hidden="true" tabindex="-1"></a>I</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Identity matrix</span></span>
+<span id="cb103-2"><a aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">5</span>)</span>
+<span id="cb103-3"><a aria-hidden="true" tabindex="-1"></a>I</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    1    0    0    0    0
@@ -739,8 +1274,8 @@ Dr.&nbsp;Mehdi Maadooliat
 [4,]    0    0    0    1    0
 [5,]    0    0    0    0    1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## A diagonal matrix</span></span>
-<span id="cb69-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## A diagonal matrix</span></span>
+<span id="cb105-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    4    0    0
@@ -750,15 +1285,15 @@ Dr.&nbsp;Mehdi Maadooliat
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Extract diagonal elements</span></span>
-<span id="cb71-2"><a aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb71-3"><a aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Extract diagonal elements</span></span>
+<span id="cb107-2"><a aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb107-3"><a aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    3
 [2,]    2    4</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(D)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(D)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 4</code></pre>
 </div>
@@ -773,14 +1308,14 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    3
 [2,]    2    4</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a aria-hidden="true" tabindex="-1"></a>D_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(D)</span>
-<span id="cb77-2"><a aria-hidden="true" tabindex="-1"></a>D_inv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a aria-hidden="true" tabindex="-1"></a>D_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(D)</span>
+<span id="cb113-2"><a aria-hidden="true" tabindex="-1"></a>D_inv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]   -2  1.5
@@ -789,13 +1324,13 @@ Dr.&nbsp;Mehdi Maadooliat
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-hidden="true" tabindex="-1"></a>D_inv <span class="sc">%*%</span> D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a aria-hidden="true" tabindex="-1"></a>D_inv <span class="sc">%*%</span> D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    0
 [2,]    0    1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a aria-hidden="true" tabindex="-1"></a>D <span class="sc">%*%</span> D_inv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a aria-hidden="true" tabindex="-1"></a>D <span class="sc">%*%</span> D_inv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    0
@@ -803,6 +1338,33 @@ Dr.&nbsp;Mehdi Maadooliat
 </div>
 </div>
 </div></div>
+</section>
+<section id="inverse-vs.-solving-a-system-in-r" class="slide level2">
+<h2>Inverse vs.&nbsp;Solving a System in R</h2>
+<p>Mathematically, <span class="math inline">\({\bf x}={\bf A}^{-1}{\bf b}\)</span> solves <span class="math inline">\({\bf Ax}={\bf b}.\)</span></p>
+<p>In computation, it is usually better to solve the system directly:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>,</span>
+<span id="cb119-2"><a aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb119-3"><a aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb119-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># preferred</span></span>
+<span id="cb119-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.091 0.636</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># mathematically equivalent</span></span>
+<span id="cb121-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A) <span class="sc">%*%</span> b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+[1,] 0.091
+[2,] 0.636</code></pre>
+</div>
+</div>
+<div class="alert">
+<p>Use <code>solve(A, b)</code> when you want the solution to <span class="math inline">\({\bf Ax}={\bf b}\)</span>.</p>
+<p>Avoid forming an inverse explicitly unless you actually need the inverse matrix.</p>
+</div>
 </section>
 <section id="idempotent-orthogonal-positive-definite" class="slide level2">
 <h2>Idempotent, Orthogonal, Positive Definite</h2>
@@ -841,56 +1403,86 @@ Dr.&nbsp;Mehdi Maadooliat
       }</style></aside>
 </div>
 </section>
+<section id="positive-definite-matrices-and-regression" class="slide level2">
+<h2>Positive Definite Matrices and Regression</h2>
+<p>If <span class="math inline">\({\bf X}\)</span> has full column rank, then for every nonzero vector <span class="math inline">\({\bf a}\)</span>,</p>
+<p><span class="math display">\[
+{\bf a}'{\bf X}'{\bf X}{\bf a}
+=
+({\bf Xa})'({\bf Xa})
+=
+\|{\bf Xa}\|^2
+&gt;0.
+\]</span></p>
+<p>Therefore, <span class="math inline">\(\boxed{{\bf X}'{\bf X}\text{ is positive definite}}\)</span> and hence invertible.</p>
+<div class="fragment">
+<p>If the columns of <span class="math inline">\({\bf X}\)</span> are linearly dependent, there is a nonzero <span class="math inline">\({\bf a}\)</span> with <span class="math inline">\({\bf Xa}={\bf 0},\)</span></p>
+<p>so</p>
+<p><span class="math display">\[
+{\bf a}'{\bf X}'{\bf X}{\bf a}=0,
+\]</span></p>
+<p>and <span class="math inline">\({\bf X}'{\bf X}\)</span> is not positive definite.</p>
+<div class="alert">
+<p>This is another way to understand why perfect multicollinearity prevents unique least-squares coefficients.</p>
+</div>
+</div>
+</section>
 <section id="special-matrices-idempotent-orthogonal" class="slide level2">
 <h2>Special Matrices: Idempotent, Orthogonal</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Idempotent and symmetric matrix</span></span>
-<span id="cb83-2"><a aria-hidden="true" tabindex="-1"></a>(A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Idempotent and symmetric matrix</span></span>
+<span id="cb123-2"><a aria-hidden="true" tabindex="-1"></a>(A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]  0.5  0.5
 [2,]  0.5  0.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> A</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]  0.5  0.5
 [2,]  0.5  0.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## positive semi-definite</span></span>
-<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(y) <span class="sc">%*%</span> A <span class="sc">%*%</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## positive semi-definite</span></span>
+<span id="cb127-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">5</span>); <span class="fu">t</span>(y) <span class="sc">%*%</span> A <span class="sc">%*%</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
 [1,]  4.5</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>); <span class="fu">t</span>(z) <span class="sc">%*%</span> A <span class="sc">%*%</span> z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    0</code></pre>
+</div>
 </div>
 </div><div class="column" style="width:50%;">
+<div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Orthogonal matrix</span></span>
-<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>(E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
-<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Orthogonal matrix</span></span>
+<span id="cb131-2"><a aria-hidden="true" tabindex="-1"></a>(E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
+<span id="cb131-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    0   -1    0
 [2,]    1    0    0
 [3,]    0    0   -1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    0    1    0
 [2,]   -1    0    0
 [3,]    0    0   -1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(E) <span class="sc">%*%</span> E</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(E) <span class="sc">%*%</span> E</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    0    0
 [2,]    0    1    0
 [3,]    0    0    1</code></pre>
+</div>
 </div>
 </div>
 </div></div>
@@ -902,18 +1494,55 @@ Dr.&nbsp;Mehdi Maadooliat
 <li><p><span class="math inline">\(\text{tr}({\bf A}{\bf B}) = \text{tr}({\bf B}{\bf A})\)</span></p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a aria-hidden="true" tabindex="-1"></a>(G <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a aria-hidden="true" tabindex="-1"></a>(G <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>)); (H <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>));</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
-[1,]    1    4    7
-[2,]    2    5    8
-[3,]    3    6    9</code></pre>
+[1,]    6    4    2
+[2,]    5    3    1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(G))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(G<span class="sc">%*%</span>H)); <span class="fu">sum</span>(<span class="fu">diag</span>(H<span class="sc">%*%</span>G))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15</code></pre>
+<pre><code>[1] 61</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 61</code></pre>
 </div>
 </div>
+</section>
+<section id="useful-properties-of-the-trace" class="slide level2">
+<h2>Useful Properties of the Trace</h2>
+<p>For conformable matrices,</p>
+<p><span class="math display">\[
+\operatorname{tr}({\bf A}+{\bf B})
+=
+\operatorname{tr}({\bf A})
++
+\operatorname{tr}({\bf B}),
+\]</span></p>
+<p><span class="math display">\[
+\operatorname{tr}(c{\bf A})
+=
+c\,\operatorname{tr}({\bf A}),
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\boxed{
+\operatorname{tr}({\bf AB})
+=
+\operatorname{tr}({\bf BA})
+}.
+\]</span></p>
+<p>For a symmetric matrix,</p>
+<p><span class="math display">\[
+\operatorname{tr}({\bf A})=\sum_j \lambda_j,\quad \textrm{and}\quad \operatorname{det}({\bf A})=\prod_j \lambda_j.
+\]</span></p>
+<p>where <span class="math inline">\(\lambda_j\)</span>’s are eigenvalues of <span class="math inline">\({\bf A}.\)</span></p>
 </section>
 <section id="eigenvalues-and-eigenvectors" class="slide level2">
 <h2>Eigenvalues and Eigenvectors</h2>
@@ -923,7 +1552,8 @@ Dr.&nbsp;Mehdi Maadooliat
 <li><span class="math inline">\(\lambda\)</span> is an <strong>eigenvalue</strong> of <span class="math inline">\({\bf A}\)</span></li>
 <li><span class="math inline">\({\bf x}\)</span> is a corresponding <strong>eigenvector</strong> of <span class="math inline">\({\bf A}\)</span>.</li>
 </ul></li>
-<li>A <span class="math inline">\(n \times n\)</span> matrix <span class="math inline">\({\bf A}\)</span> will have <span class="math inline">\(n\)</span> eigenvalues and <span class="math inline">\(n\)</span> corresponding eigenvectors.</li>
+<li>A general <span class="math inline">\(n\times n\)</span> matrix has <span class="math inline">\(n\)</span> eigenvalues over the complex numbers when counted with multiplicity, but it may not have <span class="math inline">\(n\)</span> linearly independent eigenvectors.</li>
+<li>A <strong>real symmetric</strong> matrix has <span class="math inline">\(n\)</span> real eigenvalues and an orthonormal basis of eigenvectors.</li>
 </ul>
 </section>
 <section id="geometric-meaning-of-eigenvalues-and-eigenvectors" class="slide level2">
@@ -956,50 +1586,406 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a aria-hidden="true" tabindex="-1"></a>(A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a aria-hidden="true" tabindex="-1"></a>(A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
-[1,]    3    1
+[1,]    5    1
 [2,]    1    2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a aria-hidden="true" tabindex="-1"></a>eigen_decomp <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
-<span id="cb101-2"><a aria-hidden="true" tabindex="-1"></a>(lam <span class="ot">&lt;-</span> eigen_decomp<span class="sc">$</span>values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a aria-hidden="true" tabindex="-1"></a>eigen_decomp <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
+<span id="cb145-2"><a aria-hidden="true" tabindex="-1"></a>(lam <span class="ot">&lt;-</span> eigen_decomp<span class="sc">$</span>values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.6 1.4</code></pre>
+<pre><code>[1] 5.3 1.7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a aria-hidden="true" tabindex="-1"></a>(V <span class="ot">&lt;-</span> eigen_decomp<span class="sc">$</span>vectors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a aria-hidden="true" tabindex="-1"></a>(V <span class="ot">&lt;-</span> eigen_decomp<span class="sc">$</span>vectors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1]  [,2]
-[1,] -0.85  0.53
-[2,] -0.53 -0.85</code></pre>
+[1,] -0.96  0.29
+[2,] -0.29 -0.96</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a aria-hidden="true" tabindex="-1"></a>V <span class="sc">%*%</span> <span class="fu">diag</span>(lam) <span class="sc">%*%</span> <span class="fu">t</span>(V)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a aria-hidden="true" tabindex="-1"></a>V <span class="sc">%*%</span> <span class="fu">diag</span>(lam) <span class="sc">%*%</span> <span class="fu">t</span>(V)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
-[1,]    3    1
+[1,]    5    1
 [2,]    1    2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(A))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(A))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
+<pre><code>[1] 7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(lam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(lam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
+<pre><code>[1] 7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
+<pre><code>[1] 9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(lam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(lam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
+<pre><code>[1] 9</code></pre>
 </div>
 </div>
 </div></div>
+</section>
+<section id="eigenvalues-and-positive-definiteness" class="slide level2">
+<h2>Eigenvalues and Positive Definiteness</h2>
+<p>For a real symmetric matrix <span class="math inline">\({\bf A}\)</span>:</p>
+<ul>
+<li><span class="math inline">\({\bf A}\)</span> is positive definite iff all eigenvalues are positive.</li>
+<li><span class="math inline">\({\bf A}\)</span> is positive semi-definite iff all eigenvalues are nonnegative.</li>
+<li><span class="math inline">\({\bf A}\)</span> is singular iff at least one eigenvalue is zero.</li>
+</ul>
+<div class="alert">
+<p>For regression, small eigenvalues of <span class="math inline">\({\bf X}'{\bf X}\)</span> indicate nearly dependent predictor directions and therefore potential multicollinearity.</p>
+</div>
+</section>
+<section id="eigenvalues-of-bf-xbf-x" class="slide level2">
+<h2>Eigenvalues of <span class="math inline">\({\bf X}'{\bf X}\)</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb159-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-3"><a aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb159-4"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">sd =</span> <span class="fl">0.05</span>)</span>
+<span id="cb159-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-6"><a aria-hidden="true" tabindex="-1"></a>X_col <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x1, x2)</span>
+<span id="cb159-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">eigen</span>(<span class="fu">t</span>(X_col) <span class="sc">%*%</span> X_col)<span class="sc">$</span>values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 168.45  97.75   0.12</code></pre>
+</div>
+</div>
+<p>Compare with less-correlated predictors:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb161-2"><a aria-hidden="true" tabindex="-1"></a>X_ok <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x1, x3)</span>
+<span id="cb161-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">eigen</span>(<span class="fu">t</span>(X_ok) <span class="sc">%*%</span> X_ok)<span class="sc">$</span>values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 108  96  69</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>When two columns are almost linearly dependent, one direction in X’X has very little variation.</li>
+<li>That appears as a small eigenvalue.</li>
+<li>We will revisit this idea when we discuss multicollinearity.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="matrix-decompositions" class="title-slide slide level1 center">
+<h1>Matrix Decompositions</h1>
+
+</section>
+<section id="why-matrix-decompositions" class="slide level2">
+<h2>Why Matrix Decompositions?</h2>
+<p>A matrix decomposition writes a matrix as a product of simpler matrices.</p>
+<p>They are useful for</p>
+<ul>
+<li>solving systems of equations,</li>
+<li>obtaining numerically stable computations,</li>
+<li>understanding the structure and rank of a matrix,</li>
+<li>obtaining low-rank approximations.</li>
+</ul>
+<p>We will briefly connect four decompositions to regression:</p>
+<ol type="1">
+<li>eigenvalue decomposition,</li>
+<li>Cholesky decomposition,</li>
+<li>QR decomposition,</li>
+<li>singular value decomposition.</li>
+</ol>
+<aside class="notes">
+<ul>
+<li>The goal is not to derive every algorithm.</li>
+<li>Students should recognize what each decomposition does and why regression software uses such decompositions.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="cholesky-decomposition" class="slide level2">
+<h2>Cholesky Decomposition</h2>
+<p>For a symmetric positive-definite matrix <span class="math inline">\({\bf A}\)</span>,</p>
+<p><span class="math display">\[
+\boxed{
+{\bf A}={\bf L}{\bf L}'
+}
+\]</span></p>
+<p>where <span class="math inline">\({\bf L}\)</span> is lower triangular.</p>
+<p>Because <span class="math inline">\({\bf X}'{\bf X}\)</span> is positive definite when <span class="math inline">\({\bf X}\)</span> has full column rank, Cholesky decomposition can be used to solve systems involving <span class="math inline">\({\bf X}'{\bf X}\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a aria-hidden="true" tabindex="-1"></a>A_chol <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>,</span>
+<span id="cb163-2"><a aria-hidden="true" tabindex="-1"></a>                   <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb163-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-4"><a aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">chol</span>(A_chol)</span>
+<span id="cb163-5"><a aria-hidden="true" tabindex="-1"></a>R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    2  1.0
+[2,]    0  1.4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(R) <span class="sc">%*%</span> R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    4    2
+[2,]    2    3</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>R returns the upper-triangular factor R such that A = R’R.</li>
+<li>Cholesky is useful for positive-definite systems, including covariance matrices.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="qr-decomposition" class="slide level2">
+<h2>QR Decomposition</h2>
+<p>For a tall matrix <span class="math inline">\({\bf X}\)</span> with <span class="math inline">\(n\ge p\)</span>, <span class="math inline">\(\boxed{{\bf X}={\bf Q}{\bf R}}\)</span>, where</p>
+<ul>
+<li><span class="math inline">\({\bf Q}'{\bf Q}={\bf I}\)</span>, so the columns of <span class="math inline">\({\bf Q}\)</span> are orthonormal;</li>
+<li><span class="math inline">\({\bf R}\)</span> is upper triangular.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a aria-hidden="true" tabindex="-1"></a>X_qr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb167-2"><a aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1</span>, <span class="dv">2</span>,</span>
+<span id="cb167-3"><a aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1</span>, <span class="dv">3</span>,</span>
+<span id="cb167-4"><a aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb167-5"><a aria-hidden="true" tabindex="-1"></a>qrX <span class="ot">&lt;-</span> <span class="fu">qr</span>(X_qr); Q <span class="ot">&lt;-</span> <span class="fu">qr.Q</span>(qrX); R <span class="ot">&lt;-</span> <span class="fu">qr.R</span>(qrX)</span>
+<span id="cb167-6"><a aria-hidden="true" tabindex="-1"></a>Q <span class="sc">%*%</span> R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    1
+[2,]    1    2
+[3,]    1    3
+[4,]    1    4</code></pre>
+</div>
+</div>
+<div class="alert">
+<p>QR decomposition is especially important for least squares because it lets us solve the regression problem <strong>without explicitly forming</strong> <span class="math inline">\(({\bf X}'{\bf X})^{-1}\)</span>.</p>
+</div>
+</section>
+<section id="least-squares-using-qr" class="slide level2">
+<h2>Least Squares Using QR</h2>
+<p>Suppose <span class="math inline">\({\bf X}={\bf Q}{\bf R}.\)</span> Then the least-squares problem <span class="math display">\[\min_{\bf b}\|{\bf y}-{\bf Xb}\|^2\]</span></p>
+<p>becomes <span class="math display">\[\min_{\bf b}\|{\bf y}-{\bf QRb}\|^2.\]</span></p>
+<p>Using the orthogonality of <span class="math inline">\({\bf Q}\)</span> leads to the triangular system <span class="math inline">\(\boxed{{\bf Rb}={\bf Q}'{\bf y}}.\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a aria-hidden="true" tabindex="-1"></a>y_qr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb169-2"><a aria-hidden="true" tabindex="-1"></a>(b_qr <span class="ot">&lt;-</span> <span class="fu">backsolve</span>(R, <span class="fu">t</span>(Q) <span class="sc">%*%</span> y_qr))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,] -0.5
+[2,]  2.0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y_qr <span class="sc">~</span> X_qr[, <span class="dv">2</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)   X_qr[, 2] 
+       -0.5         2.0 </code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>This is computationally preferable to explicitly computing (X’X)^(-1).</li>
+<li>The details of the numerical algorithm are not needed here; the conceptual point is that orthogonalization simplifies least squares.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="singular-value-decomposition" class="title-slide slide level1 center">
+<h1>Singular Value Decomposition</h1>
+
+</section>
+<section id="singular-value-decomposition-svd" class="slide level2">
+<h2>Singular Value Decomposition (SVD)</h2>
+<p>Every <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\({\bf X}\)</span> can be written as</p>
+<p><span class="math display">\[
+\boxed{
+{\bf X}={\bf U}{\bf D}{\bf V}'
+}
+\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\({\bf U}\)</span> has orthonormal columns,</li>
+<li><span class="math inline">\({\bf V}\)</span> has orthonormal columns,</li>
+<li><span class="math inline">\({\bf D}\)</span> is diagonal with nonnegative singular values</li>
+</ul>
+<p><span class="math display">\[
+d_1\ge d_2\ge\cdots\ge0.
+\]</span></p>
+<p>Unlike eigendecomposition, the SVD applies to <strong>rectangular matrices</strong>.</p>
+</section>
+<section id="svd-in-r" class="slide level2">
+<h2>SVD in R</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a aria-hidden="true" tabindex="-1"></a>X_demo <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</span>
+<span id="cb173-2"><a aria-hidden="true" tabindex="-1"></a>                   <span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb173-3"><a aria-hidden="true" tabindex="-1"></a>                   <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb173-4"><a aria-hidden="true" tabindex="-1"></a>sv <span class="ot">&lt;-</span> <span class="fu">svd</span>(X_demo)</span>
+<span id="cb173-5"><a aria-hidden="true" tabindex="-1"></a>sv<span class="sc">$</span>d; sv<span class="sc">$</span>u; sv<span class="sc">$</span>v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.8 1.1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2]
+[1,] -0.38  0.45
+[2,] -0.35 -0.88
+[3,] -0.86  0.16</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2]
+[1,] -0.63 -0.78
+[2,] -0.78  0.63</code></pre>
+</div>
+</div>
+<p>Reconstruct <span class="math inline">\({\bf X}\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb177"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb177-1"><a aria-hidden="true" tabindex="-1"></a>sv<span class="sc">$</span>u <span class="sc">%*%</span> <span class="fu">diag</span>(sv<span class="sc">$</span>d) <span class="sc">%*%</span> <span class="fu">t</span>(sv<span class="sc">$</span>v)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    2
+[2,]    2    1
+[3,]    3    4</code></pre>
+</div>
+</div>
+</section>
+<section id="rank-and-singular-values" class="slide level2">
+<h2>Rank and Singular Values</h2>
+<p>The rank of a matrix equals the number of nonzero singular values:</p>
+<p><span class="math display">\[
+\operatorname{rank}({\bf X})
+=
+\#\{j:d_j&gt;0\}.
+\]</span></p>
+<p>If a singular value is very small rather than exactly zero, the matrix is <strong>nearly rank deficient</strong>.</p>
+<div class="alert">
+<p>Regression connection:</p>
+<ul>
+<li>zero singular value <span class="math inline">\(\rightarrow\)</span> perfect multicollinearity;</li>
+<li>very small singular value <span class="math inline">\(\rightarrow\)</span> near multicollinearity and unstable coefficient estimates.</li>
+</ul>
+</div>
+</section>
+<section id="connecting-svd-and-bf-xbf-x" class="slide level2">
+<h2>Connecting SVD and <span class="math inline">\({\bf X}'{\bf X}\)</span></h2>
+<p>If <span class="math inline">\({\bf X}={\bf U}{\bf D}{\bf V}'\)</span>, then <span class="math display">\[{\bf X}'{\bf X}={\bf V}{\bf D}^2{\bf V}'.\]</span></p>
+<p>Therefore, <span class="math display">\[\lambda_j({\bf X}'{\bf X})=d_j^2.\]</span></p>
+<div class="alert">
+<p>The eigenvalues of <span class="math inline">\({\bf X}'{\bf X}\)</span> are the squared singular values of <span class="math inline">\({\bf X}\)</span>.</p>
+</div>
+<p>This connects</p>
+<ul>
+<li>rank,</li>
+<li>multicollinearity,</li>
+<li>eigendecomposition,</li>
+<li>SVD,</li>
+<li>and least squares.</li>
+</ul>
+</section></section>
+<section>
+<section id="regression-takeaways" class="title-slide slide level1 center">
+<h1>Regression Takeaways</h1>
+
+</section>
+<section id="why-did-we-review-all-this" class="slide level2">
+<h2>Why Did We Review All This?</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Linear algebra idea</th>
+<th>Regression role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear combination</td>
+<td><span class="math inline">\({\bf Xb}\)</span> combines columns of <span class="math inline">\({\bf X}\)</span></td>
+</tr>
+<tr class="even">
+<td>Column space</td>
+<td>contains all possible fitted-value vectors</td>
+</tr>
+<tr class="odd">
+<td>Rank</td>
+<td>determines whether coefficients are uniquely estimable</td>
+</tr>
+<tr class="even">
+<td>Inner product</td>
+<td>defines orthogonality</td>
+</tr>
+<tr class="odd">
+<td>Projection</td>
+<td><span class="math inline">\(\hat{\bf y}\)</span> is projection of <span class="math inline">\({\bf y}\)</span> onto <span class="math inline">\(\operatorname{Col}({\bf X})\)</span></td>
+</tr>
+<tr class="even">
+<td>Inverse / solve</td>
+<td>solves the normal equations</td>
+</tr>
+<tr class="odd">
+<td>Positive definiteness</td>
+<td>guarantees invertibility of <span class="math inline">\({\bf X}'{\bf X}\)</span></td>
+</tr>
+<tr class="even">
+<td>Eigenvalues / SVD</td>
+<td>diagnose dependent or nearly dependent directions</td>
+</tr>
+</tbody>
+</table>
+<div class="alert">
+<p>The central geometric idea:</p>
+<p><span class="math display">\[
+\boxed{
+\hat{\bf y}\in\operatorname{Col}({\bf X}),
+\qquad
+{\bf e}\perp\operatorname{Col}({\bf X})
+}
+\]</span></p>
+</div>
 
 
 </section></section>
