@@ -112,12 +112,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta property="og:title" content="Homework 3: Multiple Linear Regression – MATH 4780 (MSSC 5780)">
-<meta property="og:description" content="Due date: see D2L / course schedule">
+<meta property="og:description" content="Due date: October 9, 11:59 PM on D2L">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
 <meta name="twitter:title" content="Homework 3: Multiple Linear Regression – MATH 4780 (MSSC 5780)">
-<meta name="twitter:description" content="Due date: see D2L / course schedule">
+<meta name="twitter:description" content="Due date: October 9, 11:59 PM on D2L">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/hw/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
 <meta name="twitter:card" content="summary_large_image">
@@ -409,7 +438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Homework 3: Multiple Linear Regression</h1>
-<p class="subtitle lead">Due date: see D2L / course schedule</p>
+<p class="subtitle lead">Due date: October 9, 11:59 PM on D2L</p>
 </div>
 
 
@@ -455,41 +484,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If your copy of <code>regression_datasets.rda</code> is stored in a different folder, modify the path accordingly.</p>
 <p>For this homework, we focus primarily on</p>
 <ul>
-<li>(y): miles per gallon,</li>
-<li>(x_1): engine displacement (cubic inches), and</li>
-<li>(x_6): number of carburetor barrels.</li>
+<li><span class="math inline">\(y\)</span>: miles per gallon,</li>
+<li><span class="math inline">\(x_1\)</span>: engine displacement (cubic inches), and</li>
+<li><span class="math inline">\(x_6\)</span>: number of carburetor barrels.</li>
 </ul>
 <ol type="1">
 <li><p><strong>Fit and interpret a multiple linear regression model.</strong> Fit the model</p>
-<p>[ Y_i=_0+<em>1x</em>{1i}+<em>6x</em>{6i}+_i. ]</p>
-<p>Report the fitted regression equation. Interpret the estimated coefficients for (x_1) and (x_6) in context, making clear what is being held fixed in each interpretation.</p></li>
-<li><p><strong>Overall significance of regression.</strong> Test the overall significance of the multiple linear regression model at significance level ().</p>
+<p><span class="math display">\[
+Y_i=\beta_0+\beta_1x_{1i}+\beta_6x_{6i}+\varepsilon_i.
+\]</span></p>
+<p>Report the fitted regression equation. Interpret the estimated coefficients for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_6\)</span> in context, making clear what is being held fixed in each interpretation.</p></li>
+<li><p><strong>Overall significance of regression.</strong> Test the overall significance of the multiple linear regression model at significance level <span class="math inline">\(\alpha=0.05\)</span>.</p>
 <p>Clearly state</p>
-<p>[ H_0:_1=_6=0 ]</p>
-<p>and the appropriate alternative hypothesis. Construct the ANOVA table, report the test statistic and (p)-value (or rejection rule), and state your conclusion in context.</p></li>
-<li><p><strong>(R^2) and adjusted (R^2).</strong> Obtain (R^2) and (R_{}^2) for the multiple linear regression model in Question 1.</p>
-<p>Compare these values with (R^2) and (R_{}^2) for the simple linear regression model relating gasoline mileage (y) to engine displacement (x_1) alone. Explain what changes when (x_6) is added to the model.</p></li>
-<li><p>**Confidence interval for (_1).** Construct a 95% confidence interval for (_1), the coefficient of engine displacement in the multiple linear regression model. Interpret the interval in context.</p></li>
-<li><p><strong>Marginal test for (x_6).</strong> At significance level (), test</p>
-<p>[ H_0:_6=0 H_1:_6. ]</p>
-<p>Report the test statistic, degrees of freedom, (p)-value (or rejection rule), decision, and conclusion in context.</p></li>
+<p><span class="math display">\[
+H_0:\beta_1=\beta_6=0
+\]</span></p>
+<p>and the appropriate alternative hypothesis. Construct the ANOVA table, report the test statistic and <span class="math inline">\(p\)</span>-value (or rejection rule), and state your conclusion in context.</p></li>
+<li><p><strong><span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span>.</strong> Obtain <span class="math inline">\(R^2\)</span> and <span class="math inline">\(R_{\mathrm{Adj}}^2\)</span> for the multiple linear regression model in Question 1.</p>
+<p>Compare these values with <span class="math inline">\(R^2\)</span> and <span class="math inline">\(R_{\mathrm{Adj}}^2\)</span> for the simple linear regression model relating gasoline mileage <span class="math inline">\(y\)</span> to engine displacement <span class="math inline">\(x_1\)</span> alone. Explain what changes when <span class="math inline">\(x_6\)</span> is added to the model.</p></li>
+<li><p><strong>Confidence interval for <span class="math inline">\(\beta_1\)</span>.</strong> Construct a 95% confidence interval for <span class="math inline">\(\beta_1\)</span>, the coefficient of engine displacement in the multiple linear regression model. Interpret the interval in context.</p></li>
+<li><p><strong>Marginal test for <span class="math inline">\(x_6\)</span>.</strong> At significance level <span class="math inline">\(\alpha=0.05\)</span>, test</p>
+<p><span class="math display">\[
+H_0:\beta_6=0
+\qquad\text{versus}\qquad
+H_1:\beta_6\neq0.
+\]</span></p>
+<p>Report the test statistic, degrees of freedom, <span class="math inline">\(p\)</span>-value (or rejection rule), decision, and conclusion in context.</p></li>
 <li><p><strong>Confidence interval for the mean response.</strong> Find a 95% confidence interval for the <strong>mean gasoline mileage</strong> among automobiles with</p>
-<p>[ x_1=275^3 x_6=2. ]</p>
+<p><span class="math display">\[
+x_1=275\text{ in}^3
+\qquad\text{and}\qquad
+x_6=2\text{ barrels}.
+\]</span></p>
 <p>Interpret the interval in context.</p></li>
 <li><p><strong>Prediction for a new automobile.</strong> Find a 95% prediction interval for the gasoline mileage of a <strong>new automobile</strong> with</p>
-<p>[ x_1=275^3 x_6=2. ]</p>
+<p><span class="math display">\[
+x_1=275\text{ in}^3
+\qquad\text{and}\qquad
+x_6=2\text{ barrels}.
+\]</span></p>
 <p>Give the point prediction as well as the prediction interval, and interpret the interval in context.</p></li>
-<li><p><strong>Compare uncertainty with the simple linear regression model.</strong> In Homework 2, you obtained a 95% confidence interval for the mean gasoline mileage and a 95% prediction interval for an automobile with engine displacement (x_1=275^3).</p>
-<p>Compare the <strong>lengths</strong> of those intervals with the corresponding intervals from Questions 6 and 7 above. Based on this comparison, does adding (x_6) appear to reduce uncertainty in estimating the mean response or predicting a new automobile? Explain.</p></li>
-<li><p><strong>Verify (SS_{}) using matrix operations.</strong> For the fitted multiple linear regression model, construct the response vector (y), design matrix (X), and least-squares coefficient vector (b). Compute</p>
-<p>[ (y-Xb)’ (y-Xb) ]</p>
+<li><p><strong>Compare uncertainty with the simple linear regression model.</strong> In Homework 2, you obtained a 95% confidence interval for the mean gasoline mileage and a 95% prediction interval for an automobile with engine displacement <span class="math inline">\(x_1=275\text{ in}^3\)</span>.</p>
+<p>Compare the <strong>lengths</strong> of those intervals with the corresponding intervals from Questions 6 and 7 above. Based on this comparison, does adding <span class="math inline">\(x_6\)</span> appear to reduce uncertainty in estimating the mean response or predicting a new automobile? Explain.</p></li>
+<li><p><strong>Verify <span class="math inline">\(SS_{\mathrm{res}}\)</span> using matrix operations.</strong> For the fitted multiple linear regression model, construct the response vector <span class="math inline">\(\mathbf y\)</span>, design matrix <span class="math inline">\(\mathbf X\)</span>, and least-squares coefficient vector <span class="math inline">\(\mathbf b\)</span>. Compute</p>
+<p><span class="math display">\[
+(\mathbf y-\mathbf X\mathbf b)'
+(\mathbf y-\mathbf X\mathbf b)
+\]</span></p>
 <p>using matrix operations, and verify that it agrees with</p>
-<p>[ SS_{} = _{i=1}^n(y_i-y_i)^2. ]</p>
+<p><span class="math display">\[
+SS_{\mathrm{res}}
+=
+\sum_{i=1}^n(y_i-\hat y_i)^2.
+\]</span></p>
 <p>Show the relevant R calculations.</p></li>
-<li><p><strong>Predictor effect plots.</strong> Generate predictor effect plots for (x_1) and (x_6). Explain the plots by describing the estimated effect of each predictor on gasoline mileage while accounting for the other predictor in the model.</p></li>
-<li><p>**Joint confidence region for ((_1,_6)).** Construct the 95% joint confidence region for the pair of regression coefficients</p></li>
+<li><p><strong>Predictor effect plots.</strong> Generate predictor effect plots for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_6\)</span>. Explain the plots by describing the estimated effect of each predictor on gasoline mileage while accounting for the other predictor in the model.</p></li>
+<li><p><strong>Joint confidence region for <span class="math inline">\((\beta_1,\beta_6)\)</span>.</strong> Construct the 95% joint confidence region for the pair of regression coefficients</p></li>
 </ol>
-<p>[ (_1,_6). ]</p>
+<p><span class="math display">\[
+   (\beta_1,\beta_6).
+   \]</span></p>
 <p>Display the region graphically and interpret what the region represents.</p>
 </section>
 </section>
@@ -499,27 +553,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="simple-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="simple-linear-regression">Simple linear regression</h2>
 <ol start="12" type="1">
-<li><strong>Relationship between (r^2) and (R^2).</strong> In simple linear regression with an intercept, show that</li>
+<li><strong>Relationship between <span class="math inline">\(r^2\)</span> and <span class="math inline">\(R^2\)</span>.</strong> In simple linear regression with an intercept, show that</li>
 </ol>
-<p>[ r^2 = = R^2, ]</p>
-<p>where (r) is the sample correlation coefficient between (x) and (y).</p>
+<p><span class="math display">\[
+   r^2
+   =
+   \frac{SS_R}{SS_T}
+   =
+   R^2,
+   \]</span></p>
+<p>where <span class="math inline">\(r\)</span> is the sample correlation coefficient between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
 </section>
 <section id="multiple-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="multiple-linear-regression">Multiple linear regression</h2>
 <p>For the multiple linear regression model, let</p>
-<p>[ H = X(X’X)^{-1}X’ ]</p>
-<p>be the (nn) hat matrix.</p>
+<p><span class="math display">\[
+\mathbf H
+=
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'
+\]</span></p>
+<p>be the <span class="math inline">\(n\times n\)</span> hat matrix.</p>
 <ol start="13" type="1">
 <li><strong>Properties of the hat matrix.</strong></li>
 </ol>
 <ol type="a">
-<li><p>Show that (H) is symmetric and idempotent.</p></li>
-<li><p>Show that (I-H) is symmetric and idempotent.</p></li>
+<li><p>Show that <span class="math inline">\(\mathbf H\)</span> is symmetric and idempotent.</p></li>
+<li><p>Show that <span class="math inline">\(\mathbf I-\mathbf H\)</span> is symmetric and idempotent.</p></li>
 </ol>
 <ol start="14" type="1">
-<li><strong>Trace of the hat matrix.</strong> Suppose (X) has (p) columns and full column rank. Show that</li>
+<li><strong>Trace of the hat matrix.</strong> Suppose <span class="math inline">\(\mathbf X\)</span> has <span class="math inline">\(p\)</span> columns and full column rank. Show that</li>
 </ol>
-<p>[ (H)=p. ]</p>
+<p><span class="math display">\[
+   \operatorname{tr}(\mathbf H)=p.
+   \]</span></p>
 </section>
 </section>
 <section id="submission-checklist" class="level1">
