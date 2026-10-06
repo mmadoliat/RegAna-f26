@@ -15,7 +15,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "About this site!"
   },
   {
     "objectID": "hw/hw-1.html",
@@ -660,14 +660,14 @@
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 2 4 3 2 2 1 3 4 1 2\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
+    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 1 2 1 3 2 1 3 0 4 1\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1]  0.1578  0.8203 -0.9248  0.0501  0.6994\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
+    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1]  0.6660  0.0768  0.8112 -0.3381 -1.7452\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-2",
@@ -2991,7 +2991,7 @@
     "href": "slides/11-bootstrap.html#r-lab-the-bootstrap-sample",
     "title": "Simulation-based Inference 💻",
     "section": "R Lab The bootstrap Sample",
-    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2148, 2398, 2350, 2875, 2145, 2350, 2325, 2350, 2495, 2350, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
+    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2495, 2422, 2349, 2350, 2350, 2550, 2350, 2350, 2350, 2350, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
   },
   {
     "objectID": "slides/11-bootstrap.html#r-lab-visualize-the-bootstrap-distribution",
@@ -3122,385 +3122,385 @@
   {
     "objectID": "slides/06-mat.html#matrix-algebra-for-regression",
     "href": "slides/06-mat.html#matrix-algebra-for-regression",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Matrix Algebra for Regression",
     "text": "Matrix Algebra for Regression\n\\[y_i= \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\dots + \\beta_kx_{ik} + \\epsilon_i, \\quad \\epsilon_i \\stackrel{iid}{\\sim} N(0, \\sigma^2), \\quad i = 1, 2, \\dots, n\\]\n\n\n\\[\\bf y = \\bf X \\boldsymbol \\beta+ \\boldsymbol \\epsilon\\] where\n\\[\\begin{align}\n\\bf y = \\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n \\end{bmatrix},\\quad\n\\bf X = \\begin{bmatrix}\n  1 & x_{11} & x_{12} & \\cdots & x_{1k} \\\\\n  1 & x_{21} & x_{22} & \\cdots & x_{2k} \\\\\n  \\vdots & \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\\n  1 & x_{n1} & x_{n2} & \\cdots & x_{nk} \\end{bmatrix}, \\quad\n\\boldsymbol \\beta= \\begin{bmatrix}\n\\beta_0 \\\\\n\\beta_1 \\\\\n\\vdots \\\\\n\\beta_k \\end{bmatrix} , \\quad\n\\boldsymbol \\epsilon= \\begin{bmatrix}\n\\epsilon_1 \\\\\n\\epsilon_2 \\\\\n\\vdots \\\\\n\\epsilon_n\\end{bmatrix}\n\\end{align}\\]\n\nThe main goal is not matrix computation by hand. It is to understand the geometry and algebra behind\n\\[\n{\\bf b}=({\\bf X}'{\\bf X})^{-1}{\\bf X}'{\\bf y}.\n\\]"
   },
   {
     "objectID": "slides/06-mat.html#matrix",
     "href": "slides/06-mat.html#matrix",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Matrix",
     "text": "Matrix\n\nA matrix \\({\\bf A}\\) that has \\(n\\) rows and \\(m\\) columns is defined as \\[{\\bf A} = (a_{ij})_{n \\times m}\\begin{bmatrix} a_{11} & a_{12} & \\cdots & a_{1m} \\\\ a_{21} & a_{22} & \\cdots & a_{2m} \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ a_{n1} & a_{n2} & \\cdots & a_{nm} \\end{bmatrix}_{n \\times m}\\]\n\n\n\n\n\n(A &lt;- matrix(data = 1:6, \n             nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nclass(A)\n\n[1] \"matrix\" \"array\" \n\n\n\n\nattributes(A)\n\n$dim\n[1] 2 3\n\n\n\n\n\n\nBut what is the geometrical meaning of matrices?\n\n\n\nFirst index is for row and the second index is for column\nUse command matrix() to create a matrix.\nA matrix is a two-dimensional analog of a vector.\nLike all elements of a matrix must be of the same type."
   },
   {
     "objectID": "slides/06-mat.html#matrices-as-linear-transformations",
     "href": "slides/06-mat.html#matrices-as-linear-transformations",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Matrices as Linear Transformations",
     "text": "Matrices as Linear Transformations\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 3\n\n\n\nA matrix is actually a numerical representation of a linear transformation in a linear space which is a function that takes an vector as an input and produces another vector as an output.\nIf we use the grid lines to represent the entire coordinate system, we will see that when we use (1, 0) and (0, 1) as the two bases, all lines are vertical and horizontal, showing, for example, the integer values of each coordinate.\nLinear transformation means we stretch or rotate the lines, but at the same time, all lines remains lines and origin remain fixed.\nGrids lines are parallel and evenly spaced after linear transformation.\n(-1, 3) is the transformed vector of (-1, 2) when the two new transformed basis are (3, 1) and (1, 2)"
   },
   {
     "objectID": "slides/06-mat.html#column-vector",
     "href": "slides/06-mat.html#column-vector",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Column Vector",
     "text": "Column Vector\n\nIf \\(m = 1\\), it becomes a \\(n\\) by 1 matrix or a column vector of size \\(n\\). \\[\\small {\\bf y} = \\begin{bmatrix} y_{1}  \\\\ y_{2}  \\\\ \\vdots  \\\\  y_{n} \\end{bmatrix}_{n \\times 1} \\quad {\\bf 1} = \\begin{bmatrix} 1  \\\\ 1  \\\\ \\vdots  \\\\  1 \\end{bmatrix}_{n \\times 1}\\]\n\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n## 2nd column\nA[, 2]\n\n[1] 3 4\n\n## becomes a numeric vector\nclass(A[, 2]) \n\n[1] \"integer\"\n\n\n\n\n## keep its matrix class\nA[, 2, drop = FALSE] \n\n     [,1]\n[1,]    3\n[2,]    4\n\nclass(A[, 2, drop = FALSE])  \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#row-vector",
     "href": "slides/06-mat.html#row-vector",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Row Vector",
     "text": "Row Vector\n\nIf \\(n = 1\\), it becomes a \\(1\\) by \\(m\\) matrix or a row vector of size \\(m\\). \\[{\\bf x} = \\begin{bmatrix} x_{1} &  x_{2}  & \\dots  &  x_{m} \\end{bmatrix}_{1 \\times m}\\]\nBy default, a vector means a column vector.\n\n\n## 2nd row\nA[2, , drop = FALSE]\n\n     [,1] [,2] [,3]\n[1,]    2    4    6\n\n## keep its matrix class\nclass(A[2, , drop = FALSE]) \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#vectors-addition-and-scalar-multiplication",
     "href": "slides/06-mat.html#vectors-addition-and-scalar-multiplication",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Vectors: Addition and Scalar Multiplication",
     "text": "Vectors: Addition and Scalar Multiplication\nLet\n\\[\n{\\bf u}=\n\\begin{bmatrix}\nu_1\\\\u_2\n\\end{bmatrix},\n\\qquad\n{\\bf v}=\n\\begin{bmatrix}\nv_1\\\\v_2\n\\end{bmatrix}.\n\\]\nThen\n\\[\n{\\bf u}+{\\bf v}\n=\n\\begin{bmatrix}\nu_1+v_1\\\\\nu_2+v_2\n\\end{bmatrix},\n\\qquad\nc{\\bf u}\n=\n\\begin{bmatrix}\ncu_1\\\\\ncu_2\n\\end{bmatrix}.\n\\]\n\nu &lt;- c(1, 2)\nv &lt;- c(3, -1)\n\nu + v\n\n[1] 4 1\n\n2 * u\n\n[1] 2 4"
   },
   {
     "objectID": "slides/06-mat.html#linear-combinations",
     "href": "slides/06-mat.html#linear-combinations",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Linear Combinations",
     "text": "Linear Combinations\nA linear combination of vectors \\({\\bf v}_1,\\dots,{\\bf v}_k\\) is\n\\[\nc_1{\\bf v}_1+\\cdots+c_k{\\bf v}_k.\n\\]\nFor example,\n\\[\n2\n\\begin{bmatrix}1\\\\0\\end{bmatrix}\n+\n3\n\\begin{bmatrix}0\\\\1\\end{bmatrix}\n=\n\\begin{bmatrix}2\\\\3\\end{bmatrix}.\n\\]\n\n\nMatrix multiplication \\({\\bf Xb}\\) is a linear combination of the columns of \\({\\bf X}\\).\n\nIf\n\\[\n{\\bf X}=\n\\begin{bmatrix}\n{\\bf x}_1 & {\\bf x}_2 & \\cdots & {\\bf x}_p\n\\end{bmatrix},\n\\]\nthen\n\\[\n{\\bf Xb}\n=\nb_1{\\bf x}_1+\\cdots+b_p{\\bf x}_p.\n\\]"
   },
   {
     "objectID": "slides/06-mat.html#span-and-column-space",
     "href": "slides/06-mat.html#span-and-column-space",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Span and Column Space",
     "text": "Span and Column Space\nThe span of vectors \\({\\bf v}_1,\\ldots,{\\bf v}_k\\) is the set of all their linear combinations:\n\\[\n\\operatorname{span}({\\bf v}_1,\\dots,{\\bf v}_k)\n=\n\\left\\{\nc_1{\\bf v}_1+\\cdots+c_k{\\bf v}_k\n\\right\\}.\n\\]\nFor a matrix\n\\[\n{\\bf X}=\n\\begin{bmatrix}\n{\\bf x}_1 & \\cdots & {\\bf x}_p\n\\end{bmatrix},\n\\]\nthe column space is\n\\[\n\\operatorname{Col}({\\bf X})\n=\n\\operatorname{span}({\\bf x}_1,\\dots,{\\bf x}_p).\n\\]\n\nIn regression, every fitted-value vector\n\\[\n\\hat{\\bf y}={\\bf Xb}\n\\]\nmust lie in \\(\\operatorname{Col}({\\bf X})\\)."
   },
   {
     "objectID": "slides/06-mat.html#why-column-space-matters-for-regression",
     "href": "slides/06-mat.html#why-column-space-matters-for-regression",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Why Column Space Matters for Regression",
     "text": "Why Column Space Matters for Regression\nSuppose\n\\[\n{\\bf X}\n=\n\\begin{bmatrix}\n{\\bf 1} & {\\bf x}_1 & {\\bf x}_2\n\\end{bmatrix}.\n\\]\nThen every possible fitted vector has the form\n\\[\n{\\bf Xb}\n=\nb_0{\\bf 1}+b_1{\\bf x}_1+b_2{\\bf x}_2.\n\\]\n\n\nChanging \\({\\bf b}\\) moves us to a different point in \\(\\operatorname{Col}({\\bf X})\\).\nLeast squares chooses the point in \\(\\operatorname{Col}({\\bf X})\\) closest to \\({\\bf y}\\).\nThis geometric viewpoint will explain the normal equations later."
   },
   {
     "objectID": "slides/06-mat.html#transpose",
     "href": "slides/06-mat.html#transpose",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Transpose",
     "text": "Transpose\n\nLet \\({\\bf A}\\) be an \\(n \\times m\\) matrix. The transpose of \\({\\bf A}\\), denoted by \\({\\bf A}'\\) or \\({\\bf A}^T\\), is a \\(m \\times n\\) matrix whose columns are the rows of \\({\\bf A}\\). \\[{\\bf A} = \\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6\\end{bmatrix}\\] \\[{\\bf X}_{n \\times 2}\\begin{bmatrix} 1 & x_1 \\\\ 1 & x_{2} \\\\ \\vdots  & \\vdots  \\\\ 1 & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1} & {\\bf x} \\end{bmatrix}\\] \\[{\\bf X}'_{2 \\times n} = \\begin{bmatrix} 1 & 1 & \\cdots & 1 \\\\ x_1 & x_2 & \\cdots & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1}' \\\\ {\\bf x}' \\end{bmatrix}\\]"
   },
   {
     "objectID": "slides/06-mat.html#transpose-in-r",
     "href": "slides/06-mat.html#transpose-in-r",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Transpose in R",
     "text": "Transpose in R\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nt(A)\n\n     [,1] [,2]\n[1,]    1    2\n[2,]    3    4\n[3,]    5    6"
   },
   {
     "objectID": "slides/06-mat.html#determinant",
     "href": "slides/06-mat.html#determinant",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Determinant",
     "text": "Determinant\nFor a square matrix \\({\\bf A}=\\begin{bmatrix}a & b\\\\ c & d\\end{bmatrix},\\)\nthe determinant is \\(\\det({\\bf A})=ad-bc.\\)\n\nA2 &lt;- matrix(c(2, 1,\n               3, 4), nrow = 2, byrow = TRUE)\nA2\n\n     [,1] [,2]\n[1,]    2    1\n[2,]    3    4\n\ndet(A2)\n\n[1] 5\n\n\n\nFor a square matrix,\n\\[\n\\boxed{\\det({\\bf A})\\ne0\n\\quad\\Longleftrightarrow\\quad\n{\\bf A}\\text{ is invertible}}\n\\]\n\n\nGeometrically, the absolute determinant gives the factor by which the linear transformation scales area in 2D or volume in higher dimensions.\nA zero determinant means that the transformation collapses the space into a lower-dimensional subspace."
   },
   {
     "objectID": "slides/06-mat.html#determinant-geometric-interpretation",
     "href": "slides/06-mat.html#determinant-geometric-interpretation",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Determinant: Geometric Interpretation",
     "text": "Determinant: Geometric Interpretation\nFor a \\(2\\times2\\) matrix, \\(|\\det({\\bf A})|\\) is the factor by which areas are scaled.\n\n\\(|\\det({\\bf A})|&gt;1\\): area expands.\n\\(0&lt;|\\det({\\bf A})|&lt;1\\): area contracts.\n\\(\\det({\\bf A})&lt;0\\): orientation is reversed.\n\\(\\det({\\bf A})=0\\): the plane is collapsed to a line or a point.\n\n\nIf \\(\\det({\\bf A})=0\\), some column information is redundant.\nThat is exactly the kind of issue that appears with perfect multicollinearity."
   },
   {
     "objectID": "slides/06-mat.html#linear-independence",
     "href": "slides/06-mat.html#linear-independence",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\n\n\nVectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if for scalars \\(c_{1},c_{2},\\dots,c_{k} \\in \\mathbf{R},\\) \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0\\) for all \\(i = 1, 2, \\dots, k\\).\n\n\nAre \\({\\bf v}_1 = (1, 1)'\\) and \\({\\bf v}_2 = (-3, 2)'\\) linearly independent?\n\n\nWays to check linear independence:\n\nsolve the homogeneous linear system \\(\\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix}\\begin{bmatrix} c_1 \\\\ c_2 \\end{bmatrix}=\\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix}\\) for \\(c_1\\) and \\(c_2\\).\ncheck if \\(\\text{det} \\left( \\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix} \\right)\\) is non-zero."
   },
   {
     "objectID": "slides/06-mat.html#linear-independence-1",
     "href": "slides/06-mat.html#linear-independence-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\nV &lt;- matrix(c(1, 1, -3, 2), nrow = 2, ncol = 2)\nsolve(a = V, b = rep(0, 2))\n\n[1] 0 0\n\ndet(V)\n\n[1] 5\n\n\n\n\nA is invertible, that is, A has an inverse, is nonsingular, and is nondegenerate.\nA is row-equivalent to the n-by-n identity matrix In.\nA is column-equivalent to the n-by-n identity matrix In.\nA has n pivot positions.\nA has full rank; that is, rank A = n.\nBased on the rank A=n, the equation Ax = 0 has only the trivial solution x = 0. and the equation Ax = b has exactly one solution for each b in Kn.\nThe kernel (null space) of A is trivial\nThe columns of A are linearly independent.\nThe columns of A span Kn.\nThe columns of A form a basis of Kn.\ndet A ≠ 0.\nThe number 0 is not an eigenvalue of A.\nThe transpose AT is an invertible matrix"
   },
   {
     "objectID": "slides/06-mat.html#rank",
     "href": "slides/06-mat.html#rank",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Rank",
     "text": "Rank\n\nThe rank of a matrix \\({\\bf A} = \\begin{bmatrix} {\\bf a}_1 & {\\bf a}_2 & \\cdots & {\\bf a}_m \\end{bmatrix}\\) is the number of linearly independent columns (dimension of the column space).\nIf \\(k\\) of the \\(m\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_m\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\).\nThe remaining \\(m-k\\) columns of \\({\\bf A}\\) can be written as a linear combination of the \\(k\\) linearly independent columns.\n\n\n\nIf \\(k = m\\), it is full rank\nIf \\(k\\) of the \\(n\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_n\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\). The remaining \\(n-k\\) columns can be written as a linear combination of the \\(k\\) columns.\nThe vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly dependent if there exist scalars \\(c_{1},c_{2},\\dots,c_{k},\\) not all zero, such that \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\]\nThe column vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if it is not linearly dependent, that is, if \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0, i = 1, 2, \\dots, k.\\)"
   },
   {
     "objectID": "slides/06-mat.html#rank-1",
     "href": "slides/06-mat.html#rank-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Rank",
     "text": "Rank\n\n(M &lt;- matrix(1:9, nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n# install.packages(\"Matrix\")\nlibrary(Matrix)\nrankMatrix(M)[1]\n\n[1] 2\n\n\n\nCan you see why the rank is 2, meaning that one column can be written as a linear combo of the other two?\n\n\n\n\\({\\bf a}_3 = 2{\\bf a_2}-{\\bf a}_1\\)\n\n\n2 * M[, 2] - 1 * M[, 1]\n\n[1] 7 8 9\n\n\n\n\nFind the row or column basis of A using reduced row echelon form\nthe dimension of the vector space generated (or spanned) by its columns\ndimension: number of basis in the vector space."
   },
   {
     "objectID": "slides/06-mat.html#linear-systems-bf-axbf-b",
     "href": "slides/06-mat.html#linear-systems-bf-axbf-b",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Linear Systems: \\({\\bf Ax}={\\bf b}\\)",
     "text": "Linear Systems: \\({\\bf Ax}={\\bf b}\\)\nA system of linear equations can be written compactly as\n\\[\n{\\bf Ax}={\\bf b}.\n\\]\nExample:\n\\[\n\\begin{aligned}\n2x_1+x_2 &=5,\\\\\nx_1+3x_2 &=7.\n\\end{aligned}\n\\]\nbecomes\n\\[\n\\begin{bmatrix}\n2&1\\\\\n1&3\n\\end{bmatrix}\n\\begin{bmatrix}\nx_1\\\\x_2\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n5\\\\7\n\\end{bmatrix}.\n\\]\n\nA_sys &lt;- matrix(c(2, 1,\n                  1, 3), nrow = 2, byrow = TRUE)\nb_sys &lt;- c(5, 7)\n\nsolve(A_sys, b_sys)\n\n[1] 1.6 1.8"
   },
   {
     "objectID": "slides/06-mat.html#unique-solutions-and-rank",
     "href": "slides/06-mat.html#unique-solutions-and-rank",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Unique Solutions and Rank",
     "text": "Unique Solutions and Rank\nFor a square matrix \\({\\bf A}_{n\\times n}\\), the following statements are equivalent:\n\n\\({\\bf A}\\) has full rank \\(n\\).\nThe columns of \\({\\bf A}\\) are linearly independent.\n\\(\\det({\\bf A})\\ne0\\).\n\\({\\bf A}^{-1}\\) exists.\n\\({\\bf Ax}={\\bf b}\\) has a unique solution for every \\({\\bf b}\\).\n\n\n\nRegression connection:\n\\[\n{\\bf b}=({\\bf X}'{\\bf X})^{-1}{\\bf X}'{\\bf y}\n\\]\nrequires \\({\\bf X}\\) to have full column rank."
   },
   {
     "objectID": "slides/06-mat.html#operations-addition",
     "href": "slides/06-mat.html#operations-addition",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Addition",
     "text": "Operations: Addition\n\nAddition: \\({\\bf A + B}\\) is adding the corresponding elements together \\(a_{ij} + b_{ij}\\).\n\\({\\bf A}\\) and \\({\\bf B}\\) must have an equal number of rows and columns.\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(6:1, nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    6    4    2\n[2,]    5    3    1\n\nA + B\n\n     [,1] [,2] [,3]\n[1,]    7    7    7\n[2,]    7    7    7\n\n\n\n\n\n(B &lt;- matrix(1:4, nrow = 2, ncol = 2))\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nA + B\n\nError in `A + B`:\n! non-conformable arrays"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication",
     "href": "slides/06-mat.html#operations-multiplication",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\nMultiplication: The product of matrices \\({\\bf A}\\) and \\({\\bf B}\\) is denoted as \\({\\bf AB}\\).\n\n\n\nThe number of columns in \\({\\bf A}\\) must be equal to the number of rows \\({\\bf B}\\).\nThe result matrix \\({\\bf C}\\) has the number of rows of \\({\\bf A}\\) and the number of columns of the \\({\\bf B}\\).\n\n\n\nThe number of columns in the first matrix \\({\\bf A}\\) must be equal to the number of rows in the second matrix of \\({\\bf B}\\).\nThe resulting matrix \\({\\bf C}\\) has dimension of the number of rows of the first and the number of columns of the second matrix."
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-1",
     "href": "slides/06-mat.html#operations-multiplication-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(1:12, nrow = 3, ncol = 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n\n\n\n\n(C &lt;- A %*% B)\n\n     [,1] [,2] [,3] [,4]\n[1,]   22   49   76  103\n[2,]   28   64  100  136\n\n(D &lt;- B %*% A)\n\nError in `B %*% A`:\n! non-conformable arguments"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-2",
     "href": "slides/06-mat.html#operations-multiplication-2",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\\({\\bf A}{\\bf B} \\ne {\\bf B}{\\bf A}\\) in general.\n\\(({\\bf A}{\\bf B})' =  {\\bf B}'{\\bf A}'\\).\n\n\n\n\n\n(C &lt;- matrix(1:6, 3, 2))\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n\n(D &lt;- matrix(2:7, 2, 3))\n\n     [,1] [,2] [,3]\n[1,]    2    4    6\n[2,]    3    5    7\n\nC %*% D\n\n     [,1] [,2] [,3]\n[1,]   14   24   34\n[2,]   19   33   47\n[3,]   24   42   60\n\n\n\n\n\nD %*% C\n\n     [,1] [,2]\n[1,]   28   64\n[2,]   34   79\n\nt(C %*% D)\n\n     [,1] [,2] [,3]\n[1,]   14   19   24\n[2,]   24   33   42\n[3,]   34   47   60\n\nt(D) %*% t(C)\n\n     [,1] [,2] [,3]\n[1,]   14   19   24\n[2,]   24   33   42\n[3,]   34   47   60"
   },
   {
     "objectID": "slides/06-mat.html#r-lab-crossproducts",
     "href": "slides/06-mat.html#r-lab-crossproducts",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "R Lab Crossproducts",
     "text": "R Lab Crossproducts\nIn regression we repeatedly encounter products such as \\({\\bf X}'{\\bf X}\\) and \\({\\bf X}'{\\bf y}.\\) In R,\n\n\n\n\nX_cp &lt;- matrix(1:6, nrow = 3, ncol = 2)\ny_cp &lt;- c(2, 4, 7)\n\nt(X_cp) %*% X_cp\n\n     [,1] [,2]\n[1,]   14   32\n[2,]   32   77\n\ncrossprod(X_cp)\n\n     [,1] [,2]\n[1,]   14   32\n[2,]   32   77\n\nt(X_cp) %*% y_cp\n\n     [,1]\n[1,]   31\n[2,]   70\n\ncrossprod(X_cp, y_cp)\n\n     [,1]\n[1,]   31\n[2,]   70\n\n\n\ncrossprod(X, Y) computes \\({\\bf X}'{\\bf Y}\\) directly.\n\n\nSimilarly,\n\ntcrossprod(X_cp)\n\n     [,1] [,2] [,3]\n[1,]   17   22   27\n[2,]   22   29   36\n[3,]   27   36   45\n\n\ncomputes \\({\\bf X}{\\bf X}'\\).\n\n\n\n\ncrossprod() and tcrossprod() are convenient and efficient for matrix products that occur constantly in regression."
   },
   {
     "objectID": "slides/06-mat.html#inner-product-dot-product",
     "href": "slides/06-mat.html#inner-product-dot-product",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Inner Product (Dot Product)",
     "text": "Inner Product (Dot Product)\nFor vectors \\({\\bf x},{\\bf y}\\in\\mathbb R^n\\),\n\\[\n{\\bf x}'{\\bf y}\n=\n\\sum_{i=1}^n x_i y_i.\n\\]\n\nx &lt;- c(1, 2, 3)\ny &lt;- c(4, -1, 2)\n\nsum(x * y)\n\n[1] 8\n\nt(x) %*% y\n\n     [,1]\n[1,]    8\n\n\nThe dot product measures how strongly two vectors point in the same direction."
   },
   {
     "objectID": "slides/06-mat.html#outer-product",
     "href": "slides/06-mat.html#outer-product",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Outer Product",
     "text": "Outer Product\nFor column vectors \\({\\bf x}\\in\\mathbb R^m\\) and \\({\\bf y}\\in\\mathbb R^n\\),\n\\[\n{\\bf x}{\\bf y}'\n\\]\nis an \\(m\\times n\\) matrix.\nFor example,\n\\[\n\\begin{bmatrix}1\\\\2\\end{bmatrix}\n\\begin{bmatrix}3&4&5\\end{bmatrix}\n=\n\\begin{bmatrix}\n3&4&5\\\\\n6&8&10\n\\end{bmatrix}.\n\\]\n\nx &lt;- c(1, 2)\ny &lt;- c(3, 4, 5)\n\nx %o% y\n\n     [,1] [,2] [,3]\n[1,]    3    4    5\n[2,]    6    8   10\n\n\n\n\nContrast the inner product x’y, which is a scalar, with the outer product xy’, which is a matrix.\nOuter products appear naturally in covariance matrices and matrix decompositions."
   },
   {
     "objectID": "slides/06-mat.html#length-and-distance",
     "href": "slides/06-mat.html#length-and-distance",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Length and Distance",
     "text": "Length and Distance\nThe Euclidean norm of \\({\\bf x}\\) is \\(\\|{\\bf x}\\|=\\sqrt{{\\bf x}'{\\bf x}}=\\sqrt{\\sum_{i=1}^n x_i^2}.\\)\nThe distance between \\({\\bf x}\\) and \\({\\bf y}\\) is \\(\\|{\\bf x}-{\\bf y}\\|.\\)\n\nx &lt;- c(1, 2)\ny &lt;- c(4, 6)\n\nsqrt(sum(x^2))\n\n[1] 2.2\n\nsqrt(sum((x - y)^2))\n\n[1] 5\n\n\n\nLeast squares minimizes a squared Euclidean distance:\n\\[\n\\|{\\bf y}-{\\bf Xb}\\|^2.\n\\]"
   },
   {
     "objectID": "slides/06-mat.html#angle-between-vectors",
     "href": "slides/06-mat.html#angle-between-vectors",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Angle Between Vectors",
     "text": "Angle Between Vectors\nThe angle \\(\\theta\\) between nonzero vectors \\({\\bf x}\\) and \\({\\bf y}\\) satisfies\n\\[\n\\cos(\\theta)\n=\n\\frac{{\\bf x}'{\\bf y}}\n{\\|{\\bf x}\\|\\,\\|{\\bf y}\\|}.\n\\]\n\nx &lt;- c(1, 0)\ny &lt;- c(1, 1)\n\ntheta &lt;- acos(\n  sum(x * y) /\n    (sqrt(sum(x^2)) * sqrt(sum(y^2)))\n)\n\ntheta * 180 / pi\n\n[1] 45\n\n\n\n\\(\\theta=0^\\circ\\): same direction\n\\(\\theta=90^\\circ\\): orthogonal\n\\(\\theta=180^\\circ\\): opposite directions"
   },
   {
     "objectID": "slides/06-mat.html#orthogonality",
     "href": "slides/06-mat.html#orthogonality",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Orthogonality",
     "text": "Orthogonality\nTwo vectors are orthogonal if\n\\[\n{\\bf x}'{\\bf y}=0.\n\\]\n\nx &lt;- c(1, 2)\ny &lt;- c(2, -1)\n\nt(x) %*% y\n\n     [,1]\n[1,]    0\n\n\n\nIn least squares,\n\\[\n{\\bf X}'{\\bf e}={\\bf 0}.\n\\]\nThe residual vector is orthogonal to every column of \\({\\bf X}\\)."
   },
   {
     "objectID": "slides/06-mat.html#projection-onto-a-vector",
     "href": "slides/06-mat.html#projection-onto-a-vector",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Projection onto a Vector",
     "text": "Projection onto a Vector\nThe projection of \\({\\bf y}\\) onto a nonzero vector \\({\\bf x}\\) is\n\\[\n\\operatorname{proj}_{\\bf x}({\\bf y})\n=\n\\frac{{\\bf x}'{\\bf y}}{{\\bf x}'{\\bf x}}{\\bf x}.\n\\]\n\nx &lt;- c(1, 2)\ny &lt;- c(4, 1)\n\nproj_y &lt;- as.numeric(t(x) %*% y / as.numeric(t(x) %*% x)) * x\nproj_y\n\n[1] 1.2 2.4\n\n# residual from projection\ne &lt;- y - proj_y\nt(x) %*% e\n\n     [,1]\n[1,]    0\n\n\n\n\nThe residual from the projection is orthogonal to x.\nThis is the one-dimensional version of least squares projection onto the column space of X."
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-symmetric-and-identity",
     "href": "slides/06-mat.html#special-matrices-symmetric-and-identity",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Special Matrices: Symmetric and Identity",
     "text": "Special Matrices: Symmetric and Identity\n\nA square matrix \\((m = n)\\) \\({\\bf A}_{n \\times n}\\) is a symmetric matrix if \\({\\bf A = A}'\\).\n\n\\[{\\bf A} = \\begin{bmatrix} 1 & 2  \\\\ 2 & 5 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 2 \\\\ 2 & 5 \\end{bmatrix}\\]\n\nA square matrix \\({\\bf I}_{n \\times n}\\) whose diagonal elements are 1’s and off diagonal elements are 0’s is called an identity matrix of order \\(n\\). \\[{\\bf I} = \\begin{bmatrix} 1 & 0 & \\cdots & 0 \\\\ 0 & 1 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & 1 \\end{bmatrix}\\]\n\n\n\nIf the inverse exists, it is unique."
   },
   {
     "objectID": "slides/06-mat.html#identity-and-diagonal-matrix",
     "href": "slides/06-mat.html#identity-and-diagonal-matrix",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Identity and Diagonal Matrix",
     "text": "Identity and Diagonal Matrix\n\n\n\n## Identity matrix\nI &lt;- diag(5)\nI\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    0    0    0    0\n[2,]    0    1    0    0    0\n[3,]    0    0    1    0    0\n[4,]    0    0    0    1    0\n[5,]    0    0    0    0    1\n\n## A diagonal matrix\ndiag(c(4, 2, 5))\n\n     [,1] [,2] [,3]\n[1,]    4    0    0\n[2,]    0    2    0\n[3,]    0    0    5\n\n\n\n\n## Extract diagonal elements\nD &lt;- matrix(1:4, 2, 2)\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\ndiag(D)\n\n[1] 1 4"
   },
   {
     "objectID": "slides/06-mat.html#inverse-matrix",
     "href": "slides/06-mat.html#inverse-matrix",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Inverse Matrix",
     "text": "Inverse Matrix\n\nThe inverse of a square matrix \\({\\bf A}\\), denoted by \\({\\bf A}^{-1}\\), is a square matrix such that \\[{\\bf A}^{-1}{\\bf A} = {\\bf A}{\\bf A}^{-1} = {\\bf I}\\]\n\n\n\n\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nD_inv &lt;- solve(D)\nD_inv\n\n     [,1] [,2]\n[1,]   -2  1.5\n[2,]    1 -0.5\n\n\n\n\nD_inv %*% D\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1\n\nD %*% D_inv\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1"
   },
   {
     "objectID": "slides/06-mat.html#inverse-vs.-solving-a-system-in-r",
     "href": "slides/06-mat.html#inverse-vs.-solving-a-system-in-r",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Inverse vs. Solving a System in R",
     "text": "Inverse vs. Solving a System in R\nMathematically, \\({\\bf x}={\\bf A}^{-1}{\\bf b}\\) solves \\({\\bf Ax}={\\bf b}.\\)\nIn computation, it is usually better to solve the system directly:\n\nA &lt;- matrix(c(4, 1,\n              1, 3), nrow = 2, byrow = TRUE)\nb &lt;- c(1, 2)\n\n# preferred\nsolve(A, b)\n\n[1] 0.091 0.636\n\n# mathematically equivalent\nsolve(A) %*% b\n\n      [,1]\n[1,] 0.091\n[2,] 0.636\n\n\n\nUse solve(A, b) when you want the solution to \\({\\bf Ax}={\\bf b}\\).\nAvoid forming an inverse explicitly unless you actually need the inverse matrix."
   },
   {
     "objectID": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
     "href": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Idempotent, Orthogonal, Positive Definite",
     "text": "Idempotent, Orthogonal, Positive Definite\n\nA square matrix \\({\\bf A}\\) is idempotent if \\({\\bf A}{\\bf A} = {\\bf A}\\).\nA square matrix \\({\\bf A}\\) is orthogonal if \\({\\bf A}^{-1} = {\\bf A}'\\) and hence \\({\\bf A}'{\\bf A} = {\\bf I}\\).\n\n\n\nLet \\({\\bf A}\\) be a \\(n \\times n\\) matrix and \\({\\bf y}\\) be a \\(n \\times 1\\) vector. \\[{\\bf y}'{\\bf A} {\\bf y} = \\sum_{i=1}^n\\sum_{j=1}^na_{ij}y_iy_j\\] is called a quadratic form of \\({\\bf y}\\).\n\n\n\n\nA symmetric matrix \\({\\bf A}\\) is said to be \n\npositive definite if \\({\\bf y}'{\\bf A} {\\bf y} &gt; 0\\) for all \\({\\bf y \\ne 0}\\).\npositive semi-definite if \\({\\bf y}'{\\bf A} {\\bf y} \\ge 0\\) for all \\({\\bf y \\ne 0}\\) and \\({\\bf y}'{\\bf A} {\\bf y} = 0\\) for some \\({\\bf y \\ne 0}\\).\n\nIf \\({\\bf A}\\) is symmetric and idempotent, then \\({\\bf A}\\) is positive semi-definite.\n\n\n\nHow about negative definite"
   },
   {
     "objectID": "slides/06-mat.html#positive-definite-matrices-and-regression",
     "href": "slides/06-mat.html#positive-definite-matrices-and-regression",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Positive Definite Matrices and Regression",
     "text": "Positive Definite Matrices and Regression\nIf \\({\\bf X}\\) has full column rank, then for every nonzero vector \\({\\bf a}\\),\n\\[\n{\\bf a}'{\\bf X}'{\\bf X}{\\bf a}\n=\n({\\bf Xa})'({\\bf Xa})\n=\n\\|{\\bf Xa}\\|^2\n&gt;0.\n\\]\nTherefore, \\(\\boxed{{\\bf X}'{\\bf X}\\text{ is positive definite}}\\) and hence invertible.\n\nIf the columns of \\({\\bf X}\\) are linearly dependent, there is a nonzero \\({\\bf a}\\) with \\({\\bf Xa}={\\bf 0},\\)\nso\n\\[\n{\\bf a}'{\\bf X}'{\\bf X}{\\bf a}=0,\n\\]\nand \\({\\bf X}'{\\bf X}\\) is not positive definite.\n\nThis is another way to understand why perfect multicollinearity prevents unique least-squares coefficients."
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
     "href": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Special Matrices: Idempotent, Orthogonal",
     "text": "Special Matrices: Idempotent, Orthogonal\n\n\n\n## Idempotent and symmetric matrix\n(A &lt;- matrix(1, 2, 2)/2)\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\nA %*% A\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\n## positive semi-definite\ny &lt;- c(-2, 5); t(y) %*% A %*% y\n\n     [,1]\n[1,]  4.5\n\nz &lt;- c(-1, 1); t(z) %*% A %*% z\n\n     [,1]\n[1,]    0\n\n\n\n\n\n## Orthogonal matrix\n(E &lt;- matrix(c(0, 1, 0, -1, 0, 0, 0, 0, -1), \n             nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    0   -1    0\n[2,]    1    0    0\n[3,]    0    0   -1\n\nsolve(E)\n\n     [,1] [,2] [,3]\n[1,]    0    1    0\n[2,]   -1    0    0\n[3,]    0    0   -1\n\nt(E) %*% E\n\n     [,1] [,2] [,3]\n[1,]    1    0    0\n[2,]    0    1    0\n[3,]    0    0    1"
   },
   {
     "objectID": "slides/06-mat.html#trace",
     "href": "slides/06-mat.html#trace",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Trace",
     "text": "Trace\n\nThe trace of \\({\\bf A}_{n \\times n}\\), denoted by \\(\\text{tr}({\\bf A})\\), is defined as \\[\\text{tr}({\\bf A}) = a_{11} + a_{22} + \\dots + a_{nn}\\]\n\\(\\text{tr}({\\bf A}{\\bf B}) = \\text{tr}({\\bf B}{\\bf A})\\)\n\n\n(G &lt;- matrix(1:6, 3, 2)); (H &lt;- matrix(6:1, 2, 3));\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n\n\n     [,1] [,2] [,3]\n[1,]    6    4    2\n[2,]    5    3    1\n\nsum(diag(G%*%H)); sum(diag(H%*%G))\n\n[1] 61\n\n\n[1] 61"
   },
   {
     "objectID": "slides/06-mat.html#useful-properties-of-the-trace",
     "href": "slides/06-mat.html#useful-properties-of-the-trace",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Useful Properties of the Trace",
     "text": "Useful Properties of the Trace\nFor conformable matrices,\n\\[\n\\operatorname{tr}({\\bf A}+{\\bf B})\n=\n\\operatorname{tr}({\\bf A})\n+\n\\operatorname{tr}({\\bf B}),\n\\]\n\\[\n\\operatorname{tr}(c{\\bf A})\n=\nc\\,\\operatorname{tr}({\\bf A}),\n\\]\nand\n\\[\n\\boxed{\n\\operatorname{tr}({\\bf AB})\n=\n\\operatorname{tr}({\\bf BA})\n}.\n\\]\nFor a symmetric matrix,\n\\[\n\\operatorname{tr}({\\bf A})=\\sum_j \\lambda_j,\\quad \\textrm{and}\\quad \\operatorname{det}({\\bf A})=\\prod_j \\lambda_j.\n\\]\nwhere \\(\\lambda_j\\)’s are eigenvalues of \\({\\bf A}.\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\nFor a square matrix \\({\\bf A}\\), if we can find a scalar \\(\\lambda\\) and a non-zero vector \\({\\bf x}\\) such that \\[{\\bf Ax} = \\lambda {\\bf x},\\]\n\n\\(\\lambda\\) is an eigenvalue of \\({\\bf A}\\)\n\\({\\bf x}\\) is a corresponding eigenvector of \\({\\bf A}\\).\n\nA general \\(n\\times n\\) matrix has \\(n\\) eigenvalues over the complex numbers when counted with multiplicity, but it may not have \\(n\\) linearly independent eigenvectors.\nA real symmetric matrix has \\(n\\) real eigenvalues and an orthonormal basis of eigenvectors."
   },
   {
     "objectID": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Geometric Meaning of Eigenvalues and Eigenvectors",
     "text": "Geometric Meaning of Eigenvalues and Eigenvectors\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 14"
   },
   {
     "objectID": "slides/06-mat.html#eigen-decomposition",
     "href": "slides/06-mat.html#eigen-decomposition",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigen-decomposition",
     "text": "Eigen-decomposition\n\nEigen-decomposition: Any symmetric matrix \\({\\bf A}_{n \\times n}\\) can be decomposed as \\[{\\bf A} = {\\bf V\\boldsymbol \\Lambda V'}\\]\n\\(\\boldsymbol \\Lambda\\) is a \\(n \\times n\\) diagnonal matrix whose elements are eigenvalues \\(\\lambda_j\\) of \\({\\bf A}\\) \\[\\boldsymbol \\Lambda= \\begin{bmatrix} \\lambda_1 & 0 & \\cdots & 0 \\\\ 0 & \\lambda_2 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & \\lambda_n \\end{bmatrix}\\]\n\\({\\bf V} = [{\\bf v}_1 \\quad {\\bf v}_2 \\quad \\dots \\quad {\\bf v}_n]\\) is a \\(n \\times n\\) orthogonal matrix whose columns are the eigenvectors of \\({\\bf A}.\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\nLet \\({\\bf A} \\in \\mathbb{R}^{n \\times n}\\) be a square matrix with eigenvalues \\(\\lambda_1, \\ldots, \\lambda_n\\).\n\n\\(\\operatorname{tr}({\\bf A}) = \\sum_{i=1}^n \\lambda_i\\)\n\\(\\det({\\bf A}) = \\prod_{i=1}^n \\lambda_i\\)\nIf \\({\\bf A}\\) is symmetric, \\(\\operatorname{rank}({\\bf A}) = \\#\\{i : \\lambda_i \\neq 0\\}\\)\nIf \\({\\bf A}\\) is symmetric, all \\(\\lambda_i \\in \\mathbb{R}\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\n\n\n(A &lt;- matrix(c(5, 1, 1, 2), 2, 2))\n\n     [,1] [,2]\n[1,]    5    1\n[2,]    1    2\n\neigen_decomp &lt;- eigen(A)\n(lam &lt;- eigen_decomp$values)\n\n[1] 5.3 1.7\n\n(V &lt;- eigen_decomp$vectors)\n\n      [,1]  [,2]\n[1,] -0.96  0.29\n[2,] -0.29 -0.96\n\n\n\n\nV %*% diag(lam) %*% t(V)\n\n     [,1] [,2]\n[1,]    5    1\n[2,]    1    2\n\nsum(diag(A))\n\n[1] 7\n\nsum(lam)\n\n[1] 7\n\ndet(A)\n\n[1] 9\n\nprod(lam)\n\n[1] 9"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-positive-definiteness",
     "href": "slides/06-mat.html#eigenvalues-and-positive-definiteness",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues and Positive Definiteness",
     "text": "Eigenvalues and Positive Definiteness\nFor a real symmetric matrix \\({\\bf A}\\):\n\n\\({\\bf A}\\) is positive definite iff all eigenvalues are positive.\n\\({\\bf A}\\) is positive semi-definite iff all eigenvalues are nonnegative.\n\\({\\bf A}\\) is singular iff at least one eigenvalue is zero.\n\n\nFor regression, small eigenvalues of \\({\\bf X}'{\\bf X}\\) indicate nearly dependent predictor directions and therefore potential multicollinearity."
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-of-bf-xbf-x",
     "href": "slides/06-mat.html#eigenvalues-of-bf-xbf-x",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Eigenvalues of \\({\\bf X}'{\\bf X}\\)",
     "text": "Eigenvalues of \\({\\bf X}'{\\bf X}\\)\n\nset.seed(123)\n\nx1 &lt;- rnorm(100)\nx2 &lt;- x1 + rnorm(100, sd = 0.05)\n\nX_col &lt;- cbind(1, x1, x2)\n\neigen(t(X_col) %*% X_col)$values\n\n[1] 168.45  97.75   0.12\n\n\nCompare with less-correlated predictors:\n\nx3 &lt;- rnorm(100)\nX_ok &lt;- cbind(1, x1, x3)\n\neigen(t(X_ok) %*% X_ok)$values\n\n[1] 108  96  69\n\n\n\n\nWhen two columns are almost linearly dependent, one direction in X’X has very little variation.\nThat appears as a small eigenvalue.\nWe will revisit this idea when we discuss multicollinearity."
   },
   {
     "objectID": "slides/06-mat.html#why-matrix-decompositions",
     "href": "slides/06-mat.html#why-matrix-decompositions",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Why Matrix Decompositions?",
     "text": "Why Matrix Decompositions?\nA matrix decomposition writes a matrix as a product of simpler matrices.\nThey are useful for\n\nsolving systems of equations,\nobtaining numerically stable computations,\nunderstanding the structure and rank of a matrix,\nobtaining low-rank approximations.\n\nWe will briefly connect four decompositions to regression:\n\neigenvalue decomposition,\nCholesky decomposition,\nQR decomposition,\nsingular value decomposition.\n\n\n\nThe goal is not to derive every algorithm.\nStudents should recognize what each decomposition does and why regression software uses such decompositions."
   },
   {
     "objectID": "slides/06-mat.html#cholesky-decomposition",
     "href": "slides/06-mat.html#cholesky-decomposition",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Cholesky Decomposition",
     "text": "Cholesky Decomposition\nFor a symmetric positive-definite matrix \\({\\bf A}\\),\n\\[\n\\boxed{\n{\\bf A}={\\bf L}{\\bf L}'\n}\n\\]\nwhere \\({\\bf L}\\) is lower triangular.\nBecause \\({\\bf X}'{\\bf X}\\) is positive definite when \\({\\bf X}\\) has full column rank, Cholesky decomposition can be used to solve systems involving \\({\\bf X}'{\\bf X}\\).\n\nA_chol &lt;- matrix(c(4, 2,\n                   2, 3), nrow = 2, byrow = TRUE)\n\nR &lt;- chol(A_chol)\nR\n\n     [,1] [,2]\n[1,]    2  1.0\n[2,]    0  1.4\n\nt(R) %*% R\n\n     [,1] [,2]\n[1,]    4    2\n[2,]    2    3\n\n\n\n\nR returns the upper-triangular factor R such that A = R’R.\nCholesky is useful for positive-definite systems, including covariance matrices."
   },
   {
     "objectID": "slides/06-mat.html#qr-decomposition",
     "href": "slides/06-mat.html#qr-decomposition",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "QR Decomposition",
     "text": "QR Decomposition\nFor a tall matrix \\({\\bf X}\\) with \\(n\\ge p\\), \\(\\boxed{{\\bf X}={\\bf Q}{\\bf R}}\\), where\n\n\\({\\bf Q}'{\\bf Q}={\\bf I}\\), so the columns of \\({\\bf Q}\\) are orthonormal;\n\\({\\bf R}\\) is upper triangular.\n\n\nX_qr &lt;- matrix(c(1, 1,\n                 1, 2,\n                 1, 3,\n                 1, 4), nrow = 4, byrow = TRUE)\nqrX &lt;- qr(X_qr); Q &lt;- qr.Q(qrX); R &lt;- qr.R(qrX)\nQ %*% R\n\n     [,1] [,2]\n[1,]    1    1\n[2,]    1    2\n[3,]    1    3\n[4,]    1    4\n\n\n\nQR decomposition is especially important for least squares because it lets us solve the regression problem without explicitly forming \\(({\\bf X}'{\\bf X})^{-1}\\)."
   },
   {
     "objectID": "slides/06-mat.html#least-squares-using-qr",
     "href": "slides/06-mat.html#least-squares-using-qr",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Least Squares Using QR",
     "text": "Least Squares Using QR\nSuppose \\({\\bf X}={\\bf Q}{\\bf R}.\\) Then the least-squares problem \\[\\min_{\\bf b}\\|{\\bf y}-{\\bf Xb}\\|^2\\]\nbecomes \\[\\min_{\\bf b}\\|{\\bf y}-{\\bf QRb}\\|^2.\\]\nUsing the orthogonality of \\({\\bf Q}\\) leads to the triangular system \\(\\boxed{{\\bf Rb}={\\bf Q}'{\\bf y}}.\\)\n\ny_qr &lt;- c(2, 3, 5, 8)\n(b_qr &lt;- backsolve(R, t(Q) %*% y_qr))\n\n     [,1]\n[1,] -0.5\n[2,]  2.0\n\ncoef(lm(y_qr ~ X_qr[, 2]))\n\n(Intercept)   X_qr[, 2] \n       -0.5         2.0 \n\n\n\n\nThis is computationally preferable to explicitly computing (X’X)^(-1).\nThe details of the numerical algorithm are not needed here; the conceptual point is that orthogonalization simplifies least squares."
   },
   {
     "objectID": "slides/06-mat.html#singular-value-decomposition-svd",
     "href": "slides/06-mat.html#singular-value-decomposition-svd",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Singular Value Decomposition (SVD)",
     "text": "Singular Value Decomposition (SVD)\nEvery \\(n\\times p\\) matrix \\({\\bf X}\\) can be written as\n\\[\n\\boxed{\n{\\bf X}={\\bf U}{\\bf D}{\\bf V}'\n}\n\\]\nwhere\n\n\\({\\bf U}\\) has orthonormal columns,\n\\({\\bf V}\\) has orthonormal columns,\n\\({\\bf D}\\) is diagonal with nonnegative singular values\n\n\\[\nd_1\\ge d_2\\ge\\cdots\\ge0.\n\\]\nUnlike eigendecomposition, the SVD applies to rectangular matrices."
   },
   {
     "objectID": "slides/06-mat.html#svd-in-r",
     "href": "slides/06-mat.html#svd-in-r",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "SVD in R",
     "text": "SVD in R\n\nX_demo &lt;- matrix(c(1, 2,\n                   2, 1,\n                   3, 4), nrow = 3, byrow = TRUE)\nsv &lt;- svd(X_demo)\nsv$d; sv$u; sv$v\n\n[1] 5.8 1.1\n\n\n      [,1]  [,2]\n[1,] -0.38  0.45\n[2,] -0.35 -0.88\n[3,] -0.86  0.16\n\n\n      [,1]  [,2]\n[1,] -0.63 -0.78\n[2,] -0.78  0.63\n\n\nReconstruct \\({\\bf X}\\):\n\nsv$u %*% diag(sv$d) %*% t(sv$v)\n\n     [,1] [,2]\n[1,]    1    2\n[2,]    2    1\n[3,]    3    4"
   },
   {
     "objectID": "slides/06-mat.html#rank-and-singular-values",
     "href": "slides/06-mat.html#rank-and-singular-values",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Rank and Singular Values",
     "text": "Rank and Singular Values\nThe rank of a matrix equals the number of nonzero singular values:\n\\[\n\\operatorname{rank}({\\bf X})\n=\n\\#\\{j:d_j&gt;0\\}.\n\\]\nIf a singular value is very small rather than exactly zero, the matrix is nearly rank deficient.\n\nRegression connection:\n\nzero singular value \\(\\rightarrow\\) perfect multicollinearity;\nvery small singular value \\(\\rightarrow\\) near multicollinearity and unstable coefficient estimates."
   },
   {
     "objectID": "slides/06-mat.html#connecting-svd-and-bf-xbf-x",
     "href": "slides/06-mat.html#connecting-svd-and-bf-xbf-x",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Connecting SVD and \\({\\bf X}'{\\bf X}\\)",
     "text": "Connecting SVD and \\({\\bf X}'{\\bf X}\\)\nIf \\({\\bf X}={\\bf U}{\\bf D}{\\bf V}'\\), then \\[{\\bf X}'{\\bf X}={\\bf V}{\\bf D}^2{\\bf V}'.\\]\nTherefore, \\[\\lambda_j({\\bf X}'{\\bf X})=d_j^2.\\]\n\nThe eigenvalues of \\({\\bf X}'{\\bf X}\\) are the squared singular values of \\({\\bf X}\\).\n\nThis connects\n\nrank,\nmulticollinearity,\neigendecomposition,\nSVD,\nand least squares."
   },
   {
     "objectID": "slides/06-mat.html#why-did-we-review-all-this",
     "href": "slides/06-mat.html#why-did-we-review-all-this",
-    "title": "Matrix Algebra 👨‍💻",
+    "title": "Matrix Algebra 👩‍💻",
     "section": "Why Did We Review All This?",
     "text": "Why Did We Review All This?\n\n\n\n\n\n\n\nLinear algebra idea\nRegression role\n\n\n\n\nLinear combination\n\\({\\bf Xb}\\) combines columns of \\({\\bf X}\\)\n\n\nColumn space\ncontains all possible fitted-value vectors\n\n\nRank\ndetermines whether coefficients are uniquely estimable\n\n\nInner product\ndefines orthogonality\n\n\nProjection\n\\(\\hat{\\bf y}\\) is projection of \\({\\bf y}\\) onto \\(\\operatorname{Col}({\\bf X})\\)\n\n\nInverse / solve\nsolves the normal equations\n\n\nPositive definiteness\nguarantees invertibility of \\({\\bf X}'{\\bf X}\\)\n\n\nEigenvalues / SVD\ndiagnose dependent or nearly dependent directions\n\n\n\n\nThe central geometric idea:\n\\[\n\\boxed{\n\\hat{\\bf y}\\in\\operatorname{Col}({\\bf X}),\n\\qquad\n{\\bf e}\\perp\\operatorname{Col}({\\bf X})\n}\n\\]"
   },
@@ -4083,7 +4083,7 @@
     "href": "index.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review [🎥 Lecture 11]\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form [🎥 Lecture 12]\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review 🎥 Lecture 11\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form [🎥 Lecture 12]\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break",
     "crumbs": [
       "Course information",
       "Schedule"
@@ -4238,7 +4238,7 @@
     "href": "plan.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review [🎥 Lecture 11]\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form [🎥 Lecture 12]\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity [🎥 Lecture 16]\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit [🎥 Lecture 17]\n\n\n🔬Lab 3\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference [🎥 Lecture 18]\n🖥️11-bootstrap\n🔬Lab 4\n\n\n\n\nThu, Nov 5\nPolynomial Regression [🎥 Lecture 19]\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression [🎥 Lecture 20]\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables [🎥 Lecture 21]\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables [🎥 Lecture 22]\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity [🎥 Lecture 23]\n🖥️14-collinearity\n🔬Lab 5\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection [🎥 Lecture 24]\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection [🎥 Lecture 25]\n\n\n🔬Lab 6  📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression [🎥 Lecture 26]\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression [🎥 Lecture 27]\n\n\n🔬Lab 7 ✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review 🎥 Lecture 11\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form [🎥 Lecture 12]\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity [🎥 Lecture 16]\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit [🎥 Lecture 17]\n\n\n🔬Lab 3\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference [🎥 Lecture 18]\n🖥️11-bootstrap\n🔬Lab 4\n\n\n\n\nThu, Nov 5\nPolynomial Regression [🎥 Lecture 19]\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression [🎥 Lecture 20]\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables [🎥 Lecture 21]\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables [🎥 Lecture 22]\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity [🎥 Lecture 23]\n🖥️14-collinearity\n🔬Lab 5\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection [🎥 Lecture 24]\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection [🎥 Lecture 25]\n\n\n🔬Lab 6  📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression [🎥 Lecture 26]\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression [🎥 Lecture 27]\n\n\n🔬Lab 7 ✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
   },
   {
     "objectID": "course-overview.html",
