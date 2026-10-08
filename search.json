@@ -15,7 +15,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site!"
+    "text": "About this site"
   },
   {
     "objectID": "hw/hw-1.html",
@@ -504,119 +504,119 @@
   {
     "objectID": "slides/10-diag-linearity.html#assumptions-of-linear-regression",
     "href": "slides/10-diag-linearity.html#assumptions-of-linear-regression",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Assumptions of Linear Regression",
     "text": "Assumptions of Linear Regression\n\\(Y_i= \\beta_0 + \\beta_1X_{i1} + \\beta_2X_{i2} + \\dots + \\beta_kX_{ik} + \\epsilon_i\\)\n\n\n\n\\(E(Y \\mid X)\\) is linear in the regressors.\n\\(\\small E(\\epsilon_i) = 0\\)\n\\(\\small \\mathrm{Var}(\\epsilon_i) = \\sigma^2\\)\n\\(\\small \\mathrm{Cov}(\\epsilon_i, \\epsilon_j) = 0\\) for all \\(i \\ne j\\).\n\\(\\small \\epsilon_i \\sim N(0, \\sigma^2)\\) for exact \\(t\\)- and \\(F\\)-inference.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssuming \\(E(\\epsilon) = 0\\) implies that the regression surface captures the dependency of the conditional mean of \\(y\\) on the \\(x\\)s.\nViolating linearity implies that the model fails to represent the relationship between the mean response and the regressors. (Lack of fit)"
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-cia-example",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-cia-example",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Detecting Nonlinearity (CIA Example)",
     "text": "Detecting Nonlinearity (CIA Example)\n\nScatterplot \\(y\\) against each \\(x\\) can be misleading! It shows the marginal relationship between \\(y\\) and each \\(x\\), without controlling the level of other regressors."
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-residual-plots",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-residual-plots",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Detecting Nonlinearity: Residual Plots",
     "text": "Detecting Nonlinearity: Residual Plots\n\nCare about the partial relationship between \\(y\\) and each \\(x\\) with impact of other \\(x\\)s controlled.\nResidual-based plots are more relevant in detecting the departure of linearity.\n\n\n\n\n\nResidual plots cannot distinguish between monotone and non-monotone non-linearity.\nThe distinction:\n\nMonotone: just transform \\(x\\) to \\(x^2\\)\nNon-monotone: need quadratic form\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe OLS ensures that the residuals and fitted values are uncorrelated."
   },
   {
     "objectID": "slides/10-diag-linearity.html#detecting-nonlinearity-partial-residual-plots",
     "href": "slides/10-diag-linearity.html#detecting-nonlinearity-partial-residual-plots",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Detecting Nonlinearity: Partial Residual Plots",
     "text": "Detecting Nonlinearity: Partial Residual Plots\n\nPartial residual plots (Component-plus-Residual Plot) are for diagnosing nonlinearity.\nThe partial residuals for \\(x_j\\): \\[e_i^{(j)} = b_jx_{ij} + e_i\\]\n\n\\(b_j\\) is the coefficient of \\(x_j\\) in the full multiple regression\n\\(e_i\\)s are the residuals from the full multiple regression\n\nPartial residual plot \\(e_i^{(j)}\\) vs. \\(x_{ij}\\) for \\(x_j\\)\n\n\n\nThe nonlinear pattern can be highlighted or emphasized\nAdded-variable plots, for detecting influential data, are partial plots, but they don’t work well for detecting nonlinearity because they are biased towards linearity\nCook (1993): if the regressions of x_j on the other xs are approximately linear, then the regression function in the crPlot provides a visualization of transformation.\nIf the regressions among the predictors are strongly nonlinear and not well described by polynomials, then cvPlot may not be effective in recovering nonlinear partial relationships. =&gt; Use CERES plots (ceresPlots())\nAnd cvPlots can appear nonlinear even when the true partial regression is linear =&gt; called leakage."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-partial-residual-plots",
     "href": "slides/10-diag-linearity.html#r-lab-partial-residual-plots",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Partial Residual Plots",
     "text": "R Lab Partial Residual Plots\n\nlogciafit &lt;- lm(log(infant) ~ gdp + health + gini, data = CIA)\n# Component-plus-Residual Plot \ncar::crPlots(logciafit, ylab = \"partial residual\", layout = c(1, 3), grid = FALSE, main = \"\")"
   },
   {
     "objectID": "slides/10-diag-linearity.html#transformation-for-linearity",
     "href": "slides/10-diag-linearity.html#transformation-for-linearity",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Transformation for Linearity",
     "text": "Transformation for Linearity\n\nMonotone curvature: consider a power transformation of \\(x\\) (and, when justified, of \\(y\\)).\nCurvature that changes direction: consider polynomial terms, e.g., \\(y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\epsilon\\).\nMore complex structure: polynomial regression (next week) or regression splines (MSSC 6250).\n\n\n\n\nnot simple: direction of curvature changes\nTransform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s.\nTransforming \\(y\\) changes the shape of its relationship to all of the \\(x\\)s, and also changes the shape of the residual distribution."
   },
   {
     "objectID": "slides/10-diag-linearity.html#bulging-rule-for-simple-monotone-nonlinearity",
     "href": "slides/10-diag-linearity.html#bulging-rule-for-simple-monotone-nonlinearity",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Bulging Rule for Simple Monotone Nonlinearity",
     "text": "Bulging Rule for Simple Monotone Nonlinearity\n\n\n\n\n\nThe bulge points\nTransform\nLadder of powers/roots\n\n\n\n\nleft\n\\(x\\)\ndown, e.g., \\(\\log(x)\\)\n\n\nright\n\\(x\\)\nup\n\n\ndown\n\\(y\\)\ndown\n\n\nup\n\\(y\\)\nup\n\n\n\n\n\n\n\n\n\nPrefer to transform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMosteller and Tukey’s (1977) - Transform an \\(x\\) rather than \\(y\\), unless we see a common pattern of nonlinearity in the partial relationships of \\(y\\) to many \\(x\\)s. - Transforming \\(y\\) changes the shape of its relationship to all of the \\(x\\)s, and also changes the shape of the residual distribution."
   },
   {
     "objectID": "slides/10-diag-linearity.html#transformation-on-xs",
     "href": "slides/10-diag-linearity.html#transformation-on-xs",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Transformation on \\(x\\)s",
     "text": "Transformation on \\(x\\)s\n\ngdp to log(gdp)\nhealth to health + health^2"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-partial-residual-plots-1",
     "href": "slides/10-diag-linearity.html#r-lab-partial-residual-plots-1",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Partial Residual Plots",
     "text": "R Lab Partial Residual Plots\n\n\nlogciafit2 &lt;- update(logciafit, . ~ log(gdp) + poly(health, degree = 2, raw = TRUE) + gini)\ncar::crPlots(logciafit2, ylab = \"partial residual\", layout = c(1, 3), grid = FALSE, main = \"\") \n\n\n\n\n\n\n\n\n\n\nif true, use raw and not orthogonal polynomials. - If the partial relationship of log(infant) to health expenditure is quadratic, its partial residual plot should be linear."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-improving-model-performance",
     "href": "slides/10-diag-linearity.html#r-lab-improving-model-performance",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Improving Model Performance",
     "text": "R Lab Improving Model Performance\n\ncar::brief(logciafit, digits = 2)\n\n           (Intercept)     gdp health   gini\nEstimate          3.02 -0.0439 -0.055 0.0216\nStd. Error        0.29  0.0037  0.022 0.0061\n\n Residual SD = 0.59 on 130 df, R-squared = 0.71 \n\ncar::brief(logciafit2, digits = 2)\n\n           (Intercept) log(gdp) poly(health, degree = 2, raw = TRUE)1\nEstimate          4.65   -0.720                                -0.221\nStd. Error        0.32    0.038                                 0.058\n           poly(health, degree = 2, raw = TRUE)2   gini\nEstimate                                  0.0096 0.0191\nStd. Error                                0.0034 0.0044\n\n Residual SD = 0.44 on 129 df, R-squared = 0.84"
   },
   {
     "objectID": "slides/10-diag-linearity.html#deleted-residuals-and-prediction-diagnostics",
     "href": "slides/10-diag-linearity.html#deleted-residuals-and-prediction-diagnostics",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Deleted Residuals and Prediction Diagnostics",
     "text": "Deleted Residuals and Prediction Diagnostics\n\nThe ordinary residual is \\[e_i = y_i - \\hat y_i,\\] where observation \\(i\\) was used to fit the model.\nTo assess prediction for observation \\(i\\), delete that observation, refit the model, and compute \\[e_{(i)} = y_i - \\hat y_{(i)}.\\]\n\\(e_{(i)}\\) is called a deleted residual or PRESS residual.\n\n\nFortunately, we do not need to refit the model \\(n\\) times: \\[\n\\boxed{e_{(i)} = \\frac{e_i}{1-h_{ii}}},\n\\] where \\(h_{ii}\\) is the leverage of observation \\(i\\).\n\nDeleted residuals measure leave-one-out prediction error rather than in-sample fit."
   },
   {
     "objectID": "slides/10-diag-linearity.html#press-and-predicted-r2",
     "href": "slides/10-diag-linearity.html#press-and-predicted-r2",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "PRESS and Predicted \\(R^2\\)",
     "text": "PRESS and Predicted \\(R^2\\)\nThe PRESS statistic summarizes the deleted residuals:\n\\[\n\\boxed{\n\\operatorname{PRESS}\n= \\sum_{i=1}^n e_{(i)}^2\n= \\sum_{i=1}^n \\left(\\frac{e_i}{1-h_{ii}}\\right)^2\n}\n\\]\nA convenient scale-free summary is the predicted \\(R^2\\):\n\\[\n\\boxed{\nR^2_{\\mathrm{pred}}\n= 1-\\frac{\\operatorname{PRESS}}{SS_T},\n\\qquad\nSS_T=\\sum_{i=1}^n (y_i-\\bar y)^2\n}\n\\]\n\nSmaller PRESS and larger \\(R^2_{\\mathrm{pred}}\\) indicate better leave-one-out predictive performance.\nFor ordinary least squares, PRESS is based on leave-one-out cross-validation (LOOCV).\nUnlike ordinary \\(R^2\\), \\(R^2_{\\mathrm{pred}}\\) evaluates how well the model predicts observations that were left out during fitting.\n\\(R^2_{\\mathrm{pred}}\\) can be negative when predictive performance is poor.\n\n\n\\(R^2\\): How well does the model explain the data used to fit it?\n\\(R^2_{\\mathrm{pred}}\\): How well does the model predict observations not used in fitting?"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-press-and-deleted-residuals",
     "href": "slides/10-diag-linearity.html#r-lab-press-and-deleted-residuals",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab PRESS and Deleted Residuals",
     "text": "R Lab PRESS and Deleted Residuals\n\n\n\npress &lt;- function(model) {\n  e &lt;- residuals(model)\n  h &lt;- hatvalues(model)\n  e_press &lt;- e / (1 - h)\n\n  PRESS &lt;- sum(e_press^2)\n  y &lt;- model.response(model.frame(model))\n  SST &lt;- sum((y - mean(y))^2)\n  R2_pred &lt;- 1 - PRESS / SST\n\n  c(PRESS = PRESS,\n    R2_pred = R2_pred,\n    RMSE_LOOCV = sqrt(mean(e_press^2)))\n}\n\nrbind(\n  Original = press(logciafit),\n  Corrected = press(logciafit2)\n)\n\n          PRESS R2_pred RMSE_LOOCV\nOriginal   50.8   0.677      0.616\nCorrected  26.4   0.832      0.443\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPRESS residuals are case-deletion prediction residuals, not merely another scaling of the ordinary residuals.\nLarge deleted residuals identify observations that are difficult for the model to predict when they are not used in fitting.\nPRESS can be used to compare candidate regression models on predictive performance.\nPredicted \\(R^2\\) puts PRESS on a familiar \\(R^2\\) scale: values near 1 indicate strong predictive performance, while negative values indicate that the leave-one-out predictions are worse than simply using \\(\\bar y\\).\nOrdinary \\(R^2\\), adjusted \\(R^2\\), and predicted \\(R^2\\) answer different questions and should not be expected to agree."
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-plotting-against-original-untransformed-x",
     "href": "slides/10-diag-linearity.html#r-lab-plotting-against-original-untransformed-x",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Plotting against Original Untransformed \\(x\\)",
     "text": "R Lab Plotting against Original Untransformed \\(x\\)\n\n\n\n\nCode\nlibrary(effects)\npar(mar = c(2, 2, 0, 0))\nplot(Effect(\"gdp\", logciafit2, residuals = TRUE), \n     lines = list(col = c(\"blue\", \"black\"), lty = 2), \n     axes = list(grid = TRUE), confint = FALSE, \n     partial.residuals = list(plot = TRUE, smooth.col = \"magenta\", \n                              lty = 1, \n                              span = 3/4), \n     xlab = \"GDP per Capita\", ylab = \"Partial Residual\", main = \"\", cex.lab = 2)\n\n\n\n\n\n\n\n\n\n\n\n\nCode\npar(mar = c(2, 2, 0, 0))\nplot(Effect(\"health\", logciafit2, residuals = TRUE), \n     lines = list(col = c(\"blue\", \"black\"), lty = 2), \n     axes = list(grid = TRUE), confint = FALSE, \n     partial.residuals = list(plot = TRUE, smooth.col = \"magenta\", \n                              lty = 1, \n                              span = 3/4),\n     xlab = \"Health Expenditures\", ylab = \"Partial Residual\", main = \"\", cex.lab = 2)\n\n\n\n\n\n\n\n\n\n\n\n\nplot(Effect(“gdp”, logciafit2, residuals = TRUE))\n\\(\\epsilon^{(1)}_i = f_1(x_{i1}) + e_i\\) either if the partial-regression function \\(f_1(x_1)\\) is linear after all or if the other \\(x\\)s are each linearly related to \\(x_1\\).\nIn practice, it’s only strongly nonlinearly related \\(x\\)s that seriously threaten the validity of component-plus-residuals plots.\nCorrelation between x1 and x2 can induce spurious nonlinearity in the CR plot for x1.\ntrying to correct nonlinearity for one x at a time, but in my experience, it’s rarely necessary to proceed sequentially."
   },
   {
     "objectID": "slides/10-diag-linearity.html#transforming-xs-analytically-box-and-tidwell-1962",
     "href": "slides/10-diag-linearity.html#transforming-xs-analytically-box-and-tidwell-1962",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Transforming \\(x\\)s Analytically: Box and Tidwell (1962)",
     "text": "Transforming \\(x\\)s Analytically: Box and Tidwell (1962)\n\nBox and Tidwell (1962) proposed a procedure for estimating \\(\\lambda_1, \\lambda_2, \\dots, \\lambda_k\\) in the model \\[y = \\beta_0 + \\beta_1x_1^{\\lambda_1} + \\cdots + \\beta_kx_k^{\\lambda_k}+ \\epsilon\\]\nAll \\(x_j\\)s are positive.\n\\(\\beta_0, \\beta_1, \\dots,  \\beta_k\\) are estimated after and conditional on the transformations.\n\\(x_j^{\\lambda_j} = \\log_e(x_j)\\) if \\(\\lambda_j = 0\\).\n\n\n\nIf some of the xs (for instance, dummy regressors) aren’t candidates for transformation, then these xs can simply enter the model linearly.\nall positive xs"
   },
   {
     "objectID": "slides/10-diag-linearity.html#r-lab-box-and-tidwell-1962",
     "href": "slides/10-diag-linearity.html#r-lab-box-and-tidwell-1962",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "R Lab Box and Tidwell (1962)",
     "text": "R Lab Box and Tidwell (1962)\nConsider the model \\[\\log(Infant) = \\beta_0 + \\beta_1 GDP^{\\lambda_1} + \\beta_2Gini^{\\lambda_2} + \\beta_3 Health + \\beta_4 Health ^ 2 + \\epsilon\\]\n\ncar::boxTidwell(log(infant) ~ gdp + gini, \n                other.x = ~poly(health, 2, raw = TRUE), data = CIA)\n\n...\n     MLE of lambda Score Statistic (t) Pr(&gt;|t|)    \ngdp            0.2                10.6   &lt;2e-16 ***\ngini          -0.5                -0.4      0.7    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n...\n\n\n\nThe point estimate of \\(\\lambda\\) is \\(\\hat{\\lambda}_1 = 0.2\\) and \\(\\hat{\\lambda}_2 = -0.5\\)\nThe test is for \\(H_0:\\) No transformation is needed \\((\\lambda = 1)\\).\n\nStrong evidence to transform \\(GDP\\)\nLittle evidence of the need to transform the Gini coefficient"
   },
   {
     "objectID": "slides/10-diag-linearity.html#other-methods-for-dealing-with-nonlinearity",
     "href": "slides/10-diag-linearity.html#other-methods-for-dealing-with-nonlinearity",
-    "title": "Regression Diagnostics - Linearity ⏯",
+    "title": "Regression Diagnostics - Linearity ▶️",
     "section": "Other Methods for Dealing with Nonlinearity",
     "text": "Other Methods for Dealing with Nonlinearity\n\nLack-of-fit test (LRA Sec 4.5, CMR Sec. 3.6): Need repeated observations\n\n\n\nTransform a nonlinear function into a linear one (LRA Sec 5.3)\n\n\nCan the nonlinear model \\(y = \\beta_0e^{\\beta_1x}\\epsilon\\) be transformed into a linear one (intrinsically linear)?\n\n\n\n\nPolynomial Regression, Regression Splines or other nonparametric regression (MSSC 6250)\n\n\n\n\nA (pure) nonlinear model may be needed if the model assumptions cannot be satisfied."
   },
@@ -660,14 +660,14 @@
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 1 2 1 3 2 1 3 0 4 1\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
+    "text": "R Lab dpqr Functions\nFor some distribution (dist),\n\nddist(x, ...): density value \\(f(x)\\) or probability value \\(P(X = x)\\).\npdist(q, ...): cdf \\(F(q) = P(X \\le q)\\).\nqdist(p, ...): quantile of probability \\(p\\).\nrdist(n, ...): generate \\(n\\) random numbers.\n\n\n\nIn practice, we are not gonna calculate those properties by hand. Instead, we use computing software.\nIn R we can use dpqr Functions to calculate probabilities or generate values from some distribution. Let’s see how.\n\n\n\n\n\n\n## 10 binomial variable values with m = 5\nrbinom(n = 10, size = 5, prob = 0.4)\n\n [1] 2 3 2 1 3 1 3 3 3 1\n\n## P(X = 3) of binom(5, 0.4)\ndbinom(x = 3, size = 5, prob = 0.4)\n\n[1] 0.23\n\n\n\n\n## P(X &lt;= 2) of binom(5, 0.4)\npbinom(q = 2, size = 5, prob = 0.4)\n\n[1] 0.683"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "href": "slides/03-prob-stat.html#r-lab-dpqr-functions-1",
     "title": "Probability and Statistics 🎲",
     "section": "R Lab dpqr Functions",
-    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1]  0.6660  0.0768  0.8112 -0.3381 -1.7452\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
+    "text": "R Lab dpqr Functions\n\n## the default mean = 0 and sd = 1 (standard normal)\nrnorm(5)\n\n[1]  0.779 -1.101  1.575  1.136 -0.177\n\n\n\n\n\\(100\\) random draws from \\(N(0, 1)\\)"
   },
   {
     "objectID": "slides/03-prob-stat.html#r-lab-dpqr-functions-2",
@@ -868,336 +868,336 @@
   {
     "objectID": "slides/05-mlr.html#why-multiple-regression",
     "href": "slides/05-mlr.html#why-multiple-regression",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Why Multiple Regression?",
     "text": "Why Multiple Regression?\n\nOur target response may be affected by several factors.\nTotal sales \\((Y)\\) and amount of money spent on advertising on YouTube (YT) \\((X_1)\\), Facebook (FB) \\((X_2)\\), Instagram (IG) \\((X_3)\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredict sales based on the three advertising expenditures and see which medium is more effective.\n\n\n\nThe first question you may ask is Why we want Multiple Regression?\nIn practice, we often have more than one predictor.\nHow amount of money spent on advertising on different media affect the total sales of some product, we may need more than one predictors.\nBecause usually company will spend money on several different media, not just one.\nData: total sales \\((Y)\\) and amount of money spent on advertising on TV \\((X_1)\\), YouTube \\((X_2)\\), and Instagram \\((X_3)\\).\nWe want to predict sales based on the three advertising expenditures and see which medium is more effective."
   },
   {
     "objectID": "slides/05-mlr.html#fit-separate-simple-linear-regression-models",
     "href": "slides/05-mlr.html#fit-separate-simple-linear-regression-models",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Fit Separate Simple Linear Regression Models",
     "text": "Fit Separate Simple Linear Regression Models\nFit three separate independent SLR models:\n\n\n❌ Fitting a separate SLR model for each predictor is not satisfactory.\n\n\nYou may wonder, how about we just fit three Separate Simple Linear Regression Models, one for each predictor.\nYes, we could do that. And if we do this, we’ll see that advertising on the 3 media is valuable because the more the money we put in, the higher sales of products we’ll get.\nFitting a separate SLR model for each predictor is not satisfactory. That’s see why."
   },
   {
     "objectID": "slides/05-mlr.html#dont-fit-a-separate-simple-linear-regression",
     "href": "slides/05-mlr.html#dont-fit-a-separate-simple-linear-regression",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Don’t Fit a Separate Simple Linear Regression",
     "text": "Don’t Fit a Separate Simple Linear Regression\n\n👉 How to make a single prediction of sales given levels of the 3 advertising media budgets?\n\n How to predict the sales when the amount spent on YT is 50, 100 on FB and 30 on IG? \n\n\n\n\n👉 Each regression equation ignores the other 2 media in forming coefficient estimates.\n\n The effect of FB advertising on sales may be increased or decreased when YT and IG advertising are in the model. \n IG advertising may have no impact on sales when YT and FB advertising are in the model. \n\n\n\n\n\n👍👍 Better approach: extend the SLR model so that it can directly accommodate multiple predictors.\n\n\n\nFitting a separate SLR model for each predictor is not satisfactory.\n\nIt is unclear how to make a single prediction of sales given levels of the three advertising media budgets, since each of the budgets is associated with a separate regression equation.\nEach of the three regression equations ignores the other two media in forming estimates for the regression coefficients.\nIf the three media budgets are correlated with each other, this can lead to very misleading estimates of the individual media effects on sales.\n\nA better approach is to extend the simple linear regression model so that it can directly accommodate multiple predictors."
   },
   {
     "objectID": "slides/05-mlr.html#multiple-linear-regression-mlr-model",
     "href": "slides/05-mlr.html#multiple-linear-regression-mlr-model",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Multiple Linear Regression (MLR) Model",
     "text": "Multiple Linear Regression (MLR) Model\n\nWe have \\(k\\) distinct predictors. The (population) multiple linear regression model: \\[Y_i= \\beta_0 + \\beta_1X_{i1} + \\beta_2X_{i2} + \\dots + \\beta_kX_{ik} + \\epsilon_i\\]\n\\(X_{ij}\\): \\(j\\)-th regressor value on \\(i\\)-th measurement, \\(j = 1, \\dots, k\\).\n\\(\\beta_j\\): \\(j\\)-th coefficient quantifying the association between \\(X_j\\) and \\(Y\\).\n\n\n\nIn the advertising example, \\(k = 3\\) and \\[\\texttt{sales} = \\beta_0 + \\beta_1 \\times \\texttt{YouTube} + \\beta_2 \\times  \\texttt{Facebook} + \\beta_3 \\times \\texttt{Instagram} + \\epsilon\\]\n\n\n\n\nAssumptions as SLR\n\n\\(\\epsilon_i \\stackrel{iid}{\\sim} N(0, \\sigma^2)\\)\n\n\n\n\n\nWhen \\(k = 1\\), MLR is reduced to SLR.\n\n\n\nTwo subscripts of X.\nLater, we will learn how to interpret the coefficients correctly.\nWe interpret \\(\\beta_j\\), \\(j = 1, \\dots, p\\), as the average effect on \\(Y\\) of a one unit increase in \\(X_j\\), holding all other predictors fixed.\n\n\n\n\n\nHow many parameters are there in the model?"
   },
   {
     "objectID": "slides/05-mlr.html#sample-mlr-model",
     "href": "slides/05-mlr.html#sample-mlr-model",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Sample MLR Model",
     "text": "Sample MLR Model\n\nGiven the training sample data \\((x_{11}, \\dots, x_{1k}, y_1), (x_{21}, \\dots, x_{2k}, y_2), \\dots, (x_{n1}, \\dots, x_{nk}, y_n),\\)\nThe sample MLR model: \\[\\begin{align}\ny_i &= \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\dots + \\beta_k x_{ik} + \\epsilon_i \\\\\n&= \\beta_0 + \\sum_{j=1}^k\\beta_j x_{ij} + \\epsilon_i, \\quad i = 1, 2, \\dots, n\n\\end{align}\\]\n\n\n\n\nWriting our data and model without using matrix starts getting tedious.\nLater we’ll see our to write it in a more clean way using matrix notation.\nour mpg data set in the homework has this type of structure.\nIn R we usually store this kind of data set in R structure call data frame."
   },
   {
     "objectID": "slides/05-mlr.html#regression-hyperplane",
     "href": "slides/05-mlr.html#regression-hyperplane",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Regression Hyperplane",
     "text": "Regression Hyperplane\n\nSLR: regression line\nMLR: regression hyperplane or response surface\n\\(y = \\beta_0 + \\beta_1x_1 + \\beta_{2}x_2 + \\epsilon\\)\n\\(E(y \\mid x_1, x_2) = 50 + 10x_1 + 7x_2\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow I’m gonna show you what a MLR looks like when we fit it to the data.\nIf we have two predictors, we will have a sample regression plane.\nIf we have more than two predictors in the model, we are not able to visualize it, but the idea is the same.\nWe will have a something called hyperplane or response surface that basically play the same role as the regression plane in 2D or regression line in 1D.\nThe plot on the right is the contour plot when we project the plot onto the x1-x2 plane. You can see that basically the higher x1 and/or the higher x2, the higher value of y.\nMoreover, you can see that the level curves are straight and parallel, meaning that the effect of x1 on y does not change with the values of x2 or the effect does not depend on the level of x2.\nhttps://cran.r-project.org/web/packages/rsm/vignettes/rsm-plots.pdf\nhttp://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization\nhttps://stackoverflow.com/questions/18147595/plot-3d-plane-true-regression-surface"
   },
   {
     "objectID": "slides/05-mlr.html#response-surface-interaction-model",
     "href": "slides/05-mlr.html#response-surface-interaction-model",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Response Surface : Interaction Model",
     "text": "Response Surface : Interaction Model\n\n\\(y = \\beta_0 + \\beta_1x_1 + \\beta_{2}x_2 + \\beta_{12}x_1x_2 + \\epsilon\\)\nThis is in fact a linear regression model: let \\(\\beta_3 = \\beta_{12}, x_3 = x_1x_2\\).\n\\(E(y \\mid x_1, x_2) = 50 + 10x_1 + 7x_2 + 5x_1x_2\\)\n😎 🤓 A linear model generates a nonlinear response surface!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRemember in SLR, we can have a liner model that describes a nonlinear relationship.\nSame in MLR. We can have a linear model that generates a nonlinear response surface!\n\\(y = \\beta_0 + \\beta_1x_1 + \\beta_{2}x_2 + \\beta_{12}x_1x_2 + \\epsilon\\)\nThis is in fact a linear regression model: let \\(\\beta_3 = \\beta_{12}, x_3 = x_1x_2\\)."
   },
   {
     "objectID": "slides/05-mlr.html#response-surface-2nd-order-with-interaction-model",
     "href": "slides/05-mlr.html#response-surface-2nd-order-with-interaction-model",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Response Surface : 2nd Order with Interaction Model",
     "text": "Response Surface : 2nd Order with Interaction Model\n\n\\(y = \\beta_0 + \\beta_1x_1 + \\beta_{2}x_2 + \\beta_{11}x_1^2 + \\beta_{22}x_2^2 + \\beta_{12}x_1x_2 + \\epsilon\\)\n\\(E(y) = 800+10x_1+7x_2 -8.5x_1^2-5x_2^2- 4x_1x_2\\)\n😎 🤓 A linear regression model can describe a complex nonlinear relationship between the response and predictors!"
   },
   {
     "objectID": "slides/05-mlr.html#least-square-estimation-of-the-coefficients",
     "href": "slides/05-mlr.html#least-square-estimation-of-the-coefficients",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Least Square Estimation of the Coefficients",
     "text": "Least Square Estimation of the Coefficients\n\\[\\begin{align}\ny_i &= \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\dots + \\beta_k x_{ik} + \\epsilon_i \\\\\n&= \\beta_0 + \\sum_{j=1}^k\\beta_j x_{ij} + \\epsilon_i, \\quad i = 1, 2, \\dots, n\n\\end{align}\\]\n\nThe least-squares function is \\[S(\\alpha_0, \\alpha_1, \\dots, \\alpha_k) = \\sum_{i=1}^n\\left(y_i - \\alpha_0 - \\sum_{j=1}^k\\alpha_j x_{ij}\\right)^2\\] The function \\(S(\\cdot)\\) must be minimized with respect to the coefficients, i.e., \\[(b_0, b_1, \\dots, b_k) = \\underset{{\\alpha_0, \\alpha_1, \\dots, \\alpha_k}}{\\mathrm{arg \\, min}}  S(\\alpha_0, \\alpha_1, \\dots, \\alpha_k)\\]\n\n\n\nAs SLR, we can define the least-squares function as the sum of squares of epsilon.\nThe idea is to minimize the function \\(S\\) w.r.t. the model coefficients \\(\\beta_0, \\beta_1, \\dots, \\beta_k\\).\nIn other words, we are going to choose the sample statistics \\(b_0\\), \\(b_1\\), …, \\(b_k\\) as the estimates of \\(\\beta_0, \\beta_1, \\dots, \\beta_k\\) so that \\(S(.)\\) is minimized when \\(b_0\\), \\(b_1\\), …, \\(b_k\\) are plugged in the function."
   },
   {
     "objectID": "slides/05-mlr.html#geometry-of-least-square-estimation",
     "href": "slides/05-mlr.html#geometry-of-least-square-estimation",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Geometry of Least Square Estimation",
     "text": "Geometry of Least Square Estimation\n\n\n\nIf we look at the geometry of Least Square Estimation of the MLR, we have a visualization like this.\nAgain, in SLR, different \\(b_0\\) and \\(b_1\\)s give us different sample regression lines.\nIn MLR, suppose we have two predictors, and different \\(b_0\\) and \\(b_1\\) and \\(b_2\\) give us different sample regression planes.\nso geometrically speaking, we are trying to find a sample regression plane such that the sum of the squared distance between the observations (denoted by those blue points) and the plane is minimized.\nFor more than 2 predictor case, we are not able to visualize it because we live a 3D world, but the idea is exactly the same. And we called the regression plane a hyperplane. OK."
   },
   {
     "objectID": "slides/05-mlr.html#least-squares-normal-equations",
     "href": "slides/05-mlr.html#least-squares-normal-equations",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Least-squares Normal Equations",
     "text": "Least-squares Normal Equations\n\\[\\begin{align}\n\\left.\\frac{\\partial S}{\\partial\\alpha_0}\\right\\vert_{b_0, b_1, \\dots, b_k} &= -2 \\sum_{i=1}^n\\left(y_i - b_0 - \\sum_{j=1}^k b_j x_{ij}\\right) = 0\\\\\n\\left.\\frac{\\partial S}{\\partial\\alpha_j}\\right\\vert_{b_0, b_1, \\dots, b_k} &= -2 \\sum_{i=1}^n\\left(y_i - b_0 - \\sum_{j=1}^k b_j x_{ij}\\right)x_{ij} = 0, \\quad j = 1, 2, \\dots, k\n\\end{align}\\]\n\n\\(p = k + 1\\) equations with \\(p\\) unknown parameters.\nThe ordinary least squares estimators are the solutions to the normal equations.\n\n\n\nSo again similar to SLR, we can take derivative w.r.t \\(\\beta_0\\), \\(\\beta_1\\), to the \\(\\beta_k\\).\nAnd we are gonna have \\(p = k + 1\\) equations with \\(p\\) unknown parameters.\nSo we can find one and only one solution to \\(\\beta_0\\), \\(\\beta_1\\), to the \\(\\beta_k\\), which are \\(b_0\\), \\(b_1\\), …, \\(b_k\\).\nAnd the \\(p\\) equations are the least squares normal questions.\nYou guys solve the equations when k = 1.\nDo you think it is easy to solve the questions when the number of predictors is 2 or more than 2?\n\n\n\n\nIt’s hard to solve the equations for \\(k \\ge 2\\) by hand without using matrix notation or operations!\n\n\n\nHere I am happy to treat you and buy you a drink if you can solve the equations for \\(k \\ge 2\\) by hand without using matrix notations or operations!\nCome to my office hours and show your work. And we go to a bar together. Sounds good?\nIn fact, if you try, you are gonna deal with lots of algebra, but if we write the system of equations in a matrix form, the solution becomes very clean.\nThat’s see why."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-delivery-time-data",
     "href": "slides/05-mlr.html#r-lab-delivery-time-data",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Delivery Time Data",
     "text": "R Lab Delivery Time Data\n\n\n\n# Load the data set\ndelivery &lt;- read.csv(file = \"./data/data-ex-3-1.csv\",\n                     header = TRUE)\ndelivery_data &lt;- delivery[, -1]\ncolnames(delivery_data) &lt;- c(\"time\", \"cases\", \"distance\")\nstr(delivery_data)\n\n'data.frame':   25 obs. of  3 variables:\n $ time    : num  16.7 11.5 12 14.9 13.8 ...\n $ cases   : int  7 3 3 4 6 7 2 7 30 5 ...\n $ distance: int  560 220 340 80 150 330 110 210 1460 605 ...\n\n\n\n\\(y\\): the amount of time required by the route driver to stock the vending machines with beverages\n\\(x_1\\): the number of cases stocked\n\\(x_2\\): the distance walked by the driver\n\n\n\n\ndelivery_data\n\n    time cases distance\n1  16.68     7      560\n2  11.50     3      220\n3  12.03     3      340\n4  14.88     4       80\n5  13.75     6      150\n6  18.11     7      330\n7   8.00     2      110\n8  17.83     7      210\n9  79.24    30     1460\n10 21.50     5      605\n11 40.33    16      688\n12 21.00    10      215\n13 13.50     4      255\n14 19.75     6      462\n15 24.00     9      448\n16 29.00    10      776\n17 15.35     6      200\n18 19.00     7      132\n19  9.50     3       36\n20 35.10    17      770\n21 17.90    10      140\n22 52.32    26      810\n23 18.75     9      450\n24 19.83     8      635\n25 10.75     4      150\n\n\n\n\n\n\n\\(y\\): the amount of time required by the route driver to stock the vending machines with beverages in an outlet.\n\\(x_1\\): the number of cases stocked\n\\(x_2\\): the distance walked by the driver\nGoal: fit a MLR model \\(y = \\beta_0 + \\beta_1x_1 + \\beta_2x_2 + \\epsilon\\) to the amount of time required by the route driver to service the vending machines (use readr::read_csv if the file is large)"
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-scatterplot-matrix",
     "href": "slides/05-mlr.html#r-lab-scatterplot-matrix",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Scatterplot Matrix",
     "text": "R Lab Scatterplot Matrix\n\npairs(delivery_data)\n\n\n\n\nEach plot shows the relationship between a pair of variables."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-3d-scatterplot",
     "href": "slides/05-mlr.html#r-lab-3d-scatterplot",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab 3D Scatterplot",
     "text": "R Lab 3D Scatterplot\n\n\nCode\npar(mgp = c(2, 0.8, 0), las = 1, mar = c(4, 4, 0, 0))\nlibrary(scatterplot3d)\nscatterplot3d(x = delivery_data$cases, y = delivery_data$distance, z = delivery_data$time,\n              xlab =\"cases\", ylab = \"distance\", zlab = \"time\",\n              xlim = c(2, 30), ylim = c(36, 1640), zlim = c(8, 80),\n              box = TRUE, color = \"blue\", mar = c(3, 3, 0, 2), angle = 30, pch = 16)\n\n\n\n\n\nSometimes a 3D scatterplot is useful in visualizing the relationship between the response and the regressors when there are only two regressors."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-multiple-linear-regression",
     "href": "slides/05-mlr.html#r-lab-multiple-linear-regression",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Multiple Linear Regression",
     "text": "R Lab Multiple Linear Regression\n\ndelivery_lm &lt;- lm(time ~ cases + distance, data = delivery_data)\ndelivery_lm$coef\n\n(Intercept)       cases    distance \n    2.34123     1.61591     0.01438 \n\n\n\\[\\hat{y} = 2.34 + 1.62x_1 + 0.014x_2\\]\n\n\\(b_1\\): All else held constant, for one case of product stocked increase, we expect the delivery time to be longer, on average, by 1.62 minutes.\n\\(b_2\\): All else held constant, one additional foot walked by the driver causes the delivery time, on average, to be 0.014 minutes longer.\n\\(b_0\\): The delivery time with no number of cases of product stocked and no distance walked by the driver is expected to be 2.34 minutes. (Make sense?!)"
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-regression-plane",
     "href": "slides/05-mlr.html#r-lab-regression-plane",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Regression Plane",
     "text": "R Lab Regression Plane"
   },
   {
     "objectID": "slides/05-mlr.html#estimation-of-sigma2",
     "href": "slides/05-mlr.html#estimation-of-sigma2",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Estimation of \\(\\sigma^2\\)",
     "text": "Estimation of \\(\\sigma^2\\)\n\n\\(SS_{res} = \\sum_{i=1}^ne_i^2 = \\sum_{i=1}^n(y_i - \\hat{y}_i)^2\\).\n\\(MS_{res} = \\frac{SS_{res}}{n - p}\\) with \\(p = k + 1\\).\n\\(S^2 = MS_{res}\\) is unbiased for \\(\\sigma^2\\), i.e., \\(E[MS_{res}] = \\sigma^2\\).\n\n\n\n\\(S^2\\) of SLR may be quite larger than the \\(S^2\\) of MLR.\n\\(S^2\\) measures the variation of the unexplained noise about the fitted regression line/hyperplane, so we prefer a small residual mean square.\n\n\n\n\\(SS_{res} = \\sum_{i=1}^ne_i^2 = {\\bf e'e} = {\\bf (y-Xb)'(y-Xb)} = {\\bf y'y - b'X'y} = \\sum_{i=1}^n(y_i - \\hat{y}_i)^2\\).\nIf our model is specified correctly, \\(\\hat{\\sigma}^2\\) depends on our data quality.\nIf our data have lots of noise itself, there is nothing we can do."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-estimation-of-sigma2",
     "href": "slides/05-mlr.html#r-lab-estimation-of-sigma2",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Estimation of \\(\\sigma^2\\)",
     "text": "R Lab Estimation of \\(\\sigma^2\\)\n\n## method 1\nsumm_delivery &lt;- summary(delivery_lm)  ## check names(summ_delivery)\nsumm_delivery$sigma ^ 2\n\n[1] 10.62\n\n\n\n\n## method 2\nn &lt;- length(delivery_lm$residuals)\n(SS_res &lt;- sum(delivery_lm$residuals * delivery_lm$residuals))\n\n[1] 233.7\n\nSS_res / (n - 3)\n\n[1] 10.62\n\n\n\n\n\n## method 3\n(SS_res1 &lt;- sum((delivery_data$time - delivery_lm$fitted.values) ^ 2))\n\n[1] 233.7\n\nSS_res1 / (n - 3)\n\n[1] 10.62"
   },
   {
     "objectID": "slides/05-mlr.html#properties-of-lses",
     "href": "slides/05-mlr.html#properties-of-lses",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Properties of LSEs",
     "text": "Properties of LSEs\n\n👍 \\({\\bf b} = (b_0, b_1, \\dots, b_k)'\\) is BLUE.\n Linear : Each \\(b_j\\) is a linear combination of \\(y_1, \\dots, y_n\\).\n Unbiased : Each \\(b_j\\) is normally distributed with mean \\(\\beta_j\\).\n Best : Each \\(b_j\\) has the minimum variance, comparing to all other unbiased estimator for \\(\\beta_j\\) that is a linear combo of \\(y_1, \\dots, y_n\\)."
   },
   {
     "objectID": "slides/05-mlr.html#wald-ci-for-coefficients",
     "href": "slides/05-mlr.html#wald-ci-for-coefficients",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Wald CI for Coefficients",
     "text": "Wald CI for Coefficients\nThe \\((1-\\alpha)100\\%\\) Wald CI for \\(\\beta_j\\), \\(j = 0, 1, \\dots, k\\) is \\[\\left(b_j- t_{\\alpha/2, n-p}~se(b_j), \\quad b_j + t_{\\alpha/2, n-p}~ se(b_j)\\right)\\]\n\n(ci &lt;- confint(delivery_lm))\n\n               2.5 %  97.5 %\n(Intercept) 0.066752 4.61571\ncases       1.261825 1.96999\ndistance    0.006892 0.02188\n\n\n\nThese are marginal CIs seperately for each \\(b_j\\).\n\n\n\nEach of the statistics \\(\\frac{b_j - \\beta_j}{\\sqrt{\\hat{\\sigma}^2C_{jj}}}, j = 0, 1, 2, \\dots, k\\) follows \\(t_{n-p}\\) distribution, where \\(\\hat{\\sigma}^2 = MS_{res}\\), and \\(C_{jj}\\) is the \\(j\\)-th diagonal element of \\({\\bf (X'X)}^{-1}\\).\nThe \\((1-\\alpha)100\\%\\) CI for \\(\\beta_j\\), \\(j = 0, 1, \\dots, k\\) is \\(\\left(b_j- t_{\\alpha/2, n-p} \\sqrt{\\hat{\\sigma}^2C_{jj}}, \\quad b_j + t_{\\alpha/2, n-p} \\sqrt{\\hat{\\sigma}^2C_{jj}}\\right)\\)\nThese interval estimates do not take correlation of coefficients into account. One coefficient may be higher when another is lower.\nWe can only use the intervals one at a time when doing interval estimation. When we want to do interval estimation for several coefficients together at the same time, these intervals are not that accurate."
   },
   {
     "objectID": "slides/05-mlr.html#correlated-coefficients-1",
     "href": "slides/05-mlr.html#correlated-coefficients-1",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Correlated Coefficients",
     "text": "Correlated Coefficients\n\n\n\n## variance-covariance matrix\nV &lt;- vcov(delivery_lm)\n\n## standard error\nsqrt(diag(V))\n\n(Intercept)       cases    distance \n   1.096730    0.170735    0.003613 \n\n\n\n\n## correlation matrix\ncov2cor(V)\n\n            (Intercept)   cases distance\n(Intercept)      1.0000 -0.2524  -0.2243\ncases           -0.2524  1.0000  -0.8242\ndistance        -0.2243 -0.8242   1.0000\n\n\n\n\n\\(b_1\\) and \\(b_2\\) are negatively correlated.\nIndividual CI ignores the correlation between \\(b_j\\)s.\n\n\n\nHow do we specify a confidence level that applies simultaneously to a set of interval estimates? For example, a \\(95\\%\\) confidence “interval” for both \\(b_1\\) and \\(b_2\\)."
   },
   {
     "objectID": "slides/05-mlr.html#confidence-region",
     "href": "slides/05-mlr.html#confidence-region",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Confidence Region",
     "text": "Confidence Region\n\nThe \\((1-\\alpha)100\\%\\) CI for a set of \\(b_j\\)s will be an elliptically-shaped region!\n\n\n\n\n\nCode\npar(mgp = c(2.8, 0.9, 0), mar = c(4, 4, 2, 0))\n## confidence region\ncar::confidenceEllipse(\n    delivery_lm, \n    levels = 0.95, \n    which.coef = c(\"cases\", \"distance\"), \n    main = expression(\n        paste(\"95% Confidence Region for \", \n              beta[1], \" and \",  beta[2])\n        )\n    )\n## marginal CI for cases\nabline(v = ci[2, ], lty = 2, lwd = 2)  \n## marginal CI for distance\nabline(h = ci[3, ], lty = 2, lwd = 2)\npoints(x = 1.4, y = 0.01, col = \"red\", cex = 2, pch = 16)\npoints(x = 2, y = 0.008, col = \"black\", cex = 2, pch = 16)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome points (red) within the marginal intervals are implausible according to the joint region.\nThe joint region includes values of the coefficient for cases (black), for example, that are excluded from the marginal interval.\n\n\n\nBonferroni\nScheffe S-method\nmaximum modulus t procedure With repeated sampling, 95% of such ellipses will simultaneously include β1 and β2, if the fitted model is correct and normality holds. The orientation of the ellipse reflects the negative correlation between the estimates. Contrast the 95% confidence ellipse with the marginal 95% confidence intervals, also shown on the plot. Some points within the marginal intervals—with larger values for both of the coefficients, for example—are implausible according to the joint region. Similarly, the joint region includes values of the coefficient for income, for example, that are excluded from the marginal interval."
   },
   {
     "objectID": "slides/05-mlr.html#ci-for-the-mean-response-ey-mid-bf-x_0",
     "href": "slides/05-mlr.html#ci-for-the-mean-response-ey-mid-bf-x_0",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "CI for the Mean Response \\(E(y \\mid {\\bf x}_0)\\)",
     "text": "CI for the Mean Response \\(E(y \\mid {\\bf x}_0)\\)\n\nThe fitted value at a point \\({\\bf x}_0 = (1, x_{01}, x_{02}, \\dots, x_{0k})'\\) is \\[\\hat{y}_0 = b_0 + b_1x_{01} + \\cdots + b_kx_{0k}\\]\nThis is an unbiased estimator for \\(E(y \\mid {\\bf x}_0)\\) \nThe \\((1-\\alpha)100\\%\\) CI for \\(E(y \\mid {\\bf x}_0)\\) is \\[\\left(\\hat{y}_0 - t_{\\alpha/2, n-p} ~ se(\\hat{y}_0), \\quad \\hat{y}_0 + t_{\\alpha/2, n-p} ~ se(\\hat{y}_0)\\right)\\]\n\n\npredict(delivery_lm,\n        newdata = data.frame(cases = 8, distance = 275),\n        interval = \"confidence\", level = 0.95)\n\n    fit   lwr   upr\n1 19.22 17.65 20.79\n\n\n\n\nThe fitted value at a point \\({\\bf x}_0 = (1, x_{01}, x_{02}, \\dots, x_{0k})'\\) is \\(\\hat{y}_0 = {\\bf x}_0'\\bf b\\).\nThis is an unbiased estimator for \\(E(y \\mid {\\bf x}_0)\\).\n\\(\\frac{\\hat{y}_0 - E(y|{\\bf x}_0)}{\\sqrt{\\hat{\\sigma}^2{\\bf x}_0'{\\bf (X'X)}^{-1}{\\bf x}_0}}\\sim t_{n-p}\\).\nThe \\((1-\\alpha)100\\%\\) CI for \\(E(y \\mid {\\bf x}_0)\\) is \\(\\left(\\hat{y}_0 - t_{\\alpha/2, n-p} \\sqrt{\\hat{\\sigma}^2{\\bf x}_0'{\\bf (X'X)}^{-1}{\\bf x}_0}, \\quad \\hat{y}_0 + t_{\\alpha/2, n-p} \\sqrt{\\hat{\\sigma}^2{\\bf x}_0'{\\bf (X'X)}^{-1}{\\bf x}_0}\\right)\\)\n\n\n\n    fit   lwr   upr\n1 19.22 17.65 20.79"
   },
   {
     "objectID": "slides/05-mlr.html#pi-for-new-observations",
     "href": "slides/05-mlr.html#pi-for-new-observations",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "PI for New Observations",
     "text": "PI for New Observations\n\nPredict the future observation \\(y_0\\) when \\({\\bf x} = {\\bf x}_0\\).\nA point estimate is \\(\\hat{y}_0 = b_0 + b_1x_{01} + \\cdots + b_kx_{0k}\\).\nThe \\((1-\\alpha)100\\%\\) PI for \\(y_0\\) is \\[\\left(\\hat{y}_0 - t_{\\alpha/2, n-p} ~se(y_0 - \\hat{y}_0), \\quad \\hat{y}_0 + t_{\\alpha/2, n-p} ~se(y_0 - \\hat{y}_0)\\right)\\]\n\n\npredict(delivery_lm,\n        newdata = data.frame(cases = 8, distance = 275),\n        interval = \"predict\", level = 0.95)\n\n    fit   lwr   upr\n1 19.22 12.28 26.16\n\n\n\n\nPredict the future observation \\(y_0\\) when \\({\\bf x} = {\\bf x}_0\\).\nA point estimate is \\(\\hat{y}_0 = {\\bf x}_0'\\bf b\\).\nThe \\((1-\\alpha)100\\%\\) PI for \\(y_0\\) is \\(\\left(\\hat{y}_0 - t_{\\alpha/2, n-p} \\sqrt{\\hat{\\sigma}^2\\left(1+{\\bf x}_0'{\\bf (X'X)}^{-1}{\\bf x}_0\\right)}, \\quad \\hat{y}_0 + t_{\\alpha/2, n-p} \\sqrt{\\hat{\\sigma}^2\\left(1+{\\bf x}_0'{\\bf (X'X)}^{-1}{\\bf x}_0\\right)}\\right)\\)\n\n\n\n    fit   lwr   upr\n1 19.22 12.28 26.16"
   },
   {
     "objectID": "slides/05-mlr.html#predictor-effect-plots",
     "href": "slides/05-mlr.html#predictor-effect-plots",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Predictor Effect Plots",
     "text": "Predictor Effect Plots\n\nA complete picture of the regression surface requires drawing a \\(p\\)-dimensional graph.\nPredictor effect plots look at 1 or 2D plots for each predictor.\n\n\n\nThe predictor effect plot for \\(x_1\\):\n\nfix the values of all other predictors ( \\(x_2\\) in the example)\nsubstitute these fixed values into the fitted regression equation.\n\nFix \\(x_2\\) at its average, \\(\\hat{y} = 2.34 + 1.62 ~x_1 + 0.014 (409.28)\\)\n\n\n\n\nSame slope for any choice of fixed values of other predictors.\nThe intercepts depend on the values of other predictors.\n\n\n\nA complete picture of the regression surface generated by the fitted model requires drawing a \\(p\\)-dimensional graph.\nFix \\(x_1\\) at its average, \\(\\hat{y} = 2.34 + 1.62 (8.76) + 0.014 ~x_2\\)\nThe slope would be the same for any choice of fixed values of other predictors."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-predictor-effect-plots",
     "href": "slides/05-mlr.html#r-lab-predictor-effect-plots",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Predictor Effect Plots",
     "text": "R Lab Predictor Effect Plots\n\nlibrary(effects)\nplot(effects::predictorEffects(mod = delivery_lm))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nrug plot\nthe mean of time increases linearly as cases or distance increases.\nGiven x2 variable in the model, what is the effect on x1 on the response.\nWithout correction for simultaneous statistical inference\nplot(effects::predictorEffects(mod = delivery_lm, confint = list(type = “Scheffe”))) ‘arg’ should be one of “pointwise”, “Scheffe”, “scheffe”"
   },
   {
     "objectID": "slides/05-mlr.html#where-does-the-variation-in-y-go",
     "href": "slides/05-mlr.html#where-does-the-variation-in-y-go",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Where Does the Variation in \\(Y\\) Go?",
     "text": "Where Does the Variation in \\(Y\\) Go?\nFor a regression model with an intercept,\n\\[\n\\boxed{SS_T = SS_R + SS_{res}}\n\\]\n\n\nTotal\n\\[\nSS_T = \\sum_{i=1}^n (y_i-\\bar y)^2\n\\]\nTotal variation in the response.\n\\[\ndf_T=n-1\n\\]\n\nRegression\n\\[\nSS_R = \\sum_{i=1}^n (\\hat y_i-\\bar y)^2\n\\]\nVariation explained by the regression.\n\\[\ndf_R=k\n\\]\n\nResidual\n\\[\nSS_{res} = \\sum_{i=1}^n (y_i-\\hat y_i)^2\n\\]\nVariation not explained by the regression.\n\\[\ndf_{res}=n-k-1\n\\]\n\n\n\nThis is the ANOVA decomposition for regression.\nSS_T asks how much variability there is in Y before using any predictors.\nSS_R is the amount of that variability explained by the fitted regression.\nSS_res is what remains after fitting the regression.\nDo not confuse these three quantities with Type I, Type II, and Type III sums of squares, which we will discuss shortly."
   },
   {
     "objectID": "slides/05-mlr.html#understanding-the-decomposition",
     "href": "slides/05-mlr.html#understanding-the-decomposition",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Understanding the Decomposition",
     "text": "Understanding the Decomposition\nFor each observation,\n\\[\ny_i-\\bar y\n=\n(\\hat y_i-\\bar y)\n+\n(y_i-\\hat y_i).\n\\]\n\n\nTotal deviation\n\\[\ny_i-\\bar y\n\\]\nHow far is the observation from the overall mean?\n\nExplained deviation\n\\[\n\\hat y_i-\\bar y\n\\]\nHow much is explained by the fitted model?\n\nResidual deviation\n\\[\ny_i-\\hat y_i=e_i\n\\]\nWhat remains unexplained?\n\n\nFor least squares regression with an intercept,\n\\[\n\\boxed{SS_T=SS_R+SS_{res}}.\n\\]"
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-the-three-sums-of-squares",
     "href": "slides/05-mlr.html#r-lab-the-three-sums-of-squares",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab The Three Sums of Squares",
     "text": "R Lab The Three Sums of Squares\n\n# Total variation\nSS_T &lt;- sum((delivery_data$time -\n              mean(delivery_data$time))^2)\n\n# Unexplained variation\nSS_res &lt;- sum(residuals(delivery_lm)^2)\n\n# Explained variation\nSS_R &lt;- SS_T - SS_res\n\nc(SS_T = SS_T,\n  SS_R = SS_R,\n  SS_res = SS_res)\n\n  SS_T   SS_R SS_res \n5784.5 5550.8  233.7 \n\n\n\n\nSS_R + SS_res\n\n[1] 5785\n\nSS_T\n\n[1] 5785\n\n\n\nWhat proportion of the total variation is explained by the regression?"
   },
   {
     "objectID": "slides/05-mlr.html#test-for-significance-of-regression",
     "href": "slides/05-mlr.html#test-for-significance-of-regression",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Test for Significance of Regression",
     "text": "Test for Significance of Regression\n\nDetermine whether there is a linear contribution from at least one regressor.\n\n\n\\[\nH_0:\\beta_1=\\beta_2=\\cdots=\\beta_k=0\n\\]\n\\[\nH_1:\\beta_j\\ne0 \\text{ for at least one }j\n\\]\n\n\n\nThis test can be viewed as a comparison of two nested models."
   },
   {
     "objectID": "slides/05-mlr.html#null-model-vs.-full-model",
     "href": "slides/05-mlr.html#null-model-vs.-full-model",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Null Model vs. Full Model",
     "text": "Null Model vs. Full Model\n\n\nNull model\nUnder \\(H_0\\),\n\\[\nY_i=\\beta_0+\\epsilon_i.\n\\]\nThe fitted value for every observation is\n\\[\n\\hat y_i=\\bar y.\n\\]\nTherefore,\n\\[\nSS_{res,\\;Null}=SS_T.\n\\]\n\nFull model\n\\[\nY_i=\\beta_0+\\beta_1X_{i1}\n+\\cdots+\\beta_kX_{ik}+\\epsilon_i.\n\\]\nIts unexplained variation is\n\\[\nSS_{res,\\;Full}=SS_{res}.\n\\]\n\n\nThe reduction in unexplained variation is\n\\[\n\\boxed{\nSS_{res,\\;Null}-SS_{res,\\;Full}=SS_R\n}\n\\]"
   },
   {
     "objectID": "slides/05-mlr.html#from-sums-of-squares-to-the-f-test",
     "href": "slides/05-mlr.html#from-sums-of-squares-to-the-f-test",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "From Sums of Squares to the \\(F\\) Test",
     "text": "From Sums of Squares to the \\(F\\) Test\nAdding predictors will always reduce \\(SS_{res}\\), even if they have little useful information.\nSo compare the reduction per predictor with the remaining residual variation:\n\\[\nMS_R=\\frac{SS_R}{k},\n\\qquad\nMS_{res}=\\frac{SS_{res}}{n-k-1}.\n\\]\n\n\\[\n\\boxed{\nF_{test}=\\frac{MS_R}{MS_{res}}\n}\n\\]\nUnder \\(H_0\\),\n\\[\nF_{test}\\sim F_{k,n-k-1}.\n\\]\n\nA large \\(F\\) means that adding the predictors reduces unexplained variation by much more than we would expect from random error alone."
   },
   {
     "objectID": "slides/05-mlr.html#anova-table-for-the-overall-f-test",
     "href": "slides/05-mlr.html#anova-table-for-the-overall-f-test",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "ANOVA Table for the Overall \\(F\\) Test",
     "text": "ANOVA Table for the Overall \\(F\\) Test\n\n\n\n\n\n\n\n\n\n\nSource of Variation\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n\\(SS_R\\)\n\\(k\\)\n\\(MS_R=SS_R/k\\)\n\\(\\dfrac{MS_R}{MS_{res}}\\)\n\n\nResidual\n\\(SS_{res}\\)\n\\(n-k-1\\)\n\\(MS_{res}=\\dfrac{SS_{res}}{n-k-1}\\)\n\n\n\nTotal\n\\(SS_T\\)\n\\(n-1\\)\n\n\n\n\n\n\\[\nSS_T=SS_R+SS_{res}\n\\]\n\nReject \\(H_0\\) for a sufficiently large \\(F_{test}\\), or equivalently when the \\(p\\)-value is less than \\(\\alpha\\).\n\n\n\nIn SLR, the overall F test is equivalent to the two-sided t test for beta_1 = 0.\nIn MLR, rejecting H0 tells us that at least one slope is nonzero; it does not tell us which one."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-test-for-significance",
     "href": "slides/05-mlr.html#r-lab-test-for-significance",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Test for Significance",
     "text": "R Lab Test for Significance\n\n\\[\nH_0:\\beta_1=\\beta_2=0\n\\qquad\nH_1:\\beta_j\\ne0 \\text{ for at least one }j\n\\]\n\n\n\nsumm_delivery\n\n...\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  2.34123    1.09673    2.13  0.04417 *  \ncases        1.61591    0.17073    9.46  3.3e-09 ***\ndistance     0.01438    0.00361    3.98  0.00063 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3.26 on 22 degrees of freedom\nMultiple R-squared:  0.96,  Adjusted R-squared:  0.956 \nF-statistic:  261 on 2 and 22 DF,  p-value: 4.69e-16\n...\n\n\n\n\n\nThe F statistic reported by summary() is the overall test comparing the full regression with the intercept-only model."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-anova-table-null-vs.-full",
     "href": "slides/05-mlr.html#r-lab-anova-table-null-vs.-full",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab ANOVA Table: Null vs. Full",
     "text": "R Lab ANOVA Table: Null vs. Full\n\nTesting coefficients can be viewed as model comparison:\ncompare the full model with the model under \\(H_0\\).\n\n\n\n\nFull model: cases and distance\nNull model: intercept only\n\n\\[\nH_0:\\beta_1=\\beta_2=0\n\\]\n\n\n\n\n\n\n\n\n\n\n\nnull_model &lt;- lm(time ~ 1,\n                 data = delivery_data)\n\nanova(null_model, delivery_lm)\n\nAnalysis of Variance Table\n\nModel 1: time ~ 1\nModel 2: time ~ cases + distance\n  Res.Df  RSS Df Sum of Sq   F  Pr(&gt;F)    \n1     24 5785                             \n2     22  234  2      5551 261 4.7e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nThe null-model SSE is SS_T because every fitted value is y-bar.\nThe reduction in SSE from the null model to the full model is SS_R.\nanova(null_model, delivery_lm) directly performs the nested-model F test."
   },
   {
     "objectID": "slides/05-mlr.html#another-meaning-of-sums-of-squares",
     "href": "slides/05-mlr.html#another-meaning-of-sums-of-squares",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Another Meaning of “Sums of Squares”",
     "text": "Another Meaning of “Sums of Squares”\nSo far we used\n\\[\nSS_T,\\qquad SS_R,\\qquad SS_{res}.\n\\]\nThese describe total, explained, and unexplained variation.\n\nWith several predictors, another question arises:\n\nHow should the regression sum of squares be attributed to individual model terms?\n\nThere are three commonly used approaches:\n\nType I SS: sequential\nType II SS: each main effect adjusted for the other main effects\nType III SS: each term adjusted for all other terms\n\n\nType I, II, and III SS are not the same thing as \\(SS_T\\), \\(SS_R\\), and \\(SS_{res}\\)."
   },
   {
     "objectID": "slides/05-mlr.html#type-i-sum-of-squares-sequential",
     "href": "slides/05-mlr.html#type-i-sum-of-squares-sequential",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Type I Sum of Squares: Sequential",
     "text": "Type I Sum of Squares: Sequential\nType I SS evaluates predictors in the order they enter the model.\nFor\n\\[\nY=\\beta_0+\\beta_1X_1+\\beta_2X_2+\\epsilon,\n\\]\nthe first ordering gives\n\\[\nSS(X_1)\n=\nSSE(1)-SSE(X_1),\n\\]\n\\[\nSS(X_2\\mid X_1)\n=\nSSE(X_1)-SSE(X_1,X_2).\n\\]\n\nIf the order is reversed, we instead obtain\n\\[\nSS(X_2),\\qquad SS(X_1\\mid X_2).\n\\]\n\nWhen predictors are correlated, Type I sums of squares depend on predictor order."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-type-i-ss-does-order-matter",
     "href": "slides/05-mlr.html#r-lab-type-i-ss-does-order-matter",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Type I SS: Does Order Matter?",
     "text": "R Lab Type I SS: Does Order Matter?\n\n\n\n\nmodel_cd &lt;- lm(\n  time ~ cases + distance,\n  data = delivery_data\n)\n\nanova(model_cd)\n\nAnalysis of Variance Table\n\nResponse: time\n          Df Sum Sq Mean Sq F value  Pr(&gt;F)    \ncases      1   5382    5382   506.6 &lt; 2e-16 ***\ndistance   1    168     168    15.8 0.00063 ***\nResiduals 22    234      11                    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\n\nmodel_dc &lt;- lm(\n  time ~ distance + cases,\n  data = delivery_data\n)\n\nanova(model_dc)\n\nAnalysis of Variance Table\n\nResponse: time\n          Df Sum Sq Mean Sq F value  Pr(&gt;F)    \ndistance   1   4599    4599   432.9 5.8e-16 ***\ncases      1    952     952    89.6 3.3e-09 ***\nResiduals 22    234      11                    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nWhat changes when we reverse the order of cases and distance?"
   },
   {
     "objectID": "slides/05-mlr.html#same-model-different-type-i-partition",
     "href": "slides/05-mlr.html#same-model-different-type-i-partition",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Same Model, Different Type I Partition",
     "text": "Same Model, Different Type I Partition\nReversing the order of the predictors does not change the fitted model:\n\ncoef(model_cd)\n\n(Intercept)       cases    distance \n    2.34123     1.61591     0.01438 \n\ncoef(model_dc)\n\n(Intercept)    distance       cases \n    2.34123     0.01438     1.61591 \n\n\n\n\nc(R2_cd = summary(model_cd)$r.squared,\n  R2_dc = summary(model_dc)$r.squared)\n\n R2_cd  R2_dc \n0.9596 0.9596 \n\nc(SSE_cd = deviance(model_cd),\n  SSE_dc = deviance(model_dc))\n\nSSE_cd SSE_dc \n 233.7  233.7 \n\n\n\nThe fitted values, \\(SS_{res}\\), \\(R^2\\), and overall \\(F\\) test are unchanged.\nOnly the sequential allocation of \\(SS_R\\) changes."
   },
   {
     "objectID": "slides/05-mlr.html#type-ii-sum-of-squares",
     "href": "slides/05-mlr.html#type-ii-sum-of-squares",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Type II Sum of Squares",
     "text": "Type II Sum of Squares\nType II SS evaluates each main effect after adjusting for the other main effects.\nFor two predictors:\n\\[\nSS(X_1\\mid X_2),\n\\qquad\nSS(X_2\\mid X_1).\n\\]\n\nDoes not depend on the order in which predictors are written.\nNatural for additive models containing only main effects.\nEach predictor is assessed after accounting for the other predictors.\n\n\n\ncar::Anova(model_cd, type = 2)\n\nAnova Table (Type II tests)\n\nResponse: time\n          Sum Sq Df F value  Pr(&gt;F)    \ncases        952  1    89.6 3.3e-09 ***\ndistance     168  1    15.8 0.00063 ***\nResiduals    234 22                    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nFor the current additive model, Type II tests have a straightforward interpretation.\nType II is particularly useful when there are no interactions."
   },
   {
     "objectID": "slides/05-mlr.html#type-iii-sum-of-squares",
     "href": "slides/05-mlr.html#type-iii-sum-of-squares",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Type III Sum of Squares",
     "text": "Type III Sum of Squares\nType III SS tests each term after adjusting for every other term in the model.\nFor an interaction model,\n\\[\nY=\\beta_0+\\beta_1X_1+\\beta_2X_2\n+\\beta_{12}X_1X_2+\\epsilon,\n\\]\nType III tests each of\n\\[\nX_1,\\quad X_2,\\quad X_1X_2\n\\]\nwhile the other terms remain in the model.\n\n\ncar::Anova(model_cd, type = 3)\n\nAnova Table (Type III tests)\n\nResponse: time\n            Sum Sq Df F value  Pr(&gt;F)    \n(Intercept)     48  1    4.56 0.04417 *  \ncases          952  1   89.58 3.3e-09 ***\ndistance       168  1   15.85 0.00063 ***\nResiduals      234 22                    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nIn the present model, which contains only quantitative main effects, the Type II and Type III tests for cases and distance agree.\nWith interactions or categorical predictors, interpretation of Type III main-effect tests requires more care.\nFor factor models, Type III results also depend on contrast coding; we will discuss this when categorical predictors and interactions are introduced."
   },
   {
     "objectID": "slides/05-mlr.html#type-i-vs.-type-ii-vs.-type-iii",
     "href": "slides/05-mlr.html#type-i-vs.-type-ii-vs.-type-iii",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Type I vs. Type II vs. Type III",
     "text": "Type I vs. Type II vs. Type III\n\n\n\n\n\n\n\n\nType\nQuestion\nDepends on order?\n\n\n\n\nI\nWhat does this term add after terms entered before it?\nYes\n\n\nII\nWhat does this main effect add after the other main effects?\nNo\n\n\nIII\nWhat does this term add after all other terms?\nNo\n\n\n\n\n\nIf predictors are orthogonal, the different types agree.\nDifferences arise when predictors share explanatory information.\n\n\n\nType I is sequential.\nType II compares each main effect after the other main effects.\nType III compares each term after every other term.\nNone of these changes the fitted full model itself; they change the hypothesis being tested for individual terms."
   },
   {
     "objectID": "slides/05-mlr.html#r2-and-adjusted-r2",
     "href": "slides/05-mlr.html#r2-and-adjusted-r2",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "\\(R^2\\) and Adjusted \\(R^2\\)",
     "text": "\\(R^2\\) and Adjusted \\(R^2\\)\n\n\\(R^2 = \\frac{SS_R}{SS_T} = 1 - \\frac{SS_{res}}{SS_T}\\)\n\ncalculated as in SLR.\nassesses how well the regression model fits the data.\nmeasures the proportion of variability in \\(Y\\) that is explained by the regression or the \\(k\\) predictors.\nThe model with one additional predictor always gets a higher \\(R^2\\).\n\n\n\n\nThere are other criterion or metrics for accessing model adequacy or model fit that may be better than R^2\nThe model with one additional predictor always gets a higher \\(R^2\\) even the new predictor has no explanatory power or useless in predicting y. Because the predictor may capture the random noise variation, leading to decrease in \\(SS_{res}\\).\nIf we use R^2 as the measure of model fit, then we will tend to include lots of regressors in the model, and we will always choose the model that has the most predictors, even though lots of predictors have no or little contribution to the fitting or prediction.\nThe idea is a little bit like overfitting in machine learning.\nA complex or a larger model has several disadvantages.\n\nFirst, it’s more difficult to interpret your model and results. It reduces the interpretability.\nSecond, the computing or running time is usually longer, and sometimes much longer depending on the order of complexity.\nAlso, the data or the model itself may consume lots of memory spaces.\n\n\n\n\n\nOccam’s Razor: Don’t use a complex model if a simpler model can perform equally well!\n\n\n\n\nAdjusted \\(R^2\\)\n\n\\(R^2_{adj} = 1 - \\frac{SS_{res}/(n-p)}{SS_T/(n-1)}\\)\napplies a penalty (through \\(p\\)) for number of variables included in the model.\n\n\n\n\nNot the more the better anymore\nAdjusted R2 doesn’t increase if the new variable does not provide very little information for prediction\nAdjusted R2 will only increase on adding a variable to the model if the addition of the regressor reduces \\(MS_{res}\\)\nThis makes adjusted R2 a preferable metric for model selection in multiple regression models."
   },
   {
     "objectID": "slides/05-mlr.html#adjusted-r2-example",
     "href": "slides/05-mlr.html#adjusted-r2-example",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Adjusted \\(R^2\\) Example",
     "text": "Adjusted \\(R^2\\) Example\n\nFor a model with 3 predictors, \\(SS_{res} = 90\\), \\(SS_T = 245\\), and \\(n = 15\\). \\[R^2_{adj} = 1 - \\frac{90/(15-4)}{245/(15-1)} = 0.53\\]\nThe 4-th regressor is added into the model, and \\(SS_{res} = 88\\) (always decreases). Then \\[R^2_{adj} = 1 - \\frac{88/(15-5)}{245/(15-1)} = 0.49\\]\n\n\nIntuition: The new added regressor should have explanatory power for \\(y\\) large enough, so that \\(MS_{res}\\) is decreased."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-r2-and-adjusted-r2",
     "href": "slides/05-mlr.html#r-lab-r2-and-adjusted-r2",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab \\(R^2\\) and Adjusted \\(R^2\\)",
     "text": "R Lab \\(R^2\\) and Adjusted \\(R^2\\)\n\nsumm_delivery\n\n...\n\nResidual standard error: 3.26 on 22 degrees of freedom\nMultiple R-squared:  0.96,  Adjusted R-squared:  0.956 \n...\n\n\n\nsumm_delivery$r.squared\n\n[1] 0.9596\n\nsumm_delivery$adj.r.squared\n\n[1] 0.9559"
   },
   {
     "objectID": "slides/05-mlr.html#tests-on-individual-regression-coefficients",
     "href": "slides/05-mlr.html#tests-on-individual-regression-coefficients",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Tests on Individual Regression Coefficients",
     "text": "Tests on Individual Regression Coefficients\n\nHypothesis test on any single regression coefficient.\n \\(H_0: \\beta_{j} = 0 \\quad H_1: \\beta_j \\ne 0\\) \n\\(t_{test} = \\frac{b_j}{se(b_j)}\\)\nReject \\(H_0\\) if \\(|t_{test}| &gt; t_{\\alpha/2, n-k-1}\\)\nThis is a partial or marginal test: a test of the contribution of \\(X_j\\) given ALL other regressors in the model.\n\n\n\nWe can also do a one-side test for sure. But I am not sure if there is a R function to do a one-sided test.\nBut we can always compute the test statistic or the p-value ourselves.\nHypothesis test on any single regression coefficient.\n \\(H_0: \\beta_{j} = 0 \\quad H_1: \\beta_j \\ne 0\\) \n\\(t_{test} = \\frac{b_j}{\\sqrt{\\hat{\\sigma}^2C_{jj}}}\\), where \\(C_{jj}\\) is the \\(j\\)-th diagonal element of \\(({\\bf X'X})^{-1}\\).\nReject \\(H_0\\) if \\(|t_{test}| &gt; t_{\\alpha/2, n-k-1}\\)\nThis is a partial or marginal test: a test of the contribution of \\(X_j\\) given ALL other regressors in the model."
   },
   {
     "objectID": "slides/05-mlr.html#r-lab-tests-on-individual-coefficients",
     "href": "slides/05-mlr.html#r-lab-tests-on-individual-coefficients",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "R Lab Tests on Individual Coefficients",
     "text": "R Lab Tests on Individual Coefficients\n\nAssess the value of \\(x_2\\) (distance) given that \\(x_1\\) (cases) is in the model.\n \\(H_0: \\beta_{2} = 0 \\quad H_1: \\beta_2 \\ne 0\\) \n\n\nsumm_delivery$coefficients\n\n            Estimate Std. Error t value  Pr(&gt;|t|)\n(Intercept)  2.34123   1.096730   2.135 4.417e-02\ncases        1.61591   0.170735   9.464 3.255e-09\ndistance     0.01438   0.003613   3.981 6.312e-04\n\n\n\nqt(0.05/2, df = delivery_lm$df.residual, lower.tail = FALSE) ## t critical value df = n - 3 = 22\n\n\ndistance \n   3.981 \n\n\n distance \n0.0006312"
   },
   {
     "objectID": "slides/05-mlr.html#inference-pitfalls",
     "href": "slides/05-mlr.html#inference-pitfalls",
-    "title": "Multiple Linear Regression 👨‍💻",
+    "title": "Multiple Linear Regression 👩‍💻",
     "section": "Inference Pitfalls",
     "text": "Inference Pitfalls\n\n\nThe test \\(H_0:\\beta_j = 0\\) will always be rejected as long as the sample size is large enough, even \\(x_j\\) has a very small effect on \\(y\\).\n\nConsider the practical significance of the result, not just the statistical significance.\nUse the confidence interval to draw conclusions instead of relying only p-values.\n\n\n\n\n\n\n\nIf the sample size is small, there may not be enough evidence to reject \\(H_0:\\beta_j = 0\\).\n\nDON’T immediately conclude that the variable has no association with the response.\nThere may be a linear association that is just not strong enough to detect given your data, or there may be a non-linear association."
   },
@@ -1806,105 +1806,105 @@
   {
     "objectID": "slides/11-poly-reg.html#why-polynomial-regression",
     "href": "slides/11-poly-reg.html#why-polynomial-regression",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Why Polynomial Regression",
     "text": "Why Polynomial Regression\n\nPolynomials are widely used in situations where the response surface is curvilinear.\nMany complex nonlinear relationships can be adequately modeled by polynomials over reasonably small ranges of the \\(x\\)’s.\n\n\n\n\nThey are also useful as approximating functions to unknown and possibly very complex nonlinear relationships.\nIn this sense, the polynomial model is just the Taylor series expansion of the unknown function."
   },
   {
     "objectID": "slides/11-poly-reg.html#polynomial-regression-models",
     "href": "slides/11-poly-reg.html#polynomial-regression-models",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Polynomial Regression Models",
     "text": "Polynomial Regression Models\n\nA second-order (degree) polynomial in one variable or a quadratic model is \\[y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\epsilon\\]\nA second-order polynomial in two variables is \\[y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_{11}x_1^2 + \\beta_{22}x_2^2 + \\beta_{12}x_1x_2 + \\epsilon\\]\nThe \\(k\\)th-order polynomial model in one variable is \\[y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + \\cdots + \\beta_kx^k + \\epsilon\\]\nIf we set \\(x_j = x^j\\), this is just a multiple linear regression model with \\(k\\) predictors \\(x_1, x_2, \\dots, x_k\\)!"
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations",
     "href": "slides/11-poly-reg.html#important-considerations",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nKeep the order of the model as low as possible.\n\n\n\n\nTransform data to keep the model 1st order.\nIf fails, try a 2nd order model.\nAvoid higher-order polynomials unless they can be justified for reasons outside the data.\n👉 Occam’s Razor: among competing models that predict equally well, choose the “simplest” one, i.e., a parsimonious model.\n\nThis avoids overfitting that leads to nearly perfect fit to the data, but bad prediction performance.\n\n\n\n\n\n\n\n\nSource: Wikiversity\n\n\n\n\n\n\nThere are several important considerations that arise when fitting a polynomial in one variable. - A low-order model in a transformed variable is almost always preferable to a high-order model in the original metric. - Arbitrary fitting of high-order polynomials is a serious abuse of regression analysis. - You can always fit a polynomial model with very high order. It may give you a pretty good fit, but with very high chance, it will end up with very bad prediction, leading to overfitting. + Occam’s Razor: among competing models that predict equally well, choose the “simplest” one, i.e., parsimonious model. + This avoid overfitting that leads to bad prediction performance.\n\n\n\n“Bayesian Deep Learning and a Probabilistic Perspective of Generalization” Wilson and Izmailov (2020) for the rationale of choosing a super high-order polynomial as the regression model.\n\n\n\nthe ground truth explanation for the data is out of class for any of these choices, but there is some setting of the coefficients in choice (3) which provides a better description of reality than could be managed by choices (1) and (2).\nour beliefs about the generative processes for our observations, which are often very sophisticated, typically ought to be independent of how many data points we happen to observe.\nwe often use neural networks with millions of parameters to fit datasets with thousands of points"
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations-1",
     "href": "slides/11-poly-reg.html#important-considerations-1",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nModel building strategy\n\n\n👉 Forward selection: successively fit models of increasing order until the \\(t\\)-test for the highest order term is non-significant.\n👉 Backward elimination: fit the highest order model and then delete terms one at a time until the highest order remaining term has a significant \\(t\\) statistic.\n👉 They do not necessarily lead to the same model.\n👉 Restrict our attention to low-order polynomials."
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations-2",
     "href": "slides/11-poly-reg.html#important-considerations-2",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nExtrapolation\n\n\nCan be extremely dangerous when the model is higher-order polynomial.\nThe nature of the true underlying relationship may change or be completely different from the system that produced the data used to fit the model."
   },
   {
     "objectID": "slides/11-poly-reg.html#important-considerations-3",
     "href": "slides/11-poly-reg.html#important-considerations-3",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Important Considerations",
     "text": "Important Considerations\n\nIll-conditioning\n\n\nIll-conditioning: as the order of the model increases, \\({\\bf X'X}\\) matrix inversion will become inaccurate, and error may be introduced into the parameter estimates\nCentering the predictors may remove some ill conditioning but not all.\nOne solution is to use orthogonal polynomials (LRA Sec 7.5).\n\n\n\nIll-conditioning refers to the fact that as the order of the model increases, \\({\\bf X'X}\\) matrix inversion will become inaccurate, and error can be introduced into the parameter estimates\nCentering the predictors may remove some ill conditioning but not all."
   },
   {
     "objectID": "slides/11-poly-reg.html#example-7.1-hardwood-data-lra",
     "href": "slides/11-poly-reg.html#example-7.1-hardwood-data-lra",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Example 7.1: Hardwood Data (LRA)",
     "text": "Example 7.1: Hardwood Data (LRA)\n\nStrength of kraft paper vs. the percentage of hardwood in the batch of pulp from which the paper was produced.\nA quadratic model may adequately describe the relationship between tensile strength and hardwood concentration.\n\n\n\n\nhardwood[1:9, ]\n\n  conc strength\n1  1.0      6.3\n2  1.5     11.1\n3  2.0     20.0\n4  3.0     24.0\n5  4.0     26.1\n6  4.5     30.0\n7  5.0     33.8\n8  5.5     34.0\n9  6.0     38.1"
   },
   {
     "objectID": "slides/11-poly-reg.html#r-lab-hardwood-data-model-fitting",
     "href": "slides/11-poly-reg.html#r-lab-hardwood-data-model-fitting",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "R Lab Hardwood Data Model Fitting",
     "text": "R Lab Hardwood Data Model Fitting\n\nFollowing the suggestion that centering the data may remove nonessential ill-conditioning: \\[y = \\beta_0 + \\beta_1 (x - \\bar{x}) + \\beta_2 (x - \\bar{x}) ^ 2 + \\epsilon\\]\n\n\nconc_cen &lt;- hardwood$conc - mean(hardwood$conc)\nlm(strength ~ conc_cen + I(conc_cen ^ 2), data = hardwood)\n\n\nCall:\nlm(formula = strength ~ conc_cen + I(conc_cen^2), data = hardwood)\n\nCoefficients:\n  (Intercept)       conc_cen  I(conc_cen^2)  \n       45.295          2.546         -0.635  \n\n\n\n\\(y = 45.3 + 2.55 (x - 7.26) - 0.63 (x - 7.26) ^ 2 + \\epsilon\\)\nInference, prediction and residual diagnostics procedures are the same as multiple linear regression.\n\n\n\nWe don’t need to create an extra predictor concentration ^ 2 in the data set.\nWe can construct the x_sq term in the lm() function.\nWe use I() function to wrap up the operation concen_cen ^ 2, so that concen_cen ^ 2 is not interpreted as a part of formula, but actual arithmetic operation.\nTo avoid this confusion, the function I() can be used to bracket those portions of a model formula where the operators are used in their arithmetic sense. For example, in the formula y ~ a + I(b+c), the term b+c is to be interpreted as the sum of b and c."
   },
   {
     "objectID": "slides/11-poly-reg.html#piecewise-polynomial-regression",
     "href": "slides/11-poly-reg.html#piecewise-polynomial-regression",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Piecewise (Polynomial) Regression",
     "text": "Piecewise (Polynomial) Regression\n\nA polynomial regression may provide a poor fit, and increasing the order does not improve the situation.\nThis may happen when the regression function behaves differently in different parts of the range of \\(x\\).\n\n\n\nSOLUTION: 👉 piecewise polynomial regression that fits separate polynomials over different regions of \\(x\\).\nExample: \\[y=\\begin{cases}\n  \\beta_{01} + \\beta_{11}x+ \\beta_{21}x^2+\\beta_{31}x^3 +\\epsilon     & \\quad \\text{if } x &lt; c\\\\\n  \\beta_{02} + \\beta_{12}x+ \\beta_{22}x^2+\\beta_{32}x^3+\\epsilon      & \\quad \\text{if } x \\ge c\n\\end{cases}\\]\nThe joint points of pieces are called knots.\n\n\n\n\nUsing more knots leads to a more flexible piecewise polynomial.\n\n\nWith \\(K\\) different knots, how many different polynomials do we have?\n\n\n\n\n\nThere might be tow different systems or schemes that govern the relationship between response and predictor variables.\nAny issue of fitting a piecewise polynomial regression?\nIn other words, we fit two different polynomial functions to the data, one on the subset of the observations with \\(xi &lt; c\\), and one on the subset of the observations with \\(xi ≥ c\\). The first polynomial function has coefficients β01, β11, β21, β31, and the second has coefficients β02, β12, β22, β32.\nEach of these polynomial functions can be fit using least squares applied to simple functions of the original predictor.\nthe function is discontinuous\nlocations of the knots are known, otherwise it is a nonlinear regression problem.\nWE could fit piecewise regression with order 1.\n(or more constrained?)"
   },
   {
     "objectID": "slides/11-poly-reg.html#u.s.-birth-rate-from-1917-to-2003",
     "href": "slides/11-poly-reg.html#u.s.-birth-rate-from-1917-to-2003",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "U.S. Birth Rate from 1917 to 2003",
     "text": "U.S. Birth Rate from 1917 to 2003\n\n\n\n\n     Year Birthrate\n1917 1917       183\n1918 1918       184\n1919 1919       163\n1920 1920       180\n1921 1921       181\n1922 1922       173\n1923 1923       168\n1924 1924       177\n1925 1925       172\n1926 1926       170\n1927 1927       164\n1928 1928       152\n1929 1929       145\n1930 1930       145\n1931 1931       139\n1932 1932       132\n1933 1933       126\n1934 1934       130\n1935 1935       130\n1936 1936       130"
   },
   {
     "objectID": "slides/11-poly-reg.html#r-lab-a-polynomial-regression-provide-a-poor-fit",
     "href": "slides/11-poly-reg.html#r-lab-a-polynomial-regression-provide-a-poor-fit",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "R Lab A Polynomial Regression Provide a Poor Fit",
     "text": "R Lab A Polynomial Regression Provide a Poor Fit\n\nlmfit3 &lt;- lm(Birthrate ~ poly(Year - mean(Year), degree = 3, raw = TRUE),  \n             data = birthrates)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIt might be interesting to fit a linear regression with high order polynomials to approximate this curve. This can be carried out using the poly() function, which calculates all polynomials up to a certain power. Please note that this is a more stable method compared with writing out the powers such as I(Year^2), I(Year^3) etc because the Year variable is very large, and is numerically unstable."
   },
   {
     "objectID": "slides/11-poly-reg.html#r-lab-piecewise-polynomials-3-knots-at-1936-60-78",
     "href": "slides/11-poly-reg.html#r-lab-piecewise-polynomials-3-knots-at-1936-60-78",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "R Lab Piecewise Polynomials: 3 knots at 1936, 60, 78",
     "text": "R Lab Piecewise Polynomials: 3 knots at 1936, 60, 78\n\n\nAny issue of piecewise polynomials?\n\n\nthese functions are not continuous. Hence we use a trick to construct continuous basis"
   },
   {
     "objectID": "slides/11-poly-reg.html#splines",
     "href": "slides/11-poly-reg.html#splines",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Splines",
     "text": "Splines\nSplines of degree \\(k\\) are piecewise polynomials of degree \\(k\\) with continuity in derivatives (smoothing) up to degree \\(k-1\\) at each knot.\n\nUse bs() function in the splines package.\n\n\nlin_sp &lt;- lm(Birthrate ~ splines::bs(Year, degree = 1, knots = c(1936, 1960, 1978)), \n             data = birthrates)"
   },
   {
     "objectID": "slides/11-poly-reg.html#cubic-splines",
     "href": "slides/11-poly-reg.html#cubic-splines",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Cubic Splines",
     "text": "Cubic Splines\n\nThe cubic spline is a spline of degree 3 with first 2 derivatives are continuous at the knots.\n\n\ncub_sp &lt;- lm(Birthrate ~ splines::bs(Year, degree = 3, knots = c(1936, 1960, 1978)), \n             data = birthrates)"
   },
   {
     "objectID": "slides/11-poly-reg.html#practical-issue",
     "href": "slides/11-poly-reg.html#practical-issue",
-    "title": "Polynomial Regression ▶️",
+    "title": "Polynomial Regression ⏯",
     "section": "Practical Issue",
     "text": "Practical Issue\n\nHow many knots should be used\n\nAs few knots as possible\nAt least 5 data points per segment\n\nWhere to place the knots\n\nNo more than one extreme point per segment\nIf possible, the extreme points should be centered in the segment\n\nWhat is the degree of functions in each region\n\nCubic spline is popular"
   },
@@ -2284,7 +2284,7 @@
     "href": "slides/14-collinearity.html#r-lab-hospital-manpower---eigensystem-analysis",
     "title": "Collinearity",
     "section": "R Lab Hospital Manpower - Eigensystem Analysis",
-    "text": "R Lab Hospital Manpower - Eigensystem Analysis\n\neigen_Sig &lt;- eigen(Sig)\n## eigenvalues\n(lambda &lt;- eigen_Sig$values)\n\n[1] 4.2e+00 6.7e-01 9.5e-02 4.1e-02 5.4e-05\n\n## Conditional indices\nmax(lambda) / lambda\n\n[1]     1.0     6.3    44.4   103.1 77769.7\n\n\n\n\\(\\lambda_5 \\approx 0\\) and \\(\\kappa_5 \\approx 77770\\), indicating collinearity.\n\n\nEigenvalues are listed in a decreasing order, \\(\\lambda_1 &gt; \\lambda_2 &gt; \\cdots &gt; \\lambda_k\\), and \\(\\lambda_5\\) is not the eigenvalue of \\(x_5\\).\n\n\n\n\n      [,1]     [,2]  [,3]  [,4]    [,5]\n[1,] -0.49 -0.00203 -0.17 -0.47  0.7195\n[2,] -0.45 -0.33561  0.80  0.19  0.0012\n[3,] -0.48 -0.00085 -0.15 -0.51 -0.6941\n[4,] -0.46 -0.31080 -0.54  0.63 -0.0234\n[5,] -0.33  0.88925  0.12  0.29 -0.0068\n\n\n[1] 1 1 1 1 1\n\n\nThere is one near linear dependency."
+    "text": "R Lab Hospital Manpower - Eigensystem Analysis\n\neigen_Sig &lt;- eigen(Sig)\n## eigenvalues\n(lambda &lt;- eigen_Sig$values)\n\n[1] 4.2e+00 6.7e-01 9.5e-02 4.1e-02 5.4e-05\n\n## Conditional indices\nmax(lambda) / lambda\n\n[1]     1.0     6.3    44.4   103.1 77769.7\n\n\n\n\\(\\lambda_5 \\approx 0\\) and \\(\\kappa_5 \\approx 77770\\), indicating collinearity.\n\n\nEigenvalues are listed in a decreasing order, \\(\\lambda_1 &gt; \\lambda_2 &gt; \\cdots &gt; \\lambda_k\\), and \\(\\lambda_5\\) is not the eigenvalue of \\(x_5\\).\n\n\n\n\n      [,1]     [,2]  [,3]  [,4]    [,5]\n[1,] -0.49 -0.00203  0.17 -0.47  0.7195\n[2,] -0.45 -0.33561 -0.80  0.19  0.0012\n[3,] -0.48 -0.00085  0.15 -0.51 -0.6941\n[4,] -0.46 -0.31080  0.54  0.63 -0.0234\n[5,] -0.33  0.88925 -0.12  0.29 -0.0068\n\n\n[1] 1 1 1 1 1\n\n\nThere is one near linear dependency."
   },
   {
     "objectID": "slides/14-collinearity.html#eigensystem-analysis-eigendecomposition",
@@ -2298,7 +2298,7 @@
     "href": "slides/14-collinearity.html#r-lab-hospital-manpower---eigensystem-analysis-1",
     "title": "Collinearity",
     "section": "R Lab Hospital Manpower - Eigensystem Analysis",
-    "text": "R Lab Hospital Manpower - Eigensystem Analysis\n\n\n\n## eigenvector matrix\n(V &lt;- eigen_Sig$vectors)\n\n      [,1]     [,2]  [,3]  [,4]    [,5]\n[1,] -0.49 -0.00203 -0.17 -0.47  0.7195\n[2,] -0.45 -0.33561  0.80  0.19  0.0012\n[3,] -0.48 -0.00085 -0.15 -0.51 -0.6941\n[4,] -0.46 -0.31080 -0.54  0.63 -0.0234\n[5,] -0.33  0.88925  0.12  0.29 -0.0068\n\n\n\n\\({\\bf X}{\\bf v}_5 = \\sum_{i=1}^5v_{i5}{\\bf x}_i \\approx {\\bf 0}\\).\n\\(0.720 {\\bf x}_1 + 0.001 {\\bf x}_2 - 0.694 {\\bf x}_3 - 0.023 {\\bf x}_4 - 0.007 {\\bf x}_5 \\approx {\\bf 0}\\)\nHighly correlated \\(x_1\\) and \\(x_3\\) causes collinearity.\n\n\n\nAll \\({\\bf x}\\)s here are unit length scaled.\n\n\nX_s &lt;- apply(X, 2, unit_len_scale)\n\n\n\n\nX_s %*% V[, 5]\n\n          [,1]\n [1,] -0.00037\n [2,] -0.00144\n [3,]  0.00032\n [4,] -0.00058\n [5,] -0.00108\n [6,]  0.00047\n [7,] -0.00131\n [8,]  0.00492\n [9,] -0.00225\n[10,]  0.00230\n[11,] -0.00050\n[12,]  0.00209\n[13,] -0.00251\n[14,] -0.00016\n[15,]  0.00131\n[16,] -0.00098\n[17,] -0.00023\n\n\n\n\n\n\n     [,1] [,2]  [,3]  [,4]    [,5]\n[1,]  4.2 0.00 0.000 0.000 0.0e+00\n[2,]  0.0 0.67 0.000 0.000 0.0e+00\n[3,]  0.0 0.00 0.095 0.000 0.0e+00\n[4,]  0.0 0.00 0.000 0.041 0.0e+00\n[5,]  0.0 0.00 0.000 0.000 5.4e-05\n\n\n\n## Orthogonal matrix\nround(t(V)%*%V, 1)\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    0    0    0    0\n[2,]    0    1    0    0    0\n[3,]    0    0    1    0    0\n[4,]    0    0    0    1    0\n[5,]    0    0    0    0    1\n\n##  V(Lambda)V' = X'X\nV %*% diag(lambda) %*% t(V)\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,] 1.00 0.91 1.00 0.94 0.67\n[2,] 0.91 1.00 0.91 0.91 0.45\n[3,] 1.00 0.91 1.00 0.93 0.67\n[4,] 0.94 0.91 0.93 1.00 0.46\n[5,] 0.67 0.45 0.67 0.46 1.00\n\n\n\n## near-zero vector\nX_s%*%V[, 5]\n\n          [,1]\n [1,] -0.00037\n [2,] -0.00144\n [3,]  0.00032\n [4,] -0.00058\n [5,] -0.00108\n [6,]  0.00047\n [7,] -0.00131\n [8,]  0.00492\n [9,] -0.00225\n[10,]  0.00230\n[11,] -0.00050\n[12,]  0.00209\n[13,] -0.00251\n[14,] -0.00016\n[15,]  0.00131\n[16,] -0.00098\n[17,] -0.00023"
+    "text": "R Lab Hospital Manpower - Eigensystem Analysis\n\n\n\n## eigenvector matrix\n(V &lt;- eigen_Sig$vectors)\n\n      [,1]     [,2]  [,3]  [,4]    [,5]\n[1,] -0.49 -0.00203  0.17 -0.47  0.7195\n[2,] -0.45 -0.33561 -0.80  0.19  0.0012\n[3,] -0.48 -0.00085  0.15 -0.51 -0.6941\n[4,] -0.46 -0.31080  0.54  0.63 -0.0234\n[5,] -0.33  0.88925 -0.12  0.29 -0.0068\n\n\n\n\\({\\bf X}{\\bf v}_5 = \\sum_{i=1}^5v_{i5}{\\bf x}_i \\approx {\\bf 0}\\).\n\\(0.720 {\\bf x}_1 + 0.001 {\\bf x}_2 - 0.694 {\\bf x}_3 - 0.023 {\\bf x}_4 - 0.007 {\\bf x}_5 \\approx {\\bf 0}\\)\nHighly correlated \\(x_1\\) and \\(x_3\\) causes collinearity.\n\n\n\nAll \\({\\bf x}\\)s here are unit length scaled.\n\n\nX_s &lt;- apply(X, 2, unit_len_scale)\n\n\n\n\nX_s %*% V[, 5]\n\n          [,1]\n [1,] -0.00037\n [2,] -0.00144\n [3,]  0.00032\n [4,] -0.00058\n [5,] -0.00108\n [6,]  0.00047\n [7,] -0.00131\n [8,]  0.00492\n [9,] -0.00225\n[10,]  0.00230\n[11,] -0.00050\n[12,]  0.00209\n[13,] -0.00251\n[14,] -0.00016\n[15,]  0.00131\n[16,] -0.00098\n[17,] -0.00023\n\n\n\n\n\n\n     [,1] [,2]  [,3]  [,4]    [,5]\n[1,]  4.2 0.00 0.000 0.000 0.0e+00\n[2,]  0.0 0.67 0.000 0.000 0.0e+00\n[3,]  0.0 0.00 0.095 0.000 0.0e+00\n[4,]  0.0 0.00 0.000 0.041 0.0e+00\n[5,]  0.0 0.00 0.000 0.000 5.4e-05\n\n\n\n## Orthogonal matrix\nround(t(V)%*%V, 1)\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    0    0    0    0\n[2,]    0    1    0    0    0\n[3,]    0    0    1    0    0\n[4,]    0    0    0    1    0\n[5,]    0    0    0    0    1\n\n##  V(Lambda)V' = X'X\nV %*% diag(lambda) %*% t(V)\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,] 1.00 0.91 1.00 0.94 0.67\n[2,] 0.91 1.00 0.91 0.91 0.45\n[3,] 1.00 0.91 1.00 0.93 0.67\n[4,] 0.94 0.91 0.93 1.00 0.46\n[5,] 0.67 0.45 0.67 0.46 1.00\n\n\n\n## near-zero vector\nX_s%*%V[, 5]\n\n          [,1]\n [1,] -0.00037\n [2,] -0.00144\n [3,]  0.00032\n [4,] -0.00058\n [5,] -0.00108\n [6,]  0.00047\n [7,] -0.00131\n [8,]  0.00492\n [9,] -0.00225\n[10,]  0.00230\n[11,] -0.00050\n[12,]  0.00209\n[13,] -0.00251\n[14,] -0.00016\n[15,]  0.00131\n[16,] -0.00098\n[17,] -0.00023"
   },
   {
     "objectID": "slides/14-collinearity.html#other-diagnostics",
@@ -2396,7 +2396,7 @@
     "href": "slides/06-mlr-mat.html#r-lab-verify-identity",
     "title": "Multiple Linear Regression - Matrix Approach ",
     "section": "R Lab Verify Identity",
-    "text": "R Lab Verify Identity\n\n\n\\({\\bf H} = {\\bf X} ({\\bf X}' {\\bf X}) ^{-1} \\bf X'\\)\n\nH &lt;- X %*% solve(t(X) %*% X) %*% t(X)\n\n\\(\\hat{\\bf y} = \\bf H \\bf y\\)\n\nfitted_y &lt;- H %*% y\nfitted_y[1:4]\n\n[1] 22 10 12 10\n\ndelivery_lm$fitted.values[1:4]\n\n 1  2  3  4 \n22 10 12 10 \n\n\n\n\\({\\bf e} = ({\\bf I} - {\\bf H}) {\\bf y}\\)\n\nn &lt;- length(y)\nI &lt;- diag(n)\nres &lt;- (I - H) %*% y\nres[1:4]\n\n[1] -5.03  1.15 -0.05  4.92\n\ndelivery_lm$residuals[1:4]\n\n    1     2     3     4 \n-5.03  1.15 -0.05  4.92 \n\n## residual vector in the left null space of X\nt(X) %*% res\n\n            [,1]\n1        1.4e-12\ncases    1.4e-11\ndistance 6.2e-10"
+    "text": "R Lab Verify Identity\n\n\n\\({\\bf H} = {\\bf X} ({\\bf X}' {\\bf X}) ^{-1} \\bf X'\\)\n\nH &lt;- X %*% solve(t(X) %*% X) %*% t(X)\n\n\\(\\hat{\\bf y} = \\bf H \\bf y\\)\n\nfitted_y &lt;- H %*% y\nfitted_y[1:4]\n\n[1] 22 10 12 10\n\ndelivery_lm$fitted.values[1:4]\n\n 1  2  3  4 \n22 10 12 10 \n\n\n\n\\({\\bf e} = ({\\bf I} - {\\bf H}) {\\bf y}\\)\n\nn &lt;- length(y)\nI &lt;- diag(n)\nres &lt;- (I - H) %*% y\nres[1:4]\n\n[1] -5.03  1.15 -0.05  4.92\n\ndelivery_lm$residuals[1:4]\n\n    1     2     3     4 \n-5.03  1.15 -0.05  4.92 \n\n## residual vector in the left null space of X\nt(X) %*% res\n\n            [,1]\n1        9.0e-13\ncases    8.1e-12\ndistance 4.0e-10"
   },
   {
     "objectID": "slides/06-mlr-mat.html#multivariate-normal-distribution",
@@ -2466,7 +2466,7 @@
     "href": "slides/06-mlr-mat.html#r-lab-standardized-coefficients",
     "title": "Multiple Linear Regression - Matrix Approach ",
     "section": "R Lab Standardized Coefficients",
-    "text": "R Lab Standardized Coefficients\n\n## unit normal scaling\nscale_data &lt;- scale(delivery_data, center = TRUE, scale = TRUE)  ## becomes a matrix\napply(scale_data, 2, mean)\n\n    time    cases distance \n-6.2e-17  4.6e-17  8.7e-17 \n\napply(scale_data, 2, var)\n\n    time    cases distance \n       1        1        1 \n\n\n\n\n## No-intercept\nscale_lm &lt;- lm(time ~ cases + distance - 1, data = as.data.frame(scale_data)) \nscale_lm$coefficients\n\n   cases distance \n    0.72     0.30 \n\n## With intercept\nscale_lm_0 &lt;- lm(time ~ cases + distance, data = as.data.frame(scale_data))  \nscale_lm_0$coefficients\n\n(Intercept)       cases    distance \n   -8.2e-17     7.2e-01     3.0e-01"
+    "text": "R Lab Standardized Coefficients\n\n## unit normal scaling\nscale_data &lt;- scale(delivery_data, center = TRUE, scale = TRUE)  ## becomes a matrix\napply(scale_data, 2, mean)\n\n    time    cases distance \n-6.2e-17  4.6e-17  8.7e-17 \n\napply(scale_data, 2, var)\n\n    time    cases distance \n       1        1        1 \n\n\n\n\n## No-intercept\nscale_lm &lt;- lm(time ~ cases + distance - 1, data = as.data.frame(scale_data)) \nscale_lm$coefficients\n\n   cases distance \n    0.72     0.30 \n\n## With intercept\nscale_lm_0 &lt;- lm(time ~ cases + distance, data = as.data.frame(scale_data))  \nscale_lm_0$coefficients\n\n(Intercept)       cases    distance \n   -1.3e-16     7.2e-01     3.0e-01"
   },
   {
     "objectID": "slides/13-cat-var.html#categorical-variables",
@@ -2991,7 +2991,7 @@
     "href": "slides/11-bootstrap.html#r-lab-the-bootstrap-sample",
     "title": "Simulation-based Inference 💻",
     "section": "R Lab The bootstrap Sample",
-    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2495, 2422, 2349, 2350, 2350, 2550, 2350, 2350, 2350, 2350, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
+    "text": "R Lab The bootstrap Sample\n\n👤 How many observations are there in boot_sample? What does each observation represent?\n\n\ndplyr::glimpse(boot_sample)\n\nRows: 15,000\nColumns: 2\n$ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…\n$ stat      &lt;dbl&gt; 2350, 2175, 2324, 2349, 2350, 2350, 2350, 2350, 2350, 2325, …\n\n\n\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data.\n\n\n\nSo now you can see that we have 15000 median rents\nEach replicate median rent is calculated from a bootstrapped sample of size 20 from our original sample data."
   },
   {
     "objectID": "slides/11-bootstrap.html#r-lab-visualize-the-bootstrap-distribution",
@@ -3122,385 +3122,385 @@
   {
     "objectID": "slides/06-mat.html#matrix-algebra-for-regression",
     "href": "slides/06-mat.html#matrix-algebra-for-regression",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Matrix Algebra for Regression",
     "text": "Matrix Algebra for Regression\n\\[y_i= \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\dots + \\beta_kx_{ik} + \\epsilon_i, \\quad \\epsilon_i \\stackrel{iid}{\\sim} N(0, \\sigma^2), \\quad i = 1, 2, \\dots, n\\]\n\n\n\\[\\bf y = \\bf X \\boldsymbol \\beta+ \\boldsymbol \\epsilon\\] where\n\\[\\begin{align}\n\\bf y = \\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n \\end{bmatrix},\\quad\n\\bf X = \\begin{bmatrix}\n  1 & x_{11} & x_{12} & \\cdots & x_{1k} \\\\\n  1 & x_{21} & x_{22} & \\cdots & x_{2k} \\\\\n  \\vdots & \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\\n  1 & x_{n1} & x_{n2} & \\cdots & x_{nk} \\end{bmatrix}, \\quad\n\\boldsymbol \\beta= \\begin{bmatrix}\n\\beta_0 \\\\\n\\beta_1 \\\\\n\\vdots \\\\\n\\beta_k \\end{bmatrix} , \\quad\n\\boldsymbol \\epsilon= \\begin{bmatrix}\n\\epsilon_1 \\\\\n\\epsilon_2 \\\\\n\\vdots \\\\\n\\epsilon_n\\end{bmatrix}\n\\end{align}\\]\n\nThe main goal is not matrix computation by hand. It is to understand the geometry and algebra behind\n\\[\n{\\bf b}=({\\bf X}'{\\bf X})^{-1}{\\bf X}'{\\bf y}.\n\\]"
   },
   {
     "objectID": "slides/06-mat.html#matrix",
     "href": "slides/06-mat.html#matrix",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Matrix",
     "text": "Matrix\n\nA matrix \\({\\bf A}\\) that has \\(n\\) rows and \\(m\\) columns is defined as \\[{\\bf A} = (a_{ij})_{n \\times m}\\begin{bmatrix} a_{11} & a_{12} & \\cdots & a_{1m} \\\\ a_{21} & a_{22} & \\cdots & a_{2m} \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ a_{n1} & a_{n2} & \\cdots & a_{nm} \\end{bmatrix}_{n \\times m}\\]\n\n\n\n\n\n(A &lt;- matrix(data = 1:6, \n             nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nclass(A)\n\n[1] \"matrix\" \"array\" \n\n\n\n\nattributes(A)\n\n$dim\n[1] 2 3\n\n\n\n\n\n\nBut what is the geometrical meaning of matrices?\n\n\n\nFirst index is for row and the second index is for column\nUse command matrix() to create a matrix.\nA matrix is a two-dimensional analog of a vector.\nLike all elements of a matrix must be of the same type."
   },
   {
     "objectID": "slides/06-mat.html#matrices-as-linear-transformations",
     "href": "slides/06-mat.html#matrices-as-linear-transformations",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Matrices as Linear Transformations",
     "text": "Matrices as Linear Transformations\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 3\n\n\n\nA matrix is actually a numerical representation of a linear transformation in a linear space which is a function that takes an vector as an input and produces another vector as an output.\nIf we use the grid lines to represent the entire coordinate system, we will see that when we use (1, 0) and (0, 1) as the two bases, all lines are vertical and horizontal, showing, for example, the integer values of each coordinate.\nLinear transformation means we stretch or rotate the lines, but at the same time, all lines remains lines and origin remain fixed.\nGrids lines are parallel and evenly spaced after linear transformation.\n(-1, 3) is the transformed vector of (-1, 2) when the two new transformed basis are (3, 1) and (1, 2)"
   },
   {
     "objectID": "slides/06-mat.html#column-vector",
     "href": "slides/06-mat.html#column-vector",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Column Vector",
     "text": "Column Vector\n\nIf \\(m = 1\\), it becomes a \\(n\\) by 1 matrix or a column vector of size \\(n\\). \\[\\small {\\bf y} = \\begin{bmatrix} y_{1}  \\\\ y_{2}  \\\\ \\vdots  \\\\  y_{n} \\end{bmatrix}_{n \\times 1} \\quad {\\bf 1} = \\begin{bmatrix} 1  \\\\ 1  \\\\ \\vdots  \\\\  1 \\end{bmatrix}_{n \\times 1}\\]\n\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n## 2nd column\nA[, 2]\n\n[1] 3 4\n\n## becomes a numeric vector\nclass(A[, 2]) \n\n[1] \"integer\"\n\n\n\n\n## keep its matrix class\nA[, 2, drop = FALSE] \n\n     [,1]\n[1,]    3\n[2,]    4\n\nclass(A[, 2, drop = FALSE])  \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#row-vector",
     "href": "slides/06-mat.html#row-vector",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Row Vector",
     "text": "Row Vector\n\nIf \\(n = 1\\), it becomes a \\(1\\) by \\(m\\) matrix or a row vector of size \\(m\\). \\[{\\bf x} = \\begin{bmatrix} x_{1} &  x_{2}  & \\dots  &  x_{m} \\end{bmatrix}_{1 \\times m}\\]\nBy default, a vector means a column vector.\n\n\n## 2nd row\nA[2, , drop = FALSE]\n\n     [,1] [,2] [,3]\n[1,]    2    4    6\n\n## keep its matrix class\nclass(A[2, , drop = FALSE]) \n\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/06-mat.html#vectors-addition-and-scalar-multiplication",
     "href": "slides/06-mat.html#vectors-addition-and-scalar-multiplication",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Vectors: Addition and Scalar Multiplication",
     "text": "Vectors: Addition and Scalar Multiplication\nLet\n\\[\n{\\bf u}=\n\\begin{bmatrix}\nu_1\\\\u_2\n\\end{bmatrix},\n\\qquad\n{\\bf v}=\n\\begin{bmatrix}\nv_1\\\\v_2\n\\end{bmatrix}.\n\\]\nThen\n\\[\n{\\bf u}+{\\bf v}\n=\n\\begin{bmatrix}\nu_1+v_1\\\\\nu_2+v_2\n\\end{bmatrix},\n\\qquad\nc{\\bf u}\n=\n\\begin{bmatrix}\ncu_1\\\\\ncu_2\n\\end{bmatrix}.\n\\]\n\nu &lt;- c(1, 2)\nv &lt;- c(3, -1)\n\nu + v\n\n[1] 4 1\n\n2 * u\n\n[1] 2 4"
   },
   {
     "objectID": "slides/06-mat.html#linear-combinations",
     "href": "slides/06-mat.html#linear-combinations",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Linear Combinations",
     "text": "Linear Combinations\nA linear combination of vectors \\({\\bf v}_1,\\dots,{\\bf v}_k\\) is\n\\[\nc_1{\\bf v}_1+\\cdots+c_k{\\bf v}_k.\n\\]\nFor example,\n\\[\n2\n\\begin{bmatrix}1\\\\0\\end{bmatrix}\n+\n3\n\\begin{bmatrix}0\\\\1\\end{bmatrix}\n=\n\\begin{bmatrix}2\\\\3\\end{bmatrix}.\n\\]\n\n\nMatrix multiplication \\({\\bf Xb}\\) is a linear combination of the columns of \\({\\bf X}\\).\n\nIf\n\\[\n{\\bf X}=\n\\begin{bmatrix}\n{\\bf x}_1 & {\\bf x}_2 & \\cdots & {\\bf x}_p\n\\end{bmatrix},\n\\]\nthen\n\\[\n{\\bf Xb}\n=\nb_1{\\bf x}_1+\\cdots+b_p{\\bf x}_p.\n\\]"
   },
   {
     "objectID": "slides/06-mat.html#span-and-column-space",
     "href": "slides/06-mat.html#span-and-column-space",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Span and Column Space",
     "text": "Span and Column Space\nThe span of vectors \\({\\bf v}_1,\\ldots,{\\bf v}_k\\) is the set of all their linear combinations:\n\\[\n\\operatorname{span}({\\bf v}_1,\\dots,{\\bf v}_k)\n=\n\\left\\{\nc_1{\\bf v}_1+\\cdots+c_k{\\bf v}_k\n\\right\\}.\n\\]\nFor a matrix\n\\[\n{\\bf X}=\n\\begin{bmatrix}\n{\\bf x}_1 & \\cdots & {\\bf x}_p\n\\end{bmatrix},\n\\]\nthe column space is\n\\[\n\\operatorname{Col}({\\bf X})\n=\n\\operatorname{span}({\\bf x}_1,\\dots,{\\bf x}_p).\n\\]\n\nIn regression, every fitted-value vector\n\\[\n\\hat{\\bf y}={\\bf Xb}\n\\]\nmust lie in \\(\\operatorname{Col}({\\bf X})\\)."
   },
   {
     "objectID": "slides/06-mat.html#why-column-space-matters-for-regression",
     "href": "slides/06-mat.html#why-column-space-matters-for-regression",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Why Column Space Matters for Regression",
     "text": "Why Column Space Matters for Regression\nSuppose\n\\[\n{\\bf X}\n=\n\\begin{bmatrix}\n{\\bf 1} & {\\bf x}_1 & {\\bf x}_2\n\\end{bmatrix}.\n\\]\nThen every possible fitted vector has the form\n\\[\n{\\bf Xb}\n=\nb_0{\\bf 1}+b_1{\\bf x}_1+b_2{\\bf x}_2.\n\\]\n\n\nChanging \\({\\bf b}\\) moves us to a different point in \\(\\operatorname{Col}({\\bf X})\\).\nLeast squares chooses the point in \\(\\operatorname{Col}({\\bf X})\\) closest to \\({\\bf y}\\).\nThis geometric viewpoint will explain the normal equations later."
   },
   {
     "objectID": "slides/06-mat.html#transpose",
     "href": "slides/06-mat.html#transpose",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Transpose",
     "text": "Transpose\n\nLet \\({\\bf A}\\) be an \\(n \\times m\\) matrix. The transpose of \\({\\bf A}\\), denoted by \\({\\bf A}'\\) or \\({\\bf A}^T\\), is a \\(m \\times n\\) matrix whose columns are the rows of \\({\\bf A}\\). \\[{\\bf A} = \\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6\\end{bmatrix}\\] \\[{\\bf X}_{n \\times 2}\\begin{bmatrix} 1 & x_1 \\\\ 1 & x_{2} \\\\ \\vdots  & \\vdots  \\\\ 1 & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1} & {\\bf x} \\end{bmatrix}\\] \\[{\\bf X}'_{2 \\times n} = \\begin{bmatrix} 1 & 1 & \\cdots & 1 \\\\ x_1 & x_2 & \\cdots & x_n \\end{bmatrix} = \\begin{bmatrix} {\\bf 1}' \\\\ {\\bf x}' \\end{bmatrix}\\]"
   },
   {
     "objectID": "slides/06-mat.html#transpose-in-r",
     "href": "slides/06-mat.html#transpose-in-r",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Transpose in R",
     "text": "Transpose in R\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\nt(A)\n\n     [,1] [,2]\n[1,]    1    2\n[2,]    3    4\n[3,]    5    6"
   },
   {
     "objectID": "slides/06-mat.html#determinant",
     "href": "slides/06-mat.html#determinant",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Determinant",
     "text": "Determinant\nFor a square matrix \\({\\bf A}=\\begin{bmatrix}a & b\\\\ c & d\\end{bmatrix},\\)\nthe determinant is \\(\\det({\\bf A})=ad-bc.\\)\n\nA2 &lt;- matrix(c(2, 1,\n               3, 4), nrow = 2, byrow = TRUE)\nA2\n\n     [,1] [,2]\n[1,]    2    1\n[2,]    3    4\n\ndet(A2)\n\n[1] 5\n\n\n\nFor a square matrix,\n\\[\n\\boxed{\\det({\\bf A})\\ne0\n\\quad\\Longleftrightarrow\\quad\n{\\bf A}\\text{ is invertible}}\n\\]\n\n\nGeometrically, the absolute determinant gives the factor by which the linear transformation scales area in 2D or volume in higher dimensions.\nA zero determinant means that the transformation collapses the space into a lower-dimensional subspace."
   },
   {
     "objectID": "slides/06-mat.html#determinant-geometric-interpretation",
     "href": "slides/06-mat.html#determinant-geometric-interpretation",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Determinant: Geometric Interpretation",
     "text": "Determinant: Geometric Interpretation\nFor a \\(2\\times2\\) matrix, \\(|\\det({\\bf A})|\\) is the factor by which areas are scaled.\n\n\\(|\\det({\\bf A})|&gt;1\\): area expands.\n\\(0&lt;|\\det({\\bf A})|&lt;1\\): area contracts.\n\\(\\det({\\bf A})&lt;0\\): orientation is reversed.\n\\(\\det({\\bf A})=0\\): the plane is collapsed to a line or a point.\n\n\nIf \\(\\det({\\bf A})=0\\), some column information is redundant.\nThat is exactly the kind of issue that appears with perfect multicollinearity."
   },
   {
     "objectID": "slides/06-mat.html#linear-independence",
     "href": "slides/06-mat.html#linear-independence",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\n\n\nVectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if for scalars \\(c_{1},c_{2},\\dots,c_{k} \\in \\mathbf{R},\\) \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0\\) for all \\(i = 1, 2, \\dots, k\\).\n\n\nAre \\({\\bf v}_1 = (1, 1)'\\) and \\({\\bf v}_2 = (-3, 2)'\\) linearly independent?\n\n\nWays to check linear independence:\n\nsolve the homogeneous linear system \\(\\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix}\\begin{bmatrix} c_1 \\\\ c_2 \\end{bmatrix}=\\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix}\\) for \\(c_1\\) and \\(c_2\\).\ncheck if \\(\\text{det} \\left( \\begin{bmatrix} 1 & -3 \\\\ 1 & 2 \\end{bmatrix} \\right)\\) is non-zero."
   },
   {
     "objectID": "slides/06-mat.html#linear-independence-1",
     "href": "slides/06-mat.html#linear-independence-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Linear Independence",
     "text": "Linear Independence\n\nV &lt;- matrix(c(1, 1, -3, 2), nrow = 2, ncol = 2)\nsolve(a = V, b = rep(0, 2))\n\n[1] 0 0\n\ndet(V)\n\n[1] 5\n\n\n\n\nA is invertible, that is, A has an inverse, is nonsingular, and is nondegenerate.\nA is row-equivalent to the n-by-n identity matrix In.\nA is column-equivalent to the n-by-n identity matrix In.\nA has n pivot positions.\nA has full rank; that is, rank A = n.\nBased on the rank A=n, the equation Ax = 0 has only the trivial solution x = 0. and the equation Ax = b has exactly one solution for each b in Kn.\nThe kernel (null space) of A is trivial\nThe columns of A are linearly independent.\nThe columns of A span Kn.\nThe columns of A form a basis of Kn.\ndet A ≠ 0.\nThe number 0 is not an eigenvalue of A.\nThe transpose AT is an invertible matrix"
   },
   {
     "objectID": "slides/06-mat.html#rank",
     "href": "slides/06-mat.html#rank",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Rank",
     "text": "Rank\n\nThe rank of a matrix \\({\\bf A} = \\begin{bmatrix} {\\bf a}_1 & {\\bf a}_2 & \\cdots & {\\bf a}_m \\end{bmatrix}\\) is the number of linearly independent columns (dimension of the column space).\nIf \\(k\\) of the \\(m\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_m\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\).\nThe remaining \\(m-k\\) columns of \\({\\bf A}\\) can be written as a linear combination of the \\(k\\) linearly independent columns.\n\n\n\nIf \\(k = m\\), it is full rank\nIf \\(k\\) of the \\(n\\) column vectors \\({\\bf a}_1, {\\bf a}_2, \\dots, {\\bf a}_n\\) are linearly independent, the rank of \\({\\bf A}\\) is \\(k\\). The remaining \\(n-k\\) columns can be written as a linear combination of the \\(k\\) columns.\nThe vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly dependent if there exist scalars \\(c_{1},c_{2},\\dots,c_{k},\\) not all zero, such that \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\]\nThe column vectors \\({\\bf v}_1, {\\bf v}_2, \\dots, {\\bf v}_k\\) is said to be linearly independent if it is not linearly dependent, that is, if \\[c_{1}{\\bf v}_1 + c_{2}{\\bf v}_2 + \\cdots + c_{k}{\\bf v}_k = \\bf 0\\] can only be satisfied by \\(c_i = 0, i = 1, 2, \\dots, k.\\)"
   },
   {
     "objectID": "slides/06-mat.html#rank-1",
     "href": "slides/06-mat.html#rank-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Rank",
     "text": "Rank\n\n(M &lt;- matrix(1:9, nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n# install.packages(\"Matrix\")\nlibrary(Matrix)\nrankMatrix(M)[1]\n\n[1] 2\n\n\n\nCan you see why the rank is 2, meaning that one column can be written as a linear combo of the other two?\n\n\n\n\\({\\bf a}_3 = 2{\\bf a_2}-{\\bf a}_1\\)\n\n\n2 * M[, 2] - 1 * M[, 1]\n\n[1] 7 8 9\n\n\n\n\nFind the row or column basis of A using reduced row echelon form\nthe dimension of the vector space generated (or spanned) by its columns\ndimension: number of basis in the vector space."
   },
   {
     "objectID": "slides/06-mat.html#linear-systems-bf-axbf-b",
     "href": "slides/06-mat.html#linear-systems-bf-axbf-b",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Linear Systems: \\({\\bf Ax}={\\bf b}\\)",
     "text": "Linear Systems: \\({\\bf Ax}={\\bf b}\\)\nA system of linear equations can be written compactly as\n\\[\n{\\bf Ax}={\\bf b}.\n\\]\nExample:\n\\[\n\\begin{aligned}\n2x_1+x_2 &=5,\\\\\nx_1+3x_2 &=7.\n\\end{aligned}\n\\]\nbecomes\n\\[\n\\begin{bmatrix}\n2&1\\\\\n1&3\n\\end{bmatrix}\n\\begin{bmatrix}\nx_1\\\\x_2\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n5\\\\7\n\\end{bmatrix}.\n\\]\n\nA_sys &lt;- matrix(c(2, 1,\n                  1, 3), nrow = 2, byrow = TRUE)\nb_sys &lt;- c(5, 7)\n\nsolve(A_sys, b_sys)\n\n[1] 1.6 1.8"
   },
   {
     "objectID": "slides/06-mat.html#unique-solutions-and-rank",
     "href": "slides/06-mat.html#unique-solutions-and-rank",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Unique Solutions and Rank",
     "text": "Unique Solutions and Rank\nFor a square matrix \\({\\bf A}_{n\\times n}\\), the following statements are equivalent:\n\n\\({\\bf A}\\) has full rank \\(n\\).\nThe columns of \\({\\bf A}\\) are linearly independent.\n\\(\\det({\\bf A})\\ne0\\).\n\\({\\bf A}^{-1}\\) exists.\n\\({\\bf Ax}={\\bf b}\\) has a unique solution for every \\({\\bf b}\\).\n\n\n\nRegression connection:\n\\[\n{\\bf b}=({\\bf X}'{\\bf X})^{-1}{\\bf X}'{\\bf y}\n\\]\nrequires \\({\\bf X}\\) to have full column rank."
   },
   {
     "objectID": "slides/06-mat.html#operations-addition",
     "href": "slides/06-mat.html#operations-addition",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Addition",
     "text": "Operations: Addition\n\nAddition: \\({\\bf A + B}\\) is adding the corresponding elements together \\(a_{ij} + b_{ij}\\).\n\\({\\bf A}\\) and \\({\\bf B}\\) must have an equal number of rows and columns.\n\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(6:1, nrow = 2, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    6    4    2\n[2,]    5    3    1\n\nA + B\n\n     [,1] [,2] [,3]\n[1,]    7    7    7\n[2,]    7    7    7\n\n\n\n\n\n(B &lt;- matrix(1:4, nrow = 2, ncol = 2))\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nA + B\n\nError in `A + B`:\n! non-conformable arrays"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication",
     "href": "slides/06-mat.html#operations-multiplication",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\nMultiplication: The product of matrices \\({\\bf A}\\) and \\({\\bf B}\\) is denoted as \\({\\bf AB}\\).\n\n\n\nThe number of columns in \\({\\bf A}\\) must be equal to the number of rows \\({\\bf B}\\).\nThe result matrix \\({\\bf C}\\) has the number of rows of \\({\\bf A}\\) and the number of columns of the \\({\\bf B}\\).\n\n\n\nThe number of columns in the first matrix \\({\\bf A}\\) must be equal to the number of rows in the second matrix of \\({\\bf B}\\).\nThe resulting matrix \\({\\bf C}\\) has dimension of the number of rows of the first and the number of columns of the second matrix."
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-1",
     "href": "slides/06-mat.html#operations-multiplication-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\n\nA\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n(B &lt;- matrix(1:12, nrow = 3, ncol = 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n\n\n\n\n(C &lt;- A %*% B)\n\n     [,1] [,2] [,3] [,4]\n[1,]   22   49   76  103\n[2,]   28   64  100  136\n\n(D &lt;- B %*% A)\n\nError in `B %*% A`:\n! non-conformable arguments"
   },
   {
     "objectID": "slides/06-mat.html#operations-multiplication-2",
     "href": "slides/06-mat.html#operations-multiplication-2",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Operations: Multiplication",
     "text": "Operations: Multiplication\n\n\\({\\bf A}{\\bf B} \\ne {\\bf B}{\\bf A}\\) in general.\n\\(({\\bf A}{\\bf B})' =  {\\bf B}'{\\bf A}'\\).\n\n\n\n\n\n(C &lt;- matrix(1:6, 3, 2))\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n\n(D &lt;- matrix(2:7, 2, 3))\n\n     [,1] [,2] [,3]\n[1,]    2    4    6\n[2,]    3    5    7\n\nC %*% D\n\n     [,1] [,2] [,3]\n[1,]   14   24   34\n[2,]   19   33   47\n[3,]   24   42   60\n\n\n\n\n\nD %*% C\n\n     [,1] [,2]\n[1,]   28   64\n[2,]   34   79\n\nt(C %*% D)\n\n     [,1] [,2] [,3]\n[1,]   14   19   24\n[2,]   24   33   42\n[3,]   34   47   60\n\nt(D) %*% t(C)\n\n     [,1] [,2] [,3]\n[1,]   14   19   24\n[2,]   24   33   42\n[3,]   34   47   60"
   },
   {
     "objectID": "slides/06-mat.html#r-lab-crossproducts",
     "href": "slides/06-mat.html#r-lab-crossproducts",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "R Lab Crossproducts",
     "text": "R Lab Crossproducts\nIn regression we repeatedly encounter products such as \\({\\bf X}'{\\bf X}\\) and \\({\\bf X}'{\\bf y}.\\) In R,\n\n\n\n\nX_cp &lt;- matrix(1:6, nrow = 3, ncol = 2)\ny_cp &lt;- c(2, 4, 7)\n\nt(X_cp) %*% X_cp\n\n     [,1] [,2]\n[1,]   14   32\n[2,]   32   77\n\ncrossprod(X_cp)\n\n     [,1] [,2]\n[1,]   14   32\n[2,]   32   77\n\nt(X_cp) %*% y_cp\n\n     [,1]\n[1,]   31\n[2,]   70\n\ncrossprod(X_cp, y_cp)\n\n     [,1]\n[1,]   31\n[2,]   70\n\n\n\ncrossprod(X, Y) computes \\({\\bf X}'{\\bf Y}\\) directly.\n\n\nSimilarly,\n\ntcrossprod(X_cp)\n\n     [,1] [,2] [,3]\n[1,]   17   22   27\n[2,]   22   29   36\n[3,]   27   36   45\n\n\ncomputes \\({\\bf X}{\\bf X}'\\).\n\n\n\n\ncrossprod() and tcrossprod() are convenient and efficient for matrix products that occur constantly in regression."
   },
   {
     "objectID": "slides/06-mat.html#inner-product-dot-product",
     "href": "slides/06-mat.html#inner-product-dot-product",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Inner Product (Dot Product)",
     "text": "Inner Product (Dot Product)\nFor vectors \\({\\bf x},{\\bf y}\\in\\mathbb R^n\\),\n\\[\n{\\bf x}'{\\bf y}\n=\n\\sum_{i=1}^n x_i y_i.\n\\]\n\nx &lt;- c(1, 2, 3)\ny &lt;- c(4, -1, 2)\n\nsum(x * y)\n\n[1] 8\n\nt(x) %*% y\n\n     [,1]\n[1,]    8\n\n\nThe dot product measures how strongly two vectors point in the same direction."
   },
   {
     "objectID": "slides/06-mat.html#outer-product",
     "href": "slides/06-mat.html#outer-product",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Outer Product",
     "text": "Outer Product\nFor column vectors \\({\\bf x}\\in\\mathbb R^m\\) and \\({\\bf y}\\in\\mathbb R^n\\),\n\\[\n{\\bf x}{\\bf y}'\n\\]\nis an \\(m\\times n\\) matrix.\nFor example,\n\\[\n\\begin{bmatrix}1\\\\2\\end{bmatrix}\n\\begin{bmatrix}3&4&5\\end{bmatrix}\n=\n\\begin{bmatrix}\n3&4&5\\\\\n6&8&10\n\\end{bmatrix}.\n\\]\n\nx &lt;- c(1, 2)\ny &lt;- c(3, 4, 5)\n\nx %o% y\n\n     [,1] [,2] [,3]\n[1,]    3    4    5\n[2,]    6    8   10\n\n\n\n\nContrast the inner product x’y, which is a scalar, with the outer product xy’, which is a matrix.\nOuter products appear naturally in covariance matrices and matrix decompositions."
   },
   {
     "objectID": "slides/06-mat.html#length-and-distance",
     "href": "slides/06-mat.html#length-and-distance",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Length and Distance",
     "text": "Length and Distance\nThe Euclidean norm of \\({\\bf x}\\) is \\(\\|{\\bf x}\\|=\\sqrt{{\\bf x}'{\\bf x}}=\\sqrt{\\sum_{i=1}^n x_i^2}.\\)\nThe distance between \\({\\bf x}\\) and \\({\\bf y}\\) is \\(\\|{\\bf x}-{\\bf y}\\|.\\)\n\nx &lt;- c(1, 2)\ny &lt;- c(4, 6)\n\nsqrt(sum(x^2))\n\n[1] 2.2\n\nsqrt(sum((x - y)^2))\n\n[1] 5\n\n\n\nLeast squares minimizes a squared Euclidean distance:\n\\[\n\\|{\\bf y}-{\\bf Xb}\\|^2.\n\\]"
   },
   {
     "objectID": "slides/06-mat.html#angle-between-vectors",
     "href": "slides/06-mat.html#angle-between-vectors",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Angle Between Vectors",
     "text": "Angle Between Vectors\nThe angle \\(\\theta\\) between nonzero vectors \\({\\bf x}\\) and \\({\\bf y}\\) satisfies\n\\[\n\\cos(\\theta)\n=\n\\frac{{\\bf x}'{\\bf y}}\n{\\|{\\bf x}\\|\\,\\|{\\bf y}\\|}.\n\\]\n\nx &lt;- c(1, 0)\ny &lt;- c(1, 1)\n\ntheta &lt;- acos(\n  sum(x * y) /\n    (sqrt(sum(x^2)) * sqrt(sum(y^2)))\n)\n\ntheta * 180 / pi\n\n[1] 45\n\n\n\n\\(\\theta=0^\\circ\\): same direction\n\\(\\theta=90^\\circ\\): orthogonal\n\\(\\theta=180^\\circ\\): opposite directions"
   },
   {
     "objectID": "slides/06-mat.html#orthogonality",
     "href": "slides/06-mat.html#orthogonality",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Orthogonality",
     "text": "Orthogonality\nTwo vectors are orthogonal if\n\\[\n{\\bf x}'{\\bf y}=0.\n\\]\n\nx &lt;- c(1, 2)\ny &lt;- c(2, -1)\n\nt(x) %*% y\n\n     [,1]\n[1,]    0\n\n\n\nIn least squares,\n\\[\n{\\bf X}'{\\bf e}={\\bf 0}.\n\\]\nThe residual vector is orthogonal to every column of \\({\\bf X}\\)."
   },
   {
     "objectID": "slides/06-mat.html#projection-onto-a-vector",
     "href": "slides/06-mat.html#projection-onto-a-vector",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Projection onto a Vector",
     "text": "Projection onto a Vector\nThe projection of \\({\\bf y}\\) onto a nonzero vector \\({\\bf x}\\) is\n\\[\n\\operatorname{proj}_{\\bf x}({\\bf y})\n=\n\\frac{{\\bf x}'{\\bf y}}{{\\bf x}'{\\bf x}}{\\bf x}.\n\\]\n\nx &lt;- c(1, 2)\ny &lt;- c(4, 1)\n\nproj_y &lt;- as.numeric(t(x) %*% y / as.numeric(t(x) %*% x)) * x\nproj_y\n\n[1] 1.2 2.4\n\n# residual from projection\ne &lt;- y - proj_y\nt(x) %*% e\n\n     [,1]\n[1,]    0\n\n\n\n\nThe residual from the projection is orthogonal to x.\nThis is the one-dimensional version of least squares projection onto the column space of X."
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-symmetric-and-identity",
     "href": "slides/06-mat.html#special-matrices-symmetric-and-identity",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Special Matrices: Symmetric and Identity",
     "text": "Special Matrices: Symmetric and Identity\n\nA square matrix \\((m = n)\\) \\({\\bf A}_{n \\times n}\\) is a symmetric matrix if \\({\\bf A = A}'\\).\n\n\\[{\\bf A} = \\begin{bmatrix} 1 & 2  \\\\ 2 & 5 \\\\ \\end{bmatrix} \\quad {\\bf A}' =\\begin{bmatrix} 1 & 2 \\\\ 2 & 5 \\end{bmatrix}\\]\n\nA square matrix \\({\\bf I}_{n \\times n}\\) whose diagonal elements are 1’s and off diagonal elements are 0’s is called an identity matrix of order \\(n\\). \\[{\\bf I} = \\begin{bmatrix} 1 & 0 & \\cdots & 0 \\\\ 0 & 1 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & 1 \\end{bmatrix}\\]\n\n\n\nIf the inverse exists, it is unique."
   },
   {
     "objectID": "slides/06-mat.html#identity-and-diagonal-matrix",
     "href": "slides/06-mat.html#identity-and-diagonal-matrix",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Identity and Diagonal Matrix",
     "text": "Identity and Diagonal Matrix\n\n\n\n## Identity matrix\nI &lt;- diag(5)\nI\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    0    0    0    0\n[2,]    0    1    0    0    0\n[3,]    0    0    1    0    0\n[4,]    0    0    0    1    0\n[5,]    0    0    0    0    1\n\n## A diagonal matrix\ndiag(c(4, 2, 5))\n\n     [,1] [,2] [,3]\n[1,]    4    0    0\n[2,]    0    2    0\n[3,]    0    0    5\n\n\n\n\n## Extract diagonal elements\nD &lt;- matrix(1:4, 2, 2)\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\ndiag(D)\n\n[1] 1 4"
   },
   {
     "objectID": "slides/06-mat.html#inverse-matrix",
     "href": "slides/06-mat.html#inverse-matrix",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Inverse Matrix",
     "text": "Inverse Matrix\n\nThe inverse of a square matrix \\({\\bf A}\\), denoted by \\({\\bf A}^{-1}\\), is a square matrix such that \\[{\\bf A}^{-1}{\\bf A} = {\\bf A}{\\bf A}^{-1} = {\\bf I}\\]\n\n\n\n\nD\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\nD_inv &lt;- solve(D)\nD_inv\n\n     [,1] [,2]\n[1,]   -2  1.5\n[2,]    1 -0.5\n\n\n\n\nD_inv %*% D\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1\n\nD %*% D_inv\n\n     [,1] [,2]\n[1,]    1    0\n[2,]    0    1"
   },
   {
     "objectID": "slides/06-mat.html#inverse-vs.-solving-a-system-in-r",
     "href": "slides/06-mat.html#inverse-vs.-solving-a-system-in-r",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Inverse vs. Solving a System in R",
     "text": "Inverse vs. Solving a System in R\nMathematically, \\({\\bf x}={\\bf A}^{-1}{\\bf b}\\) solves \\({\\bf Ax}={\\bf b}.\\)\nIn computation, it is usually better to solve the system directly:\n\nA &lt;- matrix(c(4, 1,\n              1, 3), nrow = 2, byrow = TRUE)\nb &lt;- c(1, 2)\n\n# preferred\nsolve(A, b)\n\n[1] 0.091 0.636\n\n# mathematically equivalent\nsolve(A) %*% b\n\n      [,1]\n[1,] 0.091\n[2,] 0.636\n\n\n\nUse solve(A, b) when you want the solution to \\({\\bf Ax}={\\bf b}\\).\nAvoid forming an inverse explicitly unless you actually need the inverse matrix."
   },
   {
     "objectID": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
     "href": "slides/06-mat.html#idempotent-orthogonal-positive-definite",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Idempotent, Orthogonal, Positive Definite",
     "text": "Idempotent, Orthogonal, Positive Definite\n\nA square matrix \\({\\bf A}\\) is idempotent if \\({\\bf A}{\\bf A} = {\\bf A}\\).\nA square matrix \\({\\bf A}\\) is orthogonal if \\({\\bf A}^{-1} = {\\bf A}'\\) and hence \\({\\bf A}'{\\bf A} = {\\bf I}\\).\n\n\n\nLet \\({\\bf A}\\) be a \\(n \\times n\\) matrix and \\({\\bf y}\\) be a \\(n \\times 1\\) vector. \\[{\\bf y}'{\\bf A} {\\bf y} = \\sum_{i=1}^n\\sum_{j=1}^na_{ij}y_iy_j\\] is called a quadratic form of \\({\\bf y}\\).\n\n\n\n\nA symmetric matrix \\({\\bf A}\\) is said to be \n\npositive definite if \\({\\bf y}'{\\bf A} {\\bf y} &gt; 0\\) for all \\({\\bf y \\ne 0}\\).\npositive semi-definite if \\({\\bf y}'{\\bf A} {\\bf y} \\ge 0\\) for all \\({\\bf y \\ne 0}\\) and \\({\\bf y}'{\\bf A} {\\bf y} = 0\\) for some \\({\\bf y \\ne 0}\\).\n\nIf \\({\\bf A}\\) is symmetric and idempotent, then \\({\\bf A}\\) is positive semi-definite.\n\n\n\nHow about negative definite"
   },
   {
     "objectID": "slides/06-mat.html#positive-definite-matrices-and-regression",
     "href": "slides/06-mat.html#positive-definite-matrices-and-regression",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Positive Definite Matrices and Regression",
     "text": "Positive Definite Matrices and Regression\nIf \\({\\bf X}\\) has full column rank, then for every nonzero vector \\({\\bf a}\\),\n\\[\n{\\bf a}'{\\bf X}'{\\bf X}{\\bf a}\n=\n({\\bf Xa})'({\\bf Xa})\n=\n\\|{\\bf Xa}\\|^2\n&gt;0.\n\\]\nTherefore, \\(\\boxed{{\\bf X}'{\\bf X}\\text{ is positive definite}}\\) and hence invertible.\n\nIf the columns of \\({\\bf X}\\) are linearly dependent, there is a nonzero \\({\\bf a}\\) with \\({\\bf Xa}={\\bf 0},\\)\nso\n\\[\n{\\bf a}'{\\bf X}'{\\bf X}{\\bf a}=0,\n\\]\nand \\({\\bf X}'{\\bf X}\\) is not positive definite.\n\nThis is another way to understand why perfect multicollinearity prevents unique least-squares coefficients."
   },
   {
     "objectID": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
     "href": "slides/06-mat.html#special-matrices-idempotent-orthogonal",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Special Matrices: Idempotent, Orthogonal",
     "text": "Special Matrices: Idempotent, Orthogonal\n\n\n\n## Idempotent and symmetric matrix\n(A &lt;- matrix(1, 2, 2)/2)\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\nA %*% A\n\n     [,1] [,2]\n[1,]  0.5  0.5\n[2,]  0.5  0.5\n\n## positive semi-definite\ny &lt;- c(-2, 5); t(y) %*% A %*% y\n\n     [,1]\n[1,]  4.5\n\nz &lt;- c(-1, 1); t(z) %*% A %*% z\n\n     [,1]\n[1,]    0\n\n\n\n\n\n## Orthogonal matrix\n(E &lt;- matrix(c(0, 1, 0, -1, 0, 0, 0, 0, -1), \n             nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    0   -1    0\n[2,]    1    0    0\n[3,]    0    0   -1\n\nsolve(E)\n\n     [,1] [,2] [,3]\n[1,]    0    1    0\n[2,]   -1    0    0\n[3,]    0    0   -1\n\nt(E) %*% E\n\n     [,1] [,2] [,3]\n[1,]    1    0    0\n[2,]    0    1    0\n[3,]    0    0    1"
   },
   {
     "objectID": "slides/06-mat.html#trace",
     "href": "slides/06-mat.html#trace",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Trace",
     "text": "Trace\n\nThe trace of \\({\\bf A}_{n \\times n}\\), denoted by \\(\\text{tr}({\\bf A})\\), is defined as \\[\\text{tr}({\\bf A}) = a_{11} + a_{22} + \\dots + a_{nn}\\]\n\\(\\text{tr}({\\bf A}{\\bf B}) = \\text{tr}({\\bf B}{\\bf A})\\)\n\n\n(G &lt;- matrix(1:6, 3, 2)); (H &lt;- matrix(6:1, 2, 3));\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n\n\n     [,1] [,2] [,3]\n[1,]    6    4    2\n[2,]    5    3    1\n\nsum(diag(G%*%H)); sum(diag(H%*%G))\n\n[1] 61\n\n\n[1] 61"
   },
   {
     "objectID": "slides/06-mat.html#useful-properties-of-the-trace",
     "href": "slides/06-mat.html#useful-properties-of-the-trace",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Useful Properties of the Trace",
     "text": "Useful Properties of the Trace\nFor conformable matrices,\n\\[\n\\operatorname{tr}({\\bf A}+{\\bf B})\n=\n\\operatorname{tr}({\\bf A})\n+\n\\operatorname{tr}({\\bf B}),\n\\]\n\\[\n\\operatorname{tr}(c{\\bf A})\n=\nc\\,\\operatorname{tr}({\\bf A}),\n\\]\nand\n\\[\n\\boxed{\n\\operatorname{tr}({\\bf AB})\n=\n\\operatorname{tr}({\\bf BA})\n}.\n\\]\nFor a symmetric matrix,\n\\[\n\\operatorname{tr}({\\bf A})=\\sum_j \\lambda_j,\\quad \\textrm{and}\\quad \\operatorname{det}({\\bf A})=\\prod_j \\lambda_j.\n\\]\nwhere \\(\\lambda_j\\)’s are eigenvalues of \\({\\bf A}.\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\nFor a square matrix \\({\\bf A}\\), if we can find a scalar \\(\\lambda\\) and a non-zero vector \\({\\bf x}\\) such that \\[{\\bf Ax} = \\lambda {\\bf x},\\]\n\n\\(\\lambda\\) is an eigenvalue of \\({\\bf A}\\)\n\\({\\bf x}\\) is a corresponding eigenvector of \\({\\bf A}\\).\n\nA general \\(n\\times n\\) matrix has \\(n\\) eigenvalues over the complex numbers when counted with multiplicity, but it may not have \\(n\\) linearly independent eigenvectors.\nA real symmetric matrix has \\(n\\) real eigenvalues and an orthonormal basis of eigenvectors."
   },
   {
     "objectID": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
     "href": "slides/06-mat.html#geometric-meaning-of-eigenvalues-and-eigenvectors",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Geometric Meaning of Eigenvalues and Eigenvectors",
     "text": "Geometric Meaning of Eigenvalues and Eigenvectors\n\n\n3Blue1Brown, Essence of Linear Algebra, Chapter 14"
   },
   {
     "objectID": "slides/06-mat.html#eigen-decomposition",
     "href": "slides/06-mat.html#eigen-decomposition",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigen-decomposition",
     "text": "Eigen-decomposition\n\nEigen-decomposition: Any symmetric matrix \\({\\bf A}_{n \\times n}\\) can be decomposed as \\[{\\bf A} = {\\bf V\\boldsymbol \\Lambda V'}\\]\n\\(\\boldsymbol \\Lambda\\) is a \\(n \\times n\\) diagnonal matrix whose elements are eigenvalues \\(\\lambda_j\\) of \\({\\bf A}\\) \\[\\boldsymbol \\Lambda= \\begin{bmatrix} \\lambda_1 & 0 & \\cdots & 0 \\\\ 0 & \\lambda_2 & \\cdots & 0 \\\\ \\vdots  & \\vdots  & \\ddots & \\vdots  \\\\ 0 & 0 & \\cdots & \\lambda_n \\end{bmatrix}\\]\n\\({\\bf V} = [{\\bf v}_1 \\quad {\\bf v}_2 \\quad \\dots \\quad {\\bf v}_n]\\) is a \\(n \\times n\\) orthogonal matrix whose columns are the eigenvectors of \\({\\bf A}.\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-1",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\nLet \\({\\bf A} \\in \\mathbb{R}^{n \\times n}\\) be a square matrix with eigenvalues \\(\\lambda_1, \\ldots, \\lambda_n\\).\n\n\\(\\operatorname{tr}({\\bf A}) = \\sum_{i=1}^n \\lambda_i\\)\n\\(\\det({\\bf A}) = \\prod_{i=1}^n \\lambda_i\\)\nIf \\({\\bf A}\\) is symmetric, \\(\\operatorname{rank}({\\bf A}) = \\#\\{i : \\lambda_i \\neq 0\\}\\)\nIf \\({\\bf A}\\) is symmetric, all \\(\\lambda_i \\in \\mathbb{R}\\)"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
     "href": "slides/06-mat.html#eigenvalues-and-eigenvectors-2",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Eigenvectors",
     "text": "Eigenvalues and Eigenvectors\n\n\n\n(A &lt;- matrix(c(5, 1, 1, 2), 2, 2))\n\n     [,1] [,2]\n[1,]    5    1\n[2,]    1    2\n\neigen_decomp &lt;- eigen(A)\n(lam &lt;- eigen_decomp$values)\n\n[1] 5.3 1.7\n\n(V &lt;- eigen_decomp$vectors)\n\n      [,1]  [,2]\n[1,] -0.96  0.29\n[2,] -0.29 -0.96\n\n\n\n\nV %*% diag(lam) %*% t(V)\n\n     [,1] [,2]\n[1,]    5    1\n[2,]    1    2\n\nsum(diag(A))\n\n[1] 7\n\nsum(lam)\n\n[1] 7\n\ndet(A)\n\n[1] 9\n\nprod(lam)\n\n[1] 9"
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-and-positive-definiteness",
     "href": "slides/06-mat.html#eigenvalues-and-positive-definiteness",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues and Positive Definiteness",
     "text": "Eigenvalues and Positive Definiteness\nFor a real symmetric matrix \\({\\bf A}\\):\n\n\\({\\bf A}\\) is positive definite iff all eigenvalues are positive.\n\\({\\bf A}\\) is positive semi-definite iff all eigenvalues are nonnegative.\n\\({\\bf A}\\) is singular iff at least one eigenvalue is zero.\n\n\nFor regression, small eigenvalues of \\({\\bf X}'{\\bf X}\\) indicate nearly dependent predictor directions and therefore potential multicollinearity."
   },
   {
     "objectID": "slides/06-mat.html#eigenvalues-of-bf-xbf-x",
     "href": "slides/06-mat.html#eigenvalues-of-bf-xbf-x",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Eigenvalues of \\({\\bf X}'{\\bf X}\\)",
     "text": "Eigenvalues of \\({\\bf X}'{\\bf X}\\)\n\nset.seed(123)\n\nx1 &lt;- rnorm(100)\nx2 &lt;- x1 + rnorm(100, sd = 0.05)\n\nX_col &lt;- cbind(1, x1, x2)\n\neigen(t(X_col) %*% X_col)$values\n\n[1] 168.45  97.75   0.12\n\n\nCompare with less-correlated predictors:\n\nx3 &lt;- rnorm(100)\nX_ok &lt;- cbind(1, x1, x3)\n\neigen(t(X_ok) %*% X_ok)$values\n\n[1] 108  96  69\n\n\n\n\nWhen two columns are almost linearly dependent, one direction in X’X has very little variation.\nThat appears as a small eigenvalue.\nWe will revisit this idea when we discuss multicollinearity."
   },
   {
     "objectID": "slides/06-mat.html#why-matrix-decompositions",
     "href": "slides/06-mat.html#why-matrix-decompositions",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Why Matrix Decompositions?",
     "text": "Why Matrix Decompositions?\nA matrix decomposition writes a matrix as a product of simpler matrices.\nThey are useful for\n\nsolving systems of equations,\nobtaining numerically stable computations,\nunderstanding the structure and rank of a matrix,\nobtaining low-rank approximations.\n\nWe will briefly connect four decompositions to regression:\n\neigenvalue decomposition,\nCholesky decomposition,\nQR decomposition,\nsingular value decomposition.\n\n\n\nThe goal is not to derive every algorithm.\nStudents should recognize what each decomposition does and why regression software uses such decompositions."
   },
   {
     "objectID": "slides/06-mat.html#cholesky-decomposition",
     "href": "slides/06-mat.html#cholesky-decomposition",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Cholesky Decomposition",
     "text": "Cholesky Decomposition\nFor a symmetric positive-definite matrix \\({\\bf A}\\),\n\\[\n\\boxed{\n{\\bf A}={\\bf L}{\\bf L}'\n}\n\\]\nwhere \\({\\bf L}\\) is lower triangular.\nBecause \\({\\bf X}'{\\bf X}\\) is positive definite when \\({\\bf X}\\) has full column rank, Cholesky decomposition can be used to solve systems involving \\({\\bf X}'{\\bf X}\\).\n\nA_chol &lt;- matrix(c(4, 2,\n                   2, 3), nrow = 2, byrow = TRUE)\n\nR &lt;- chol(A_chol)\nR\n\n     [,1] [,2]\n[1,]    2  1.0\n[2,]    0  1.4\n\nt(R) %*% R\n\n     [,1] [,2]\n[1,]    4    2\n[2,]    2    3\n\n\n\n\nR returns the upper-triangular factor R such that A = R’R.\nCholesky is useful for positive-definite systems, including covariance matrices."
   },
   {
     "objectID": "slides/06-mat.html#qr-decomposition",
     "href": "slides/06-mat.html#qr-decomposition",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "QR Decomposition",
     "text": "QR Decomposition\nFor a tall matrix \\({\\bf X}\\) with \\(n\\ge p\\), \\(\\boxed{{\\bf X}={\\bf Q}{\\bf R}}\\), where\n\n\\({\\bf Q}'{\\bf Q}={\\bf I}\\), so the columns of \\({\\bf Q}\\) are orthonormal;\n\\({\\bf R}\\) is upper triangular.\n\n\nX_qr &lt;- matrix(c(1, 1,\n                 1, 2,\n                 1, 3,\n                 1, 4), nrow = 4, byrow = TRUE)\nqrX &lt;- qr(X_qr); Q &lt;- qr.Q(qrX); R &lt;- qr.R(qrX)\nQ %*% R\n\n     [,1] [,2]\n[1,]    1    1\n[2,]    1    2\n[3,]    1    3\n[4,]    1    4\n\n\n\nQR decomposition is especially important for least squares because it lets us solve the regression problem without explicitly forming \\(({\\bf X}'{\\bf X})^{-1}\\)."
   },
   {
     "objectID": "slides/06-mat.html#least-squares-using-qr",
     "href": "slides/06-mat.html#least-squares-using-qr",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Least Squares Using QR",
     "text": "Least Squares Using QR\nSuppose \\({\\bf X}={\\bf Q}{\\bf R}.\\) Then the least-squares problem \\[\\min_{\\bf b}\\|{\\bf y}-{\\bf Xb}\\|^2\\]\nbecomes \\[\\min_{\\bf b}\\|{\\bf y}-{\\bf QRb}\\|^2.\\]\nUsing the orthogonality of \\({\\bf Q}\\) leads to the triangular system \\(\\boxed{{\\bf Rb}={\\bf Q}'{\\bf y}}.\\)\n\ny_qr &lt;- c(2, 3, 5, 8)\n(b_qr &lt;- backsolve(R, t(Q) %*% y_qr))\n\n     [,1]\n[1,] -0.5\n[2,]  2.0\n\ncoef(lm(y_qr ~ X_qr[, 2]))\n\n(Intercept)   X_qr[, 2] \n       -0.5         2.0 \n\n\n\n\nThis is computationally preferable to explicitly computing (X’X)^(-1).\nThe details of the numerical algorithm are not needed here; the conceptual point is that orthogonalization simplifies least squares."
   },
   {
     "objectID": "slides/06-mat.html#singular-value-decomposition-svd",
     "href": "slides/06-mat.html#singular-value-decomposition-svd",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Singular Value Decomposition (SVD)",
     "text": "Singular Value Decomposition (SVD)\nEvery \\(n\\times p\\) matrix \\({\\bf X}\\) can be written as\n\\[\n\\boxed{\n{\\bf X}={\\bf U}{\\bf D}{\\bf V}'\n}\n\\]\nwhere\n\n\\({\\bf U}\\) has orthonormal columns,\n\\({\\bf V}\\) has orthonormal columns,\n\\({\\bf D}\\) is diagonal with nonnegative singular values\n\n\\[\nd_1\\ge d_2\\ge\\cdots\\ge0.\n\\]\nUnlike eigendecomposition, the SVD applies to rectangular matrices."
   },
   {
     "objectID": "slides/06-mat.html#svd-in-r",
     "href": "slides/06-mat.html#svd-in-r",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "SVD in R",
     "text": "SVD in R\n\nX_demo &lt;- matrix(c(1, 2,\n                   2, 1,\n                   3, 4), nrow = 3, byrow = TRUE)\nsv &lt;- svd(X_demo)\nsv$d; sv$u; sv$v\n\n[1] 5.8 1.1\n\n\n      [,1]  [,2]\n[1,] -0.38  0.45\n[2,] -0.35 -0.88\n[3,] -0.86  0.16\n\n\n      [,1]  [,2]\n[1,] -0.63 -0.78\n[2,] -0.78  0.63\n\n\nReconstruct \\({\\bf X}\\):\n\nsv$u %*% diag(sv$d) %*% t(sv$v)\n\n     [,1] [,2]\n[1,]    1    2\n[2,]    2    1\n[3,]    3    4"
   },
   {
     "objectID": "slides/06-mat.html#rank-and-singular-values",
     "href": "slides/06-mat.html#rank-and-singular-values",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Rank and Singular Values",
     "text": "Rank and Singular Values\nThe rank of a matrix equals the number of nonzero singular values:\n\\[\n\\operatorname{rank}({\\bf X})\n=\n\\#\\{j:d_j&gt;0\\}.\n\\]\nIf a singular value is very small rather than exactly zero, the matrix is nearly rank deficient.\n\nRegression connection:\n\nzero singular value \\(\\rightarrow\\) perfect multicollinearity;\nvery small singular value \\(\\rightarrow\\) near multicollinearity and unstable coefficient estimates."
   },
   {
     "objectID": "slides/06-mat.html#connecting-svd-and-bf-xbf-x",
     "href": "slides/06-mat.html#connecting-svd-and-bf-xbf-x",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Connecting SVD and \\({\\bf X}'{\\bf X}\\)",
     "text": "Connecting SVD and \\({\\bf X}'{\\bf X}\\)\nIf \\({\\bf X}={\\bf U}{\\bf D}{\\bf V}'\\), then \\[{\\bf X}'{\\bf X}={\\bf V}{\\bf D}^2{\\bf V}'.\\]\nTherefore, \\[\\lambda_j({\\bf X}'{\\bf X})=d_j^2.\\]\n\nThe eigenvalues of \\({\\bf X}'{\\bf X}\\) are the squared singular values of \\({\\bf X}\\).\n\nThis connects\n\nrank,\nmulticollinearity,\neigendecomposition,\nSVD,\nand least squares."
   },
   {
     "objectID": "slides/06-mat.html#why-did-we-review-all-this",
     "href": "slides/06-mat.html#why-did-we-review-all-this",
-    "title": "Matrix Algebra 👩‍💻",
+    "title": "Matrix Algebra 👨‍💻",
     "section": "Why Did We Review All This?",
     "text": "Why Did We Review All This?\n\n\n\n\n\n\n\nLinear algebra idea\nRegression role\n\n\n\n\nLinear combination\n\\({\\bf Xb}\\) combines columns of \\({\\bf X}\\)\n\n\nColumn space\ncontains all possible fitted-value vectors\n\n\nRank\ndetermines whether coefficients are uniquely estimable\n\n\nInner product\ndefines orthogonality\n\n\nProjection\n\\(\\hat{\\bf y}\\) is projection of \\({\\bf y}\\) onto \\(\\operatorname{Col}({\\bf X})\\)\n\n\nInverse / solve\nsolves the normal equations\n\n\nPositive definiteness\nguarantees invertibility of \\({\\bf X}'{\\bf X}\\)\n\n\nEigenvalues / SVD\ndiagnose dependent or nearly dependent directions\n\n\n\n\nThe central geometric idea:\n\\[\n\\boxed{\n\\hat{\\bf y}\\in\\operatorname{Col}({\\bf X}),\n\\qquad\n{\\bf e}\\perp\\operatorname{Col}({\\bf X})\n}\n\\]"
   },
@@ -3922,7 +3922,7 @@
     "href": "labs/lab01_regression_summary.html#sums-of-squares-and-r2",
     "title": "Lab 1: Understanding Regression Output",
     "section": "4. Sums of squares and (R^2)",
-    "text": "4. Sums of squares and (R^2)\n\nyhat &lt;- fitted(fit)\ne &lt;- resid(fit)\n\nSSE &lt;- sum(e^2)\nSST &lt;- sum((y - ybar)^2)\nSSR &lt;- sum((yhat - ybar)^2)\n\nc(SST = SST, SSR = SSR, SSE = SSE, check = SST - SSR - SSE)\n\n     SST      SSR      SSE    check \n1.69e+06 1.53e+06 1.66e+05 8.73e-11 \n\n\n\nR2 &lt;- SSR / SST\nR2\n\n[1] 0.902\n\nsummary(fit)$r.squared\n\n[1] 0.902\n\n\n\nInterpret (R^2) in the context of propellant strength and age."
+    "text": "4. Sums of squares and (R^2)\n\nyhat &lt;- fitted(fit)\ne &lt;- resid(fit)\n\nSSE &lt;- sum(e^2)\nSST &lt;- sum((y - ybar)^2)\nSSR &lt;- sum((yhat - ybar)^2)\n\nc(SST = SST, SSR = SSR, SSE = SSE, check = SST - SSR - SSE)\n\n     SST      SSR      SSE    check \n1.69e+06 1.53e+06 1.66e+05 2.04e-10 \n\n\n\nR2 &lt;- SSR / SST\nR2\n\n[1] 0.902\n\nsummary(fit)$r.squared\n\n[1] 0.902\n\n\n\nInterpret (R^2) in the context of propellant strength and age."
   },
   {
     "objectID": "labs/lab01_regression_summary.html#test-the-slope",
@@ -4083,7 +4083,7 @@
     "href": "index.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review 🎥 Lecture 11\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form [🎥 Lecture 12]\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break",
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review 🎥 Lecture 11\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form 🎥 Lecture 12\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity [🎥 Lecture 16]\n🖥️10-diag-linearity",
     "crumbs": [
       "Course information",
       "Schedule"
@@ -4154,7 +4154,7 @@
     "href": "hw/hw-2-sol.html",
     "title": "Homework 2: Simple Linear Regression — Solutions",
     "section": "",
-    "text": "The answers below follow the question numbering in hw-2.qmd. Numerical results use the 32-car Table B.3 data and the simple linear regression of mileage (y) on engine displacement (x1). The printed values are rounded; R retains full precision for calculations.\n\n\n\nsummary(fit)\n\n\nCall:\nlm(formula = y ~ x1, data = mpg_data)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-6.7923 -1.9752  0.0044  1.7677  6.8171 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 33.722677   1.443903   23.36  &lt; 2e-16 ***\nx1          -0.047360   0.004695  -10.09 3.74e-11 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3.065 on 30 degrees of freedom\nMultiple R-squared:  0.7723,    Adjusted R-squared:  0.7647 \nF-statistic: 101.7 on 1 and 30 DF,  p-value: 3.743e-11\n\ncoef(fit)\n\n(Intercept)          x1 \n33.72267669 -0.04735958 \n\nrange(mpg_data$x1)\n\n[1]  85.3 500.0\n\n\nThe fitted equation is\n\\[\n\\widehat{\\mathrm{MPG}} = 33.7227 - 0.04736\\,\\mathrm{Displacement}.\n\\]\nThe estimated slope means that an increase of one cubic inch in engine displacement is associated with a decrease of about 0.0474 miles per gallon in predicted mileage, on average within the range of these data. The intercept predicts 33.72 mpg at zero displacement. A zero-displacement engine is outside the observed range and not practically meaningful, so the intercept should not be interpreted as the fuel economy of an actual automobile.\n\n\n\nFor \\(j=0,1\\), a two-sided 95% confidence interval is\n\\[\nb_j \\pm t_{0.975,n-2}\\operatorname{SE}(b_j).\n\\]\n\nconfint(fit, level = .95)\n\n                  2.5 %      97.5 %\n(Intercept) 30.77383383 36.67151954\nx1          -0.05694883 -0.03777032\n\n\nThus, approximately,\n\\[\n\\begin{aligned}\n\\beta_0 &: (30.7738,\\ 36.6715),\\\\\n\\beta_1 &: (-0.05695,\\ -0.03777).\n\\end{aligned}\n\\]\nUnder the normal-error assumption, \\(SSE/\\sigma^2\\sim\\chi^2_{n-2}\\). Hence\n\\[\n\\boxed{\\left(\n\\frac{(n-2)MSE}{\\chi^2_{0.975,n-2}},\n\\frac{(n-2)MSE}{\\chi^2_{0.025,n-2}}\n\\right)}\n\\]\nis a 95% confidence interval for \\(\\sigma^2\\).\n\nsigma2_ci &lt;- c(\n  lower = df * MSE / qchisq(.975, df = df),\n  upper = df * MSE / qchisq(.025, df = df)\n)\nc(n = n, df = df, SSE = SSE, MSE = MSE)\n\n         n         df        SSE        MSE \n 32.000000  30.000000 281.824378   9.394146 \n\nsigma2_ci\n\n    lower     upper \n 5.998913 16.784480 \n\n\nThe variance interval is approximately \\((5.9989,\\ 16.7845)\\) mpg\\(^2\\). This is an interval for the error variance, not for the standard deviation \\(\\sigma\\).\n\n\n\n\\[\nH_0:\\beta_1=0,\\qquad H_1:\\beta_1\\ne0.\n\\]\nUnder \\(H_0\\), the statistic \\(t=b_1/\\operatorname{SE}(b_1)\\) has a \\(t_{n-2}\\) distribution. Reject \\(H_0\\) when \\(|t|&gt;t_{0.975,30}\\) or equivalently when \\(p&lt;0.05\\).\n\nslope_row &lt;- summary(fit)$coefficients[\"x1\", ]\nslope_row\n\n     Estimate    Std. Error       t value      Pr(&gt;|t|) \n-4.735958e-02  4.695385e-03 -1.008641e+01  3.743041e-11 \n\nt_critical &lt;- qt(.975, df = df)\nc(critical_value = t_critical,\n  t_statistic = slope_row[\"t value\"],\n  p_value = slope_row[\"Pr(&gt;|t|)\"])\n\n     critical_value t_statistic.t value    p_value.Pr(&gt;|t|) \n       2.042272e+00       -1.008641e+01        3.743041e-11 \n\n\nHere \\(t\\approx-10.0864\\) on 30 degrees of freedom, with \\(p\\approx 3.743\\times10^{-11}\\). Reject \\(H_0\\): displacement has a statistically significant linear association with gasoline mileage. The estimated association is negative.\n\n\n\n\nanova(fit)\n\nAnalysis of Variance Table\n\nResponse: y\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nx1         1 955.72  955.72  101.74 3.743e-11 ***\nResiduals 30 281.82    9.39                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe ANOVA quantities are \\(SSR\\approx955.7197\\), \\(SSE\\approx281.8244\\), and \\(SST\\approx1237.5441\\). The corresponding table is\n\n\n\nSource\ndf\nSS\nMS\n\\(F\\)\n\n\n\n\nRegression\n1\n955.7197\n955.7197\n101.7357\n\n\nResidual\n30\n281.8244\n9.3941\n\n\n\nTotal\n31\n1237.5441\n\n\n\n\n\nFor significance of regression, test \\(H_0:\\beta_1=0\\) against \\(H_1:\\beta_1\\ne0\\). The statistic is\n\\[\nF=\\frac{MS_R}{MS_{\\mathrm{res}}}\n  =\\frac{955.7197}{9.3941}\\approx101.7357,\n\\]\nwith \\((1,30)\\) degrees of freedom and \\(p\\approx3.743\\times10^{-11}\\). Reject \\(H_0\\) at the 5% level: regression on displacement is significant.\n\nF_stat &lt;- SSR / MSE\nc(F_statistic = F_stat,\n  F_from_t_squared = unname(slope_row[\"t value\"]^2),\n  p_value = pf(F_stat, df1 = 1, df2 = df, lower.tail = FALSE))\n\n     F_statistic F_from_t_squared          p_value \n    1.017357e+02     1.017357e+02     3.743041e-11 \n\n\nIn simple linear regression with an intercept, \\(F=t^2\\) for the slope, so the ANOVA \\(F\\)-test and the two-sided slope \\(t\\)-test give identical \\(p\\)-values and decisions.\n\n\n\n\nR2 &lt;- summary(fit)$r.squared\nc(R_squared = R2, percent_explained = 100 * R2,\n  check = SSR / SST)\n\n        R_squared percent_explained             check \n        0.7722712        77.2271242         0.7722712 \n\n\n\\(R^2\\approx0.7723\\), so approximately 77.23% of the observed variation in gasoline mileage is accounted for by its fitted linear relationship with engine displacement. This does not establish that displacement causes the variation.\n\n\n\n\nci_mean\n\n       fit      lwr      upr\n1 20.69879 19.58807 21.80952\n\n\nThe fitted mean mileage is 20.6988 mpg. Its 95% confidence interval is approximately \\((19.5881,\\ 21.8095)\\) mpg. This interval estimates the average mileage for the population of automobiles with a 275 in\\(^3\\) engine under the fitted model.\nFor reference, the standard error of the estimated mean at \\(x_0=275\\) is\n\\[\n\\operatorname{SE}\\{\\hat\\mu(x_0)\\}\n=s\\sqrt{\\frac1n+\\frac{(x_0-\\bar x)^2}{S_{xx}}}.\n\\]\n\n\n\n(a) The point prediction is \\(\\hat y(275)=\\mathbf{20.6988}\\) mpg.\n(b) The 95% prediction interval is approximately \\((14.3415,\\ 27.0561)\\) mpg.\n\npi_car\n\n       fit      lwr      upr\n1 20.69879 14.34147 27.05611\n\n\n(c) The prediction interval is wider than the confidence interval in Question 6 because it must account for both uncertainty in the fitted mean and the variability of an individual automobile around that mean. Specifically,\n\\[\n\\begin{aligned}\n\\operatorname{SE}\\{\\hat\\mu(x_0)\\}\n&=s\\sqrt{\\frac1n+\\frac{(x_0-\\bar x)^2}{S_{xx}}},\\\\\n\\operatorname{SE}_{\\mathrm{pred}}(x_0)\n&=s\\sqrt{1+\\frac1n+\\frac{(x_0-\\bar x)^2}{S_{xx}}}.\n\\end{aligned}\n\\]\nThe additional \\(1\\) under the second square root represents the variation of a new response around its conditional mean.\n\n\n\n\nxgrid &lt;- data.frame(x1 = seq(min(x), max(x), length.out = 300))\nci_grid &lt;- as.data.frame(predict(fit, newdata = xgrid,\n                                 interval = \"confidence\", level = .95))\npi_grid &lt;- as.data.frame(predict(fit, newdata = xgrid,\n                                 interval = \"prediction\", level = .95))\n\nplot(x, y, pch = 19, col = \"black\",\n     xlab = expression(\"Engine displacement (in\"^3*\")\"),\n     ylab = \"Gasoline mileage (mpg)\",\n     main = \"Simple linear regression: gasoline mileage\")\npolygon(c(xgrid$x1, rev(xgrid$x1)),\n        c(pi_grid$lwr, rev(pi_grid$upr)),\n        col = adjustcolor(\"orange\", alpha.f = 0.16), border = NA)\npolygon(c(xgrid$x1, rev(xgrid$x1)),\n        c(ci_grid$lwr, rev(ci_grid$upr)),\n        col = adjustcolor(\"steelblue\", alpha.f = 0.28), border = NA)\npoints(x, y, pch = 19, col = \"black\")\nlines(xgrid$x1, ci_grid$fit, col = \"blue4\", lwd = 2)\nlines(xgrid$x1, ci_grid$lwr, col = \"blue4\", lty = 2)\nlines(xgrid$x1, ci_grid$upr, col = \"blue4\", lty = 2)\nlines(xgrid$x1, pi_grid$lwr, col = \"darkorange3\", lty = 3)\nlines(xgrid$x1, pi_grid$upr, col = \"darkorange3\", lty = 3)\nlegend(\"topright\",\n       legend = c(\"Observed mileage\", \"Fitted mean\", \"95% CI for mean\",\n                  \"95% prediction band\"),\n       col = c(\"black\", \"blue4\", \"blue4\", \"darkorange3\"),\n       pch = c(19, NA, NA, NA),\n       lty = c(NA, 1, 2, 3), lwd = c(NA, 2, 1.5, 1.5),\n       bg = \"white\")\n\n\n\n\nMileage versus displacement, with 95% confidence and prediction bands.\n\n\n\n\nThe outer prediction band covers the uncertainty in a new individual response and is therefore wider than the inner confidence band for the conditional mean.\n\n\n\nThe sums below are approximately zero up to floating-point rounding; in exact arithmetic the corresponding least-squares identities hold exactly for a model with an intercept.\n(a) Residuals sum to zero.\n\nsum(e)\n\n[1] -7.327472e-15\n\n\nThe intercept normal equation is \\(\\sum_i(y_i-\\hat y_i)=\\sum_i e_i=0\\).\n(b) Observed and fitted responses have the same sum.\n\nc(sum_y = sum(y), sum_fitted = sum(yhat), difference = sum(y) - sum(yhat))\n\n     sum_y sum_fitted difference \n    647.14     647.14       0.00 \n\n\nBecause \\(\\sum_i e_i=0\\), we have \\(\\sum_i y_i-\\sum_i\\hat y_i=0\\). Both sums are approximately 647.14.\n(c) The fitted line passes through the centroid.\n\nc(xbar = mean(x), ybar = mean(y),\n  fitted_at_xbar = unname(predict(fit, newdata = data.frame(x1 = mean(x)))),\n  difference = unname(predict(fit, newdata = data.frame(x1 = mean(x)))) - mean(y))\n\n          xbar           ybar fitted_at_xbar     difference \n  2.850437e+02   2.022312e+01   2.022312e+01  -3.552714e-15 \n\n\nThe centroid is approximately \\((285.0438,\\ 20.2231)\\), and \\(b_0+b_1\\bar x=\\bar y\\) because \\(b_0=\\bar y-b_1\\bar x\\).\n(d) Predictor and residuals are orthogonal.\n\nsum(x * e)\n\n[1] -1.342926e-12\n\n\nThe slope normal equation gives \\(\\sum_i x_i(y_i-\\hat y_i)=0\\).\n(e) Fitted values and residuals are orthogonal.\n\nsum(yhat * e)\n\n[1] -1.385558e-13\n\n\nSince \\(\\hat y_i=b_0+b_1x_i\\),\n\\[\n\\sum_i\\hat y_i e_i\n=b_0\\sum_i e_i+b_1\\sum_i x_ie_i=0.\n\\]"
+    "text": "The answers below follow the question numbering in hw-2.qmd. Numerical results use the 32-car Table B.3 data and the simple linear regression of mileage (y) on engine displacement (x1). The printed values are rounded; R retains full precision for calculations.\n\n\n\nsummary(fit)\n\n\nCall:\nlm(formula = y ~ x1, data = mpg_data)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-6.7923 -1.9752  0.0044  1.7677  6.8171 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 33.722677   1.443903   23.36  &lt; 2e-16 ***\nx1          -0.047360   0.004695  -10.09 3.74e-11 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3.065 on 30 degrees of freedom\nMultiple R-squared:  0.7723,    Adjusted R-squared:  0.7647 \nF-statistic: 101.7 on 1 and 30 DF,  p-value: 3.743e-11\n\ncoef(fit)\n\n(Intercept)          x1 \n33.72267669 -0.04735958 \n\nrange(mpg_data$x1)\n\n[1]  85.3 500.0\n\n\nThe fitted equation is\n\\[\n\\widehat{\\mathrm{MPG}} = 33.7227 - 0.04736\\,\\mathrm{Displacement}.\n\\]\nThe estimated slope means that an increase of one cubic inch in engine displacement is associated with a decrease of about 0.0474 miles per gallon in predicted mileage, on average within the range of these data. The intercept predicts 33.72 mpg at zero displacement. A zero-displacement engine is outside the observed range and not practically meaningful, so the intercept should not be interpreted as the fuel economy of an actual automobile.\n\n\n\nFor \\(j=0,1\\), a two-sided 95% confidence interval is\n\\[\nb_j \\pm t_{0.975,n-2}\\operatorname{SE}(b_j).\n\\]\n\nconfint(fit, level = .95)\n\n                  2.5 %      97.5 %\n(Intercept) 30.77383383 36.67151954\nx1          -0.05694883 -0.03777032\n\n\nThus, approximately,\n\\[\n\\begin{aligned}\n\\beta_0 &: (30.7738,\\ 36.6715),\\\\\n\\beta_1 &: (-0.05695,\\ -0.03777).\n\\end{aligned}\n\\]\nUnder the normal-error assumption, \\(SSE/\\sigma^2\\sim\\chi^2_{n-2}\\). Hence\n\\[\n\\boxed{\\left(\n\\frac{(n-2)MSE}{\\chi^2_{0.975,n-2}},\n\\frac{(n-2)MSE}{\\chi^2_{0.025,n-2}}\n\\right)}\n\\]\nis a 95% confidence interval for \\(\\sigma^2\\).\n\nsigma2_ci &lt;- c(\n  lower = df * MSE / qchisq(.975, df = df),\n  upper = df * MSE / qchisq(.025, df = df)\n)\nc(n = n, df = df, SSE = SSE, MSE = MSE)\n\n         n         df        SSE        MSE \n 32.000000  30.000000 281.824378   9.394146 \n\nsigma2_ci\n\n    lower     upper \n 5.998913 16.784480 \n\n\nThe variance interval is approximately \\((5.9989,\\ 16.7845)\\) mpg\\(^2\\). This is an interval for the error variance, not for the standard deviation \\(\\sigma\\).\n\n\n\n\\[\nH_0:\\beta_1=0,\\qquad H_1:\\beta_1\\ne0.\n\\]\nUnder \\(H_0\\), the statistic \\(t=b_1/\\operatorname{SE}(b_1)\\) has a \\(t_{n-2}\\) distribution. Reject \\(H_0\\) when \\(|t|&gt;t_{0.975,30}\\) or equivalently when \\(p&lt;0.05\\).\n\nslope_row &lt;- summary(fit)$coefficients[\"x1\", ]\nslope_row\n\n     Estimate    Std. Error       t value      Pr(&gt;|t|) \n-4.735958e-02  4.695385e-03 -1.008641e+01  3.743041e-11 \n\nt_critical &lt;- qt(.975, df = df)\nc(critical_value = t_critical,\n  t_statistic = slope_row[\"t value\"],\n  p_value = slope_row[\"Pr(&gt;|t|)\"])\n\n     critical_value t_statistic.t value    p_value.Pr(&gt;|t|) \n       2.042272e+00       -1.008641e+01        3.743041e-11 \n\n\nHere \\(t\\approx-10.0864\\) on 30 degrees of freedom, with \\(p\\approx 3.743\\times10^{-11}\\). Reject \\(H_0\\): displacement has a statistically significant linear association with gasoline mileage. The estimated association is negative.\n\n\n\n\nanova(fit)\n\nAnalysis of Variance Table\n\nResponse: y\n          Df Sum Sq Mean Sq F value    Pr(&gt;F)    \nx1         1 955.72  955.72  101.74 3.743e-11 ***\nResiduals 30 281.82    9.39                      \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe ANOVA quantities are \\(SSR\\approx955.7197\\), \\(SSE\\approx281.8244\\), and \\(SST\\approx1237.5441\\). The corresponding table is\n\n\n\nSource\ndf\nSS\nMS\n\\(F\\)\n\n\n\n\nRegression\n1\n955.7197\n955.7197\n101.7357\n\n\nResidual\n30\n281.8244\n9.3941\n\n\n\nTotal\n31\n1237.5441\n\n\n\n\n\nFor significance of regression, test \\(H_0:\\beta_1=0\\) against \\(H_1:\\beta_1\\ne0\\). The statistic is\n\\[\nF=\\frac{MS_R}{MS_{\\mathrm{res}}}\n  =\\frac{955.7197}{9.3941}\\approx101.7357,\n\\]\nwith \\((1,30)\\) degrees of freedom and \\(p\\approx3.743\\times10^{-11}\\). Reject \\(H_0\\) at the 5% level: regression on displacement is significant.\n\nF_stat &lt;- SSR / MSE\nc(F_statistic = F_stat,\n  F_from_t_squared = unname(slope_row[\"t value\"]^2),\n  p_value = pf(F_stat, df1 = 1, df2 = df, lower.tail = FALSE))\n\n     F_statistic F_from_t_squared          p_value \n    1.017357e+02     1.017357e+02     3.743041e-11 \n\n\nIn simple linear regression with an intercept, \\(F=t^2\\) for the slope, so the ANOVA \\(F\\)-test and the two-sided slope \\(t\\)-test give identical \\(p\\)-values and decisions.\n\n\n\n\nR2 &lt;- summary(fit)$r.squared\nc(R_squared = R2, percent_explained = 100 * R2,\n  check = SSR / SST)\n\n        R_squared percent_explained             check \n        0.7722712        77.2271242         0.7722712 \n\n\n\\(R^2\\approx0.7723\\), so approximately 77.23% of the observed variation in gasoline mileage is accounted for by its fitted linear relationship with engine displacement. This does not establish that displacement causes the variation.\n\n\n\n\nci_mean\n\n       fit      lwr      upr\n1 20.69879 19.58807 21.80952\n\n\nThe fitted mean mileage is 20.6988 mpg. Its 95% confidence interval is approximately \\((19.5881,\\ 21.8095)\\) mpg. This interval estimates the average mileage for the population of automobiles with a 275 in\\(^3\\) engine under the fitted model.\nFor reference, the standard error of the estimated mean at \\(x_0=275\\) is\n\\[\n\\operatorname{SE}\\{\\hat\\mu(x_0)\\}\n=s\\sqrt{\\frac1n+\\frac{(x_0-\\bar x)^2}{S_{xx}}}.\n\\]\n\n\n\n(a) The point prediction is \\(\\hat y(275)=\\mathbf{20.6988}\\) mpg.\n(b) The 95% prediction interval is approximately \\((14.3415,\\ 27.0561)\\) mpg.\n\npi_car\n\n       fit      lwr      upr\n1 20.69879 14.34147 27.05611\n\n\n(c) The prediction interval is wider than the confidence interval in Question 6 because it must account for both uncertainty in the fitted mean and the variability of an individual automobile around that mean. Specifically,\n\\[\n\\begin{aligned}\n\\operatorname{SE}\\{\\hat\\mu(x_0)\\}\n&=s\\sqrt{\\frac1n+\\frac{(x_0-\\bar x)^2}{S_{xx}}},\\\\\n\\operatorname{SE}_{\\mathrm{pred}}(x_0)\n&=s\\sqrt{1+\\frac1n+\\frac{(x_0-\\bar x)^2}{S_{xx}}}.\n\\end{aligned}\n\\]\nThe additional \\(1\\) under the second square root represents the variation of a new response around its conditional mean.\n\n\n\n\nxgrid &lt;- data.frame(x1 = seq(min(x), max(x), length.out = 300))\nci_grid &lt;- as.data.frame(predict(fit, newdata = xgrid,\n                                 interval = \"confidence\", level = .95))\npi_grid &lt;- as.data.frame(predict(fit, newdata = xgrid,\n                                 interval = \"prediction\", level = .95))\n\nplot(x, y, pch = 19, col = \"black\",\n     xlab = expression(\"Engine displacement (in\"^3*\")\"),\n     ylab = \"Gasoline mileage (mpg)\",\n     main = \"Simple linear regression: gasoline mileage\")\npolygon(c(xgrid$x1, rev(xgrid$x1)),\n        c(pi_grid$lwr, rev(pi_grid$upr)),\n        col = adjustcolor(\"orange\", alpha.f = 0.16), border = NA)\npolygon(c(xgrid$x1, rev(xgrid$x1)),\n        c(ci_grid$lwr, rev(ci_grid$upr)),\n        col = adjustcolor(\"steelblue\", alpha.f = 0.28), border = NA)\npoints(x, y, pch = 19, col = \"black\")\nlines(xgrid$x1, ci_grid$fit, col = \"blue4\", lwd = 2)\nlines(xgrid$x1, ci_grid$lwr, col = \"blue4\", lty = 2)\nlines(xgrid$x1, ci_grid$upr, col = \"blue4\", lty = 2)\nlines(xgrid$x1, pi_grid$lwr, col = \"darkorange3\", lty = 3)\nlines(xgrid$x1, pi_grid$upr, col = \"darkorange3\", lty = 3)\nlegend(\"topright\",\n       legend = c(\"Observed mileage\", \"Fitted mean\", \"95% CI for mean\",\n                  \"95% prediction band\"),\n       col = c(\"black\", \"blue4\", \"blue4\", \"darkorange3\"),\n       pch = c(19, NA, NA, NA),\n       lty = c(NA, 1, 2, 3), lwd = c(NA, 2, 1.5, 1.5),\n       bg = \"white\")\n\n\n\n\nMileage versus displacement, with 95% confidence and prediction bands.\n\n\n\n\nThe outer prediction band covers the uncertainty in a new individual response and is therefore wider than the inner confidence band for the conditional mean.\n\n\n\nThe sums below are approximately zero up to floating-point rounding; in exact arithmetic the corresponding least-squares identities hold exactly for a model with an intercept.\n(a) Residuals sum to zero.\n\nsum(e)\n\n[1] -2.803313e-15\n\n\nThe intercept normal equation is \\(\\sum_i(y_i-\\hat y_i)=\\sum_i e_i=0\\).\n(b) Observed and fitted responses have the same sum.\n\nc(sum_y = sum(y), sum_fitted = sum(yhat), difference = sum(y) - sum(yhat))\n\n     sum_y sum_fitted difference \n    647.14     647.14       0.00 \n\n\nBecause \\(\\sum_i e_i=0\\), we have \\(\\sum_i y_i-\\sum_i\\hat y_i=0\\). Both sums are approximately 647.14.\n(c) The fitted line passes through the centroid.\n\nc(xbar = mean(x), ybar = mean(y),\n  fitted_at_xbar = unname(predict(fit, newdata = data.frame(x1 = mean(x)))),\n  difference = unname(predict(fit, newdata = data.frame(x1 = mean(x)))) - mean(y))\n\n          xbar           ybar fitted_at_xbar     difference \n  2.850437e+02   2.022312e+01   2.022312e+01  -7.105427e-15 \n\n\nThe centroid is approximately \\((285.0438,\\ 20.2231)\\), and \\(b_0+b_1\\bar x=\\bar y\\) because \\(b_0=\\bar y-b_1\\bar x\\).\n(d) Predictor and residuals are orthogonal.\n\nsum(x * e)\n\n[1] -3.979039e-13\n\n\nThe slope normal equation gives \\(\\sum_i x_i(y_i-\\hat y_i)=0\\).\n(e) Fitted values and residuals are orthogonal.\n\nsum(yhat * e)\n\n[1] -3.597123e-14\n\n\nSince \\(\\hat y_i=b_0+b_1x_i\\),\n\\[\n\\sum_i\\hat y_i e_i\n=b_0\\sum_i e_i+b_1\\sum_i x_ie_i=0.\n\\]"
   },
   {
     "objectID": "hw/hw-2-sol.html#fit-and-interpret-the-model",
@@ -4217,7 +4217,7 @@
     "href": "hw/hw-2-sol.html#numerical-verification-of-least-squares-identities",
     "title": "Homework 2: Simple Linear Regression — Solutions",
     "section": "",
-    "text": "The sums below are approximately zero up to floating-point rounding; in exact arithmetic the corresponding least-squares identities hold exactly for a model with an intercept.\n(a) Residuals sum to zero.\n\nsum(e)\n\n[1] -7.327472e-15\n\n\nThe intercept normal equation is \\(\\sum_i(y_i-\\hat y_i)=\\sum_i e_i=0\\).\n(b) Observed and fitted responses have the same sum.\n\nc(sum_y = sum(y), sum_fitted = sum(yhat), difference = sum(y) - sum(yhat))\n\n     sum_y sum_fitted difference \n    647.14     647.14       0.00 \n\n\nBecause \\(\\sum_i e_i=0\\), we have \\(\\sum_i y_i-\\sum_i\\hat y_i=0\\). Both sums are approximately 647.14.\n(c) The fitted line passes through the centroid.\n\nc(xbar = mean(x), ybar = mean(y),\n  fitted_at_xbar = unname(predict(fit, newdata = data.frame(x1 = mean(x)))),\n  difference = unname(predict(fit, newdata = data.frame(x1 = mean(x)))) - mean(y))\n\n          xbar           ybar fitted_at_xbar     difference \n  2.850437e+02   2.022312e+01   2.022312e+01  -3.552714e-15 \n\n\nThe centroid is approximately \\((285.0438,\\ 20.2231)\\), and \\(b_0+b_1\\bar x=\\bar y\\) because \\(b_0=\\bar y-b_1\\bar x\\).\n(d) Predictor and residuals are orthogonal.\n\nsum(x * e)\n\n[1] -1.342926e-12\n\n\nThe slope normal equation gives \\(\\sum_i x_i(y_i-\\hat y_i)=0\\).\n(e) Fitted values and residuals are orthogonal.\n\nsum(yhat * e)\n\n[1] -1.385558e-13\n\n\nSince \\(\\hat y_i=b_0+b_1x_i\\),\n\\[\n\\sum_i\\hat y_i e_i\n=b_0\\sum_i e_i+b_1\\sum_i x_ie_i=0.\n\\]"
+    "text": "The sums below are approximately zero up to floating-point rounding; in exact arithmetic the corresponding least-squares identities hold exactly for a model with an intercept.\n(a) Residuals sum to zero.\n\nsum(e)\n\n[1] -2.803313e-15\n\n\nThe intercept normal equation is \\(\\sum_i(y_i-\\hat y_i)=\\sum_i e_i=0\\).\n(b) Observed and fitted responses have the same sum.\n\nc(sum_y = sum(y), sum_fitted = sum(yhat), difference = sum(y) - sum(yhat))\n\n     sum_y sum_fitted difference \n    647.14     647.14       0.00 \n\n\nBecause \\(\\sum_i e_i=0\\), we have \\(\\sum_i y_i-\\sum_i\\hat y_i=0\\). Both sums are approximately 647.14.\n(c) The fitted line passes through the centroid.\n\nc(xbar = mean(x), ybar = mean(y),\n  fitted_at_xbar = unname(predict(fit, newdata = data.frame(x1 = mean(x)))),\n  difference = unname(predict(fit, newdata = data.frame(x1 = mean(x)))) - mean(y))\n\n          xbar           ybar fitted_at_xbar     difference \n  2.850437e+02   2.022312e+01   2.022312e+01  -7.105427e-15 \n\n\nThe centroid is approximately \\((285.0438,\\ 20.2231)\\), and \\(b_0+b_1\\bar x=\\bar y\\) because \\(b_0=\\bar y-b_1\\bar x\\).\n(d) Predictor and residuals are orthogonal.\n\nsum(x * e)\n\n[1] -3.979039e-13\n\n\nThe slope normal equation gives \\(\\sum_i x_i(y_i-\\hat y_i)=0\\).\n(e) Fitted values and residuals are orthogonal.\n\nsum(yhat * e)\n\n[1] -3.597123e-14\n\n\nSince \\(\\hat y_i=b_0+b_1x_i\\),\n\\[\n\\sum_i\\hat y_i e_i\n=b_0\\sum_i e_i+b_1\\sum_i x_ie_i=0.\n\\]"
   },
   {
     "objectID": "hw/hw-2-sol.html#unbiasedness-of-the-intercept-estimator",
@@ -4238,7 +4238,7 @@
     "href": "plan.html",
     "title": "Regression Analysis - Fall 2026",
     "section": "",
-    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review 🎥 Lecture 11\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form [🎥 Lecture 12]\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity [🎥 Lecture 16]\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit [🎥 Lecture 17]\n\n\n🔬Lab 3\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference [🎥 Lecture 18]\n🖥️11-bootstrap\n🔬Lab 4\n\n\n\n\nThu, Nov 5\nPolynomial Regression [🎥 Lecture 19]\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression [🎥 Lecture 20]\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables [🎥 Lecture 21]\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables [🎥 Lecture 22]\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity [🎥 Lecture 23]\n🖥️14-collinearity\n🔬Lab 5\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection [🎥 Lecture 24]\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection [🎥 Lecture 25]\n\n\n🔬Lab 6  📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression [🎥 Lecture 26]\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression [🎥 Lecture 27]\n\n\n🔬Lab 7 ✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
+    "text": "This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses and the timeline of topics and assignments might be updated throughout the semester.\n\n\n\n\n\n\n\n\nWEEK\nDATE\nTOPIC\nMATERIALS\nDUE\n\n\n\n\n1\nTue, Sep 1\nGreetings + Overview of Regression 🎥 Lecture 1\n🖥️syllabus🖥️01-overview\n📑 Old Slides: Ch. 1\n\n\n\n\nThu, Sep 3\nProbability and Statistics Review 🎥 Lecture 2\n📃02-Learn-R-in-R🖥️03-prob-stat\n\n\n\n\n\n\nFri, Sep 4\n\n\n\n\n✍️ Homework 0\n\n\n2\nTue, Sep 8\nSimple Linear Regression (SLR) 🎥 Lecture 3\n🖥️04-slr\n📑 Old Slides: Ch. 2\n\n\n\n\nThu, Sep 10\nSimple Linear Regression 🎥 Lecture 4\n\n\n\n\n\n\n\n\nFri, Sep 11\n\n\n\n\n✍️Homework 1 Solution\n\n\n3\nTue, Sep 15\nSimple Linear Regression 🎥 Lecture 5\n\n\n\n\n\n\n\n\nThu, Sep 17\nSimple Linear Regression 🎥 Lecture 6\n\n\n🔬Lab 1\n\n\n4\nTue, Sep 22\nMultiple Linear Regression (MLR) 🎥 Lecture 7\n🖥️05-mlr\n📑 Old Slides: Ch. 3\n\n\n\n\nThu, Sep 24\nMultiple Linear Regression 🎥 Lecture 8\n\n\n\n\n\n\n\n\nFri, Sep 25\n\n\n\n\n✍️Homework 2 Solution\n\n\n5\nTue, Sep 29\nMultiple Linear Regression 🎥 Lecture 9\n\n\n\n\n\n\n\n\nThu, Oct 1\nMatrix Algebra Review 🎥 Lecture 10\n🖥️06-mat\n\n\n\n\n6\nTue, Oct 6\nMatrix Algebra Review 🎥 Lecture 11\n\n\n\n\n\n\n\n\nThu, Oct 8\nMLR in Matrix Form 🎥 Lecture 12\n🖥️06-mlr-mat\n\n\n\n\n\n\nFri, Oct 9\n\n\n\n\n✍️Homework 3\n\n\n7\nTue, Oct 13\nDiagnostics: Residuals and Unusual Data [🎥 Lecture 13]\n🖥️07-diag-unusual\n🔬Lab 2 📑 Old Slides: Ch. 4 + Ch. 6\n\n\n\n\nThu, Oct 15\nDiagnostics: Symmetry and Normality [🎥 Lecture 14]\n🖥️08-diag-normality\n📑 Old Slides: Ch. 5\n\n\n8\nTue, Oct 20\nDiagnostics: Constant Variance [🎥 Lecture 15]\n🖥️09-diag-const-var\n\n\n\n\n\n\nThu, Oct 22\n🍁 Fall Break\n\n\n\n\n\n\n9\nTue, Oct 27\nDiagnostics: Linearity [🎥 Lecture 16]\n🖥️10-diag-linearity\n\n\n\n\n\n\nThu, Oct 29\nDiagnostics: Lack of Fit [🎥 Lecture 17]\n\n\n🔬Lab 3\n\n\n\n\nFri, Oct 30\n\n\n\n\n✍️Homework 4\n\n\n10\nTue, Nov 3\nBootstrapping and Simulation-based Inference [🎥 Lecture 18]\n🖥️11-bootstrap\n🔬Lab 4\n\n\n\n\nThu, Nov 5\nPolynomial Regression [🎥 Lecture 19]\n🖥️11-poly-reg\n📑 Old Slides: Ch. 7\n\n\n11\nTue, Nov 10\nIn-Class Exam ✅\n\n\n\n\n\n\n\n\nThu, Nov 12\nNonparametric Regression [🎥 Lecture 20]\n🖥️12-nonpara-reg\n\n\n\n\n12\nTue, Nov 17\nCategorical Variables [🎥 Lecture 21]\n🖥️13-cat-var\n📑 Old Slides: Ch. 8\n\n\n\n\nThu, Nov 19\nCategorical Variables [🎥 Lecture 22]\n\n\n\n\n\n\n\n\nFri, Nov 20\n\n\n\n\n✍️Homework 5\n\n\n13\nTue, Nov 24\nCollinearity [🎥 Lecture 23]\n🖥️14-collinearity\n🔬Lab 5\n\n\n\n\nThu, Nov 26\n🦃 Thanksgiving Break\n\n\n\n\n\n\n14\nTue, Dec 1\nVariable Selection [🎥 Lecture 24]\n🖥️15-var-select\n\n\n\n\n\n\nThu, Dec 3\nVariable Selection [🎥 Lecture 25]\n\n\n🔬Lab 6  📑 Old Slides: Ch. 10\n\n\n15\nTue, Dec 8\nLogistic Regression [🎥 Lecture 26]\n🖥️16-logistic-reg\n📑 Old Slides: Ch. 13\n\n\n\n\nThu, Dec 10\nLogistic Regression [🎥 Lecture 27]\n\n\n🔬Lab 7 ✍️Homework 6\n\n\n16\nTue, Dec 15\nProject Presentation\n\n\n📂 Project"
   },
   {
     "objectID": "course-overview.html",
