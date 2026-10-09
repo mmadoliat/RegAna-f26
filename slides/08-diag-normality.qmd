@@ -1,5 +1,5 @@
 ---
-title: "Regression Diagnostics: Normality `r emo::ji('book')`"
+title: "Regression Diagnostics: Normality 📖"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 format: 
   revealjs:
@@ -152,16 +152,17 @@ knitr::include_graphics("./images/08-diag-normality/regression_line_sig.png")
 ::: notes
 <!-- - How's your exam? -->
 <!-- - We finished the discussion of SLR and MLR. Remember that our regression models are based on some assumptions. In fact these assumptions are quite restricted. -->
-- So it's not that uncommon to see violation of assumptions.
-- Today, we are going to learn how to check whether those assumptions are valid or satisfied.
-- And probably the following two weeks, if the assumptions are not satisfied, how do we deal with it. OK.
+- Bridge from last lecture: we looked at *individual* unusual points (outliers, leverage, influence). Today we look at the *overall distribution* of the errors, and the R-student residuals from last time are our main tool again.
+- It's not that uncommon to see violations of assumptions.
+- Today, we are going to learn how to check whether those assumptions are satisfied, and, over the next lectures, how to deal with violations.
+- Pacing: assumptions & overview ~5 | why normality matters ~5 | detecting (QQ, density) ~10 | correcting: ladder of powers & Box-Cox ~15 | CIA R Labs (incl. recheck) ~10 | other issues & interpretation ~5 → about 50 min; the remaining time can start 09 (which continues with the CIA data).
 :::
 
 . . .
 
 ::: alert
 - If the assumptions are violated, a different sample could lead to a different conclusion!
-- $R^2$ tells us how good the model is fitted to the data, but says nothing about the correctness of the model.
+- $R^2$ tells us how well the model fits the data, but says nothing about whether the model is correct.
 - All the inferences are based on the assumption that the model is correct.
 :::
 
@@ -176,7 +177,7 @@ knitr::include_graphics("./images/08-diag-normality/regression_line_sig.png")
 ::: notes
 
 - This week we are going to learn some methods to correct model inadequacy.
-- We can either transform our data, our use a more general method, called Generalized Least Squares or Weighted Least Squares.
+- We can either transform our data, or use a more general method, called Generalized Least Squares or Weighted Least Squares.
 - $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$: **mean 0**, **constant variance**, **normally distributed**, and **uncorrelated**.
 - $E(\epsilon_i) =0$ implies the function form of the model (**linearity**) is correct.
 
@@ -190,11 +191,11 @@ knitr::include_graphics("./images/08-diag-normality/regression_line_sig.png")
 Without normality, 
 
 - **Heavier tailed** errors:
-  + LS estimators do not have the **smallest** variance among unbiased estimators.
+  + LS is still BLUE (best among *linear* unbiased estimators), but robust (nonlinear) estimators can have **much smaller** variance.
   + give rise to **outliers**.
 
 ::: notes
-Gauss-Markov does not require normality.
+- Gauss-Markov does not require normality. With normal errors, LS is best among *all* unbiased estimators; without normality, only among *linear* ones.
 :::
 
 . . .
@@ -237,6 +238,7 @@ Gauss-Markov does not require normality.
 ```{r}
 #| fig-asp: 0.2
 #| out-width: 100%
+set.seed(4780)
 par(mfrow = c(1, 5))
 par(mar = c(2, 2, 1, 1), mgp = c(1, 0.5, 0))
 normal_sample <- rnorm(1000)
@@ -256,43 +258,62 @@ qqnorm(light_tail_sample, pch = 16, main = "Light-tailed", cex.lab = 0.6, cex.ax
 qqline(light_tail_sample, col = 2, lwd = 2)
 ```
 
+::: notes
+How to read a QQ plot (sample quantiles on the vertical axis):
+- Right-skewed: points curve *above* the line at both ends (convex, "U" shape).
+- Left-skewed: points curve *below* the line at both ends (concave).
+- Heavy-tailed: low end below the line, high end above it (stretched "S").
+- Light-tailed: the opposite: ends flatten toward the line's interior.
+:::
 
 
-## QQ plot of R-Student Residuals Comparing $t_{n-p-1}$
+
+## QQ Plot of R-Student Residuals vs. $t_{n-p-1}$
 
 ```{r}
 #| echo: !expr c(-1)
 #| results: hide
-#| out-width: 70%
+#| out-width: 58%
 par(mar = c(3, 3, 0, 0), mgp = c(2, 0.8, 0), las = 1, mfrow = c(1, 1))
 car::qqPlot(delivery_lm, id = TRUE, col.lines = "blue", 
             reps = 1000, ylab = "Ordered R-Student Residuals", pch = 16)
 ```
 
+. . .
+
+::: question
+Is there evidence of non-normality in the delivery time data?
+:::
+
+- Apart from point 9 (the outlier we found last lecture), the residuals follow the $t_{21}$ reference line reasonably well.
+
 ::: notes
 - The `car` package calls the R-student residuals *studentized* residuals.
-- if put lm object, `car::qqPlot` automatically create qqplot for R-student residual comparing with $t_{n-p-1}$ distribution.
-- No severe problem in delivery data
-- id = controls point identification; if FALSE, no points are identified; can be a list of named arguments to the showLabels function; TRUE is equivalent to list(method="y", n=2, cex=1, col=carPalette()[1], location="lr"), which identifies the 2 points with the 2 points with the most extreme verical values — studentized residuals for the "lm" method.
+- Given an `lm` object, `car::qqPlot()` automatically plots the R-student residuals against $t_{n-p-1}$ quantiles, with a pointwise 95% envelope (`reps` = number of bootstrap samples for the envelope).
+- `id = TRUE` labels the 2 points with the most extreme residuals (here 9 and 20); `id = FALSE` labels none; a list such as `id = list(n = 3)` gives more control.
+- No severe problem in the delivery data other than point 9.
 :::
 
 ## Density plot of R-Student Residuals
 
 ```{r}
 #| echo: !expr c(-1)
-#| out-width: 67%
+#| out-width: 58%
 par(mar = c(3, 3, 2, 0), mgp = c(2, 0.8, 0), las = 1, mfrow = c(1, 1))
 rstud <- rstudent(delivery_lm)
 hist(rstud, prob = TRUE, breaks = 10, xlab = "R-Student Residuals", main = "")
 lines(density(rstud, adjust = 2), col = 4, lwd = 2)
 ```
 
+- Roughly symmetric and unimodal, with one isolated point on the right (point 9).
+- With $n = 25$, histograms are noisy: don't over-read small bumps.
+
 
 ::: notes
 - The QQ plot draws attention to the tail behavior of the R-student residuals but is less effective in visualizing their distribution as a whole.
 - Check histogram or smooth density plot of the R-student residuals to get the general shape of the distribution.
-- May be better to add another categorical regressor
-- car::densityPlot(rstud, adjust = 2, xlab = "R-Student Residuals")
+- If the density were clearly bimodal, that would suggest a missing categorical regressor.
+- Alternative: `car::densityPlot(rstud, adjust = 2, xlab = "R-Student Residuals")`
 :::
 
 
@@ -311,7 +332,7 @@ lines(density(rstud, adjust = 2), col = 4, lwd = 2)
 
 
 ::: alert
-Want the error or the response conditional on $x$s to be like normal after correction.
+Goal: after correction, the errors (equivalently, $y$ given the $x$s) should look approximately normal.
 :::
 
 
@@ -320,7 +341,7 @@ Want the error or the response conditional on $x$s to be like normal after corre
 **Power transformation: $y \rightarrow y^{\lambda}$**
 
   + make the distribution of $y$ more normal, *at least more symmetric*.
-  + $y$ can take on *positive* values only.
+  + requires $y > 0$.
   + $y \rightarrow \ln(y)$ for $\lambda = 0.$
 
 . . .
@@ -334,7 +355,7 @@ Want the error or the response conditional on $x$s to be like normal after corre
     + $\lambda = 2$ (square); $\lambda = 3$ (cube) 
 
 ::: notes
-if $\lambda$ is descending from $1$ to $-1$, the fransformation increasingly spreads out the small values of $y$ relative to the large values.
+- If $\lambda$ is descending from $1$ to $-1$, the transformation increasingly spreads out the small values of $y$ relative to the large values.
 :::
 
 
@@ -361,6 +382,7 @@ z ^ 2 ## gap between 2 numbers becomes all 1, meaning symmetry
 ```{r}
 #| out-width: 78%
 #| fig-asp: 0.3
+set.seed(4780)
 par(mar = c(3, 3, 2, 0), mgp = c(2, 0.8, 0), las = 1, mfrow = c(1, 2))
 r_skewed <- rgamma(10000, 3, 1)
 hist(r_skewed, probability = TRUE, main = expression(paste("right-skewed ", y)),
@@ -385,6 +407,11 @@ hist(l_skewed^2, probability = TRUE, xlab = "", ylab = "", col = 4,
 # arrows(14, 0.01, 6, 0.01, lwd = 2, col = 2)
 ```
 
+::: notes
+- Quick intuition: $y = 1, 10, 100, 1000$ has gaps $9, 90, 900$ (right skew); $\log_{10} y = 0, 1, 2, 3$ has equal gaps.
+- Likewise $y = 1, 1.414, 1.732, 2$ has shrinking gaps (left skew); $y^2 = 1, 2, 3, 4$ has equal gaps.
+:::
+
 
 
 ## Box-Cox Transformation on $y$
@@ -404,7 +431,7 @@ $$y^{(\lambda)} = \begin{cases}
   
 ::: alert
 
-- For all $\lambda$, $y^{(\lambda)} = 1$ at $y = 1$.
+- For all $\lambda$, $y^{(\lambda)} = 0$ and its slope is $1$ at $y = 1$ (all curves touch at $(1, 0)$).
 - The order of the transformed data $y^{(\lambda)}$ is the same as that of $y$, even for $\lambda < 0.$
 
 :::
@@ -461,7 +488,9 @@ lines(x = c(usr[1], 1), y = c(0, 0), lty = 2)
 
 
 ::: notes
-- The derivative w.r.t. $y$ of $y^{(\lambda)}$ at $y = 1$ is 1 for any $\lambda$.
+- The derivative w.r.t. $y$ of $y^{(\lambda)}$ at $y = 1$ is 1 for any $\lambda$; that is why the curves are tangent at $(1, 0)$ in the plot.
+- $(y^\lambda - 1)/\lambda \to \ln y$ as $\lambda \to 0$, so the family is continuous in $\lambda$.
+- Dividing by $\lambda$ keeps the order of the data even when $\lambda < 0$, unlike plain $y^\lambda$.
 :::
 
 
@@ -470,6 +499,15 @@ lines(x = c(usr[1], 1), y = c(0, 0), lty = 2)
 - The model to be fit is 
 $$y_i^{(\lambda)} = \beta_0 + \beta_1x_{i1}+ \cdots + \beta_kx_{ik} + \epsilon_i^*$$
 - Choose $\lambda$ so that the transformed errors $\epsilon_i^*$ look as nearly normally distributed as possible.
+
+. . .
+
+- In practice, $\hat{\lambda}$ is the **maximum likelihood** estimate, assuming $\epsilon_i^* \stackrel{iid}{\sim} N(0, \sigma^2)$.
+- Report a confidence interval for $\lambda$ and use a convenient value inside (or near) it, e.g., $1, 0.5, 0, -0.5, -1$.
+
+::: notes
+- LRA uses the scaled version $y^{(\lambda)} = (y^\lambda - 1)/(\lambda \dot{y}^{\lambda - 1})$, where $\dot{y}$ is the geometric mean of $y$, so that $SS_{Res}(\lambda)$ values are comparable across $\lambda$; minimizing $SS_{Res}(\lambda)$ is then equivalent to maximizing the likelihood.
+:::
 
 
 
@@ -531,13 +569,15 @@ for (lam in c(0.5, 0, -0.5, -1)) {
 }
 colnames(mat) <- c(-1, -0.5, "log", 0.5, 1)
 boxplot(
-    mat, id = FALSE, 
+    mat, 
     xlab = expression("Powers," ~ lambda),
     ylab = expression(
         "R-Student Residuals for " 
         ~ Infant ^ (lambda))
     )
 ```
+
+- The residuals look most symmetric somewhere between $\lambda = 0$ (log) and $\lambda = -0.5$.
 
 
 ## [R Lab]{.pink} Choose $\lambda$ Analytically
@@ -549,11 +589,34 @@ summary(car::powerTransform(ciafit, family = "bcPower"))
 
 - $\hat{\lambda} = -0.22$, and the $95\%$ CI for $\lambda$ is $[-0.37, -0.07]$.
 - $\lambda = 1$ not in the interval, providing support for transforming response.
-- $\lambda = 0$ (log transformation) is slightly outside the interval.
+- $\lambda = 0$ (log transformation) is slightly outside the interval (LR test $p < 0.01$).
+- Still, the log is often preferred for its simple interpretation; let's refit and recheck.
 
 
 ::: notes
-`car::powerTransform()` uses the maximum likelihood-like approach to select a $\lambda$ estimate, $\hat{\lambda}$.
+- `car::powerTransform()` estimates $\lambda$ by maximum likelihood; the interval shown is a Wald interval.
+- The two LR tests in the output test $\lambda = 0$ (log) and $\lambda = 1$ (no transformation).
+- `MASS::boxcox(ciafit)` plots the profile log-likelihood if you want a picture of the same thing.
+:::
+
+## [R Lab]{.pink} Refit on the Log Scale and Recheck
+
+```{r}
+#| fig-asp: 0.5
+#| out-width: 56%
+#| echo: !expr c(-1)
+par(mar = c(3, 3, 2, 0), mgp = c(2, 0.8, 0), las = 1, mfrow = c(1, 2))
+logciafit <- lm(log(infant) ~ gdp + health + gini, data = CIA)
+car::qqPlot(logciafit, id = list(n = 1))
+car::densityPlot(rstudent(logciafit))
+```
+
+- Compared to the original fit, the strong right skew is gone.
+- One country (Luxembourg) still stands out as an outlier: check it with last lecture's tools.
+
+::: notes
+- Always recheck diagnostics after transforming; a transformation can fix one problem and create or reveal another.
+- The CIA data come back in the next lecture (nonconstant variance).
 :::
 
 ## Other Issues
@@ -562,9 +625,9 @@ summary(car::powerTransform(ciafit, family = "bcPower"))
   
 . . .
 
-- Power transformations are effective when the ratio of the largest to smallest values is sufficiently large.
+- Power transformations are effective when the ratio of the largest to smallest values is sufficiently large (for `infant`, the ratio is about 50).
   + If $y_{max}/y_{min} \approx 1$, power transformations are nearly linear.
-  + Increase the ratio by adding a negative constant, $(y_{max} - c)/(y_{min}-c)$
+  + Increase the ratio by subtracting a constant $0 < c < y_{min}$: $(y_{max} - c)/(y_{min}-c)$
 
 . . .
 
@@ -576,16 +639,25 @@ logciafit <- lm(log(infant) ~ gdp + health + gini, data = CIA)
 coef(logciafit)
 ```
 
-- All else held constant, for one unit increase of `gdp`, the infant mortality rate is expected to be decreased, on average, by `r round(1 - exp(-0.044), 3) * 100`% because $\exp(-0.044) = 0.957$.
+- Holding `health` and `gini` constant, a one-unit (\$1000) increase in `gdp` multiplies the typical (geometric-mean) infant mortality rate by $\exp(b_{gdp})$ = `r round(exp(coef(logciafit)["gdp"]), 3)`, i.e., about a `r round((1 - exp(coef(logciafit)["gdp"])) * 100, 1)`% decrease.
 
 
 ::: notes
 Hawkins and Weisberg (2017)
-- Skewed conditional distribution of $y$ is not a good measure of center.
-  + Create a model for conditional *median* of the response. (Quantile regression)
-- OLS regression of the original variable  is used to to estimate the expected arithmetic mean and OLS regression of the log transformed outcome variable is to estimated the expected geometric mean of the original variable.
+- For a skewed conditional distribution of $y$, the mean is not a good measure of center.
+  + Alternative: model the conditional *median* of the response (quantile regression).
+- OLS on the original $y$ estimates the conditional arithmetic mean; OLS on $\log y$ estimates the conditional geometric mean of $y$ (which equals the median if the log-scale errors are symmetric).
 
 :::
+
+
+## Summary: Checking and Correcting Non-normality
+
+1. Fit the model and compute the R-student residuals `rstudent()`.
+2. Compare them to $t_{n-p-1}$ with a QQ plot `car::qqPlot()`; look at the overall shape with a density plot.
+3. Heavy tails → robust regression; multimodal → missing categorical regressor; skewed → transform $y$.
+4. Choose $\lambda$ with the ladder of powers or Box-Cox `car::powerTransform()`, preferring an interpretable value.
+5. Refit and **recheck** the diagnostics.
 
 
 <!-- ## Other Issues {visibility="hidden"} -->

@@ -1,5 +1,5 @@
 ---
-title: "Regression Diagnostics: Unusual Data `r emo::ji('coder')`"
+title: "Regression Diagnostics: Unusual Data 👩‍💻"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 format: 
   revealjs:
@@ -133,16 +133,17 @@ summ_delivery <- summary(delivery_lm)
 
 ::: notes
 - We already learned SLR and MLR as well as the inference and prediction methods for the parameters or the variables we are interested.
-- And I promise, the most mathematical part has been passed. From now on, you should have more fun studying regression. Alright.
-- Remember our model are built upon some assumptions. Before talking about how we deal with violation of model assumptions, I'd like to spend some time talking about the unusual data.
+- And I promise, the most mathematical part is behind us. From now on, you should have more fun studying regression. Alright.
+- Remember our models are built upon some assumptions. Before talking about how we deal with violation of model assumptions, I'd like to spend some time talking about the unusual data.
 <!-- - However, all the methods we learned are based on the model assumptions. If any one of the model assumptions are violated, the inference or prediction results become unreliable. -->
 <!-- In fact these assumptions are quite restricted. -->
 <!-- - So it's not that uncommon to see violation of assumptions. -->
 - The quality of data affects the quality of analysis results. If our data contains some data points that are so different from other points, our inference or prediction results may be highly distorted by those unusual data. (Can be seen as violation of normality assumption)
 - So when doing data analysis, we need to pay attention to those unusual points if they exist, and understand how they affect our analysis result.
-- The showing up of the unusual data may be a signal that our regression model fails to capture some important characteristics of the data, indicating bad model fitting, or we need some other predcitor to capture that characteristic.
+- The showing up of the unusual data may be a signal that our regression model fails to capture some important characteristics of the data, indicating bad model fitting, or we need some other predictor to capture that characteristic.
 <!-- - for the next cowe are going to learn how to check whether those assumptions are valid or satisfied.  -->
 <!-- - And probably the following two weeks, if the assumptions are not satisfied, how do we deal with it. -->
+- Pacing (75 min): concepts & pictures ~10 | leverage (hat values + lab) ~10 | outliers (R-student + lab) ~10 | influence measures (DFBETAS, Cook's D, DFFITS, COVRATIO + labs) ~25 | summary table ~5 | joint influence & AV plot ~10 | treatment ~5.
 
 :::
 
@@ -191,13 +192,7 @@ rug(c(x[, 2], 1.25), ticksize = -0.025, side = 2, lwd = 1)
 ::: small
 ```{r}
 #| class-output: my_class800
-delivery <- read.csv(file = "./data/data-ex-3-1.csv", header = TRUE)
-delivery_data <- delivery[, -1]
-colnames(delivery_data) <- c("time", "cases", "distance")
 delivery_data
-delivery_lm <- lm(time ~ cases + distance, 
-                  data = delivery_data)
-summ_delivery <- summary(delivery_lm)
 ```
 :::
 :::
@@ -207,7 +202,7 @@ summ_delivery <- summary(delivery_lm)
 ::: {.column width="75%"}
 
 :::midi
-Observation 9 and 22 are away from the center of ${\bf x}$ space, and are likely leverage points.   
+Observations 9 and 22 are away from the center of ${\bf x}$ space, and are likely leverage points.
 :::
 
 ```{r}
@@ -231,7 +226,7 @@ text(distance[c(9, 22)] ~ cases[c(9, 22)], labels = c("9", "22"),
 
 
 ::: notes
-- leverage certainly will have a dramatic effect on the model summary statistics such as $R^2$ and the standard errors of the regression coefficients
+- A leverage point that falls in line with the rest of the data may not change the coefficients much, but it can have a dramatic effect on summary statistics such as $R^2$ and the standard errors of the regression coefficients.
 :::
 
 
@@ -261,8 +256,8 @@ abline(v = mean(x_influential), lty = 2, lwd = 0.5)
 
 ::: notes
 - What kind of data points have such great influence power?
-- Well if a point is an outlier with high leverage, then it becomes a influential point.
-- We got to be very careful about influential points because the estimated regression coefficients change a lot with and without these points.
+- Well, if a point is an outlier with high leverage, then it becomes an influential point.
+- We have to be very careful about influential points because the estimated regression coefficients change a lot with and without these points.
 - Our analysis conclusion may be completely opposite => explain the figure.
 :::
 
@@ -271,7 +266,7 @@ abline(v = mean(x_influential), lty = 2, lwd = 0.5)
 
 ```{r}
 #| fig-asp: 0.5
-#| out-width: 100%
+#| out-width: 88%
 # myMat <- matrix(1:6, 2)
 # myW <- rep(1, 3)
 # myH <- c(0.68, 0.32)
@@ -330,10 +325,19 @@ legend("topleft", c("without point", "with point"), cex = 1.5,
 # plot(lm_fit$fitted.values, studres(lm_fit),pch = 16, col = 4, 
 #      xaxt='n', xlab = "", ylab = "", main = "R-student vs. fitted")
 # abline(h = 0, lty = 2)
-
-
-
 ```
+
+. . .
+
+::: question
+Which red point changes the fitted line the most? Which one would inflate $R^2$ without changing the line much?
+:::
+
+::: notes
+- Left: outlier with low leverage: the line barely moves (mostly inflates $s^2$).
+- Middle: outlier with high leverage: the line moves a lot => influential.
+- Right: high leverage but in line with the rest: line barely moves, but $R^2$ goes up and SEs go down.
+:::
 
 
 
@@ -342,9 +346,9 @@ legend("topleft", c("without point", "with point"), cex = 1.5,
 
 - The **hat value** $h_{ii}$ is the $i$th diagonal element of $\bf H$.
 
-- $h_{ii} \in \left[\frac{1}{n}, 1\right]$ is a standardized measure of the **distance of the $i$th case from the centroid of the $\bf x$ space**, taking into account the correlational structure of the $x$s.
+- $h_{ii} \in \left[\frac{1}{n}, 1\right]$ (model with intercept) is a standardized measure of the **distance of the $i$th case from the centroid of the $\bf x$ space**, taking into account the correlational structure of the $x$s.
 
-- The *larger* the $h_{ii}$ is, the *farther* the point ${\bf x}_i$ lies to the centroid of the $\bf x$ space.
+- The *larger* the $h_{ii}$ is, the *farther* the point ${\bf x}_i$ lies from the centroid of the $\bf x$ space.
 
 ```{r}
 #| out-width: 50%
@@ -373,7 +377,7 @@ box()
 ::: notes
 - The contours show the same or constant leverage in the 2-dim data ellipses.
 - The two black points are equally unusual and have equally large hat values.
-- example: one point at inner contour, the other outer contour
+- Example: a point on the inner contour has a smaller $h_{ii}$ than a point on the outer contour, even if it is closer in Euclidean distance.
 :::
 
 
@@ -398,7 +402,7 @@ A point with $h_{ii} > 2\bar{h}$ is considered a **leverage point**.
 - $h_{ii} = \sum_{j=1}^nh_{ji}^2$ summarizes the potential influence (the *leverage*) of $y_i$ on *all* the fitted values $\hat{y}_j$, $j = 1, \dots, n$.
 - $2\bar{h}$ may be greater than 1, which is not applicable.
 - A point with $h_{ii} > 2\bar{h}$ is remote enough to be considered a **leverage point**.
-- 2p/n corresponds to 5% of the data when x is multivariate normal and n and p are large.
+- 2p/n flags roughly the most extreme few percent of cases when x is multivariate normal and n and p are large.
 - Use 3p/n when n small.
 :::
 
@@ -422,7 +426,7 @@ n <- dim(delivery_data)[1]  ## n = 25
 hat_i[hat_i > 2 * p/n]
 ```
 
-- Observation 9 and 22 are identified as high-leverage points.
+- Observations 9 and 22 are identified as high-leverage points.
 :::
 
 
@@ -452,8 +456,8 @@ text(distance[c(9, 22)] ~ cases[c(9, 22)], labels = c("9", "22"),
 
 ::: notes
 
-- Most cutoff works better for large sample data
-- problem-specific unit change may be large after removing the influential point, even though the measures are not greater than the cutoff.
+- Most cutoffs work better for large samples.
+- Cutoffs are guides, not rules: the problem-specific change after removing a point may be practically large even if the measure does not exceed the cutoff.
 :::
 
 
@@ -461,10 +465,10 @@ text(distance[c(9, 22)] ~ cases[c(9, 22)], labels = c("9", "22"),
 - Measure the *conditional* unusualness of $y$ given ${\bf x}$.
 
 - `r emo::ji('x')` Can't just use residual $e_i$ to measure the unusualness of $y_i$! 
-- If the point is also a leverage point (large $h_{ii}$), it's residual tends to be small.
+- If the point is also a leverage point (large $h_{ii}$), its residual tends to be small, since $\var(e_i) = \sigma^2(1-h_{ii})$.
 
 ::: notes
-- Can't just use residual $e_i$ to measure the unusualness of $y_i$! If the point is also a leverage point (large $h_{ii}$), it's residual tends to be small. -> Check plot: these points force the regression line or surface to be close to them.
+- Check plot (middle panel earlier): high-leverage points pull the regression line or surface toward themselves, so their raw residuals look small.
 :::
 
 . . .
@@ -478,10 +482,10 @@ text(distance[c(9, 22)] ~ cases[c(9, 22)], labels = c("9", "22"),
 
 ::: notes
 - (Eq (4.12) in LRA)
-- There are lots variants of residuals that are for several different purposes.
+- There are many variants of residuals, for several different purposes.
 - The so-called R-student residual is recommended for detecting outliers.
-- Bonferroni correction is better for testing n residuals simultaneously.
-- A point with $|t_i| > 2$ needs to be examined with care ( $5\%$ of the data).
+- Bonferroni correction is better for testing all $n$ residuals simultaneously: compare $|t_i|$ to $t_{\alpha/(2n),\, n-p-1}$ (shown in the next R Lab via `car::outlierTest()`).
+- Under the model, about $5\%$ of the points will have $|t_i| > 2$ just by chance.
 :::
 
 
@@ -492,15 +496,37 @@ r_student <- rstudent(delivery_lm)
 round(sort(r_student, decreasing = TRUE), 2)
 ```
 
+:::: {.columns}
+
+::: {.column width="55%"}
 ```{r}
-#| out-width: 56%
+#| out-width: 100%
 par(mar = c(4, 4, 2, 0))
 plot(delivery_lm$fitted.values, r_student, 
      pch = 16, col = 4, type = "n", xlab = "fitted value", ylab = "R-student residual", main = "R-student vs. fitted values", las = 1, cex.main = 2)
-text(delivery_lm$fitted.values[-9], r_student[-9], labels = 1:25, cex = 1.5)
+text(delivery_lm$fitted.values[-9], r_student[-9], labels = (1:25)[-9], cex = 1.5)
 text(delivery_lm$fitted.values[9], r_student[9], labels = 9, col = "red", cex = 2)
-abline(h = 0, lty = 2)
+abline(h = c(-2, 0, 2), lty = c(3, 2, 3))
 ```
+:::
+
+::: {.column width="45%"}
+- Point 9: $t_9 = 4.31 > 2$ → clearly an outlier.
+- Point 20: $t_{20} \approx -2.00$ is borderline ($-1.997$ before rounding).
+
+. . .
+
+::: midi
+```{r}
+#| echo: true
+## Bonferroni test: compares |t_i| to t_{0.05/(2n), n-p-1} = 3.53
+car::outlierTest(delivery_lm)
+```
+:::
+
+- Point 9 remains an outlier even after the Bonferroni adjustment.
+:::
+::::
 
 
 
@@ -550,7 +576,7 @@ $$DFBETAS_{j, i} := \frac{b_j - b_{j(i)}}{\sqrt{S_{(i)}^2C_{jj}}} = \frac{r_{j, 
   + ${\bf r}_j'$: the $j$th row of the $p \times n$ matrix ${\bf R = (X'X)^{-1}X'}$ $({\bf b = Ry})$
   + $r_{j, i}$: the $ji$th element of ${\bf R}$
   + $t_i$: the $i$th R-student residual
-The n elements in the j th row of R produce the leverage that the n observations in the sample have on ˆβj
+- The $n$ elements in the $j$th row of ${\bf R}$ produce the leverage that the $n$ observations in the sample have on $b_j$.
 :::
 
 
@@ -584,7 +610,13 @@ apply(dfbeta, 2,
 ```
 :::
 
-- Point 9 is influential, as its deletion results in a displacement of every coefficient by at least 0.9 standard deviation of $b_j$.
+- Point 9 is influential: deleting it moves *every* coefficient by at least 0.9 standard errors.
+- Point 22 mainly affects the `cases` coefficient ($-1.03$).
+
+::: notes
+- Points 1, 4, and 24 barely exceed 0.4 on one or two coefficients: minor.
+- Obs 22's intercept prints as 0.40 but is 0.3986 before rounding, which is why it is not flagged.
+:::
 
 
 :::
@@ -596,7 +628,7 @@ apply(dfbeta, 2,
 
 - $D_i$ measures *__the squared distance that the vector of fitted values moves when the $i$th observation is deleted.__*
 
-$$D_i = \frac{(\hat{{\bf y}}_{(i)} - \hat{{\bf y}})'(\hat{{\bf y}}_{(i)}-\hat{{\bf y}})}{p s^2} = \frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n$$ where $r_i = \frac{e_i}{\sqrt{s^2(1-h_{ii})}}$ is the **Studentized residuals**.
+$$D_i = \frac{(\hat{{\bf y}}_{(i)} - \hat{{\bf y}})'(\hat{{\bf y}}_{(i)}-\hat{{\bf y}})}{p s^2} = \frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n$$ where $r_i = \frac{e_i}{\sqrt{s^2(1-h_{ii})}}$ is the **studentized residual**.
 
 - What contributes to $D_i$:
   + How well the model fits the $i$th observation (larger $r_i^2$ for poorer fit)
@@ -612,13 +644,13 @@ Consider points with $D_{i} > 1$ to be influential.
 ::: notes
 - $D_i > 1$ may risk missing unusual data. Use $4/(n-p)$ instead.
 $$\begin{align} D_i& := \frac{\left( {\bf b}_{(i)} - {\bf b} \right)' {\bf X'X} \left( {\bf b}_{(i)} - {\bf b} \right)}{pMS_{res}}\\ &=\frac{r_i^2}{p}\frac{\var(\hat{y}_i)}{\var(\hat{e}_i)} =\frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n \end{align}$$
-- View $D_i$ as the standardized distance between $b$ and $b_{-i}$.
-- $D_i > 0$ since $X'X$ is positive definite.
+- View $D_i$ as the standardized distance between ${\bf b}$ and ${\bf b}_{(i)}$.
+- $D_i \ge 0$ since $X'X$ is positive definite ($D_i = 0$ only if ${\bf b}_{(i)} = {\bf b}$).
 - The magnitude of $D_i$ is usually assessed by comparing it to $F_{\alpha, p, n-p}$.
-- If $D_i = F_{0.5, p , n − p}$, then deleting point i would move $b_{-i}$ to the boundary of an approximate 50% confidence region for $\beta$ based on the complete data set.
+- If $D_i = F_{0.5, p , n − p}$, then deleting point $i$ would move ${\bf b}_{(i)}$ to the boundary of an approximate 50% confidence region for $\beta$ based on the complete data set.
 - $\frac{h_{ii}}{1-h_{ii}}$ This ratio can be shown to be the distance from the vector $x_i$ to the centroid of the remaining data.
 - It is the squared Euclidean distance (apart from pMS_Res) that the vector of fitted values moves when the $i$th observation is deleted.
-- D is a scale-invariant measure of the influence of the ith case on all of the regression coeffcients, that is the distance between b and b(-i).
+- $D_i$ is a scale-invariant measure of the influence of the $i$th case on all of the regression coefficients.
 :::
 
 
@@ -627,15 +659,18 @@ $$\begin{align} D_i& := \frac{\left( {\bf b}_{(i)} - {\bf b} \right)' {\bf X'X} 
 ```{r}
 #| echo: true
 Dii <- cooks.distance(delivery_lm)
-Dii[Dii > 1]
 round(sort(Dii, decreasing = TRUE), 3)
+Dii[Dii > 1]
+## cut-off = 4/(n - p) = 0.18
+Dii[Dii > 4 / (n - p)]
 ```
 
-- Observation 9 is influential using the cutoff of one, and the point 22 is not.
+- With the cutoff of one, only observation 9 is influential.
+- With the cutoff $4/(n-p)$, observation 22 ($D_{22} = 0.45$) is also flagged.
 <!-- - These conclusions agree with those by examining $h_{ii}$ and $r_i$ separately. -->
 
 ::: alert
-$D_i > 1$ may risk missing unusual data. Use $4/(n-p)$ instead.
+$D_i > 1$ may risk missing unusual data. $4/(n-p)$ is a more sensitive cutoff.
 :::
 
 ::: notes
@@ -645,7 +680,7 @@ round(pf(Dii, df1 = 3, 22), 3)
 pf(3.41835, 3, 22)
 pf(0.45106, 3, 22)
 ```
-The magnitude of D i is usually assessed by comparing it to F α , p , n − p . If D i = F 0.5, p , n − p , then deleting point i would move ˆb(i) to the boundary of an approximate 50% confidence region for β based on the complete data set.
+- Compare $D_i$ to $F_{p,\, n-p}$: `pf(D_9) = 0.965`, so deleting point 9 moves ${\bf b}$ to the boundary of an approximate 96.5% confidence region for $\boldsymbol\beta$; for point 22 it is only about 28%.
 :::
 
 
@@ -654,7 +689,7 @@ The magnitude of D i is usually assessed by comparing it to F α , p , n − p .
 $$DFFITS_{i} := \frac{\hat{y}_i - \hat{y}_{(i)}}{\sqrt{s_{(i)}^2h_{ii}}} = \left(\frac{h_{ii}}{1-h_{ii}}\right)^{1/2}t_i$$ where $\hat{y}_{(i)}$ is the fitted value of $y_i$ computed without the $i$th observation.
 - The denominator provides a standardization since $\var\left( \hat{y}_i\right) = \sigma^2h_{ii}$.
 <!-- - $DFFITS_{i}$ represents *the number of estimated standard errors that the fitted value $\hat{y}_{(i)}$ changes if the $i$th point is removed.* -->
-- $DFFITS_{i}$is essentially the R-student residual *scaled* by the leverage $[h_{ii}/(1-h_{ii})]^{1/2}$.
+- $DFFITS_{i}$ is essentially the R-student residual *scaled* by the leverage $[h_{ii}/(1-h_{ii})]^{1/2}$.
 
 ::: alert
 A point with $|DFFITS_{i}| > 2\sqrt{p/n}$ needs attention.
@@ -675,7 +710,8 @@ round(dffit <- dffits(delivery_lm), 2)
 dffit[abs(dffit) > 2 * sqrt(p/n)]  
 ```
 
-- Deleting point 9 displaces the predicted response $\hat{y}_{(i)}$ by over four standard deviations of $\hat{y}_i.$
+- Deleting point 9 shifts its own fitted value $\hat{y}_9$ by over four standard errors.
+- Point 22 is also flagged ($-1.20$); point 20 ($-0.67$) is just under the cutoff.
 
 
 ## $COVRATIO_{i}$ 
@@ -728,8 +764,33 @@ covra[covra < (1 - 3*p/n)]
 
 - Since $COVRATIO_{22} > 1$, this observation tends to improve precision of estimation.
 
-- Point 22 and 16 barely exceed the cutoff, so their influence is small.
+- Points 22 and 16 barely exceed the cutoff, so their influence on precision is small.
 <!-- - Point 9 is much more clearly influential. -->
+
+
+## Summary: Single-Case Diagnostics (Delivery Time)
+
+::: midi
+| Measure | What it measures | Cutoff | R function | Flagged |
+|:--------|:-----------------|:------:|:-----------|:-------:|
+| $h_{ii}$ | Leverage (unusual $\bf x$) | $2p/n = 0.24$ | `hatvalues()` | 9, 22 |
+| $t_i$ | Outlyingness (unusual $y \mid \bf x$) | $\lvert t_i \rvert > 2$ | `rstudent()` | 9 |
+| $DFBETAS_{j,i}$ | Change in each $b_j$ | $2/\sqrt{n} = 0.4$ | `dfbetas()` | 9, 22 (+1, 4, 24 marginally) |
+| $D_i$ | Change in whole $\bf b$ / all $\hat{\bf y}$ | $1$ or $4/(n-p) = 0.18$ | `cooks.distance()` | 9 (+22) |
+| $DFFITS_i$ | Change in own $\hat{y}_i$ | $2\sqrt{p/n} = 0.69$ | `dffits()` | 9, 22 |
+| $COVRATIO_i$ | Effect on precision | $1 \pm 3p/n$ | `covratio()` | 9 (↓); 16, 22 (↑) |
+:::
+
+. . .
+
+- **Point 9**: high leverage *and* an outlier → influential by every measure.
+- **Point 22**: high leverage, not an outlier → moderately influential (mainly on `cases`).
+
+::: notes
+- This is the place to tie back to Influence = Leverage × Outlyingness.
+- `influence.measures(delivery_lm)` computes all of these at once, but its flags use different (more conservative) cutoffs, e.g., |DFBETAS| > 1 and hat > 3p/n; mention so students are not confused if they try it.
+- Even with point 9 flagged, the next step is to ask *why* (see Treatment of Unusual Data).
+:::
 
 
 ## Jointly Influential Points
@@ -749,7 +810,7 @@ x1 <- c(x, 8, 8)
 y1 <- c(y, 2, 2.25)
 plot(x1, y1, pch = c(rep(21, 5), 15, 17), cex = c(rep(1.5, 5), 1.5, 1.5)*1.3,
      axes = FALSE, xlab = "", ylab = "", frame = TRUE, bg = "darkgray", cex.main = 1.5,
-     main = "jointly infludential same side", col = c(rep(1, 5), 1, 1))
+     main = "jointly influential: same side", col = c(rep(1, 5), 1, 1))
 # mtext(side = 1, text = "x", at = 7.5, line = 1)
 # mtext(side = 2, text = "y", at = 2, line = 1, las = 1)
 abline(lm(y1 ~ x1, subset = 1:5), lty = "dotdash", lwd = 2, col = 4)
@@ -765,7 +826,7 @@ x2 <- c(x, -3, 9)
 y2 <- c(y, -8, 2)
 plot(x2, y2, pch = c(rep(21, 5), 15, 17), cex = c(rep(1.5, 5), 1.5, 1.5)*1.3,
      axes = FALSE, xlab = "", ylab = "", frame = TRUE, bg = "darkgray",cex.main = 1.5,
-     main = "jointly infludential opposite side")
+     main = "jointly influential: opposite sides")
 # mtext(side = 1, text = "x", at = 9, line = 1)
 # mtext(side = 2, text = "y", at = 2, line = 1, las = 1)
 abline(lm(y2 ~ x2, subset = 1:5), lty = "dotdash", lwd = 2, col = 4)
@@ -790,10 +851,10 @@ abline(lm(y3 ~ x3, subset = 1:6), lwd = 2, lty = "dashed", col = 2)
 
 ::: notes
 - Sometimes subset of cases can be jointly influential or can offset each other's influence. One single point may not be that influential, but with another point, the fitting result changes a lot. Or one single point may be influential, but with another point, the influence power disappears.
-- Often, influential subsets of cases or multiple outliers can be identified by applying single -case deletion diagnostics sequentially.
+- Often, influential subsets of cases or multiple outliers can be identified by applying single-case deletion diagnostics sequentially.
 - (a) two jointly influential cases located close to one another. Deletion of both cases has a much greater impact than deletion of only one.
 - (b) two jointly influential cases located on opposite sides of the data. Deletion of both cases has a much greater impact than deletion of only one.
-- (c) cases that offset one another: the regression with both cases deleted is nearlythe same as for the whole data set.
+- (c) cases that offset one another: the regression with both cases deleted is nearly the same as for the whole data set.
 :::
 
 
@@ -818,12 +879,13 @@ $$\small \begin{align}\hat{x}_{i1}(x_{(1)}) &= a_0^{(1)} + a_2^{(1)}x_{i2} + \do
   
 
 ::: notes
-- Added-Variable Plot is a quite useful plot. We can use it for many other purposes, not just detecting joint influence. We'll talk about that later.
+- The added-variable plot is a very useful plot. We can use it for many other purposes, not just detecting joint influence. We'll talk about that later.
 - For each predictor, we can create its own Added-Variable Plot, so if we have k predictors, we can have k Added-Variable Plots.
 - The idea of the plot is that we would like to see the pure effect of a predictor on the response when all other predictors are in the model.
 - So how do we get the pure effect of $x_1$?
 - Step 1: Regress y on all predictors except x1 and obtain residuals. The residuals are the variation of y that cannot be explained by x2 to xk. So if later we see the variation further goes down, that must be due to the inclusion of x1.
-- Step 2: Regress x1 on all other predictors. The residuals are the variation of x1 that cannot be explained by x2 to xk. This gives us the 
+- Step 2: Regress x1 on all other predictors. The residuals are the variation of x1 that cannot be explained by x2 to xk. This gives us the part of x1 that carries new information beyond the other predictors.
+- Step 3: Plotting one set of residuals against the other shows the relationship between y and x1 after removing the effect of x2 to xk.
 :::
 
 . . .
@@ -831,7 +893,7 @@ $$\small \begin{align}\hat{x}_{i1}(x_{(1)}) &= a_0^{(1)} + a_2^{(1)}x_{i2} + \do
 - For any $x_j$, $e_i(y \mid x_{(j)})$ vs. $e_i(x_j \mid x_{(j)})$
 
 ::: notes
-- The collection of of added-variable plots for x1, ..., xk convert the graph for multiple regression into a sequence of 2-dimensional plot.
+- The collection of added-variable plots for x1, ..., xk converts the graph for multiple regression into a sequence of 2-dimensional plots.
 - plotting $e_i(y \mid x_{(j)})$ vs. $e_i(x_j \mid x_{(j)}), \quad i = 1, \dots, n$ allows us to examine the leverage and influence of the cases on $b_j$.
 :::
 
@@ -846,6 +908,7 @@ $$\small \begin{align}\hat{x}_{i1}(x_{(1)}) &= a_0^{(1)} + a_2^{(1)}x_{i2} + \do
 #| class-output: my_class800
 
 library(carData)
+set.seed(4780)
 carData::Duncan[sample(dim(Duncan)[1], 16), ]
 ```
 :::
@@ -867,12 +930,12 @@ carData::Duncan[sample(dim(Duncan)[1], 16), ]
 
 
 ::: notes
-- 1950 data
+- 1950 data; $n = 45$ occupations.
 :::
 
 
-## [R Lab]{.pink} Added-Valued Plot
-- The slope of the least square simple regression line of $e_i(y \mid x_{(1)})$ on $e_i(x_1 \mid x_{(1)})$ is the same as the slope $b_1$ for $x_1$ in the full multiple regression.
+## [R Lab]{.pink} Added-Variable Plot
+- The slope of the least squares simple regression line of $e_i(y \mid x_{(1)})$ on $e_i(x_1 \mid x_{(1)})$ is the same as the slope $b_1$ for $x_1$ in the full multiple regression.
 
 ::: midi
 ```{r}
@@ -915,7 +978,8 @@ car::avPlot(
 ::::
 
 ::: notes
-identifies the 3 points with the largest Mahalanobis distances from the center of the data.
+- `id = list(method = "mahal", n = 3)` labels the 3 points with the largest Mahalanobis distances from the center of the plot.
+- This is the Frisch–Waugh–Lovell result: the AV-plot slope equals $b_1$ from the full model.
 :::
 
 
@@ -925,10 +989,17 @@ identifies the 3 points with the largest Mahalanobis distances from the center o
 
 ::: {.column width="45%"}
 - Each point is plotted as a circle with area proportional to Cook's distance.
-- Horizontal lines are drawn R-Student residuals of 0 and $\pm 2$.
-- The vertical lines at $2\bar{h}$ and $3\bar{h}$.
+- Horizontal lines at R-student residuals of 0 and $\pm 2$.
+- Vertical lines at $2\bar{h}$ and $3\bar{h}$.
+
+::: {.fragment}
+
+- **minister**: outlier + moderate leverage → largest Cook's D.
+- **reporter**: outlier, low leverage → little influence.
+- **RR.engineer**: high leverage, small residual → little influence.
 :::
 
+:::
 
 ::: {.column width="55%"}
 ```{r}
