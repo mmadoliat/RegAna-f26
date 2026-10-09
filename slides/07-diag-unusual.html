@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Regression Diagnostics: Unusual Data r emo::ji('coder') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Regression Diagnostics: Unusual Data 👩‍💻 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Regression Diagnostics: Unusual Data r emo::ji('coder') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Regression Diagnostics: Unusual Data 👩‍💻 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -241,11 +241,12 @@ Influence
 <aside class="notes">
 <ul>
 <li>We already learned SLR and MLR as well as the inference and prediction methods for the parameters or the variables we are interested.</li>
-<li>And I promise, the most mathematical part has been passed. From now on, you should have more fun studying regression. Alright.</li>
-<li>Remember our model are built upon some assumptions. Before talking about how we deal with violation of model assumptions, I’d like to spend some time talking about the unusual data. <!-- - However, all the methods we learned are based on the model assumptions. If any one of the model assumptions are violated, the inference or prediction results become unreliable. --> <!-- In fact these assumptions are quite restricted. --> <!-- - So it's not that uncommon to see violation of assumptions. --></li>
+<li>And I promise, the most mathematical part is behind us. From now on, you should have more fun studying regression. Alright.</li>
+<li>Remember our models are built upon some assumptions. Before talking about how we deal with violation of model assumptions, I’d like to spend some time talking about the unusual data. <!-- - However, all the methods we learned are based on the model assumptions. If any one of the model assumptions are violated, the inference or prediction results become unreliable. --> <!-- In fact these assumptions are quite restricted. --> <!-- - So it's not that uncommon to see violation of assumptions. --></li>
 <li>The quality of data affects the quality of analysis results. If our data contains some data points that are so different from other points, our inference or prediction results may be highly distorted by those unusual data. (Can be seen as violation of normality assumption)</li>
 <li>So when doing data analysis, we need to pay attention to those unusual points if they exist, and understand how they affect our analysis result.</li>
-<li>The showing up of the unusual data may be a signal that our regression model fails to capture some important characteristics of the data, indicating bad model fitting, or we need some other predcitor to capture that characteristic. <!-- - for the next cowe are going to learn how to check whether those assumptions are valid or satisfied.  --> <!-- - And probably the following two weeks, if the assumptions are not satisfied, how do we deal with it. --></li>
+<li>The showing up of the unusual data may be a signal that our regression model fails to capture some important characteristics of the data, indicating bad model fitting, or we need some other predictor to capture that characteristic. <!-- - for the next cowe are going to learn how to check whether those assumptions are valid or satisfied.  --> <!-- - And probably the following two weeks, if the assumptions are not satisfied, how do we deal with it. --></li>
+<li>Pacing (75 min): concepts &amp; pictures ~10 | leverage (hat values + lab) ~10 | outliers (R-student + lab) ~10 | influence measures (DFBETAS, Cook’s D, DFFITS, COVRATIO + labs) ~25 | summary table ~5 | joint influence &amp; AV plot ~10 | treatment ~5.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -322,7 +323,7 @@ Influence
 </div>
 </div><div class="column" style="width:75%;">
 <div class="midi">
-<p>Observation 9 and 22 are away from the center of <span class="math inline">\({\bf x}\)</span> space, and are likely leverage points.</p>
+<p>Observations 9 and 22 are away from the center of <span class="math inline">\({\bf x}\)</span> space, and are likely leverage points.</p>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -336,7 +337,7 @@ Influence
 </div></div>
 <aside class="notes">
 <ul>
-<li>leverage certainly will have a dramatic effect on the model summary statistics such as <span class="math inline">\(R^2\)</span> and the standard errors of the regression coefficients</li>
+<li>A leverage point that falls in line with the rest of the data may not change the coefficients much, but it can have a dramatic effect on summary statistics such as <span class="math inline">\(R^2\)</span> and the standard errors of the regression coefficients.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -359,8 +360,8 @@ Influence
 <img data-src="./images/07-diag-unusual/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><aside class="notes">
 <ul>
 <li>What kind of data points have such great influence power?</li>
-<li>Well if a point is an outlier with high leverage, then it becomes a influential point.</li>
-<li>We got to be very careful about influential points because the estimated regression coefficients change a lot with and without these points.</li>
+<li>Well, if a point is an outlier with high leverage, then it becomes an influential point.</li>
+<li>We have to be very careful about influential points because the estimated regression coefficients change a lot with and without these points.</li>
 <li>Our analysis conclusion may be completely opposite =&gt; explain the figure.</li>
 </ul>
 <style type="text/css">
@@ -378,21 +379,43 @@ Influence
 <section id="unusual-data-outliers-leverage-and-influence" class="slide level2">
 <h2>Unusual Data: Outliers, Leverage and Influence</h2>
 
-<img data-src="./images/07-diag-unusual/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="./images/07-diag-unusual/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:88.0%"><div class="fragment">
+<div class="question">
+<p>Which red point changes the fitted line the most? Which one would inflate <span class="math inline">\(R^2\)</span> without changing the line much?</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Left: outlier with low leverage: the line barely moves (mostly inflates <span class="math inline">\(s^2\)</span>).</li>
+<li>Middle: outlier with high leverage: the line moves a lot =&gt; influential.</li>
+<li>Right: high leverage but in line with the rest: line barely moves, but <span class="math inline">\(R^2\)</span> goes up and SEs go down.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="measuring-leverage-hat-values" class="slide level2">
 <h2>Measuring Leverage: Hat Values</h2>
 <ul>
 <li><p><span class="math inline">\({\bf H} = {\bf X}({\bf X}' {\bf X}) ^{-1} {\bf X}'\)</span>.</p></li>
 <li><p>The <strong>hat value</strong> <span class="math inline">\(h_{ii}\)</span> is the <span class="math inline">\(i\)</span>th diagonal element of <span class="math inline">\(\bf H\)</span>.</p></li>
-<li><p><span class="math inline">\(h_{ii} \in \left[\frac{1}{n}, 1\right]\)</span> is a standardized measure of the <strong>distance of the <span class="math inline">\(i\)</span>th case from the centroid of the <span class="math inline">\(\bf x\)</span> space</strong>, taking into account the correlational structure of the <span class="math inline">\(x\)</span>s.</p></li>
-<li><p>The <em>larger</em> the <span class="math inline">\(h_{ii}\)</span> is, the <em>farther</em> the point <span class="math inline">\({\bf x}_i\)</span> lies to the centroid of the <span class="math inline">\(\bf x\)</span> space.</p></li>
+<li><p><span class="math inline">\(h_{ii} \in \left[\frac{1}{n}, 1\right]\)</span> (model with intercept) is a standardized measure of the <strong>distance of the <span class="math inline">\(i\)</span>th case from the centroid of the <span class="math inline">\(\bf x\)</span> space</strong>, taking into account the correlational structure of the <span class="math inline">\(x\)</span>s.</p></li>
+<li><p>The <em>larger</em> the <span class="math inline">\(h_{ii}\)</span> is, the <em>farther</em> the point <span class="math inline">\({\bf x}_i\)</span> lies from the centroid of the <span class="math inline">\(\bf x\)</span> space.</p></li>
 </ul>
 
 <img data-src="./images/07-diag-unusual/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><aside class="notes">
 <ul>
 <li>The contours show the same or constant leverage in the 2-dim data ellipses.</li>
 <li>The two black points are equally unusual and have equally large hat values.</li>
-<li>example: one point at inner contour, the other outer contour</li>
+<li>Example: a point on the inner contour has a smaller <span class="math inline">\(h_{ii}\)</span> than a point on the outer contour, even if it is closer in Euclidean distance.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -423,7 +446,7 @@ Influence
 <li><span class="math inline">\(h_{ii} = \sum_{j=1}^nh_{ji}^2\)</span> summarizes the potential influence (the <em>leverage</em>) of <span class="math inline">\(y_i\)</span> on <em>all</em> the fitted values <span class="math inline">\(\hat{y}_j\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>.</li>
 <li><span class="math inline">\(2\bar{h}\)</span> may be greater than 1, which is not applicable.</li>
 <li>A point with <span class="math inline">\(h_{ii} &gt; 2\bar{h}\)</span> is remote enough to be considered a <strong>leverage point</strong>.</li>
-<li>2p/n corresponds to 5% of the data when x is multivariate normal and n and p are large.</li>
+<li>2p/n flags roughly the most extreme few percent of cases when x is multivariate normal and n and p are large.</li>
 <li>Use 3p/n when n small.</li>
 </ul>
 <style type="text/css">
@@ -466,7 +489,7 @@ Influence
 </div>
 </div>
 <ul>
-<li>Observation 9 and 22 are identified as high-leverage points.</li>
+<li>Observations 9 and 22 are identified as high-leverage points.</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -481,8 +504,8 @@ Influence
 </div></div>
 <aside class="notes">
 <ul>
-<li>Most cutoff works better for large sample data</li>
-<li>problem-specific unit change may be large after removing the influential point, even though the measures are not greater than the cutoff.</li>
+<li>Most cutoffs work better for large samples.</li>
+<li>Cutoffs are guides, not rules: the problem-specific change after removing a point may be practically large even if the measure does not exceed the cutoff.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -501,11 +524,11 @@ Influence
 <ul>
 <li><p>Measure the <em>conditional</em> unusualness of <span class="math inline">\(y\)</span> given <span class="math inline">\({\bf x}\)</span>.</p></li>
 <li><p>❌ Can’t just use residual <span class="math inline">\(e_i\)</span> to measure the unusualness of <span class="math inline">\(y_i\)</span>!</p></li>
-<li><p>If the point is also a leverage point (large <span class="math inline">\(h_{ii}\)</span>), it’s residual tends to be small.</p></li>
+<li><p>If the point is also a leverage point (large <span class="math inline">\(h_{ii}\)</span>), its residual tends to be small, since <span class="math inline">\(\mathrm{Var}(e_i) = \sigma^2(1-h_{ii})\)</span>.</p></li>
 </ul>
 <aside class="notes">
 <ul>
-<li>Can’t just use residual <span class="math inline">\(e_i\)</span> to measure the unusualness of <span class="math inline">\(y_i\)</span>! If the point is also a leverage point (large <span class="math inline">\(h_{ii}\)</span>), it’s residual tends to be small. -&gt; Check plot: these points force the regression line or surface to be close to them.</li>
+<li>Check plot (middle panel earlier): high-leverage points pull the regression line or surface toward themselves, so their raw residuals look small.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -531,10 +554,10 @@ Influence
 <aside class="notes">
 <ul>
 <li>(Eq (4.12) in LRA)</li>
-<li>There are lots variants of residuals that are for several different purposes.</li>
+<li>There are many variants of residuals, for several different purposes.</li>
 <li>The so-called R-student residual is recommended for detecting outliers.</li>
-<li>Bonferroni correction is better for testing n residuals simultaneously.</li>
-<li>A point with <span class="math inline">\(|t_i| &gt; 2\)</span> needs to be examined with care ( <span class="math inline">\(5\%\)</span> of the data).</li>
+<li>Bonferroni correction is better for testing all <span class="math inline">\(n\)</span> residuals simultaneously: compare <span class="math inline">\(|t_i|\)</span> to <span class="math inline">\(t_{\alpha/(2n),\, n-p-1}\)</span> (shown in the next R Lab via <code>car::outlierTest()</code>).</li>
+<li>Under the model, about <span class="math inline">\(5\%\)</span> of the points will have <span class="math inline">\(|t_i| &gt; 2\)</span> just by chance.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -561,8 +584,39 @@ Influence
 -0.02 -0.07 -0.09 -0.14 -0.19 -0.22 -0.87 -1.48 -1.49 -1.54 -1.70 -2.00 </code></pre>
 </div>
 </div>
-
-<img data-src="./images/07-diag-unusual/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:56.0%"></section>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/07-diag-unusual/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<ul>
+<li>Point 9: <span class="math inline">\(t_9 = 4.31 &gt; 2\)</span> → clearly an outlier.</li>
+<li>Point 20: <span class="math inline">\(t_{20} \approx -2.00\)</span> is borderline (<span class="math inline">\(-1.997\)</span> before rounding).</li>
+</ul>
+<div class="fragment">
+<div class="midi">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a><span class="do">## Bonferroni test: compares |t_i| to t_{0.05/(2n), n-p-1} = 3.53</span></span>
+<span id="cb10-2"><a aria-label="2"></a>car<span class="sc">::</span><span class="fu">outlierTest</span>(delivery_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rstudent unadjusted p-value Bonferroni p
+9      4.3            0.00031       0.0077</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>Point 9 remains an outlier even after the Bonferroni adjustment.</li>
+</ul>
+</div>
+</div></div>
+</section>
 <section id="measuring-influence" class="slide level2">
 <h2>Measuring Influence</h2>
 <ul>
@@ -620,8 +674,9 @@ Influence
 <li><span class="math inline">\(C_{jj}\)</span>: the <span class="math inline">\(j\)</span>th diagonal element of <span class="math inline">\({\bf(X'X)}^{-1}\)</span></li>
 <li><span class="math inline">\({\bf r}_j'\)</span>: the <span class="math inline">\(j\)</span>th row of the <span class="math inline">\(p \times n\)</span> matrix <span class="math inline">\({\bf R = (X'X)^{-1}X'}\)</span> <span class="math inline">\(({\bf b = Ry})\)</span></li>
 <li><span class="math inline">\(r_{j, i}\)</span>: the <span class="math inline">\(ji\)</span>th element of <span class="math inline">\({\bf R}\)</span></li>
-<li><span class="math inline">\(t_i\)</span>: the <span class="math inline">\(i\)</span>th R-student residual The n elements in the j th row of R produce the leverage that the n observations in the sample have on ˆβj</li>
+<li><span class="math inline">\(t_i\)</span>: the <span class="math inline">\(i\)</span>th R-student residual</li>
 </ul></li>
+<li>The <span class="math inline">\(n\)</span> elements in the <span class="math inline">\(j\)</span>th row of <span class="math inline">\({\bf R}\)</span> produce the leverage that the <span class="math inline">\(n\)</span> observations in the sample have on <span class="math inline">\(b_j\)</span>.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -641,43 +696,43 @@ Influence
 <div class="column" style="width:50%;">
 <div class="midi">
 <div class="cell" data-layout-align="center" data-highlight-output="[10,23]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a><span class="fu">round</span>(dfbeta <span class="ot">&lt;-</span> <span class="fu">dfbetas</span>(delivery_lm), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a><span class="fu">round</span>(dfbeta <span class="ot">&lt;-</span> <span class="fu">dfbetas</span>(delivery_lm), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource my_class800 number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a aria-label="1"></a>   (Intercept) cases distance</span>
-<span id="cb11-2"><a aria-label="2"></a>1        -0.19  0.41    -0.43</span>
-<span id="cb11-3"><a aria-label="3"></a>2         0.09 -0.05     0.01</span>
-<span id="cb11-4"><a aria-label="4"></a>3         0.00  0.00     0.00</span>
-<span id="cb11-5"><a aria-label="5"></a>4         0.45  0.09    -0.27</span>
-<span id="cb11-6"><a aria-label="6"></a>5        -0.03 -0.01     0.02</span>
-<span id="cb11-7"><a aria-label="7"></a>6        -0.01  0.00     0.00</span>
-<span id="cb11-8"><a aria-label="8"></a>7         0.08 -0.02    -0.01</span>
-<span id="cb11-9"><a aria-label="9"></a>8         0.07  0.03    -0.05</span>
-<span id="cb11-10"><a aria-label="10"></a>9        -2.58  0.93     1.51</span>
-<span id="cb11-11"><a aria-label="11"></a>10        0.11 -0.34     0.34</span>
-<span id="cb11-12"><a aria-label="12"></a>11       -0.03  0.09     0.00</span>
-<span id="cb11-13"><a aria-label="13"></a>12       -0.03 -0.05     0.05</span>
-<span id="cb11-14"><a aria-label="14"></a>13        0.07 -0.04     0.01</span>
-<span id="cb11-15"><a aria-label="15"></a>14        0.05 -0.07     0.06</span>
-<span id="cb11-16"><a aria-label="16"></a>15        0.02  0.00     0.01</span>
-<span id="cb11-17"><a aria-label="17"></a>16        0.00  0.06    -0.08</span>
-<span id="cb11-18"><a aria-label="18"></a>17        0.03  0.01    -0.02</span>
-<span id="cb11-19"><a aria-label="19"></a>18        0.25  0.19    -0.27</span>
-<span id="cb11-20"><a aria-label="20"></a>19        0.17  0.02    -0.10</span>
-<span id="cb11-21"><a aria-label="21"></a>20        0.17 -0.21    -0.09</span>
-<span id="cb11-22"><a aria-label="22"></a>21       -0.16 -0.30     0.34</span>
-<span id="cb11-23"><a aria-label="23"></a>22        0.40 -1.03     0.57</span>
-<span id="cb11-24"><a aria-label="24"></a>23       -0.16  0.04    -0.05</span>
-<span id="cb11-25"><a aria-label="25"></a>24       -0.12  0.40    -0.47</span>
-<span id="cb11-26"><a aria-label="26"></a>25       -0.02  0.00     0.01</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource my_class800 number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a aria-label="1"></a>   (Intercept) cases distance</span>
+<span id="cb13-2"><a aria-label="2"></a>1        -0.19  0.41    -0.43</span>
+<span id="cb13-3"><a aria-label="3"></a>2         0.09 -0.05     0.01</span>
+<span id="cb13-4"><a aria-label="4"></a>3         0.00  0.00     0.00</span>
+<span id="cb13-5"><a aria-label="5"></a>4         0.45  0.09    -0.27</span>
+<span id="cb13-6"><a aria-label="6"></a>5        -0.03 -0.01     0.02</span>
+<span id="cb13-7"><a aria-label="7"></a>6        -0.01  0.00     0.00</span>
+<span id="cb13-8"><a aria-label="8"></a>7         0.08 -0.02    -0.01</span>
+<span id="cb13-9"><a aria-label="9"></a>8         0.07  0.03    -0.05</span>
+<span id="cb13-10"><a aria-label="10"></a>9        -2.58  0.93     1.51</span>
+<span id="cb13-11"><a aria-label="11"></a>10        0.11 -0.34     0.34</span>
+<span id="cb13-12"><a aria-label="12"></a>11       -0.03  0.09     0.00</span>
+<span id="cb13-13"><a aria-label="13"></a>12       -0.03 -0.05     0.05</span>
+<span id="cb13-14"><a aria-label="14"></a>13        0.07 -0.04     0.01</span>
+<span id="cb13-15"><a aria-label="15"></a>14        0.05 -0.07     0.06</span>
+<span id="cb13-16"><a aria-label="16"></a>15        0.02  0.00     0.01</span>
+<span id="cb13-17"><a aria-label="17"></a>16        0.00  0.06    -0.08</span>
+<span id="cb13-18"><a aria-label="18"></a>17        0.03  0.01    -0.02</span>
+<span id="cb13-19"><a aria-label="19"></a>18        0.25  0.19    -0.27</span>
+<span id="cb13-20"><a aria-label="20"></a>19        0.17  0.02    -0.10</span>
+<span id="cb13-21"><a aria-label="21"></a>20        0.17 -0.21    -0.09</span>
+<span id="cb13-22"><a aria-label="22"></a>21       -0.16 -0.30     0.34</span>
+<span id="cb13-23"><a aria-label="23"></a>22        0.40 -1.03     0.57</span>
+<span id="cb13-24"><a aria-label="24"></a>23       -0.16  0.04    -0.05</span>
+<span id="cb13-25"><a aria-label="25"></a>24       -0.12  0.40    -0.47</span>
+<span id="cb13-26"><a aria-label="26"></a>25       -0.02  0.00     0.01</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="midi">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a><span class="do">## cut-off = 0.4</span></span>
-<span id="cb12-2"><a aria-label="2"></a><span class="fu">apply</span>(dfbeta, <span class="dv">2</span>, </span>
-<span id="cb12-3"><a aria-label="3"></a>      <span class="cf">function</span>(x) x[<span class="fu">abs</span>(x) <span class="sc">&gt;</span>  <span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a><span class="do">## cut-off = 0.4</span></span>
+<span id="cb14-2"><a aria-label="2"></a><span class="fu">apply</span>(dfbeta, <span class="dv">2</span>, </span>
+<span id="cb14-3"><a aria-label="3"></a>      <span class="cf">function</span>(x) x[<span class="fu">abs</span>(x) <span class="sc">&gt;</span>  <span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`(Intercept)`
     4     9 
@@ -694,8 +749,25 @@ $distance
 </div>
 </div>
 <ul>
-<li>Point 9 is influential, as its deletion results in a displacement of every coefficient by at least 0.9 standard deviation of <span class="math inline">\(b_j\)</span>.</li>
+<li>Point 9 is influential: deleting it moves <em>every</em> coefficient by at least 0.9 standard errors.</li>
+<li>Point 22 mainly affects the <code>cases</code> coefficient (<span class="math inline">\(-1.03\)</span>).</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Points 1, 4, and 24 barely exceed 0.4 on one or two coefficients: minor.</li>
+<li>Obs 22’s intercept prints as 0.40 but is 0.3986 before rounding, which is why it is not flagged.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div></div>
 </section>
 <section id="cooks-distance-d_i" class="slide level2">
@@ -703,7 +775,7 @@ $distance
 <ul>
 <li><span class="math inline">\(D_i\)</span> measures <em><strong>the squared distance that the vector of fitted values moves when the <span class="math inline">\(i\)</span>th observation is deleted.</strong></em></li>
 </ul>
-<p><span class="math display">\[D_i = \frac{(\hat{{\bf y}}_{(i)} - \hat{{\bf y}})'(\hat{{\bf y}}_{(i)}-\hat{{\bf y}})}{p s^2} = \frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n\]</span> where <span class="math inline">\(r_i = \frac{e_i}{\sqrt{s^2(1-h_{ii})}}\)</span> is the <strong>Studentized residuals</strong>.</p>
+<p><span class="math display">\[D_i = \frac{(\hat{{\bf y}}_{(i)} - \hat{{\bf y}})'(\hat{{\bf y}}_{(i)}-\hat{{\bf y}})}{p s^2} = \frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n\]</span> where <span class="math inline">\(r_i = \frac{e_i}{\sqrt{s^2(1-h_{ii})}}\)</span> is the <strong>studentized residual</strong>.</p>
 <ul>
 <li>What contributes to <span class="math inline">\(D_i\)</span>:
 <ul>
@@ -718,13 +790,13 @@ $distance
 <aside class="notes">
 <ul>
 <li><span class="math inline">\(D_i &gt; 1\)</span> may risk missing unusual data. Use <span class="math inline">\(4/(n-p)\)</span> instead. <span class="math display">\[\begin{align} D_i&amp; := \frac{\left( {\bf b}_{(i)} - {\bf b} \right)' {\bf X'X} \left( {\bf b}_{(i)} - {\bf b} \right)}{pMS_{res}}\\ &amp;=\frac{r_i^2}{p}\frac{\mathrm{Var}(\hat{y}_i)}{\mathrm{Var}(\hat{e}_i)} =\frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n \end{align}\]</span></li>
-<li>View <span class="math inline">\(D_i\)</span> as the standardized distance between <span class="math inline">\(b\)</span> and <span class="math inline">\(b_{-i}\)</span>.</li>
-<li><span class="math inline">\(D_i &gt; 0\)</span> since <span class="math inline">\(X'X\)</span> is positive definite.</li>
+<li>View <span class="math inline">\(D_i\)</span> as the standardized distance between <span class="math inline">\({\bf b}\)</span> and <span class="math inline">\({\bf b}_{(i)}\)</span>.</li>
+<li><span class="math inline">\(D_i \ge 0\)</span> since <span class="math inline">\(X'X\)</span> is positive definite (<span class="math inline">\(D_i = 0\)</span> only if <span class="math inline">\({\bf b}_{(i)} = {\bf b}\)</span>).</li>
 <li>The magnitude of <span class="math inline">\(D_i\)</span> is usually assessed by comparing it to <span class="math inline">\(F_{\alpha, p, n-p}\)</span>.</li>
-<li>If <span class="math inline">\(D_i = F_{0.5, p , n − p}\)</span>, then deleting point i would move <span class="math inline">\(b_{-i}\)</span> to the boundary of an approximate 50% confidence region for <span class="math inline">\(\beta\)</span> based on the complete data set.</li>
+<li>If <span class="math inline">\(D_i = F_{0.5, p , n − p}\)</span>, then deleting point <span class="math inline">\(i\)</span> would move <span class="math inline">\({\bf b}_{(i)}\)</span> to the boundary of an approximate 50% confidence region for <span class="math inline">\(\beta\)</span> based on the complete data set.</li>
 <li><span class="math inline">\(\frac{h_{ii}}{1-h_{ii}}\)</span> This ratio can be shown to be the distance from the vector <span class="math inline">\(x_i\)</span> to the centroid of the remaining data.</li>
 <li>It is the squared Euclidean distance (apart from pMS_Res) that the vector of fitted values moves when the <span class="math inline">\(i\)</span>th observation is deleted.</li>
-<li>D is a scale-invariant measure of the influence of the ith case on all of the regression coeffcients, that is the distance between b and b(-i).</li>
+<li><span class="math inline">\(D_i\)</span> is a scale-invariant measure of the influence of the <span class="math inline">\(i\)</span>th case on all of the regression coefficients.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -741,45 +813,54 @@ $distance
 <section id="r-lab-cooks-distance-d_i" class="slide level2">
 <h2><span class="pink">R Lab</span> Cook’s Distance <span class="math inline">\(D_i\)</span></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a>Dii <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(delivery_lm)</span>
-<span id="cb14-2"><a aria-label="2"></a>Dii[Dii <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  9 
-3.4 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a><span class="fu">round</span>(<span class="fu">sort</span>(Dii, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a>Dii <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(delivery_lm)</span>
+<span id="cb16-2"><a aria-label="2"></a><span class="fu">round</span>(<span class="fu">sort</span>(Dii, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    9    22    20    24     1     4    10    21    18    23    11    19     2 
 3.419 0.451 0.132 0.102 0.100 0.078 0.054 0.051 0.044 0.030 0.016 0.012 0.003 
    14    16     8    13     7    12    15     5    17     6    25     3 
 0.003 0.003 0.003 0.002 0.002 0.002 0.001 0.001 0.000 0.000 0.000 0.000 </code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-label="1"></a>Dii[Dii <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  9 
+3.4 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-label="1"></a><span class="do">## cut-off = 4/(n - p) = 0.18</span></span>
+<span id="cb20-2"><a aria-label="2"></a>Dii[Dii <span class="sc">&gt;</span> <span class="dv">4</span> <span class="sc">/</span> (n <span class="sc">-</span> p)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   9   22 
+3.42 0.45 </code></pre>
+</div>
 </div>
 <ul>
-<li>Observation 9 is influential using the cutoff of one, and the point 22 is not. <!-- - These conclusions agree with those by examining $h_{ii}$ and $r_i$ separately. --></li>
+<li>With the cutoff of one, only observation 9 is influential.</li>
+<li>With the cutoff <span class="math inline">\(4/(n-p)\)</span>, observation 22 (<span class="math inline">\(D_{22} = 0.45\)</span>) is also flagged. <!-- - These conclusions agree with those by examining $h_{ii}$ and $r_i$ separately. --></li>
 </ul>
 <div class="alert">
-<p><span class="math inline">\(D_i &gt; 1\)</span> may risk missing unusual data. Use <span class="math inline">\(4/(n-p)\)</span> instead.</p>
+<p><span class="math inline">\(D_i &gt; 1\)</span> may risk missing unusual data. <span class="math inline">\(4/(n-p)\)</span> is a more sensitive cutoff.</p>
 </div>
 <aside class="notes">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-label="1"></a><span class="fu">round</span>(<span class="fu">pf</span>(Dii, <span class="at">df1 =</span> <span class="dv">3</span>, <span class="dv">22</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-label="1"></a><span class="fu">round</span>(<span class="fu">pf</span>(Dii, <span class="at">df1 =</span> <span class="dv">3</span>, <span class="dv">22</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    1     2     3     4     5     6     7     8     9    10    11    12    13 
 0.041 0.000 0.000 0.029 0.000 0.000 0.000 0.000 0.965 0.017 0.003 0.000 0.000 
    14    15    16    17    18    19    20    21    22    23    24    25 
 0.000 0.000 0.000 0.000 0.013 0.002 0.060 0.016 0.281 0.007 0.042 0.000 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-label="1"></a><span class="fu">pf</span>(<span class="fl">3.41835</span>, <span class="dv">3</span>, <span class="dv">22</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-label="1"></a><span class="fu">pf</span>(<span class="fl">3.41835</span>, <span class="dv">3</span>, <span class="dv">22</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.96</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-label="1"></a><span class="fu">pf</span>(<span class="fl">0.45106</span>, <span class="dv">3</span>, <span class="dv">22</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a><span class="fu">pf</span>(<span class="fl">0.45106</span>, <span class="dv">3</span>, <span class="dv">22</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.28</code></pre>
 </div>
 </div>
-<p>The magnitude of D i is usually assessed by comparing it to F α , p , n − p . If D i = F 0.5, p , n − p , then deleting point i would move ˆb(i) to the boundary of an approximate 50% confidence region for β based on the complete data set.</p>
+<ul>
+<li>Compare <span class="math inline">\(D_i\)</span> to <span class="math inline">\(F_{p,\, n-p}\)</span>: <code>pf(D_9) = 0.965</code>, so deleting point 9 moves <span class="math inline">\({\bf b}\)</span> to the boundary of an approximate 96.5% confidence region for <span class="math inline">\(\boldsymbol\beta\)</span>; for point 22 it is only about 28%.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -797,7 +878,7 @@ $distance
 <ul>
 <li><span class="math inline">\(DFFITS_{i}\)</span> measures the <em><strong>influence of the <span class="math inline">\(i\)</span>th observation on the <span class="math inline">\(i\)</span>th fitted value</strong>, again in standard deviation units.</em> <span class="math display">\[DFFITS_{i} := \frac{\hat{y}_i - \hat{y}_{(i)}}{\sqrt{s_{(i)}^2h_{ii}}} = \left(\frac{h_{ii}}{1-h_{ii}}\right)^{1/2}t_i\]</span> where <span class="math inline">\(\hat{y}_{(i)}\)</span> is the fitted value of <span class="math inline">\(y_i\)</span> computed without the <span class="math inline">\(i\)</span>th observation.</li>
 <li>The denominator provides a standardization since <span class="math inline">\(\mathrm{Var}\left( \hat{y}_i\right) = \sigma^2h_{ii}\)</span>. <!-- - $DFFITS_{i}$ represents *the number of estimated standard errors that the fitted value $\hat{y}_{(i)}$ changes if the $i$th point is removed.* --></li>
-<li><span class="math inline">\(DFFITS_{i}\)</span>is essentially the R-student residual <em>scaled</em> by the leverage <span class="math inline">\([h_{ii}/(1-h_{ii})]^{1/2}\)</span>.</li>
+<li><span class="math inline">\(DFFITS_{i}\)</span> is essentially the R-student residual <em>scaled</em> by the leverage <span class="math inline">\([h_{ii}/(1-h_{ii})]^{1/2}\)</span>.</li>
 </ul>
 <div class="alert">
 <p>A point with <span class="math inline">\(|DFFITS_{i}| &gt; 2\sqrt{p/n}\)</span> needs attention.</p>
@@ -821,22 +902,23 @@ $distance
 <section id="r-lab-dffits_i" class="slide level2">
 <h2><span class="pink">R Lab</span> <span class="math inline">\(DFFITS_{i}\)</span></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-label="1"></a><span class="fu">round</span>(dffit <span class="ot">&lt;-</span> <span class="fu">dffits</span>(delivery_lm), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-label="1"></a><span class="fu">round</span>(dffit <span class="ot">&lt;-</span> <span class="fu">dffits</span>(delivery_lm), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    1     2     3     4     5     6     7     8     9    10    11    12    13 
 -0.57  0.10 -0.01  0.50 -0.04 -0.02  0.08  0.09  4.30  0.40  0.22 -0.07  0.08 
    14    15    16    17    18    19    20    21    22    23    24    25 
  0.10  0.04 -0.10  0.03  0.37  0.19 -0.67 -0.39 -1.20 -0.31 -0.57 -0.02 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a><span class="do">## cut-off = 0.69</span></span>
-<span id="cb26-2"><a aria-label="2"></a>dffit[<span class="fu">abs</span>(dffit) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p<span class="sc">/</span>n)]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-label="1"></a><span class="do">## cut-off = 0.69</span></span>
+<span id="cb30-2"><a aria-label="2"></a>dffit[<span class="fu">abs</span>(dffit) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p<span class="sc">/</span>n)]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   9   22 
  4.3 -1.2 </code></pre>
 </div>
 </div>
 <ul>
-<li>Deleting point 9 displaces the predicted response <span class="math inline">\(\hat{y}_{(i)}\)</span> by over four standard deviations of <span class="math inline">\(\hat{y}_i.\)</span></li>
+<li>Deleting point 9 shifts its own fitted value <span class="math inline">\(\hat{y}_9\)</span> by over four standard errors.</li>
+<li>Point 22 is also flagged (<span class="math inline">\(-1.20\)</span>); point 20 (<span class="math inline">\(-0.67\)</span>) is just under the cutoff.</li>
 </ul>
 </section>
 <section id="covratio_i" class="slide level2">
@@ -885,21 +967,21 @@ $distance
 <section id="r-lab-covratio_i" class="slide level2">
 <h2><span class="pink">R Lab</span> <span class="math inline">\(COVRATIO_{i}\)</span></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-label="1"></a>(covra <span class="ot">&lt;-</span> <span class="fu">covratio</span>(delivery_lm))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-label="1"></a>(covra <span class="ot">&lt;-</span> <span class="fu">covratio</span>(delivery_lm))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16 
 0.87 1.21 1.28 0.88 1.24 1.20 1.24 1.21 0.34 1.31 1.17 1.29 1.21 1.23 1.19 1.37 
   17   18   19   20   21   22   23   24   25 
 1.22 1.07 1.22 0.76 1.24 1.40 0.89 0.95 1.23 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-label="1"></a><span class="do">## cutoff 1.36</span></span>
-<span id="cb30-2"><a aria-label="2"></a>covra[covra <span class="sc">&gt;</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>p<span class="sc">/</span>n)]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-label="1"></a><span class="do">## cutoff 1.36</span></span>
+<span id="cb34-2"><a aria-label="2"></a>covra[covra <span class="sc">&gt;</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>p<span class="sc">/</span>n)]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 16  22 
 1.4 1.4 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-label="1"></a><span class="do">## cutoff 0.64</span></span>
-<span id="cb32-2"><a aria-label="2"></a>covra[covra <span class="sc">&lt;</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>p<span class="sc">/</span>n)] </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-label="1"></a><span class="do">## cutoff 0.64</span></span>
+<span id="cb36-2"><a aria-label="2"></a>covra[covra <span class="sc">&lt;</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>p<span class="sc">/</span>n)] </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   9 
 0.34 </code></pre>
@@ -908,8 +990,98 @@ $distance
 <ul>
 <li><p>Since <span class="math inline">\(COVRATIO_{9} &lt; 1\)</span>, this observation degrades precision of estimation.</p></li>
 <li><p>Since <span class="math inline">\(COVRATIO_{22} &gt; 1\)</span>, this observation tends to improve precision of estimation.</p></li>
-<li><p>Point 22 and 16 barely exceed the cutoff, so their influence is small. <!-- - Point 9 is much more clearly influential. --></p></li>
+<li><p>Points 22 and 16 barely exceed the cutoff, so their influence on precision is small. <!-- - Point 9 is much more clearly influential. --></p></li>
 </ul>
+</section>
+<section id="summary-single-case-diagnostics-delivery-time" class="slide level2">
+<h2>Summary: Single-Case Diagnostics (Delivery Time)</h2>
+<div class="midi">
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 32%">
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Measure</th>
+<th style="text-align: left;">What it measures</th>
+<th style="text-align: center;">Cutoff</th>
+<th style="text-align: left;">R function</th>
+<th style="text-align: center;">Flagged</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(h_{ii}\)</span></td>
+<td style="text-align: left;">Leverage (unusual <span class="math inline">\(\bf x\)</span>)</td>
+<td style="text-align: center;"><span class="math inline">\(2p/n = 0.24\)</span></td>
+<td style="text-align: left;"><code>hatvalues()</code></td>
+<td style="text-align: center;">9, 22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(t_i\)</span></td>
+<td style="text-align: left;">Outlyingness (unusual <span class="math inline">\(y \mid \bf x\)</span>)</td>
+<td style="text-align: center;"><span class="math inline">\(\lvert t_i \rvert &gt; 2\)</span></td>
+<td style="text-align: left;"><code>rstudent()</code></td>
+<td style="text-align: center;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(DFBETAS_{j,i}\)</span></td>
+<td style="text-align: left;">Change in each <span class="math inline">\(b_j\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2/\sqrt{n} = 0.4\)</span></td>
+<td style="text-align: left;"><code>dfbetas()</code></td>
+<td style="text-align: center;">9, 22 (+1, 4, 24 marginally)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(D_i\)</span></td>
+<td style="text-align: left;">Change in whole <span class="math inline">\(\bf b\)</span> / all <span class="math inline">\(\hat{\bf y}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span> or <span class="math inline">\(4/(n-p) = 0.18\)</span></td>
+<td style="text-align: left;"><code>cooks.distance()</code></td>
+<td style="text-align: center;">9 (+22)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(DFFITS_i\)</span></td>
+<td style="text-align: left;">Change in own <span class="math inline">\(\hat{y}_i\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\sqrt{p/n} = 0.69\)</span></td>
+<td style="text-align: left;"><code>dffits()</code></td>
+<td style="text-align: center;">9, 22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(COVRATIO_i\)</span></td>
+<td style="text-align: left;">Effect on precision</td>
+<td style="text-align: center;"><span class="math inline">\(1 \pm 3p/n\)</span></td>
+<td style="text-align: left;"><code>covratio()</code></td>
+<td style="text-align: center;">9 (↓); 16, 22 (↑)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Point 9</strong>: high leverage <em>and</em> an outlier → influential by every measure.</li>
+<li><strong>Point 22</strong>: high leverage, not an outlier → moderately influential (mainly on <code>cases</code>).</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>This is the place to tie back to Influence = Leverage × Outlyingness.</li>
+<li><code>influence.measures(delivery_lm)</code> computes all of these at once, but its flags use different (more conservative) cutoffs, e.g., |DFBETAS| &gt; 1 and hat &gt; 3p/n; mention so students are not confused if they try it.</li>
+<li>Even with point 9 flagged, the next step is to ask <em>why</em> (see Treatment of Unusual Data).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
 </section>
 <section id="jointly-influential-points" class="slide level2">
 <h2>Jointly Influential Points</h2>
@@ -917,10 +1089,10 @@ $distance
 <li>Subset of cases can be <em>jointly influential</em> or can offset each other’s influence.</li>
 </ul>
 
-<img data-src="./images/07-diag-unusual/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
+<img data-src="./images/07-diag-unusual/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
 <ul>
 <li>Sometimes subset of cases can be jointly influential or can offset each other’s influence. One single point may not be that influential, but with another point, the fitting result changes a lot. Or one single point may be influential, but with another point, the influence power disappears.</li>
-<li>Often, influential subsets of cases or multiple outliers can be identified by applying single -case deletion diagnostics sequentially.</li>
+<li>Often, influential subsets of cases or multiple outliers can be identified by applying single-case deletion diagnostics sequentially.</li>
 <li><ol type="a">
 <li>two jointly influential cases located close to one another. Deletion of both cases has a much greater impact than deletion of only one.</li>
 </ol></li>
@@ -928,7 +1100,7 @@ $distance
 <li>two jointly influential cases located on opposite sides of the data. Deletion of both cases has a much greater impact than deletion of only one.</li>
 </ol></li>
 <li><ol start="3" type="a">
-<li>cases that offset one another: the regression with both cases deleted is nearlythe same as for the whole data set.</li>
+<li>cases that offset one another: the regression with both cases deleted is nearly the same as for the whole data set.</li>
 </ol></li>
 </ul>
 <style type="text/css">
@@ -963,12 +1135,13 @@ $distance
 </ul>
 <aside class="notes">
 <ul>
-<li>Added-Variable Plot is a quite useful plot. We can use it for many other purposes, not just detecting joint influence. We’ll talk about that later.</li>
+<li>The added-variable plot is a very useful plot. We can use it for many other purposes, not just detecting joint influence. We’ll talk about that later.</li>
 <li>For each predictor, we can create its own Added-Variable Plot, so if we have k predictors, we can have k Added-Variable Plots.</li>
 <li>The idea of the plot is that we would like to see the pure effect of a predictor on the response when all other predictors are in the model.</li>
 <li>So how do we get the pure effect of <span class="math inline">\(x_1\)</span>?</li>
 <li>Step 1: Regress y on all predictors except x1 and obtain residuals. The residuals are the variation of y that cannot be explained by x2 to xk. So if later we see the variation further goes down, that must be due to the inclusion of x1.</li>
-<li>Step 2: Regress x1 on all other predictors. The residuals are the variation of x1 that cannot be explained by x2 to xk. This gives us the</li>
+<li>Step 2: Regress x1 on all other predictors. The residuals are the variation of x1 that cannot be explained by x2 to xk. This gives us the part of x1 that carries new information beyond the other predictors.</li>
+<li>Step 3: Plotting one set of residuals against the other shows the relationship between y and x1 after removing the effect of x2 to xk.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -988,7 +1161,7 @@ $distance
 </ul>
 <aside class="notes">
 <ul>
-<li>The collection of of added-variable plots for x1, …, xk convert the graph for multiple regression into a sequence of 2-dimensional plot.</li>
+<li>The collection of added-variable plots for x1, …, xk converts the graph for multiple regression into a sequence of 2-dimensional plots.</li>
 <li>plotting <span class="math inline">\(e_i(y \mid x_{(j)})\)</span> vs.&nbsp;<span class="math inline">\(e_i(x_j \mid x_{(j)}), \quad i = 1, \dots, n\)</span> allows us to examine the leverage and influence of the cases on <span class="math inline">\(b_j\)</span>.</li>
 </ul>
 <style type="text/css">
@@ -1009,26 +1182,27 @@ $distance
 <div class="columns">
 <div class="column" style="width:65%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-label="1"></a><span class="fu">library</span>(carData)</span>
-<span id="cb34-2"><a aria-label="2"></a>carData<span class="sc">::</span>Duncan[<span class="fu">sample</span>(<span class="fu">dim</span>(Duncan)[<span class="dv">1</span>], <span class="dv">16</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-label="1"></a><span class="fu">library</span>(carData)</span>
+<span id="cb38-2"><a aria-label="2"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb38-3"><a aria-label="3"></a>carData<span class="sc">::</span>Duncan[<span class="fu">sample</span>(<span class="fu">dim</span>(Duncan)[<span class="dv">1</span>], <span class="dv">16</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource my_class800 number-lines code-with-copy"><code class="sourceCode"><span id="cb35-1"><a aria-label="1"></a>                   type income education prestige</span>
-<span id="cb35-2"><a aria-label="2"></a>plumber              bc     44        25       29</span>
-<span id="cb35-3"><a aria-label="3"></a>chemist            prof     64        86       90</span>
-<span id="cb35-4"><a aria-label="4"></a>gas.stn.attendant    bc     15        29       10</span>
-<span id="cb35-5"><a aria-label="5"></a>store.manager      prof     42        44       45</span>
-<span id="cb35-6"><a aria-label="6"></a>teacher            prof     48        91       73</span>
-<span id="cb35-7"><a aria-label="7"></a>insurance.agent      wc     55        71       41</span>
-<span id="cb35-8"><a aria-label="8"></a>bookkeeper           wc     29        72       39</span>
-<span id="cb35-9"><a aria-label="9"></a>author             prof     55        90       76</span>
-<span id="cb35-10"><a aria-label="10"></a>electrician          bc     47        39       53</span>
-<span id="cb35-11"><a aria-label="11"></a>lawyer             prof     76        98       89</span>
-<span id="cb35-12"><a aria-label="12"></a>policeman            bc     34        47       41</span>
-<span id="cb35-13"><a aria-label="13"></a>mail.carrier         wc     48        55       34</span>
-<span id="cb35-14"><a aria-label="14"></a>soda.clerk           bc     12        30        6</span>
-<span id="cb35-15"><a aria-label="15"></a>machinist            bc     36        32       57</span>
-<span id="cb35-16"><a aria-label="16"></a>banker             prof     78        82       92</span>
-<span id="cb35-17"><a aria-label="17"></a>streetcar.motorman   bc     42        26       19</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource my_class800 number-lines code-with-copy"><code class="sourceCode"><span id="cb39-1"><a aria-label="1"></a>                type income education prestige</span>
+<span id="cb39-2"><a aria-label="2"></a>policeman         bc     34        47       41</span>
+<span id="cb39-3"><a aria-label="3"></a>plumber           bc     44        25       29</span>
+<span id="cb39-4"><a aria-label="4"></a>accountant      prof     62        86       82</span>
+<span id="cb39-5"><a aria-label="5"></a>minister        prof     21        84       87</span>
+<span id="cb39-6"><a aria-label="6"></a>physician       prof     76        97       97</span>
+<span id="cb39-7"><a aria-label="7"></a>author          prof     55        90       76</span>
+<span id="cb39-8"><a aria-label="8"></a>insurance.agent   wc     55        71       41</span>
+<span id="cb39-9"><a aria-label="9"></a>chemist         prof     64        86       90</span>
+<span id="cb39-10"><a aria-label="10"></a>teacher         prof     48        91       73</span>
+<span id="cb39-11"><a aria-label="11"></a>bartender         bc     16        28        7</span>
+<span id="cb39-12"><a aria-label="12"></a>cook              bc     14        22       16</span>
+<span id="cb39-13"><a aria-label="13"></a>truck.driver      bc     21        15       13</span>
+<span id="cb39-14"><a aria-label="14"></a>engineer        prof     72        86       88</span>
+<span id="cb39-15"><a aria-label="15"></a>store.clerk       wc     29        50       16</span>
+<span id="cb39-16"><a aria-label="16"></a>professor       prof     64        93       93</span>
+<span id="cb39-17"><a aria-label="17"></a>conductor         wc     76        34       38</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div><div class="column" style="width:35%;">
@@ -1046,7 +1220,7 @@ $distance
 </div></div>
 <aside class="notes">
 <ul>
-<li>1950 data</li>
+<li>1950 data; <span class="math inline">\(n = 45\)</span> occupations.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1060,16 +1234,16 @@ $distance
           display:block!important;
       }</style></aside>
 </section>
-<section id="r-lab-added-valued-plot" class="slide level2">
-<h2><span class="pink">R Lab</span> Added-Valued Plot</h2>
+<section id="r-lab-added-variable-plot" class="slide level2">
+<h2><span class="pink">R Lab</span> Added-Variable Plot</h2>
 <ul>
-<li>The slope of the least square simple regression line of <span class="math inline">\(e_i(y \mid x_{(1)})\)</span> on <span class="math inline">\(e_i(x_1 \mid x_{(1)})\)</span> is the same as the slope <span class="math inline">\(b_1\)</span> for <span class="math inline">\(x_1\)</span> in the full multiple regression.</li>
+<li>The slope of the least squares simple regression line of <span class="math inline">\(e_i(y \mid x_{(1)})\)</span> on <span class="math inline">\(e_i(x_1 \mid x_{(1)})\)</span> is the same as the slope <span class="math inline">\(b_1\)</span> for <span class="math inline">\(x_1\)</span> in the full multiple regression.</li>
 </ul>
 <div class="midi">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>duncan_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(prestige <span class="sc">~</span> income <span class="sc">+</span> education, <span class="at">data =</span> Duncan)</span>
-<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">avPlot</span>(<span class="at">model =</span> duncan_fit, <span class="at">variable =</span> <span class="st">"income"</span>, <span class="at">id =</span> <span class="fu">list</span>(<span class="at">method =</span> <span class="st">"mahal"</span>, <span class="at">n =</span> <span class="dv">3</span>), </span>
-<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"e(Income | Education)"</span>, <span class="at">ylab =</span> <span class="st">"e(Prestige | Education)"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a>duncan_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(prestige <span class="sc">~</span> income <span class="sc">+</span> education, <span class="at">data =</span> Duncan)</span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">avPlot</span>(<span class="at">model =</span> duncan_fit, <span class="at">variable =</span> <span class="st">"income"</span>, <span class="at">id =</span> <span class="fu">list</span>(<span class="at">method =</span> <span class="st">"mahal"</span>, <span class="at">n =</span> <span class="dv">3</span>), </span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"e(Income | Education)"</span>, <span class="at">ylab =</span> <span class="st">"e(Prestige | Education)"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="columns">
@@ -1078,7 +1252,7 @@ $distance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/07-diag-unusual/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/07-diag-unusual/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1091,7 +1265,10 @@ $distance
 </ul>
 </div></div>
 <aside class="notes">
-<p>identifies the 3 points with the largest Mahalanobis distances from the center of the data.</p>
+<ul>
+<li><code>id = list(method = "mahal", n = 3)</code> labels the 3 points with the largest Mahalanobis distances from the center of the plot.</li>
+<li>This is the Frisch–Waugh–Lovell result: the AV-plot slope equals <span class="math inline">\(b_1\)</span> from the full model.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1110,16 +1287,23 @@ $distance
 <div class="column" style="width:45%;">
 <ul>
 <li>Each point is plotted as a circle with area proportional to Cook’s distance.</li>
-<li>Horizontal lines are drawn R-Student residuals of 0 and <span class="math inline">\(\pm 2\)</span>.</li>
-<li>The vertical lines at <span class="math inline">\(2\bar{h}\)</span> and <span class="math inline">\(3\bar{h}\)</span>.</li>
+<li>Horizontal lines at R-student residuals of 0 and <span class="math inline">\(\pm 2\)</span>.</li>
+<li>Vertical lines at <span class="math inline">\(2\bar{h}\)</span> and <span class="math inline">\(3\bar{h}\)</span>.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li><strong>minister</strong>: outlier + moderate leverage → largest Cook’s D.</li>
+<li><strong>reporter</strong>: outlier, low leverage → little influence.</li>
+<li><strong>RR.engineer</strong>: high leverage, small residual → little influence.</li>
+</ul>
+</div>
 </div><div class="column" style="width:55%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">influencePlot</span>(duncan_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">influencePlot</span>(duncan_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/07-diag-unusual/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/07-diag-unusual/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>

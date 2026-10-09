@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Regression Diagnostics: Normality r emo::ji('book') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Regression Diagnostics: Normality 📖 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Regression Diagnostics: Normality r emo::ji('book') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Regression Diagnostics: Normality 📖 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -253,9 +253,10 @@ Dr.&nbsp;Mehdi Maadooliat
 <!-- - How's your exam? -->
 <!-- - We finished the discussion of SLR and MLR. Remember that our regression models are based on some assumptions. In fact these assumptions are quite restricted. -->
 <ul>
-<li>So it’s not that uncommon to see violation of assumptions.</li>
-<li>Today, we are going to learn how to check whether those assumptions are valid or satisfied.</li>
-<li>And probably the following two weeks, if the assumptions are not satisfied, how do we deal with it. OK.</li>
+<li>Bridge from last lecture: we looked at <em>individual</em> unusual points (outliers, leverage, influence). Today we look at the <em>overall distribution</em> of the errors, and the R-student residuals from last time are our main tool again.</li>
+<li>It’s not that uncommon to see violations of assumptions.</li>
+<li>Today, we are going to learn how to check whether those assumptions are satisfied, and, over the next lectures, how to deal with violations.</li>
+<li>Pacing: assumptions &amp; overview ~5 | why normality matters ~5 | detecting (QQ, density) ~10 | correcting: ladder of powers &amp; Box-Cox ~15 | CIA R Labs (incl.&nbsp;recheck) ~10 | other issues &amp; interpretation ~5 → about 50 min; the remaining time can start 09 (which continues with the CIA data).</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -272,7 +273,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="alert">
 <ul>
 <li>If the assumptions are violated, a different sample could lead to a different conclusion!</li>
-<li><span class="math inline">\(R^2\)</span> tells us how good the model is fitted to the data, but says nothing about the correctness of the model.</li>
+<li><span class="math inline">\(R^2\)</span> tells us how well the model fits the data, but says nothing about whether the model is correct.</li>
 <li>All the inferences are based on the assumption that the model is correct.</li>
 </ul>
 </div>
@@ -293,7 +294,7 @@ Non-linearity and Lack of Fit
 <aside class="notes">
 <ul>
 <li>This week we are going to learn some methods to correct model inadequacy.</li>
-<li>We can either transform our data, our use a more general method, called Generalized Least Squares or Weighted Least Squares.</li>
+<li>We can either transform our data, or use a more general method, called Generalized Least Squares or Weighted Least Squares.</li>
 <li><span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>: <strong>mean 0</strong>, <strong>constant variance</strong>, <strong>normally distributed</strong>, and <strong>uncorrelated</strong>.</li>
 <li><span class="math inline">\(E(\epsilon_i) =0\)</span> implies the function form of the model (<strong>linearity</strong>) is correct.</li>
 </ul>
@@ -319,12 +320,14 @@ Non-linearity and Lack of Fit
 <ul>
 <li><strong>Heavier tailed</strong> errors:
 <ul>
-<li>LS estimators do not have the <strong>smallest</strong> variance among unbiased estimators.</li>
+<li>LS is still BLUE (best among <em>linear</em> unbiased estimators), but robust (nonlinear) estimators can have <strong>much smaller</strong> variance.</li>
 <li>give rise to <strong>outliers</strong>.</li>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Gauss-Markov does not require normality.</p>
+<ul>
+<li>Gauss-Markov does not require normality. With normal errors, LS is best among <em>all</em> unbiased estimators; without normality, only among <em>linear</em> ones.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -409,21 +412,41 @@ Non-linearity and Lack of Fit
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>How to read a QQ plot (sample quantiles on the vertical axis): - Right-skewed: points curve <em>above</em> the line at both ends (convex, “U” shape). - Left-skewed: points curve <em>below</em> the line at both ends (concave). - Heavy-tailed: low end below the line, high end above it (stretched “S”). - Light-tailed: the opposite: ends flatten toward the line’s interior.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
-<section id="qq-plot-of-r-student-residuals-comparing-t_n-p-1" class="slide level2">
-<h2>QQ plot of R-Student Residuals Comparing <span class="math inline">\(t_{n-p-1}\)</span></h2>
+<section id="qq-plot-of-r-student-residuals-vs.-t_n-p-1" class="slide level2">
+<h2>QQ Plot of R-Student Residuals vs.&nbsp;<span class="math inline">\(t_{n-p-1}\)</span></h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(delivery_lm, <span class="at">id =</span> <span class="cn">TRUE</span>, <span class="at">col.lines =</span> <span class="st">"blue"</span>, </span>
 <span id="cb1-2"><a aria-label="2"></a>            <span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">ylab =</span> <span class="st">"Ordered R-Student Residuals"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/08-diag-normality/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
+<img data-src="./images/08-diag-normality/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:58.0%"><div class="fragment">
+<div class="question">
+<p>Is there evidence of non-normality in the delivery time data?</p>
+</div>
+<ul>
+<li>Apart from point 9 (the outlier we found last lecture), the residuals follow the <span class="math inline">\(t_{21}\)</span> reference line reasonably well.</li>
+</ul>
+<aside class="notes">
 <ul>
 <li>The <code>car</code> package calls the R-student residuals <em>studentized</em> residuals.</li>
-<li>if put lm object, <code>car::qqPlot</code> automatically create qqplot for R-student residual comparing with <span class="math inline">\(t_{n-p-1}\)</span> distribution.</li>
-<li>No severe problem in delivery data</li>
-<li>id = controls point identification; if FALSE, no points are identified; can be a list of named arguments to the showLabels function; TRUE is equivalent to list(method=“y”, n=2, cex=1, col=carPalette()[1], location=“lr”), which identifies the 2 points with the 2 points with the most extreme verical values — studentized residuals for the “lm” method.</li>
+<li>Given an <code>lm</code> object, <code>car::qqPlot()</code> automatically plots the R-student residuals against <span class="math inline">\(t_{n-p-1}\)</span> quantiles, with a pointwise 95% envelope (<code>reps</code> = number of bootstrap samples for the envelope).</li>
+<li><code>id = TRUE</code> labels the 2 points with the most extreme residuals (here 9 and 20); <code>id = FALSE</code> labels none; a list such as <code>id = list(n = 3)</code> gives more control.</li>
+<li>No severe problem in the delivery data other than point 9.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -436,6 +459,7 @@ Non-linearity and Lack of Fit
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
 <section id="density-plot-of-r-student-residuals" class="slide level2">
 <h2>Density plot of R-Student Residuals</h2>
@@ -445,12 +469,16 @@ Non-linearity and Lack of Fit
 <span id="cb2-3"><a aria-label="3"></a><span class="fu">lines</span>(<span class="fu">density</span>(rstud, <span class="at">adjust =</span> <span class="dv">2</span>), <span class="at">col =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/08-diag-normality/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:67.0%"><aside class="notes">
+<img data-src="./images/08-diag-normality/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:58.0%"><ul>
+<li>Roughly symmetric and unimodal, with one isolated point on the right (point 9).</li>
+<li>With <span class="math inline">\(n = 25\)</span>, histograms are noisy: don’t over-read small bumps.</li>
+</ul>
+<aside class="notes">
 <ul>
 <li>The QQ plot draws attention to the tail behavior of the R-student residuals but is less effective in visualizing their distribution as a whole.</li>
 <li>Check histogram or smooth density plot of the R-student residuals to get the general shape of the distribution.</li>
-<li>May be better to add another categorical regressor</li>
-<li>car::densityPlot(rstud, adjust = 2, xlab = “R-Student Residuals”)</li>
+<li>If the density were clearly bimodal, that would suggest a missing categorical regressor.</li>
+<li>Alternative: <code>car::densityPlot(rstud, adjust = 2, xlab = "R-Student Residuals")</code></li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -482,7 +510,7 @@ Non-linearity and Lack of Fit
 </ul></li>
 </ul>
 <div class="alert">
-<p>Want the error or the response conditional on <span class="math inline">\(x\)</span>s to be like normal after correction.</p>
+<p>Goal: after correction, the errors (equivalently, <span class="math inline">\(y\)</span> given the <span class="math inline">\(x\)</span>s) should look approximately normal.</p>
 </div>
 </section>
 <section id="transformation-for-symmetry" class="slide level2">
@@ -490,7 +518,7 @@ Non-linearity and Lack of Fit
 <p><strong>Power transformation: <span class="math inline">\(y \rightarrow y^{\lambda}\)</span></strong></p>
 <ul>
 <li>make the distribution of <span class="math inline">\(y\)</span> more normal, <em>at least more symmetric</em>.</li>
-<li><span class="math inline">\(y\)</span> can take on <em>positive</em> values only.</li>
+<li>requires <span class="math inline">\(y &gt; 0\)</span>.</li>
 <li><span class="math inline">\(y \rightarrow \ln(y)\)</span> for <span class="math inline">\(\lambda = 0.\)</span></li>
 </ul>
 <div class="fragment">
@@ -507,7 +535,9 @@ Non-linearity and Lack of Fit
 </ul></li>
 </ul>
 <aside class="notes">
-<p>if <span class="math inline">\(\lambda\)</span> is descending from <span class="math inline">\(1\)</span> to <span class="math inline">\(-1\)</span>, the fransformation increasingly spreads out the small values of <span class="math inline">\(y\)</span> relative to the large values.</p>
+<ul>
+<li>If <span class="math inline">\(\lambda\)</span> is descending from <span class="math inline">\(1\)</span> to <span class="math inline">\(-1\)</span>, the transformation increasingly spreads out the small values of <span class="math inline">\(y\)</span> relative to the large values.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -546,6 +576,22 @@ Non-linearity and Lack of Fit
 </div>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li>Quick intuition: <span class="math inline">\(y = 1, 10, 100, 1000\)</span> has gaps <span class="math inline">\(9, 90, 900\)</span> (right skew); <span class="math inline">\(\log_{10} y = 0, 1, 2, 3\)</span> has equal gaps.</li>
+<li>Likewise <span class="math inline">\(y = 1, 1.414, 1.732, 2\)</span> has shrinking gaps (left skew); <span class="math inline">\(y^2 = 1, 2, 3, 4\)</span> has equal gaps.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="box-cox-transformation-on-y" class="slide level2">
 <h2>Box-Cox Transformation on <span class="math inline">\(y\)</span></h2>
@@ -558,7 +604,7 @@ Non-linearity and Lack of Fit
   \end{cases}\]</span></p>
 <div class="alert">
 <ul>
-<li>For all <span class="math inline">\(\lambda\)</span>, <span class="math inline">\(y^{(\lambda)} = 1\)</span> at <span class="math inline">\(y = 1\)</span>.</li>
+<li>For all <span class="math inline">\(\lambda\)</span>, <span class="math inline">\(y^{(\lambda)} = 0\)</span> and its slope is <span class="math inline">\(1\)</span> at <span class="math inline">\(y = 1\)</span> (all curves touch at <span class="math inline">\((1, 0)\)</span>).</li>
 <li>The order of the transformed data <span class="math inline">\(y^{(\lambda)}\)</span> is the same as that of <span class="math inline">\(y\)</span>, even for <span class="math inline">\(\lambda &lt; 0.\)</span></li>
 </ul>
 </div>
@@ -575,7 +621,9 @@ Non-linearity and Lack of Fit
 </div></div>
 <aside class="notes">
 <ul>
-<li>The derivative w.r.t. <span class="math inline">\(y\)</span> of <span class="math inline">\(y^{(\lambda)}\)</span> at <span class="math inline">\(y = 1\)</span> is 1 for any <span class="math inline">\(\lambda\)</span>.</li>
+<li>The derivative w.r.t. <span class="math inline">\(y\)</span> of <span class="math inline">\(y^{(\lambda)}\)</span> at <span class="math inline">\(y = 1\)</span> is 1 for any <span class="math inline">\(\lambda\)</span>; that is why the curves are tangent at <span class="math inline">\((1, 0)\)</span> in the plot.</li>
+<li><span class="math inline">\((y^\lambda - 1)/\lambda \to \ln y\)</span> as <span class="math inline">\(\lambda \to 0\)</span>, so the family is continuous in <span class="math inline">\(\lambda\)</span>.</li>
+<li>Dividing by <span class="math inline">\(\lambda\)</span> keeps the order of the data even when <span class="math inline">\(\lambda &lt; 0\)</span>, unlike plain <span class="math inline">\(y^\lambda\)</span>.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -595,6 +643,27 @@ Non-linearity and Lack of Fit
 <li>The model to be fit is <span class="math display">\[y_i^{(\lambda)} = \beta_0 + \beta_1x_{i1}+ \cdots + \beta_kx_{ik} + \epsilon_i^*\]</span></li>
 <li>Choose <span class="math inline">\(\lambda\)</span> so that the transformed errors <span class="math inline">\(\epsilon_i^*\)</span> look as nearly normally distributed as possible.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li>In practice, <span class="math inline">\(\hat{\lambda}\)</span> is the <strong>maximum likelihood</strong> estimate, assuming <span class="math inline">\(\epsilon_i^* \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</li>
+<li>Report a confidence interval for <span class="math inline">\(\lambda\)</span> and use a convenient value inside (or near) it, e.g., <span class="math inline">\(1, 0.5, 0, -0.5, -1\)</span>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>LRA uses the scaled version <span class="math inline">\(y^{(\lambda)} = (y^\lambda - 1)/(\lambda \dot{y}^{\lambda - 1})\)</span>, where <span class="math inline">\(\dot{y}\)</span> is the geometric mean of <span class="math inline">\(y\)</span>, so that <span class="math inline">\(SS_{Res}(\lambda)\)</span> values are comparable across <span class="math inline">\(\lambda\)</span>; minimizing <span class="math inline">\(SS_{Res}(\lambda)\)</span> is then equivalent to maximizing the likelihood.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
 </section>
 <section id="r-lab-cia-world-factbook-data" class="slide level2">
 <h2><span class="pink">R Lab</span> <a href="https://www.john-fox.ca/RegressionDiagnostics/index.html">CIA World Factbook Data</a></h2>
@@ -654,7 +723,7 @@ Non-linearity and Lack of Fit
 <span id="cb5-7"><a aria-label="7"></a>}</span>
 <span id="cb5-8"><a aria-label="8"></a><span class="fu">colnames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="st">"log"</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
 <span id="cb5-9"><a aria-label="9"></a><span class="fu">boxplot</span>(</span>
-<span id="cb5-10"><a aria-label="10"></a>    mat, <span class="at">id =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb5-10"><a aria-label="10"></a>    mat, </span>
 <span id="cb5-11"><a aria-label="11"></a>    <span class="at">xlab =</span> <span class="fu">expression</span>(<span class="st">"Powers,"</span> <span class="sc">~</span> lambda),</span>
 <span id="cb5-12"><a aria-label="12"></a>    <span class="at">ylab =</span> <span class="fu">expression</span>(</span>
 <span id="cb5-13"><a aria-label="13"></a>        <span class="st">"R-Student Residuals for "</span> </span>
@@ -663,7 +732,10 @@ Non-linearity and Lack of Fit
 </details>
 
 </div>
-<img data-src="./images/08-diag-normality/boxcox-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<img data-src="./images/08-diag-normality/boxcox-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><ul>
+<li>The residuals look most symmetric somewhere between <span class="math inline">\(\lambda = 0\)</span> (log) and <span class="math inline">\(\lambda = -0.5\)</span>.</li>
+</ul>
+</section>
 <section id="r-lab-choose-lambda-analytically" class="slide level2">
 <h2><span class="pink">R Lab</span> Choose <span class="math inline">\(\lambda\)</span> Analytically</h2>
 <div class="cell" data-layout-align="center">
@@ -686,10 +758,48 @@ Non-linearity and Lack of Fit
 <ul>
 <li><span class="math inline">\(\hat{\lambda} = -0.22\)</span>, and the <span class="math inline">\(95\%\)</span> CI for <span class="math inline">\(\lambda\)</span> is <span class="math inline">\([-0.37, -0.07]\)</span>.</li>
 <li><span class="math inline">\(\lambda = 1\)</span> not in the interval, providing support for transforming response.</li>
-<li><span class="math inline">\(\lambda = 0\)</span> (log transformation) is slightly outside the interval.</li>
+<li><span class="math inline">\(\lambda = 0\)</span> (log transformation) is slightly outside the interval (LR test <span class="math inline">\(p &lt; 0.01\)</span>).</li>
+<li>Still, the log is often preferred for its simple interpretation; let’s refit and recheck.</li>
 </ul>
 <aside class="notes">
-<p><code>car::powerTransform()</code> uses the maximum likelihood-like approach to select a <span class="math inline">\(\lambda\)</span> estimate, <span class="math inline">\(\hat{\lambda}\)</span>.</p>
+<ul>
+<li><code>car::powerTransform()</code> estimates <span class="math inline">\(\lambda\)</span> by maximum likelihood; the interval shown is a Wald interval.</li>
+<li>The two LR tests in the output test <span class="math inline">\(\lambda = 0\)</span> (log) and <span class="math inline">\(\lambda = 1\)</span> (no transformation).</li>
+<li><code>MASS::boxcox(ciafit)</code> plots the profile log-likelihood if you want a picture of the same thing.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-refit-on-the-log-scale-and-recheck" class="slide level2">
+<h2><span class="pink">R Lab</span> Refit on the Log Scale and Recheck</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
+<span id="cb8-2"><a aria-label="2"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(logciafit, <span class="at">id =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Luxembourg 
+        71 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">densityPlot</span>(<span class="fu">rstudent</span>(logciafit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="./images/08-diag-normality/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:56.0%"><ul>
+<li>Compared to the original fit, the strong right skew is gone.</li>
+<li>One country (Luxembourg) still stands out as an outlier: check it with last lecture’s tools.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Always recheck diagnostics after transforming; a transformation can fix one problem and create or reveal another.</li>
+<li>The CIA data come back in the next lecture (nonconstant variance).</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -712,10 +822,10 @@ Non-linearity and Lack of Fit
 </ul>
 <div class="fragment">
 <ul>
-<li>Power transformations are effective when the ratio of the largest to smallest values is sufficiently large.
+<li>Power transformations are effective when the ratio of the largest to smallest values is sufficiently large (for <code>infant</code>, the ratio is about 50).
 <ul>
 <li>If <span class="math inline">\(y_{max}/y_{min} \approx 1\)</span>, power transformations are nearly linear.</li>
-<li>Increase the ratio by adding a negative constant, <span class="math inline">\((y_{max} - c)/(y_{min}-c)\)</span></li>
+<li>Increase the ratio by subtracting a constant <span class="math inline">\(0 &lt; c &lt; y_{min}\)</span>: <span class="math inline">\((y_{max} - c)/(y_{min}-c)\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -724,18 +834,18 @@ Non-linearity and Lack of Fit
 <li>If acceptable, choose log transformation for simple interpretation.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
-<span id="cb8-2"><a aria-label="2"></a><span class="fu">coef</span>(logciafit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-label="1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
+<span id="cb11-2"><a aria-label="2"></a><span class="fu">coef</span>(logciafit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)         gdp      health        gini 
       3.016      -0.044      -0.055       0.022 </code></pre>
 </div>
 </div>
 <ul>
-<li>All else held constant, for one unit increase of <code>gdp</code>, the infant mortality rate is expected to be decreased, on average, by 4.3% because <span class="math inline">\(\exp(-0.044) = 0.957\)</span>.</li>
+<li>Holding <code>health</code> and <code>gini</code> constant, a one-unit ($1000) increase in <code>gdp</code> multiplies the typical (geometric-mean) infant mortality rate by <span class="math inline">\(\exp(b_{gdp})\)</span> = 0.96, i.e., about a 4.3% decrease.</li>
 </ul>
 <aside class="notes">
-<p>Hawkins and Weisberg (2017) - Skewed conditional distribution of <span class="math inline">\(y\)</span> is not a good measure of center. + Create a model for conditional <em>median</em> of the response. (Quantile regression) - OLS regression of the original variable is used to to estimate the expected arithmetic mean and OLS regression of the log transformed outcome variable is to estimated the expected geometric mean of the original variable.</p>
+<p>Hawkins and Weisberg (2017) - For a skewed conditional distribution of <span class="math inline">\(y\)</span>, the mean is not a good measure of center. + Alternative: model the conditional <em>median</em> of the response (quantile regression). - OLS on the original <span class="math inline">\(y\)</span> estimates the conditional arithmetic mean; OLS on <span class="math inline">\(\log y\)</span> estimates the conditional geometric mean of <span class="math inline">\(y\)</span> (which equals the median if the log-scale errors are symmetric).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -747,6 +857,17 @@ Non-linearity and Lack of Fit
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
+</section>
+<section id="summary-checking-and-correcting-non-normality" class="slide level2">
+<h2>Summary: Checking and Correcting Non-normality</h2>
+<ol type="1">
+<li>Fit the model and compute the R-student residuals <code>rstudent()</code>.</li>
+<li>Compare them to <span class="math inline">\(t_{n-p-1}\)</span> with a QQ plot <code>car::qqPlot()</code>; look at the overall shape with a density plot.</li>
+<li>Heavy tails → robust regression; multimodal → missing categorical regressor; skewed → transform <span class="math inline">\(y\)</span>.</li>
+<li>Choose <span class="math inline">\(\lambda\)</span> with the ladder of powers or Box-Cox <code>car::powerTransform()</code>, preferring an interpretable value.</li>
+<li>Refit and <strong>recheck</strong> the diagnostics.</li>
+</ol>
 <!-- ## Other Issues {visibility="hidden"} -->
 <!-- - If acceptable, choose log transformation for simple interpratation. -->
 <!-- ```{r} -->
@@ -764,7 +885,6 @@ Non-linearity and Lack of Fit
 <!-- https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-predictor.html -->
 
 
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
