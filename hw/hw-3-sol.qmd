@@ -1,0 +1,732 @@
+---
+title: "Homework 3: Multiple Linear Regression — Solutions"
+subtitle: "MATH 4780 / MSSC 5780 · Fall 2026"
+editor: source
+---
+
+# Statistical Computing and Data Analysis
+
+Use the same **Table B.3 automobile gasoline mileage data** from Homework 2.
+
+```{r}
+#| label: setup
+#| include: false
+# Locate the course bundle when rendering from the homework folder or
+# from another location within the course project.
+candidates <- c("./data/regression_datasets.rda",
+                "../data/regression_datasets.rda",
+                "./regression_datasets.rda",
+                "./slides/data/regression_datasets.rda",
+                "../slides/data/regression_datasets.rda")
+data_path <- candidates[file.exists(candidates)][1]
+if (is.na(data_path)) {
+  stop("Place regression_datasets.rda in ./data/ or adjust candidates in the setup chunk.")
+}
+load(data_path)
+stopifnot(exists("table_B3"), nrow(table_B3) == 32,
+          all(c("y", "x1") %in% names(table_B3)))
+mpg_data <- table_B3
+
+fit <- lm(y ~ x1 + x6, data = mpg_data)
+fit_slr <- lm(y ~ x1, data = mpg_data)
+
+summ_fit <- summary(fit)
+n <- nrow(mpg_data)
+```
+
+## 1. Fit and interpret the multiple linear regression model
+
+Fit
+
+$$
+Y_i=\beta_0+\beta_1x_{1i}+\beta_6x_{6i}+\varepsilon_i.
+$$
+
+```{r}
+summary(fit)
+coef(fit)
+```
+
+The fitted regression equation is approximately
+
+$$
+\widehat{y}
+=
+32.8846
+-0.05315x_1
++0.9592x_6.
+$$
+
+The coefficient of engine displacement is $b_1=-0.05315$. Holding the number of carburetor barrels $x_6$ fixed, an increase of one cubic inch in engine displacement is associated with a decrease of about $0.053$ mpg in predicted gasoline mileage.
+
+The coefficient of the number of carburetor barrels is $b_6=0.9592$. Holding engine displacement $x_1$ fixed, one additional carburetor barrel is associated with an increase of about $0.959$ mpg in predicted gasoline mileage.
+
+The word **holding** is important: these are partial regression coefficients, so each coefficient describes the association with mileage after accounting for the other predictor in the model.
+
+## 2. Overall significance of regression
+
+We test
+
+$$
+H_0:\beta_1=\beta_6=0
+$$
+
+against
+
+$$
+H_1:\beta_j\neq 0 \text{ for at least one }j.
+$$
+
+As discussed in class, this is an **overall $F$ test** comparing the full model with the intercept-only null model.
+
+```{r}
+summ_fit
+```
+
+The reported overall test gives approximately
+
+$$
+F=53.6688
+$$
+
+with $2$ and $29$ degrees of freedom, and
+
+$$
+p\approx1.79\times10^{-10}.
+$$
+
+The same test can be viewed directly as a comparison of nested models:
+
+```{r}
+null_model <- lm(y ~ 1, data = mpg_data)
+anova(null_model, fit)
+```
+
+Under the null model, every fitted value is $\bar y$, so its residual sum of squares is $SS_T$. The reduction in residual sum of squares from the null model to the full model is therefore $SS_R$.
+
+The overall ANOVA quantities are approximately
+
+| Source | df | SS | MS | $F$ |
+|:--|--:|--:|--:|--:|
+| Regression | 2 | 974.3095 | 487.1548 | 53.6688 |
+| Residual | 29 | 263.2345 | 9.0771 | |
+| Total | 31 | 1237.5441 | | |
+
+Since the $p$-value is much smaller than $0.05$, we reject $H_0$. There is strong evidence that **at least one** of engine displacement and number of carburetor barrels contributes linearly to explaining gasoline mileage.
+
+## 3. $R^2$ and adjusted $R^2$
+
+For the multiple linear regression model,
+
+```{r}
+summ_fit$r.squared
+summ_fit$adj.r.squared
+```
+
+we obtain
+
+$$
+R^2=0.7873,
+\qquad
+R_{\mathrm{Adj}}^2=0.7726.
+$$
+
+For the simple linear regression model using only $x_1$,
+
+```{r}
+summary(fit_slr)$r.squared
+summary(fit_slr)$adj.r.squared
+```
+
+we obtain
+
+$$
+R^2=0.7723,
+\qquad
+R_{\mathrm{Adj}}^2=0.7647.
+$$
+
+Adding $x_6$ increases $R^2$ from about $0.772$ to $0.787$. Because $R^2$ cannot decrease when a predictor is added, the adjusted $R^2$ is more useful for judging whether the added variable provides enough improvement to offset the additional model complexity.
+
+Here, adjusted $R^2$ also increases, but only modestly, from about $0.765$ to $0.773$.
+
+## 4. Confidence interval for $\beta_1$
+
+A 95% confidence interval for the regression coefficients can be obtained with
+
+```{r}
+confint(fit, level = 0.95)
+```
+
+For $\beta_1$, the 95% confidence interval is approximately
+
+$$
+\boxed{(-0.06570,\,-0.04060)}.
+$$
+
+Thus, after accounting for the number of carburetor barrels, we estimate that increasing engine displacement by one cubic inch is associated with a decrease of between about $0.041$ and $0.066$ mpg in the mean gasoline mileage.
+
+Since zero is not contained in the interval, the data provide evidence that $\beta_1\neq0$ at the 5% significance level.
+
+## 5. Marginal test for $x_6$
+
+We test
+
+$$
+H_0:\beta_6=0
+\qquad\text{versus}\qquad
+H_1:\beta_6\neq0.
+$$
+
+The coefficient table is
+
+```{r}
+summary(fit)$coefficients
+```
+
+For $x_6$,
+
+$$
+t=1.4311,
+\qquad
+df=29,
+\qquad
+p=0.1631.
+$$
+
+Since $p>0.05$, we fail to reject $H_0$. After accounting for engine displacement, there is not sufficient evidence at the 5% significance level that the number of carburetor barrels has a nonzero linear effect on mean gasoline mileage.
+
+## 6. Confidence interval for the mean response
+
+For
+
+$$
+x_1=275
+\qquad\text{and}\qquad
+x_6=2,
+$$
+
+use
+
+```{r}
+new_car <- data.frame(x1 = 275, x6 = 2)
+
+predict(
+  fit,
+  newdata = new_car,
+  interval = "confidence",
+  level = 0.95
+)
+```
+
+The point estimate of the mean gasoline mileage is approximately
+
+$$
+\hat y=20.1874\text{ mpg}.
+$$
+
+The 95% confidence interval for the **mean gasoline mileage** is approximately
+
+$$
+\boxed{(18.8722,\ 21.5026)\text{ mpg}}.
+$$
+
+We are 95% confident that the mean gasoline mileage for automobiles with engine displacement 275 in$^3$ and two carburetor barrels lies within this interval, under the fitted model.
+
+## 7. Prediction for a new automobile
+
+Use
+
+```{r}
+predict(
+  fit,
+  newdata = new_car,
+  interval = "prediction",
+  level = 0.95
+)
+```
+
+The point prediction is
+
+$$
+\boxed{20.1874\text{ mpg}},
+$$
+
+and the 95% prediction interval is approximately
+
+$$
+\boxed{(13.8867,\ 26.4881)\text{ mpg}}.
+$$
+
+This interval predicts the gasoline mileage of a single new automobile with engine displacement 275 in$^3$ and two carburetor barrels.
+
+The prediction interval is wider than the confidence interval in Question 6 because it includes both uncertainty in estimating the mean response and the natural car-to-car variability around that mean.
+
+## 8. Compare uncertainty with the simple linear regression model
+
+For the simple linear regression model from Homework 2,
+
+```{r}
+new_car_slr <- data.frame(x1 = 275)
+
+CI_slr <- predict(
+  fit_slr,
+  newdata = new_car_slr,
+  interval = "confidence",
+  level = 0.95
+)
+
+PI_slr <- predict(
+  fit_slr,
+  newdata = new_car_slr,
+  interval = "prediction",
+  level = 0.95
+)
+
+CI_slr
+PI_slr
+```
+
+For the multiple linear regression model,
+
+```{r}
+CI_mlr <- predict(
+  fit,
+  newdata = new_car,
+  interval = "confidence",
+  level = 0.95
+)
+
+PI_mlr <- predict(
+  fit,
+  newdata = new_car,
+  interval = "prediction",
+  level = 0.95
+)
+
+CI_mlr
+PI_mlr
+```
+
+The interval lengths are
+
+```{r}
+CI_slr[1, "upr"] - CI_slr[1, "lwr"]
+CI_mlr[1, "upr"] - CI_mlr[1, "lwr"]
+
+PI_slr[1, "upr"] - PI_slr[1, "lwr"]
+PI_mlr[1, "upr"] - PI_mlr[1, "lwr"]
+```
+
+Approximately,
+
+| Interval | SLR | MLR |
+|:--|--:|--:|
+| Mean-response CI length | 2.2214 | 2.6304 |
+| Prediction-interval length | 12.7146 | 12.6014 |
+
+At this particular predictor setting, adding $x_6$ does **not** reduce uncertainty in estimating the mean response: the confidence interval becomes wider.
+
+The prediction interval becomes only slightly shorter, from about $12.715$ mpg to $12.601$ mpg. Thus, for this particular prediction, adding $x_6$ provides only a very small reduction in prediction uncertainty. This is consistent with the marginal test in Question 5, where $x_6$ was not statistically significant after accounting for $x_1$.
+
+## 9. Verify $SS_{\mathrm{res}}$ using matrix operations
+
+Construct the response vector and design matrix:
+
+```{r}
+y <- mpg_data$y
+
+X <- cbind(
+  1,
+  mpg_data$x1,
+  mpg_data$x6
+)
+
+colnames(X) <- c("Intercept", "x1", "x6")
+
+X[1:5, ]
+```
+
+The least-squares estimator is
+
+$$
+\mathbf b
+=
+(\mathbf X'\mathbf X)^{-1}\mathbf X'\mathbf y.
+$$
+
+Compute it directly:
+
+```{r}
+b <- solve(t(X) %*% X) %*% t(X) %*% y
+b
+```
+
+This agrees with
+
+```{r}
+coef(fit)
+```
+
+Now compute the residual sum of squares using matrix operations:
+
+```{r}
+e <- y - X %*% b
+
+t(e) %*% e
+```
+
+and compare with
+
+```{r}
+sum(residuals(fit)^2)
+```
+
+Both calculations give approximately
+
+$$
+\boxed{SS_{\mathrm{res}}=263.2345}.
+$$
+
+Therefore,
+
+$$
+(\mathbf y-\mathbf X\mathbf b)'
+(\mathbf y-\mathbf X\mathbf b)
+=
+\sum_{i=1}^n(y_i-\hat y_i)^2.
+$$
+
+## 10. Predictor effect plots
+
+As discussed in class, a predictor effect plot displays the fitted relationship between the response and one predictor while accounting for the other predictors in the model.
+
+We use the `effects` package in the same way as in the lecture notes.
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+
+par(mfrow = c(1, 2))
+
+plot(
+  effects::predictorEffects(
+    predictor = "x1",
+    mod = fit
+  ),
+  main = expression("Predictor effect of " * x[1])
+)
+
+plot(
+  effects::predictorEffects(
+    predictor = "x6",
+    mod = fit
+  ),
+  main = expression("Predictor effect of " * x[6])
+)
+
+par(mfrow = c(1, 1))
+```
+
+For $x_1$, the fitted effect slopes downward. Holding the other predictor fixed, larger engine displacement is associated with lower mean gasoline mileage. This agrees with the estimated coefficient $b_1=-0.05315$.
+
+For $x_6$, the fitted effect slopes upward because $b_6=0.9592$. However, the confidence band is relatively wide, consistent with the marginal test in Question 5, where there was not sufficient evidence at the 5% level that $\beta_6$ differs from zero.
+
+The important interpretation is that each plot shows the effect of one predictor **given that the other predictor is already in the model**.
+
+## 11. Joint confidence region for $(\beta_1,\beta_6)$
+
+The individual intervals from `confint()` are **marginal** confidence intervals. They consider one coefficient at a time and do not account for the correlation between the coefficient estimates.
+
+First examine the estimated covariance and correlation matrices:
+
+```{r}
+V <- vcov(fit)
+V
+cov2cor(V)
+```
+
+To construct the 95% joint confidence region for $(\beta_1,\beta_6)$, use the same `car::confidenceEllipse()` approach used in the lecture notes.
+
+```{r}
+ci <- confint(fit)
+
+par(mgp = c(2.8, 0.9, 0), mar = c(4, 4, 2, 1))
+
+car::confidenceEllipse(
+  fit,
+  levels = 0.95,
+  which.coef = c("x1", "x6"),
+  xlab = expression(beta[1]),
+  ylab = expression(beta[6]),
+  main = expression(
+    paste("95% Confidence Region for ", beta[1], " and ", beta[6])
+  )
+)
+
+# Marginal 95% confidence intervals
+abline(v = ci["x1", ], lty = 2)
+abline(h = ci["x6", ], lty = 2)
+
+# Estimated coefficient pair
+points(
+  coef(fit)["x1"],
+  coef(fit)["x6"],
+  pch = 19
+)
+
+# Joint null value
+points(0, 0, pch = 4, cex = 1.5)
+```
+
+The ellipse is the 95% **joint confidence region** for the pair $(\beta_1,\beta_6)$. It reflects both the uncertainty in the two coefficient estimates and their correlation.
+
+The dashed vertical and horizontal lines show the separate 95% marginal confidence intervals. The joint region is not simply the rectangle formed by those marginal intervals because $b_1$ and $b_6$ are correlated.
+
+The point $(0,0)$ is outside the joint confidence region. This agrees with the overall $F$-test in Question 2: we reject
+
+$$
+H_0:\beta_1=\beta_6=0.
+$$
+
+This does **not** mean that both coefficients are individually significant. In Question 5, $\beta_6=0$ was still plausible in the marginal test, whereas $\beta_1=0$ was not.
+
+# Mathematical Derivation and Reasoning
+
+## 12. Relationship between $r^2$ and $R^2$
+
+For simple linear regression with an intercept, define
+
+$$
+S_{xx}
+=
+\sum_{i=1}^n(x_i-\bar x)^2,
+$$
+
+$$
+S_{yy}
+=
+\sum_{i=1}^n(y_i-\bar y)^2,
+$$
+
+and
+
+$$
+S_{xy}
+=
+\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y).
+$$
+
+The sample correlation coefficient is
+
+$$
+r
+=
+\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}},
+$$
+
+so
+
+$$
+r^2
+=
+\frac{S_{xy}^2}{S_{xx}S_{yy}}.
+$$
+
+In simple linear regression,
+
+$$
+b_1=\frac{S_{xy}}{S_{xx}}.
+$$
+
+Also,
+
+$$
+\hat y_i-\bar y
+=
+b_1(x_i-\bar x).
+$$
+
+Therefore,
+
+$$
+\begin{aligned}
+SS_R
+&=
+\sum_{i=1}^n(\hat y_i-\bar y)^2\\
+&=
+b_1^2
+\sum_{i=1}^n(x_i-\bar x)^2\\
+&=
+b_1^2S_{xx}\\
+&=
+\left(\frac{S_{xy}}{S_{xx}}\right)^2S_{xx}\\
+&=
+\frac{S_{xy}^2}{S_{xx}}.
+\end{aligned}
+$$
+
+Since
+
+$$
+SS_T=S_{yy},
+$$
+
+we have
+
+$$
+R^2
+=
+\frac{SS_R}{SS_T}
+=
+\frac{S_{xy}^2/S_{xx}}{S_{yy}}
+=
+\frac{S_{xy}^2}{S_{xx}S_{yy}}
+=
+r^2.
+$$
+
+Hence,
+
+$$
+\boxed{r^2=R^2}.
+$$
+
+## 13. Properties of the hat matrix
+
+Let
+
+$$
+\mathbf H
+=
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'.
+$$
+
+### (a) $\mathbf H$ is symmetric and idempotent
+
+Because $\mathbf X'\mathbf X$ is symmetric,
+
+$$
+\left[(\mathbf X'\mathbf X)^{-1}\right]'
+=
+(\mathbf X'\mathbf X)^{-1}.
+$$
+
+Therefore,
+
+$$
+\begin{aligned}
+\mathbf H'
+&=
+\left[
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'
+\right]'\\
+&=
+\mathbf X
+\left[(\mathbf X'\mathbf X)^{-1}\right]'
+\mathbf X'\\
+&=
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'\\
+&=
+\mathbf H.
+\end{aligned}
+$$
+
+Thus, $\mathbf H$ is symmetric.
+
+Next,
+
+$$
+\begin{aligned}
+\mathbf H^2
+&=
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'\\
+&=
+\mathbf X(\mathbf X'\mathbf X)^{-1}
+(\mathbf X'\mathbf X)
+(\mathbf X'\mathbf X)^{-1}\mathbf X'\\
+&=
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'\\
+&=
+\mathbf H.
+\end{aligned}
+$$
+
+Therefore, $\mathbf H$ is idempotent.
+
+### (b) $\mathbf I-\mathbf H$ is symmetric and idempotent
+
+Since both $\mathbf I$ and $\mathbf H$ are symmetric,
+
+$$
+(\mathbf I-\mathbf H)'
+=
+\mathbf I-\mathbf H.
+$$
+
+Thus, $\mathbf I-\mathbf H$ is symmetric.
+
+Also,
+
+$$
+\begin{aligned}
+(\mathbf I-\mathbf H)^2
+&=
+\mathbf I-2\mathbf H+\mathbf H^2\\
+&=
+\mathbf I-2\mathbf H+\mathbf H\\
+&=
+\mathbf I-\mathbf H,
+\end{aligned}
+$$
+
+because $\mathbf H^2=\mathbf H$.
+
+Hence, $\mathbf I-\mathbf H$ is also idempotent.
+
+## 14. Trace of the hat matrix
+
+We have
+
+$$
+\mathbf H
+=
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'.
+$$
+
+Using the cyclic property of the trace,
+
+$$
+\operatorname{tr}(\mathbf A\mathbf B)
+=
+\operatorname{tr}(\mathbf B\mathbf A),
+$$
+
+we obtain
+
+$$
+\begin{aligned}
+\operatorname{tr}(\mathbf H)
+&=
+\operatorname{tr}
+\left[
+\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'
+\right]\\
+&=
+\operatorname{tr}
+\left[
+(\mathbf X'\mathbf X)^{-1}\mathbf X'\mathbf X
+\right]\\
+&=
+\operatorname{tr}(\mathbf I_p)\\
+&=
+p.
+\end{aligned}
+$$
+
+Therefore,
+
+$$
+\boxed{\operatorname{tr}(\mathbf H)=p}.
+$$
