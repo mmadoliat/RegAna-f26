@@ -226,6 +226,38 @@ Dr.&nbsp;Mehdi Maadooliat
 </section>
 <section>
 
+<section id="what-do-your-data-look-like" class="slide level2">
+<h2>What Do Your Data Look Like?</h2>
+<p>We have fitted the regression <span class="math inline">\(\hat{y} = 3 + 0.5x\)</span>, with <span class="math inline">\(\hat{\sigma} = 1.24\)</span> and <span class="math inline">\(R^2 = 0.67\)</span>. What do the data look like?</p>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/08-diag-normality/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" style="width:73.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Anscombe’s quartet (1973): all four data sets give the same <span class="math inline">\(b_0\)</span>, <span class="math inline">\(b_1\)</span>, <span class="math inline">\(\hat{\sigma}\)</span>, and <span class="math inline">\(R^2\)</span>.</li>
+<li>Dataset 1: the model looks reasonable. Dataset 2: nonlinear. Dataset 3: one outlier pulls the line. Dataset 4: a single high-leverage point determines the slope (lecture 07).</li>
+<li>Moral: summary statistics alone cannot tell us whether the assumptions hold; we need diagnostics.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="assumptions-of-linear-regression" class="slide level2">
 <h2>Assumptions of Linear Regression</h2>
 <p><span class="math inline">\(Y_i= \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \dots + \beta_kX_{ik} + \epsilon_i\)</span></p>
@@ -236,7 +268,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <li><span class="math inline">\(\small E(\epsilon_i) = 0\)</span></li>
 <li><span class="math inline">\(\small \mathrm{Var}(\epsilon_i) = \sigma^2\)</span></li>
 <li><span class="math inline">\(\small \mathrm{Cov}(\epsilon_i, \epsilon_j) = 0\)</span> for all <span class="math inline">\(i \ne j\)</span>.</li>
-<li><span class="math inline">\(\small \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span> (for statistical inference)</li>
+<li><span class="math inline">\(\small \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span> (for inference and prediction intervals)</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -256,7 +288,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <li>Bridge from last lecture: we looked at <em>individual</em> unusual points (outliers, leverage, influence). Today we look at the <em>overall distribution</em> of the errors, and the R-student residuals from last time are our main tool again.</li>
 <li>It’s not that uncommon to see violations of assumptions.</li>
 <li>Today, we are going to learn how to check whether those assumptions are satisfied, and, over the next lectures, how to deal with violations.</li>
-<li>Pacing: assumptions &amp; overview ~5 | why normality matters ~5 | detecting (QQ, density) ~10 | correcting: ladder of powers &amp; Box-Cox ~15 | CIA R Labs (incl.&nbsp;recheck) ~10 | other issues &amp; interpretation ~5 → about 50 min; the remaining time can start 09 (which continues with the CIA data).</li>
+<li>Pacing: Anscombe &amp; assumptions ~8 | why normality matters (3 figure slides) ~10 | detecting (QQ, density) ~10 | correcting: ladder of powers &amp; Box-Cox ~15 | CIA R Labs (incl.&nbsp;recheck) ~10 | other issues &amp; interpretation ~5 → about 60 min; the remaining time can start 09 (which continues with the CIA data).</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -272,9 +304,9 @@ Dr.&nbsp;Mehdi Maadooliat
 <div class="fragment">
 <div class="alert">
 <ul>
-<li>If the assumptions are violated, a different sample could lead to a different conclusion!</li>
+<li>For <em>estimating</em> the regression line, normality is barely important; it matters for <em>inference</em> (tests, CIs, PIs).</li>
 <li><span class="math inline">\(R^2\)</span> tells us how well the model fits the data, but says nothing about whether the model is correct.</li>
-<li>All the inferences are based on the assumption that the model is correct.</li>
+<li>All the inference results are based on the assumed model.</li>
 </ul>
 </div>
 </div>
@@ -321,9 +353,18 @@ Non-linearity and Lack of Fit
 <li><strong>Heavier tailed</strong> errors:
 <ul>
 <li>LS is still BLUE (best among <em>linear</em> unbiased estimators), but robust (nonlinear) estimators can have <strong>much smaller</strong> variance.</li>
-<li>give rise to <strong>outliers</strong>.</li>
+<li>Extreme errors occur more often, giving rise to <strong>outliers</strong>; because LS <em>squares</em> residuals, these points can pull the fit disproportionately.</li>
 </ul></li>
 </ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/08-diag-normality/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 <aside class="notes">
 <ul>
 <li>Gauss-Markov does not require normality. With normal errors, LS is best among <em>all</em> unbiased estimators; without normality, only among <em>linear</em> ones.</li>
@@ -340,23 +381,28 @@ Non-linearity and Lack of Fit
           display:block!important;
       }</style></aside>
 </div>
-<div class="fragment">
+</section>
+<section id="non-normality-skewed-errors" class="slide level2">
+<h2>Non-normality: Skewed Errors</h2>
 <ul>
 <li><strong>Skewed</strong> errors:
 <ul>
 <li>tend to generate outliers in the direction of the skew.</li>
-<li>the conditional mean of <span class="math inline">\(y\)</span> given <span class="math inline">\(x\)</span> is not a good measure of center of a highly skewed distribution.</li>
+<li>the conditional mean of <span class="math inline">\(y\)</span> given <span class="math inline">\(x\)</span> may not be a good measure of center of a highly skewed distribution.</li>
 </ul></li>
 </ul>
-</div>
-<div class="fragment">
+
+<img data-src="./images/08-diag-normality/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<section id="non-normality-multimodal-errors" class="slide level2">
+<h2>Non-normality: Multimodal Errors</h2>
 <ul>
 <li><strong>Multimodal</strong> errors:
 <ul>
 <li>suggest the omission of one or more categorical regressors.</li>
 </ul></li>
 </ul>
-<aside class="notes">
+
+<img data-src="./images/08-diag-normality/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
 <ul>
 <li><span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>: <strong>mean 0</strong>, <strong>constant variance</strong>, <strong>normally distributed</strong>, and <strong>uncorrelated</strong>.</li>
 <li>The form of the model (<strong>linearity</strong>) and the specification of the predictors are correct.</li>
@@ -378,7 +424,6 @@ Non-linearity and Lack of Fit
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 <section id="detecting-nonnormality" class="slide level2">
 <h2>Detecting Nonnormality</h2>
@@ -407,7 +452,7 @@ Non-linearity and Lack of Fit
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/08-diag-normality/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/08-diag-normality/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -434,7 +479,7 @@ Non-linearity and Lack of Fit
 <span id="cb1-2"><a aria-label="2"></a>            <span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">ylab =</span> <span class="st">"Ordered R-Student Residuals"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/08-diag-normality/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:58.0%"><div class="fragment">
+<img data-src="./images/08-diag-normality/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:58.0%"><div class="fragment">
 <div class="question">
 <p>Is there evidence of non-normality in the delivery time data?</p>
 </div>
@@ -469,7 +514,7 @@ Non-linearity and Lack of Fit
 <span id="cb2-3"><a aria-label="3"></a><span class="fu">lines</span>(<span class="fu">density</span>(rstud, <span class="at">adjust =</span> <span class="dv">2</span>), <span class="at">col =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/08-diag-normality/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:58.0%"><ul>
+<img data-src="./images/08-diag-normality/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:58.0%"><ul>
 <li>Roughly symmetric and unimodal, with one isolated point on the right (point 9).</li>
 <li>With <span class="math inline">\(n = 25\)</span>, histograms are noisy: don’t over-read small bumps.</li>
 </ul>
@@ -495,24 +540,50 @@ Non-linearity and Lack of Fit
 <section id="correcting-nonnormality" class="slide level2">
 <h2>Correcting Nonnormality</h2>
 <ul>
-<li><p>A response that is close to normal usually makes the assumption of normal errors more tenable.</p></li>
-<li><p><em>Heavier tailed</em> errors:</p>
+<li>A response that is close to normal usually makes the assumption of normal errors more tenable.<sup>1</sup></li>
+</ul>
 <ul>
-<li>Use robust regression (Chap 15 in LRA)</li>
+<li><em>Heavier tailed</em> errors:
+<ul>
+<li>Use robust regression that downweights extreme residuals (Chap 15 in LRA)</li>
 </ul></li>
-<li><p><em>Skewed</em> errors:</p>
+<li><em>Skewed</em> errors:
 <ul>
 <li>Transform response data for symmetry</li>
 </ul></li>
-<li><p><em>Multimodal</em> errors:</p>
+<li><em>Multimodal</em> errors:
 <ul>
 <li>Add one or more relevant categorical variables.</li>
 </ul></li>
 </ul>
 <div class="alert">
-<p>Goal: after correction, the errors (equivalently, <span class="math inline">\(y\)</span> given the <span class="math inline">\(x\)</span>s) should look approximately normal.</p>
+<p>Goal: after correction, the errors (equivalently, <span class="math inline">\(y\)</span> <strong>conditional on the <span class="math inline">\(x\)</span>s</strong>) should look approximately normal.</p>
 </div>
-</section>
+<div class="fragment">
+<div class="danger">
+<ul>
+<li>The regression model does <strong>not</strong> assume or require that the predictors be normally distributed.</li>
+<li>The raw (unconditional) <span class="math inline">\(y\)</span> can be far from normal even when the errors are normal.</li>
+</ul>
+</div>
+<aside class="notes">
+<ul>
+<li>Robust options: least absolute deviation (LAD) regression, Huber M-estimation (LRA Ch. 15).</li>
+<li>Example for the second danger point: if <span class="math inline">\(x\)</span> is bimodal, <span class="math inline">\(y\)</span> is bimodal too, even with perfectly normal errors.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>An unconditional normal distribution of <span class="math inline">\(y\)</span> does not guarantee that <span class="math inline">\(y\)</span> given <span class="math inline">\(x\)</span> is normal.</p></li></ol></aside></section>
 <section id="transformation-for-symmetry" class="slide level2">
 <h2>Transformation for Symmetry</h2>
 <p><strong>Power transformation: <span class="math inline">\(y \rightarrow y^{\lambda}\)</span></strong></p>
@@ -552,7 +623,7 @@ Non-linearity and Lack of Fit
 </div>
 <div class="fragment">
 <div class="alert">
-<p>The order of <span class="math inline">\(y\)</span> is <em>reversed</em> if <span class="math inline">\(\lambda &lt; 0\)</span> is used for power transformation.</p>
+<p>The order of <span class="math inline">\(y\)</span> is <em>reversed</em> if <span class="math inline">\(\lambda &lt; 0\)</span> is used. Negative powers are often given a minus sign, <span class="math inline">\(-y^{\lambda}\)</span>, to preserve ordering (Box-Cox does this by dividing by <span class="math inline">\(\lambda\)</span>).</p>
 </div>
 </div>
 </section>
@@ -562,7 +633,7 @@ Non-linearity and Lack of Fit
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/08-diag-normality/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:78.0%"></p>
+<p><img data-src="./images/08-diag-normality/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:78.0%"></p>
 </figure>
 </div>
 </div>
@@ -571,7 +642,7 @@ Non-linearity and Lack of Fit
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/08-diag-normality/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:78.0%"></p>
+<p><img data-src="./images/08-diag-normality/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:78.0%"></p>
 </figure>
 </div>
 </div>
@@ -613,7 +684,7 @@ Non-linearity and Lack of Fit
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/08-diag-normality/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/08-diag-normality/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -641,7 +712,7 @@ Non-linearity and Lack of Fit
 <h2>Box-Cox Transformation on <span class="math inline">\(y\)</span>: Choose <span class="math inline">\(\lambda\)</span> Analytically</h2>
 <ul>
 <li>The model to be fit is <span class="math display">\[y_i^{(\lambda)} = \beta_0 + \beta_1x_{i1}+ \cdots + \beta_kx_{ik} + \epsilon_i^*\]</span></li>
-<li>Choose <span class="math inline">\(\lambda\)</span> so that the transformed errors <span class="math inline">\(\epsilon_i^*\)</span> look as nearly normally distributed as possible.</li>
+<li>Choose <span class="math inline">\(\lambda\)</span> so that, after transforming and refitting, the residuals are as compatible as possible with the linear-model assumptions (normality, and also constant variance and linearity).</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -651,6 +722,7 @@ Non-linearity and Lack of Fit
 <aside class="notes">
 <ul>
 <li>LRA uses the scaled version <span class="math inline">\(y^{(\lambda)} = (y^\lambda - 1)/(\lambda \dot{y}^{\lambda - 1})\)</span>, where <span class="math inline">\(\dot{y}\)</span> is the geometric mean of <span class="math inline">\(y\)</span>, so that <span class="math inline">\(SS_{Res}(\lambda)\)</span> values are comparable across <span class="math inline">\(\lambda\)</span>; minimizing <span class="math inline">\(SS_{Res}(\lambda)\)</span> is then equivalent to maximizing the likelihood.</li>
+<li>The likelihood assumes the whole model holds on the transformed scale, so Box-Cox often also helps with nonconstant variance (next lecture).</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -708,7 +780,7 @@ Non-linearity and Lack of Fit
 <span id="cb4-4"><a aria-label="4"></a>car<span class="sc">::</span><span class="fu">densityPlot</span>(r_stud)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/08-diag-normality/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:56.0%"></section>
+<img data-src="./images/08-diag-normality/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:56.0%"></section>
 <section id="r-lab-box-cox-transformation" class="slide level2">
 <h2><span class="pink">R Lab</span> Box-Cox Transformation</h2>
 <div class="cell" data-layout-align="center">
@@ -791,7 +863,7 @@ Non-linearity and Lack of Fit
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">densityPlot</span>(<span class="fu">rstudent</span>(logciafit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/08-diag-normality/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:56.0%"><ul>
+<img data-src="./images/08-diag-normality/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:56.0%"><ul>
 <li>Compared to the original fit, the strong right skew is gone.</li>
 <li>One country (Luxembourg) still stands out as an outlier: check it with last lecture’s tools.</li>
 </ul>
@@ -820,6 +892,21 @@ Non-linearity and Lack of Fit
 <li><span class="math inline">\(\log(y + 10)\)</span> if all <span class="math inline">\(y &gt; -10\)</span>.</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Don’t choose <span class="math inline">\(c\)</span> too large: adding a large constant shrinks <span class="math inline">\(y_{max}/y_{min}\)</span> toward 1, so the log loses its compressing effect.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="fragment">
 <ul>
 <li>Power transformations are effective when the ratio of the largest to smallest values is sufficiently large (for <code>infant</code>, the ratio is about 50).
@@ -842,7 +929,7 @@ Non-linearity and Lack of Fit
 </div>
 </div>
 <ul>
-<li>Holding <code>health</code> and <code>gini</code> constant, a one-unit ($1000) increase in <code>gdp</code> multiplies the typical (geometric-mean) infant mortality rate by <span class="math inline">\(\exp(b_{gdp})\)</span> = 0.96, i.e., about a 4.3% decrease.</li>
+<li>Comparing two countries with the same <code>health</code> and <code>gini</code>, the one with one unit ($1000) higher <code>gdp</code> is expected to have a (geometric-mean) infant mortality rate about 4.3% lower.</li>
 </ul>
 <aside class="notes">
 <p>Hawkins and Weisberg (2017) - For a skewed conditional distribution of <span class="math inline">\(y\)</span>, the mean is not a good measure of center. + Alternative: model the conditional <em>median</em> of the response (quantile regression). - OLS on the original <span class="math inline">\(y\)</span> estimates the conditional arithmetic mean; OLS on <span class="math inline">\(\log y\)</span> estimates the conditional geometric mean of <span class="math inline">\(y\)</span> (which equals the median if the log-scale errors are symmetric).</p>
@@ -886,6 +973,7 @@ Non-linearity and Lack of Fit
 
 
 </section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
