@@ -628,7 +628,7 @@ apply(dfbeta, 2,
 
 - $D_i$ measures *__the squared distance that the vector of fitted values moves when the $i$th observation is deleted.__*
 
-$$D_i = \frac{(\hat{{\bf y}}_{(i)} - \hat{{\bf y}})'(\hat{{\bf y}}_{(i)}-\hat{{\bf y}})}{p s^2} = \frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n$$ where $r_i = \frac{e_i}{\sqrt{s^2(1-h_{ii})}}$ is the **studentized residual**.
+$$D_i = \frac{(\hat{{\bf y}} - \hat{{\bf y}}_{(i)})'(\hat{{\bf y}}-\hat{{\bf y}}_{(i)})}{p s^2} = \frac{r_i^2}{p}\frac{h_{ii}}{1-h_{ii}}, \quad i = 1, 2, \dots, n$$ where $r_i = \frac{e_i}{\sqrt{s^2(1-h_{ii})}}$ is the **studentized residual**.
 
 - What contributes to $D_i$:
   + How well the model fits the $i$th observation (larger $r_i^2$ for poorer fit)
