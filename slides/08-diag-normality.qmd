@@ -121,9 +121,46 @@ delivery_data <- delivery[, -1]
 colnames(delivery_data) <- c("time", "cases", "distance")
 delivery_lm <- lm(time ~ cases + distance, data = delivery_data)
 summ_delivery <- summary(delivery_lm)
+source("./scripts/plot_unusual.R")  # p1-p6 for the Non-normality slides
 ```
 
 
+
+
+## What Do Your Data Look Like?
+
+We have fitted the regression $\hat{y} = 3 + 0.5x$, with $\hat{\sigma} = 1.24$ and $R^2 = 0.67$. What do the data look like?
+
+. . .
+
+```{r}
+#| out-width: 73%
+data(anscombe)
+par(mfrow = c(2, 2))
+par(mar = c(0, 0, 2, 0))
+for (i in 1:4) {
+  x <- anscombe[[paste0("x", i)]]
+  y <- anscombe[[paste0("y", i)]]
+  plot(
+    x, y,
+    pch = 19,
+    xlim = c(3, 20),
+    ylim = c(3, 13),
+    xlab = "x",
+    ylab = "y",
+    main = paste("Dataset", i),
+    xaxt = "n", yaxt = "n"
+  )
+  abline(lm(y ~ x), lwd = 2)
+}
+par(mfrow = c(1, 1))
+```
+
+::: notes
+- Anscombe's quartet (1973): all four data sets give the same $b_0$, $b_1$, $\hat{\sigma}$, and $R^2$.
+- Dataset 1: the model looks reasonable. Dataset 2: nonlinear. Dataset 3: one outlier pulls the line. Dataset 4: a single high-leverage point determines the slope (lecture 07).
+- Moral: summary statistics alone cannot tell us whether the assumptions hold; we need diagnostics.
+:::
 
 
 ## Assumptions of Linear Regression
@@ -135,7 +172,7 @@ $Y_i= \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \dots + \beta_kX_{ik} + \epsilon
 - $\small E(\epsilon_i) = 0$
 - $\small \var(\epsilon_i) = \sigma^2$
 - $\small \cov(\epsilon_i, \epsilon_j) = 0$ for all $i \ne j$.
-- $\small \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$ (for statistical inference)
+- $\small \epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$ (for inference and prediction intervals)
 :::
 
 
@@ -155,15 +192,15 @@ knitr::include_graphics("./images/08-diag-normality/regression_line_sig.png")
 - Bridge from last lecture: we looked at *individual* unusual points (outliers, leverage, influence). Today we look at the *overall distribution* of the errors, and the R-student residuals from last time are our main tool again.
 - It's not that uncommon to see violations of assumptions.
 - Today, we are going to learn how to check whether those assumptions are satisfied, and, over the next lectures, how to deal with violations.
-- Pacing: assumptions & overview ~5 | why normality matters ~5 | detecting (QQ, density) ~10 | correcting: ladder of powers & Box-Cox ~15 | CIA R Labs (incl. recheck) ~10 | other issues & interpretation ~5 → about 50 min; the remaining time can start 09 (which continues with the CIA data).
+- Pacing: Anscombe & assumptions ~8 | why normality matters (3 figure slides) ~10 | detecting (QQ, density) ~10 | correcting: ladder of powers & Box-Cox ~15 | CIA R Labs (incl. recheck) ~10 | other issues & interpretation ~5 → about 60 min; the remaining time can start 09 (which continues with the CIA data).
 :::
 
 . . .
 
 ::: alert
-- If the assumptions are violated, a different sample could lead to a different conclusion!
+- For *estimating* the regression line, normality is barely important; it matters for *inference* (tests, CIs, PIs).
 - $R^2$ tells us how well the model fits the data, but says nothing about whether the model is correct.
-- All the inferences are based on the assumption that the model is correct.
+- All the inference results are based on the assumed model.
 :::
 
 
@@ -192,22 +229,39 @@ Without normality,
 
 - **Heavier tailed** errors:
   + LS is still BLUE (best among *linear* unbiased estimators), but robust (nonlinear) estimators can have **much smaller** variance.
-  + give rise to **outliers**.
+  + Extreme errors occur more often, giving rise to **outliers**; because LS *squares* residuals, these points can pull the fit disproportionately.
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 60%
+p1 | p4
+```
 
 ::: notes
 - Gauss-Markov does not require normality. With normal errors, LS is best among *all* unbiased estimators; without normality, only among *linear* ones.
 :::
 
-. . .
+## Non-normality: Skewed Errors
 
 - **Skewed** errors:
   + tend to generate outliers in the direction of the skew.
-  + the conditional mean of $y$ given $x$ is not a good measure of center of a highly skewed distribution.
+  + the conditional mean of $y$ given $x$ may not be a good measure of center of a highly skewed distribution.
 
-. . .
+```{r}
+#| fig-asp: 0.4
+p2 | p5
+```
+
+
+## Non-normality: Multimodal Errors
 
 - **Multimodal** errors:
   + suggest the omission of one or more categorical regressors.
+
+```{r}
+#| fig-asp: 0.4
+p3 | p6
+```
   
   
 ::: notes
@@ -319,10 +373,12 @@ lines(density(rstud, adjust = 2), col = 4, lwd = 2)
 
 ## Correcting Nonnormality
 
-- A response that is close to normal usually makes the assumption of normal errors more tenable.
+- A response that is close to normal usually makes the assumption of normal errors more tenable.[^1]
+
+[^1]: An unconditional normal distribution of $y$ does not guarantee that $y$ given $x$ is normal.
 
 - *Heavier tailed* errors:
-  + Use robust regression (Chap 15 in LRA)
+  + Use robust regression that downweights extreme residuals (Chap 15 in LRA)
 
 - *Skewed* errors:
   + Transform response data for symmetry
@@ -332,7 +388,19 @@ lines(density(rstud, adjust = 2), col = 4, lwd = 2)
 
 
 ::: alert
-Goal: after correction, the errors (equivalently, $y$ given the $x$s) should look approximately normal.
+Goal: after correction, the errors (equivalently, $y$ **conditional on the $x$s**) should look approximately normal.
+:::
+
+. . .
+
+::: danger
+- The regression model does **not** assume or require that the predictors be normally distributed.
+- The raw (unconditional) $y$ can be far from normal even when the errors are normal.
+:::
+
+::: notes
+- Robust options: least absolute deviation (LAD) regression, Huber M-estimation (LRA Ch. 15).
+- Example for the second danger point: if $x$ is bimodal, $y$ is bimodal too, even with perfectly normal errors.
 :::
 
 
@@ -362,7 +430,7 @@ Goal: after correction, the errors (equivalently, $y$ given the $x$s) should loo
 . . .
 
 ::: alert
-The order of $y$ is *reversed* if $\lambda < 0$ is used for power transformation.
+The order of $y$ is *reversed* if $\lambda < 0$ is used. Negative powers are often given a minus sign, $-y^{\lambda}$, to preserve ordering (Box-Cox does this by dividing by $\lambda$).
 :::
 
 
@@ -498,7 +566,7 @@ lines(x = c(usr[1], 1), y = c(0, 0), lty = 2)
 
 - The model to be fit is 
 $$y_i^{(\lambda)} = \beta_0 + \beta_1x_{i1}+ \cdots + \beta_kx_{ik} + \epsilon_i^*$$
-- Choose $\lambda$ so that the transformed errors $\epsilon_i^*$ look as nearly normally distributed as possible.
+- Choose $\lambda$ so that, after transforming and refitting, the residuals are as compatible as possible with the linear-model assumptions (normality, and also constant variance and linearity).
 
 . . .
 
@@ -507,6 +575,7 @@ $$y_i^{(\lambda)} = \beta_0 + \beta_1x_{i1}+ \cdots + \beta_kx_{ik} + \epsilon_i
 
 ::: notes
 - LRA uses the scaled version $y^{(\lambda)} = (y^\lambda - 1)/(\lambda \dot{y}^{\lambda - 1})$, where $\dot{y}$ is the geometric mean of $y$, so that $SS_{Res}(\lambda)$ values are comparable across $\lambda$; minimizing $SS_{Res}(\lambda)$ is then equivalent to maximizing the likelihood.
+- The likelihood assumes the whole model holds on the transformed scale, so Box-Cox often also helps with nonconstant variance (next lecture).
 :::
 
 
@@ -622,7 +691,11 @@ car::densityPlot(rstudent(logciafit))
 ## Other Issues
 - Apply power transformations to data with zero or negative values by adding a positive constant to the data to make all values positive.
   + $\log(y + 10)$ if all $y > -10$.
-  
+
+::: notes
+- Don't choose $c$ too large: adding a large constant shrinks $y_{max}/y_{min}$ toward 1, so the log loses its compressing effect.
+:::
+
 . . .
 
 - Power transformations are effective when the ratio of the largest to smallest values is sufficiently large (for `infant`, the ratio is about 50).
@@ -639,7 +712,7 @@ logciafit <- lm(log(infant) ~ gdp + health + gini, data = CIA)
 coef(logciafit)
 ```
 
-- Holding `health` and `gini` constant, a one-unit (\$1000) increase in `gdp` multiplies the typical (geometric-mean) infant mortality rate by $\exp(b_{gdp})$ = `r round(exp(coef(logciafit)["gdp"]), 3)`, i.e., about a `r round((1 - exp(coef(logciafit)["gdp"])) * 100, 1)`% decrease.
+- Comparing two countries with the same `health` and `gini`, the one with one unit (\$1000) higher `gdp` is expected to have a (geometric-mean) infant mortality rate about `r round((1 - exp(coef(logciafit)["gdp"])) * 100, 1)`% lower.
 
 
 ::: notes
