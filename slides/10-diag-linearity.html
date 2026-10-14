@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
-  <title>MATH 4780 (MSSC 5780) – Regression Diagnostics - Linearity ▶️</title>
+  <title>MATH 4780 (MSSC 5780) – Reg. Diag. - Linearity and Lack of Fit 📈</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Regression Diagnostics - Linearity r emo::ji('right') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Reg. Diag. - Linearity and Lack of Fit 📈 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Regression Diagnostics - Linearity r emo::ji('right') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Reg. Diag. - Linearity and Lack of Fit 📈 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -209,7 +209,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
-  <h1 class="title">Regression Diagnostics - Linearity ▶️</h1>
+  <h1 class="title">Reg. Diag. - Linearity and Lack of Fit 📈</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
@@ -236,8 +236,25 @@ Non-normality
 Non-constant Error Variance
 </h2>
 <h2>
-<span style="color:red"> Non-linearity and Lack of Fit</span>
+<span style="color:red">Non-linearity</span> and Lack of Fit
 </h2>
+<aside class="notes">
+<ul>
+<li>This deck covers two lectures. <strong>Part I (Linearity)</strong>: detecting nonlinearity and transforming to fix it. <strong>Part II (Lack of Fit)</strong>: formal and approximate tests of whether the model form is adequate, and prediction-based checks (PRESS).</li>
+<li>Pacing, Part I (75 min): assumptions &amp; residual plots ~15 | AV vs.&nbsp;CR plots ~10 | transformations &amp; bulging rule ~10 | intrinsically linear models &amp; windmill ~15 | CIA transformations, effect plots ~12 | Box-Tidwell ~10 | summary ~3.</li>
+<li>Pacing, Part II (75 min): what is lack of fit ~5 | LOF test theory ~15 | Example 4.8 labs ~15 | near-neighbor procedure ~15 | PRESS ~15 | other methods &amp; summary ~10.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="assumptions-of-linear-regression" class="slide level2">
 <h2>Assumptions of Linear Regression</h2>
@@ -321,6 +338,79 @@ Non-constant Error Variance
       }</style></aside>
 </div>
 </section>
+<section id="what-to-plot-the-residuals-against" class="slide level2">
+<h2>What to Plot the Residuals Against</h2>
+<ul>
+<li><strong>Fitted values <span class="math inline">\(\hat{y}_i\)</span></strong>: nonlinearity, nonconstant variance, outliers.
+<ul>
+<li><em>Not</em> against <span class="math inline">\(y_i\)</span>: <span class="math inline">\(e_i\)</span> and <span class="math inline">\(y_i\)</span> are correlated (<span class="math inline">\(r_{ey} = \sqrt{1-R^2}\)</span>), so a trend appears even when the model is correct.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Each regressor in the model</strong>: nonlinearity (and nonconstant variance) in that <span class="math inline">\(x_j\)</span>.</li>
+<li><strong>Regressors not in the model</strong>: a pattern suggests that adding the regressor may improve the fit.</li>
+<li><strong>Time (collection) order</strong>: correlated errors.</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="alert">
+<p><code>car::residualPlots()</code> plots the residuals against each regressor and <span class="math inline">\(\hat{y}\)</span>, and adds a <strong>curvature test</strong>: the <span class="math inline">\(t\)</span> test for adding <span class="math inline">\(x_j^2\)</span> to the model (and Tukey’s test for <span class="math inline">\(\hat{y}^2\)</span>).</p>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Sec 4.2.3. The <span class="math inline">\(e\)</span> vs.&nbsp;<span class="math inline">\(y\)</span> correlation is why we always use <span class="math inline">\(\hat{y}\)</span> on the horizontal axis.</li>
+<li>Tukey’s test for nonadditivity: add <span class="math inline">\(\hat{y}^2\)</span> as a regressor and compare its <span class="math inline">\(t\)</span> statistic to <span class="math inline">\(N(0,1)\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-residual-plots-and-curvature-tests-cia" class="slide level2">
+<h2><span class="pink">R Lab</span> Residual Plots and Curvature Tests (CIA)</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">residualPlots</span>(logciafit, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">type =</span> <span class="st">"rstudent"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)    
+gdp             9.34          3.7e-16 ***
+health          3.29           0.0013 ** 
+gini           -0.63           0.5298    
+Tukey test     10.08          &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<img data-src="./images/10-diag-linearity/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><ul>
+<li>Strong curvature for <code>gdp</code>, some for <code>health</code>, none for <code>gini</code>; Tukey’s test also rejects linearity.</li>
+<li>Next: <em>partial</em> plots tell us <strong>which</strong> <span class="math inline">\(x\)</span> to fix and <strong>how</strong>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>The printed table: <code>gdp</code> <span class="math inline">\(t \approx 9.3\)</span>, <code>health</code> <span class="math inline">\(t \approx 3.3\)</span>, <code>gini</code> <span class="math inline">\(p \approx 0.5\)</span>, Tukey <span class="math inline">\(t \approx 10\)</span>.</li>
+<li>Plotting against <span class="math inline">\(x_j\)</span> directly still mixes in the other regressors; partial residual plots isolate <span class="math inline">\(x_j\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="detecting-nonlinearity-partial-residual-plots" class="slide level2">
 <h2>Detecting Nonlinearity: Partial Residual Plots</h2>
 <ul>
@@ -352,28 +442,202 @@ Non-constant Error Variance
           display:block!important;
       }</style></aside>
 </section>
+<section id="partial-regression-av-vs.-partial-residual-cr-plots" class="slide level2">
+<h2>Partial Regression (AV) vs.&nbsp;Partial Residual (CR) Plots</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Partial regression (added-variable) plot</strong></p>
+<ul>
+<li><span class="math inline">\(e(y \mid x_{(j)})\)</span> vs.&nbsp;<span class="math inline">\(e(x_j \mid x_{(j)})\)</span></li>
+<li>Slope <span class="math inline">\(= b_j\)</span>; shows the <em>marginal contribution</em> of <span class="math inline">\(x_j\)</span> given the others.</li>
+<li>Horizontal band: <span class="math inline">\(x_j\)</span> adds no new information.</li>
+<li>Curvature may suggest <span class="math inline">\(x_j^2\)</span> or <span class="math inline">\(1/x_j\)</span>, but the plot is <em>biased toward linearity</em>.</li>
+<li>Great for <strong>influence</strong>.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Partial residual (component-plus-residual) plot</strong></p>
+<ul>
+<li><span class="math inline">\(b_jx_{ij} + e_i\)</span> vs.&nbsp;<span class="math inline">\(x_{ij}\)</span></li>
+<li>Slope <span class="math inline">\(= b_j\)</span> as well.</li>
+<li>Horizontal axis is <span class="math inline">\(x_j\)</span> itself, so the <em>shape</em> of the partial relationship is visible.</li>
+<li>Better for <strong>nonlinearity</strong>.</li>
+</ul>
+</div></div>
+<div class="alert">
+<p>Both are suggestive only: they can mislead when the <span class="math inline">\(x\)</span>s are strongly correlated (multicollinearity) or strongly nonlinearly related, and they do not detect interactions.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Sec 4.2.4 (partial regression plots) and its comments: use with caution, do not detect interaction, multicollinearity can give incorrect information.</li>
+<li>Quick demo if time: <code>car::avPlots(logciafit, terms = ~ gdp)</code> next to <code>car::crPlots(logciafit, terms = ~ gdp)</code>; same slope, different horizontal axis.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="r-lab-partial-residual-plots" class="slide level2">
 <h2><span class="pink">R Lab</span> Partial Residual Plots</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Component-plus-Residual Plot </span></span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">crPlots</span>(logciafit, <span class="at">ylab =</span> <span class="st">"partial residual"</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">grid =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">""</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Component-plus-Residual Plot </span></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">crPlots</span>(logciafit, <span class="at">ylab =</span> <span class="st">"partial residual"</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">grid =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">""</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/10-diag-linearity/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<img data-src="./images/10-diag-linearity/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="transformation-for-linearity" class="slide level2">
 <h2>Transformation for Linearity</h2>
 <ul>
-<li><strong>Monotone curvature</strong>: consider a power transformation of <span class="math inline">\(x\)</span> (and, when justified, of <span class="math inline">\(y\)</span>).</li>
 <li><strong>Curvature that changes direction</strong>: consider polynomial terms, e.g., <span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \epsilon\)</span>.</li>
+<li><strong>Monotone curvature</strong>: consider a power transformation of <span class="math inline">\(x\)</span> (and, when justified, of <span class="math inline">\(y\)</span>).</li>
 <li><strong>More complex structure</strong>: polynomial regression (next week) or regression splines (MSSC 6250).</li>
 </ul>
 
-<img data-src="./images/10-diag-linearity/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
+<img data-src="./images/10-diag-linearity/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><aside class="notes">
 <ul>
 <li>not simple: direction of curvature changes</li>
 <li>Transform an <span class="math inline">\(x\)</span> rather than <span class="math inline">\(y\)</span>, unless we see a common pattern of nonlinearity in the partial relationships of <span class="math inline">\(y\)</span> to many <span class="math inline">\(x\)</span>s.</li>
 <li>Transforming <span class="math inline">\(y\)</span> changes the shape of its relationship to <strong>all</strong> of the <span class="math inline">\(x\)</span>s, and also changes the shape of the residual distribution.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="intrinsically-linear-models" class="slide level2">
+<h2>Intrinsically Linear Models</h2>
+<ul>
+<li>A nonlinear function that a transformation turns into a linear one is <strong>intrinsically</strong> (transformably) <strong>linear</strong>.</li>
+</ul>
+<p><span class="math display">\[y = \beta_0e^{\beta_1x}\epsilon \quad\Longrightarrow\quad \ln y = \ln\beta_0 + \beta_1x + \ln\epsilon \quad\Longrightarrow\quad y' = \beta_0' + \beta_1x + \epsilon'\]</span></p>
+<div class="fragment">
+<div class="midi">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Linearizable function</th>
+<th style="text-align: left;">Transformation</th>
+<th style="text-align: left;">Linear form</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(y = \beta_0x^{\beta_1}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = \log y,\ x' = \log x\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = \log\beta_0 + \beta_1x'\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(y = \beta_0e^{\beta_1x}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = \ln y\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = \ln\beta_0 + \beta_1x\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(y = \beta_0 + \beta_1\log x\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(x' = \log x\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = \beta_0 + \beta_1x'\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(y = \dfrac{x}{\beta_0x - \beta_1}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = 1/y,\ x' = 1/x\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(y' = \beta_0 - \beta_1x'\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="alert">
+<p>The error must enter so that it becomes <strong>additive</strong> after the transformation (e.g., multiplicative <span class="math inline">\(\epsilon\)</span> for the log). LS properties then hold for the <em>transformed</em> data, not the original data.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Table 5.4 and Figure 5.4 (Daniel and Wood, 1980) show the shapes of these curves for different parameter signs.</li>
+<li>If <span class="math inline">\(y = \beta_0e^{\beta_1x} + \epsilon\)</span> (additive error), taking logs does not give a linear model with additive errors: then we need nonlinear regression.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-windmill-data-lra-example-5.2" class="slide level2">
+<h2><span class="pink">R Lab</span> Windmill Data (LRA Example 5.2)</h2>
+<ul>
+<li>DC output <span class="math inline">\(y\)</span> of a windmill vs.&nbsp;wind velocity <span class="math inline">\(x\)</span> (mph), <span class="math inline">\(n = 25\)</span>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>wind_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(dc_output <span class="sc">~</span> wind_velocity, <span class="at">data =</span> windmill)</span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(wind_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) wind_velocity 
+        0.131         0.241 </code></pre>
+</div>
+</div>
+
+<img data-src="./images/10-diag-linearity/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"><ul>
+<li><span class="math inline">\(R^2 = 0.87\)</span> looks good, but the residuals show clear <strong>curvature</strong>: the straight line is inadequate.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>LRA: <span class="math inline">\(\hat{y} = 0.1309 + 0.2411x\)</span>, <span class="math inline">\(R^2 = 0.8745\)</span>, <span class="math inline">\(MS_{Res} = 0.0557\)</span>.</li>
+<li>The data are in the course data file (<code>regression_datasets.rda</code>, object <code>windmill</code>).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-windmill-reciprocal-transformation" class="slide level2">
+<h2><span class="pink">R Lab</span> Windmill: Reciprocal Transformation</h2>
+<ul>
+<li>A quadratic would eventually bend <strong>down</strong>; physics says output approaches an <strong>upper limit</strong> as velocity grows.</li>
+<li>The bulge points up and left: try <span class="math inline">\(x' = 1/x\)</span>, i.e., <span class="math inline">\(y = \beta_0 + \beta_1(1/x) + \epsilon\)</span>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>wind_inv <span class="ot">&lt;-</span> <span class="fu">lm</span>(dc_output <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> wind_velocity), <span class="at">data =</span> windmill)</span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(wind_inv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       (Intercept) I(1/wind_velocity) 
+              2.98              -6.93 </code></pre>
+</div>
+</div>
+
+<img data-src="./images/10-diag-linearity/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"><aside class="notes">
+<ul>
+<li>LRA: <span class="math inline">\(\hat{y} = 2.9789 - 6.9345x'\)</span>, <span class="math inline">\(R^2 = 0.98\)</span>, <span class="math inline">\(MS_{Res} = 0.0089\)</span>; no strong pattern in the residuals.</li>
+<li>The implied curve <span class="math inline">\(\hat{y} = 2.98 - 6.93/x\)</span> has asymptote <span class="math inline">\(2.98\)</span>, consistent with the physics.</li>
+<li>We return to these models in Part II with PRESS and the near-neighbor lack-of-fit check.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -436,7 +700,7 @@ Non-constant Error Variance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -456,31 +720,59 @@ Non-constant Error Variance
           display:block!important;
       }</style></aside>
 </section>
-<section id="transformation-on-xs" class="slide level2">
-<h2>Transformation on <span class="math inline">\(x\)</span>s</h2>
-<ul>
-<li><code>gdp</code> to <code>log(gdp)</code></li>
-<li><code>health</code> to <code>health + health^2</code></li>
-</ul>
-
-<img data-src="./images/10-diag-linearity/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="r-lab-partial-residual-plots-1" class="slide level2">
-<h2><span class="pink">R Lab</span> Partial Residual Plots</h2>
+<section id="r-lab-back-to-cia-which-xs-to-transform" class="slide level2">
+<h2><span class="pink">R Lab</span> Back to CIA: Which <span class="math inline">\(x\)</span>s to Transform?</h2>
 <div class="midi">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>logciafit2 <span class="ot">&lt;-</span> <span class="fu">update</span>(logciafit, . <span class="sc">~</span> <span class="fu">log</span>(gdp) <span class="sc">+</span> <span class="fu">poly</span>(health, <span class="at">degree =</span> <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> gini)</span>
-<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">crPlots</span>(logciafit2, <span class="at">ylab =</span> <span class="st">"partial residual"</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">grid =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">""</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Component-plus-Residual Plot </span></span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">crPlots</span>(logciafit, <span class="at">ylab =</span> <span class="st">"partial residual"</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">grid =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">""</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <aside class="notes">
-<p>if true, use raw and not orthogonal polynomials. - If the partial relationship of <code>log(infant)</code> to health expenditure is quadratic, its partial residual plot should be linear.</p>
+<ul>
+<li>This is the payoff of the partial residual (CR) plots and the bulging rule from earlier today: each partial plot tells us <em>which</em> <span class="math inline">\(x\)</span> to transform and <em>how</em>.</li>
+<li><code>log(infant)</code> is already the response from lectures 08 and 09.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-partial-residual-plots-1" class="slide level2">
+<h2><span class="pink">R Lab</span> Partial Residual Plots</h2>
+<div class="midi">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>logciafit2 <span class="ot">&lt;-</span> <span class="fu">update</span>(logciafit, . <span class="sc">~</span> <span class="fu">log</span>(gdp) <span class="sc">+</span> <span class="fu">poly</span>(health, <span class="at">degree =</span> <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> gini)</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">crPlots</span>(logciafit2, <span class="at">ylab =</span> <span class="st">"partial residual"</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">grid =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">""</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Use <code>raw = TRUE</code> (not orthogonal polynomials) so that the coefficients refer to <code>health</code> and <code>health^2</code> directly.</li>
+<li>If the partial relationship of <code>log(infant)</code> to health expenditure is quadratic, its partial residual plot should be linear.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -496,7 +788,7 @@ Non-constant Error Variance
 <section id="r-lab-improving-model-performance" class="slide level2">
 <h2><span class="pink">R Lab</span> Improving Model Performance</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">brief</span>(logciafit, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">brief</span>(logciafit, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           (Intercept)     gdp health   gini
 Estimate          3.02 -0.0439 -0.055 0.0216
@@ -504,7 +796,7 @@ Std. Error        0.29  0.0037  0.022 0.0061
 
  Residual SD = 0.59 on 130 df, R-squared = 0.71 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">brief</span>(logciafit2, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">brief</span>(logciafit2, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           (Intercept) log(gdp) poly(health, degree = 2, raw = TRUE)1
 Estimate          4.65   -0.720                                -0.221
@@ -517,8 +809,483 @@ Std. Error                                0.0034 0.0044
 </div>
 </div>
 </section>
-<section id="deleted-residuals-and-prediction-diagnostics" class="slide level2">
-<h2>Deleted Residuals and Prediction Diagnostics</h2>
+<section id="r-lab-plotting-against-original-untransformed-x" class="slide level2">
+<h2><span class="pink">R Lab</span> Plotting against Original Untransformed <span class="math inline">\(x\)</span></h2>
+<ul>
+<li><code>logciafit2</code> uses <code>log(gdp)</code> and <code>health + health^2</code>, so a coefficient alone no longer describes the effect of <code>gdp</code> or <code>health</code>.</li>
+<li><strong>Effect plot</strong>: the fitted <span class="math inline">\(\log\)</span>(infant) as a function of <strong>one</strong> <span class="math inline">\(x\)</span> on its <em>original</em> scale, with the other <span class="math inline">\(x\)</span>s held at their averages. The curve shows the shape the transformation implies.</li>
+<li>Points are partial residuals; the magenta line smooths them. If it follows the fitted (blue) curve, the transformation has captured the nonlinearity.</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"gdp"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
+<span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb14-8"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>), </span>
+<span id="cb14-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per Capita"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"health"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>),</span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Health Expenditures"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<ul>
+<li><p>Simplest call: <code>plot(Effect("gdp", logciafit2, residuals = TRUE))</code>.</p></li>
+<li><p><code>gdp</code>: steep decline at low GDP that levels off, which is what <code>log(gdp)</code> implies; <code>health</code>: a curved (quadratic) effect.</p></li>
+<li><p><span class="math inline">\(\epsilon^{(1)}_i = f_1(x_{i1}) + e_i\)</span> either if the partial-regression function <span class="math inline">\(f_1(x_1)\)</span> is linear after all or if the other <span class="math inline">\(x\)</span>s are each linearly related to <span class="math inline">\(x_1\)</span>.</p></li>
+<li><p>In practice, it’s only strongly nonlinearly related <span class="math inline">\(x\)</span>s that seriously threaten the validity of component-plus-residuals plots.</p></li>
+<li><p>Correlation between x1 and x2 can induce spurious nonlinearity in the CR plot for x1.</p></li>
+<li><p>One could correct nonlinearity one <span class="math inline">\(x\)</span> at a time, but in practice it is rarely necessary to proceed sequentially.</p></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="transforming-xs-analytically-box-and-tidwell-1962" class="slide level2">
+<h2>Transforming <span class="math inline">\(x\)</span>s Analytically: Box and Tidwell (1962)</h2>
+<ul>
+<li><p>Box and Tidwell (1962) proposed a procedure for estimating <span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_k\)</span> in the model <span class="math display">\[y = \beta_0 + \beta_1x_1^{\lambda_1} + \cdots + \beta_kx_k^{\lambda_k}+ \epsilon\]</span></p></li>
+<li><p>All <span class="math inline">\(x_j\)</span>s are positive.</p></li>
+<li><p><span class="math inline">\(\beta_0, \beta_1, \dots,  \beta_k\)</span> are estimated <em>after and conditional on</em> the transformations.</p></li>
+<li><p><span class="math inline">\(x_j^{\lambda_j} = \log_e(x_j)\)</span> if <span class="math inline">\(\lambda_j = 0\)</span>.</p></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>If some of the xs (for instance, dummy regressors) aren’t candidates for transformation, then these xs can simply enter the model linearly.</li>
+<li>all positive xs</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-box-and-tidwell-1962" class="slide level2">
+<h2><span class="pink">R Lab</span> Box and Tidwell (1962)</h2>
+<p>Consider the model <span class="math display">\[\log(Infant) = \beta_0 + \beta_1 GDP^{\lambda_1} + \beta_2Gini^{\lambda_2} + \beta_3 Health + \beta_4 Health ^ 2 + \epsilon\]</span></p>
+<div class="cell" data-layout-align="center" data-output.lines="[1,2,3,4,5]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">boxTidwell</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> gini, </span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">other.x =</span> <span class="sc">~</span><span class="fu">poly</span>(health, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> CIA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>...
+     MLE of lambda Score Statistic (t) Pr(&gt;|t|)    
+gdp            0.2                10.6   &lt;2e-16 ***
+gini          -0.5                -0.4      0.7    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+...</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The point estimates are <span class="math inline">\(\hat{\lambda}_1 = 0.2\)</span> (<code>gdp</code>, close to <span class="math inline">\(\log\)</span>) and <span class="math inline">\(\hat{\lambda}_2 = -0.5\)</span> (<code>gini</code>)</p></li>
+<li><p>The score test is for <span class="math inline">\(H_0:\)</span> no transformation is needed <span class="math inline">\((\lambda_j = 1)\)</span>.</p>
+<ul>
+<li>Strong evidence to transform <span class="math inline">\(GDP\)</span></li>
+<li>Little evidence of the need to transform the Gini coefficient</li>
+</ul></li>
+</ul>
+</section>
+<section id="r-lab-box-and-tidwell-windmill-data" class="slide level2">
+<h2><span class="pink">R Lab</span> Box and Tidwell: Windmill Data</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">boxTidwell</span>(dc_output <span class="sc">~</span> wind_velocity, <span class="at">data =</span> windmill)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> MLE of lambda Score Statistic (t) Pr(&gt;|t|)    
+          -0.8                  -9    6e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+iterations =  3 </code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\hat{\lambda} \approx -0.8\)</span>, and <span class="math inline">\(\lambda = 1\)</span> (no transformation) is clearly rejected.</li>
+<li>The reciprocal (<span class="math inline">\(\lambda = -1\)</span>) chosen from the plot and the physics is a nearby, interpretable choice.</li>
+</ul>
+</section>
+<section id="summary-part-i-linearity" class="slide level2">
+<h2>Summary: Part I (Linearity)</h2>
+<ol type="1">
+<li>Scatterplots of <span class="math inline">\(y\)</span> vs.&nbsp;each <span class="math inline">\(x\)</span> show <strong>marginal</strong> relationships; use <strong>residual-based</strong> plots instead.</li>
+<li>Plot <span class="math inline">\(t_i\)</span> vs.&nbsp;<span class="math inline">\(\hat{y}_i\)</span> and vs.&nbsp;each <span class="math inline">\(x_j\)</span>; <code>car::residualPlots()</code> adds curvature tests.</li>
+<li>Partial residual (CR) plots show <em>which</em> <span class="math inline">\(x\)</span> is nonlinear and the <em>shape</em> of its partial relationship.</li>
+<li>Fix monotone curvature with power transformations (bulging rule, Box-Tidwell); non-monotone with polynomials.</li>
+<li>Intrinsically linear models can be linearized when the error becomes additive.</li>
+<li>Always refit and <strong>recheck</strong>.</li>
+</ol>
+</section></section>
+<section>
+<section id="part-ii-lack-of-fit" class="title-slide slide level1 center">
+<h1>Part II: Lack of Fit</h1>
+
+</section>
+<section id="what-is-lack-of-fit" class="slide level2">
+<h2>What Is Lack of Fit?</h2>
+<ul>
+<li>The model is <span class="math inline">\(y = {\bf x}'\boldsymbol\beta + \epsilon\)</span>. If the true mean <span class="math inline">\(E(y \mid {\bf x})\)</span> is <strong>not</strong> of this form, the model <strong>lacks fit</strong>.</li>
+<li>Each residual mixes two things: <span class="math display">\[y_i - \hat{y}_i = \underbrace{\big(y_i - E(y_i)\big)}_{\text{pure error}} + \underbrace{\big(E(y_i) - \hat{y}_i\big)}_{\text{systematic (lack of fit)}}\]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>So <span class="math inline">\(MS_{Res}\)</span> estimates <span class="math inline">\(\sigma^2\)</span> <strong>only if the model form is correct</strong>; otherwise it is inflated by the lack of fit.</li>
+<li>To test the model form, we need an estimate of <span class="math inline">\(\sigma^2\)</span> that does <strong>not</strong> depend on the model:
+<ul>
+<li><strong>Replicates</strong>: repeated <span class="math inline">\(y\)</span> at the same <span class="math inline">\(x\)</span> → exact <em>pure error</em> (formal <span class="math inline">\(F\)</span> test).</li>
+<li><strong>Near neighbors</strong>: points close in <span class="math inline">\(x\)</span>-space → approximate pure error.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Residual plots (Part I) are informal; today we make the check formal.</li>
+<li>LRA Sec 4.5.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="a-formal-test-for-lack-of-fit" class="slide level2">
+<h2>A Formal Test for Lack of Fit</h2>
+<ul>
+<li><strong>Assumes</strong> normality, independence, and constant variance; only the <strong>straight-line form</strong> is in doubt.</li>
+<li><strong>Requires</strong> replicate observations of <span class="math inline">\(y\)</span> for at least one level of <span class="math inline">\(x\)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Suppose there are <span class="math inline">\(m\)</span> distinct levels <span class="math inline">\(x_1, \dots, x_m\)</span>, with <span class="math inline">\(n_i\)</span> observations at <span class="math inline">\(x_i\)</span>:
+<ul>
+<li><span class="math inline">\(y_{ij}\)</span>: the <span class="math inline">\(j\)</span>th response at <span class="math inline">\(x_i\)</span>, <span class="math inline">\(\ j = 1, \dots, n_i\)</span>, <span class="math inline">\(\ i = 1, \dots, m\)</span></li>
+<li><span class="math inline">\(n = \sum_{i=1}^m n_i\)</span></li>
+<li><span class="math inline">\(\bar{y}_i\)</span>: the mean of the <span class="math inline">\(n_i\)</span> responses at <span class="math inline">\(x_i\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Partition each residual: <span class="math display">\[y_{ij} - \hat{y}_i = (y_{ij} - \bar{y}_i) + (\bar{y}_i - \hat{y}_i)\]</span></li>
+<li><span class="math inline">\(y_{ij} - \bar{y}_i\)</span> does not depend on the model; <span class="math inline">\(\bar{y}_i - \hat{y}_i\)</span> measures how far the line is from the local means.</li>
+</ul>
+</div>
+</section>
+<section id="partitioning-ss_res" class="slide level2">
+<h2>Partitioning <span class="math inline">\(SS_{Res}\)</span></h2>
+<p>Squaring and summing (the cross term vanishes because <span class="math inline">\(\sum_{j}(y_{ij} - \bar{y}_i) = 0\)</span> for each <span class="math inline">\(i\)</span>):</p>
+<p><span class="math display">\[\underbrace{\sum_{i=1}^m\sum_{j=1}^{n_i}(y_{ij} - \hat{y}_i)^2}_{SS_{Res},\ df = n-2} = \underbrace{\sum_{i=1}^m\sum_{j=1}^{n_i}(y_{ij} - \bar{y}_i)^2}_{SS_{PE},\ df = n-m} + \underbrace{\sum_{i=1}^m n_i(\bar{y}_i - \hat{y}_i)^2}_{SS_{LOF},\ df = m-2}\]</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(SS_{PE}\)</span> (<strong>pure error</strong>): a model-independent measure of error, <em>if</em> the variance is constant.</li>
+<li><span class="math inline">\(SS_{LOF}\)</span> (<strong>lack of fit</strong>): small when the true mean is linear, since then <span class="math inline">\(\hat{y}_i \approx \bar{y}_i\)</span>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Cross term: <span class="math inline">\(2\sum_i(\bar{y}_i - \hat{y}_i)\sum_j(y_{ij} - \bar{y}_i) = 0\)</span>.</li>
+<li>Degrees of freedom: <span class="math inline">\(SS_{PE}\)</span> pools <span class="math inline">\(\sum_i (n_i - 1) = n - m\)</span>; <span class="math inline">\(SS_{LOF}\)</span> has <span class="math inline">\(m\)</span> local means minus the <span class="math inline">\(2\)</span> line parameters.</li>
+<li>In MLR with <span class="math inline">\(p\)</span> parameters, <span class="math inline">\(SS_{LOF}\)</span> has <span class="math inline">\(m - p\)</span> df.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="the-lack-of-fit-f-test" class="slide level2">
+<h2>The Lack-of-Fit <span class="math inline">\(F\)</span> Test</h2>
+<p><span class="math display">\[F_0 = \frac{SS_{LOF}/(m-2)}{SS_{PE}/(n-m)} = \frac{MS_{LOF}}{MS_{PE}}\]</span></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: the straight-line model is adequate. Reject if <span class="math inline">\(F_0 &gt; F_{\alpha,\, m-2,\, n-m}\)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Why it works: <span class="math display">\[E(MS_{PE}) = \sigma^2, \qquad E(MS_{LOF}) = \sigma^2 + \frac{\sum_{i=1}^m n_i\big[E(y_i) - \beta_0 - \beta_1x_i\big]^2}{m-2}\]</span>
+<ul>
+<li>If the true mean is linear, both estimate <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(F_0 \approx 1\)</span>.</li>
+<li>Otherwise <span class="math inline">\(MS_{LOF}\)</span> is inflated and <span class="math inline">\(F_0\)</span> is large.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="alert">
+<ul>
+<li><strong>Lack of fit</strong>: abandon the model and try a different one (transformation, polynomial, extra regressors).</li>
+<li><strong>No lack of fit</strong>: <span class="math inline">\(MS_{LOF}\)</span> and <span class="math inline">\(MS_{PE}\)</span> are combined, i.e., <span class="math inline">\(MS_{Res}\)</span> is used to estimate <span class="math inline">\(\sigma^2\)</span>.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="r-lab-lack-of-fit-lra-example-4.8" class="slide level2">
+<h2><span class="pink">R Lab</span> Lack of Fit: LRA Example 4.8</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.7</span>, <span class="fl">5.0</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">10.84</span>, <span class="fl">9.30</span>, <span class="fl">16.35</span>, <span class="fl">22.88</span>, <span class="fl">24.35</span>, <span class="fl">24.56</span>, <span class="fl">25.86</span>, <span class="fl">29.16</span>, <span class="fl">24.59</span>, <span class="fl">22.25</span>,</span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>       <span class="fl">25.90</span>, <span class="fl">27.20</span>, <span class="fl">25.61</span>, <span class="fl">25.45</span>, <span class="fl">26.56</span>, <span class="fl">21.03</span>, <span class="fl">21.46</span>)</span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>lof_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<img data-src="./images/10-diag-linearity/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"><aside class="notes">
+<ul>
+<li><span class="math inline">\(n = 17\)</span> observations at <span class="math inline">\(m = 10\)</span> distinct levels; 5 levels are replicated.</li>
+<li>Gray segments (<span class="math inline">\(y_{ij} - \bar{y}_i\)</span>) are short; red segments (<span class="math inline">\(\bar{y}_i - \hat{y}_i\)</span>) are long, so the line lacks fit (rises, then falls).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-lack-of-fit-test-in-r" class="slide level2">
+<h2><span class="pink">R Lab</span> Lack-of-Fit Test in R</h2>
+<ul>
+<li>Pure error = residual SS of the <strong>cell-means</strong> model that fits a separate mean at each distinct <span class="math inline">\(x\)</span> (<code>factor(x)</code>).</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>pure_error_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">factor</span>(x))   <span class="co"># one mean per distinct x</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lof_lm, pure_error_lm)         <span class="co"># reduced = line, full = cell means</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: y ~ x
+Model 2: y ~ factor(x)
+  Res.Df   RSS Df Sum of Sq    F Pr(&gt;F)   
+1     15 250.1                            
+2      7  15.6  8       235 13.2 0.0014 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Row 2: <span class="math inline">\(SS_{LOF} = 234.57\)</span> on <span class="math inline">\(m - 2 = 8\)</span> df, <span class="math inline">\(SS_{PE} = 15.56\)</span> on <span class="math inline">\(n - m = 7\)</span> df.</li>
+<li><span class="math inline">\(F_0 = 13.19\)</span>, <span class="math inline">\(p = 0.0014\)</span>: strong evidence that the straight line is <strong>inadequate</strong>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>The straight line is nested in the cell-means model, so the extra-sum-of-squares <span class="math inline">\(F\)</span> test is exactly the lack-of-fit test.</li>
+<li>By hand: <code>SS_PE &lt;- sum((y - ave(y, x))^2)</code>; <code>SS_LOF &lt;- deviance(lof_lm) - SS_PE</code>.</li>
+<li>Multiple regression: replicates are points with identical <span class="math inline">\((x_1, \dots, x_k)\)</span>; use <code>lm(y ~ interaction(x1, x2, drop = TRUE))</code> as the cell-means model, with <span class="math inline">\(df_{LOF} = m - p\)</span>.</li>
+<li>LRA Table 4.2 reports <span class="math inline">\(SS_{LOF} = 237.34\)</span> and <span class="math inline">\(F_0 = 13.34\)</span> because its fitted line (<span class="math inline">\(13.301 + 2.108x\)</span>) is rounded; <span class="math inline">\(SS_{PE} = 15.5632\)</span> and the conclusion are the same.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-does-a-quadratic-fix-it" class="slide level2">
+<h2><span class="pink">R Lab</span> Does a Quadratic Fix It?</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>quad_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(quad_lm, pure_error_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: y ~ x + I(x^2)
+Model 2: y ~ factor(x)
+  Res.Df  RSS Df Sum of Sq    F Pr(&gt;F)
+1     14 47.2                         
+2      7 15.6  7      31.6 2.03   0.18</code></pre>
+</div>
+</div>
+
+<img data-src="./images/10-diag-linearity/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%"><ul>
+<li><span class="math inline">\(F_0 = 2.03\)</span> on <span class="math inline">\((7, 7)\)</span> df, <span class="math inline">\(p = 0.18\)</span>: no evidence of lack of fit for the quadratic.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><span class="math inline">\(SS_{PE}\)</span> is the same for every model; only <span class="math inline">\(SS_{LOF}\)</span> changes (234.6 → 31.6).</li>
+<li>The quadratic has <span class="math inline">\(p = 3\)</span> parameters, so <span class="math inline">\(SS_{LOF}\)</span> has <span class="math inline">\(m - 3 = 7\)</span> df. Polynomial regression is next week.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="no-replicates-estimating-error-from-near-neighbors" class="slide level2">
+<h2>No Replicates? Estimating Error from Near Neighbors</h2>
+<ul>
+<li>Points close together in <span class="math inline">\(x\)</span>-space behave almost like replicates. Measure closeness by <span class="math display">\[D_{ii'}^2 = \sum_{j=1}^k\left[\frac{b_j(x_{ij} - x_{i'j})}{\sqrt{MS_{Res}}}\right]^2\]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>For a near-neighbor pair, <span class="math inline">\(E_i = |e_i - e_{i'}|\)</span> is the range of a sample of size 2, and <span class="math inline">\(\hat{\sigma} = E/1.128 = 0.886E\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Procedure</strong> (Daniel and Wood, 1980; LRA Sec 4.5.2):
+<ol type="1">
+<li>Sort the data by <span class="math inline">\(\hat{y}\)</span>; compute <span class="math inline">\(D^2_{ii'}\)</span> for pairs that are <span class="math inline">\(1, 2, 3, 4\)</span> positions apart (<span class="math inline">\(4n - 10\)</span> pairs).</li>
+<li>Order the pairs by <span class="math inline">\(D^2_{ii'}\)</span>; let <span class="math inline">\(E_u\)</span> be the residual range of the <span class="math inline">\(u\)</span>th pair.</li>
+<li>Use the <span class="math inline">\(m\)</span> closest pairs: <span class="math inline">\(\displaystyle \hat{\sigma} = \frac{0.886}{m}\sum_{u=1}^m E_u\)</span>.</li>
+</ol></li>
+</ul>
+<div class="alert">
+<p>Compare <span class="math inline">\(\hat{\sigma}\)</span> with <span class="math inline">\(\sqrt{MS_{Res}}\)</span>: if <span class="math inline">\(\sqrt{MS_{Res}}\)</span> is much larger, the model may lack fit.</p>
+</div>
+<aside class="notes">
+<ul>
+<li><span class="math inline">\(D_{ii'}^2\)</span>: squared distance between the fitted values contributed by the regressors, in units of <span class="math inline">\(\sqrt{MS_{Res}}\)</span>.</li>
+<li><span class="math inline">\(1.128 = E(\text{range})/\sigma\)</span> for two independent normal observations, so <span class="math inline">\(0.886 = 1/1.128\)</span>.</li>
+<li><span class="math inline">\(m\)</span> is chosen after inspecting the <span class="math inline">\(D^2\)</span> values; do not use pairs whose distance is too large.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-near-neighbor-estimate-lra-example-4.10" class="slide level2">
+<h2><span class="pink">R Lab</span> Near-Neighbor Estimate (LRA Example 4.10)</h2>
+<div class="midi">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>near_neighbor_sigma <span class="ot">&lt;-</span> <span class="cf">function</span>(fit, m) {</span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)[, <span class="sc">-</span><span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="sc">-</span><span class="dv">1</span>]; e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit); n <span class="ot">&lt;-</span> <span class="fu">length</span>(e)</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>  ms_res <span class="ot">&lt;-</span> <span class="fu">deviance</span>(fit) <span class="sc">/</span> <span class="fu">df.residual</span>(fit)</span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>  o <span class="ot">&lt;-</span> <span class="fu">order</span>(<span class="fu">fitted</span>(fit))</span>
+<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a>  pairs <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="cf">function</span>(gap) {</span>
+<span id="cb25-7"><a aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> o[<span class="dv">1</span><span class="sc">:</span>(n <span class="sc">-</span> gap)]; j <span class="ot">&lt;-</span> o[(<span class="dv">1</span> <span class="sc">+</span> gap)<span class="sc">:</span>n]</span>
+<span id="cb25-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">D2 =</span> <span class="fu">rowSums</span>((<span class="fu">sweep</span>(X[i, , <span class="at">drop =</span> <span class="cn">FALSE</span>] <span class="sc">-</span> X[j, , <span class="at">drop =</span> <span class="cn">FALSE</span>], <span class="dv">2</span>, b, <span class="st">"*"</span>))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> ms_res,</span>
+<span id="cb25-9"><a aria-hidden="true" tabindex="-1"></a>               <span class="at">E =</span> <span class="fu">abs</span>(e[i] <span class="sc">-</span> e[j]))</span>
+<span id="cb25-10"><a aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb25-11"><a aria-hidden="true" tabindex="-1"></a>  pairs <span class="ot">&lt;-</span> pairs[<span class="fu">order</span>(pairs<span class="sc">$</span>D2), ]</span>
+<span id="cb25-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">sigma_nn =</span> <span class="fl">0.886</span> <span class="sc">*</span> <span class="fu">mean</span>(pairs<span class="sc">$</span>E[<span class="dv">1</span><span class="sc">:</span>m]), <span class="at">sqrt_MSRes =</span> <span class="fu">sqrt</span>(ms_res))</span>
+<span id="cb25-13"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-14"><a aria-hidden="true" tabindex="-1"></a>delivery <span class="ot">&lt;-</span> course_data<span class="sc">$</span>delivery</span>
+<span id="cb25-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">near_neighbor_sigma</span>(<span class="fu">lm</span>(time <span class="sc">~</span> cases <span class="sc">+</span> distance, <span class="at">data =</span> delivery), <span class="at">m =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  sigma_nn sqrt_MSRes 
+      1.97       3.26 </code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\hat{\sigma} = 1.97\)</span> vs.&nbsp;<span class="math inline">\(\sqrt{MS_{Res}} = 3.26\)</span>: a hint of lack of fit (or of the influence of point 9, lecture 07).</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>This reproduces LRA Example 4.10 (<span class="math inline">\(m = 15\)</span> of the <span class="math inline">\(4n - 10 = 90\)</span> pairs).</li>
+<li>Try <code>m = 10</code> or <code>m = 20</code>: the estimate is fairly stable (about 2.0 to 2.2).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-near-neighbors-windmill-models" class="slide level2">
+<h2><span class="pink">R Lab</span> Near Neighbors: Windmill Models</h2>
+<p>The windmill data have <strong>no</strong> replicates (25 distinct velocities), so the formal test is not available.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">straight_line =</span> <span class="fu">near_neighbor_sigma</span>(wind_lm, <span class="at">m =</span> <span class="dv">15</span>),</span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">reciprocal    =</span> <span class="fu">near_neighbor_sigma</span>(wind_inv, <span class="at">m =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              sigma_nn sqrt_MSRes
+straight_line   0.0799     0.2361
+reciprocal      0.0707     0.0942</code></pre>
+</div>
+</div>
+<ul>
+<li>Straight line: <span class="math inline">\(\sqrt{MS_{Res}}\)</span> is about 3 times the pure-error estimate → <strong>lack of fit</strong>.</li>
+<li>Reciprocal: the two estimates are close → no evidence of lack of fit.</li>
+</ul>
+</section>
+<section id="prediction-based-adequacy-checking-deleted-residuals" class="slide level2">
+<h2>Prediction-Based Adequacy Checking: Deleted Residuals</h2>
 <ul>
 <li><p>The ordinary residual is <span class="math display">\[e_i = y_i - \hat y_i,\]</span> where observation <span class="math inline">\(i\)</span> was used to fit the model.</p></li>
 <li><p>To assess prediction for observation <span class="math inline">\(i\)</span>, delete that observation, refit the model, and compute <span class="math display">\[e_{(i)} = y_i - \hat y_{(i)}.\]</span></p></li>
@@ -568,25 +1335,25 @@ SS_T=\sum_{i=1}^n (y_i-\bar y)^2
 <div class="columns">
 <div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>press <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)</span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(model)</span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  e_press <span class="ot">&lt;-</span> e <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> h)</span>
-<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_press<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">model.response</span>(<span class="fu">model.frame</span>(model))</span>
-<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>  SST <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a>  R2_pred <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> PRESS <span class="sc">/</span> SST</span>
-<span id="cb7-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">PRESS =</span> PRESS,</span>
-<span id="cb7-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">R2_pred =</span> R2_pred,</span>
-<span id="cb7-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">RMSE_LOOCV =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(e_press<span class="sc">^</span><span class="dv">2</span>)))</span>
-<span id="cb7-14"><a aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-15"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(</span>
-<span id="cb7-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Original =</span> <span class="fu">press</span>(logciafit),</span>
-<span id="cb7-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Corrected =</span> <span class="fu">press</span>(logciafit2)</span>
-<span id="cb7-19"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>press <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>  e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)</span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(model)</span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>  e_press <span class="ot">&lt;-</span> e <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> h)</span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_press<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">model.response</span>(<span class="fu">model.frame</span>(model))</span>
+<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a>  SST <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a>  R2_pred <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> PRESS <span class="sc">/</span> SST</span>
+<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">PRESS =</span> PRESS,</span>
+<span id="cb29-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">R2_pred =</span> R2_pred,</span>
+<span id="cb29-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">RMSE_LOOCV =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(e_press<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb29-14"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(</span>
+<span id="cb29-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Original =</span> <span class="fu">press</span>(logciafit),</span>
+<span id="cb29-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Corrected =</span> <span class="fu">press</span>(logciafit2)</span>
+<span id="cb29-19"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          PRESS R2_pred RMSE_LOOCV
 Original   50.8   0.677      0.616
@@ -598,7 +1365,7 @@ Corrected  26.4   0.832      0.443</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/10-diag-linearity/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -624,136 +1391,30 @@ Corrected  26.4   0.832      0.443</code></pre>
           display:block!important;
       }</style></aside>
 </section>
-<section id="r-lab-plotting-against-original-untransformed-x" class="slide level2">
-<h2><span class="pink">R Lab</span> Plotting against Original Untransformed <span class="math inline">\(x\)</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+<section id="r-lab-press-comparing-the-windmill-models" class="slide level2">
+<h2><span class="pink">R Lab</span> PRESS: Comparing the Windmill Models</h2>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"gdp"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
-<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
-<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>), </span>
-<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per Capita"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">Effect</span>(<span class="st">"health"</span>, logciafit2, <span class="at">residuals =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">lines =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"black"</span>), <span class="at">lty =</span> <span class="dv">2</span>), </span>
-<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="fu">list</span>(<span class="at">grid =</span> <span class="cn">TRUE</span>), <span class="at">confint =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">partial.residuals =</span> <span class="fu">list</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">smooth.col =</span> <span class="st">"magenta"</span>, </span>
-<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">lty =</span> <span class="dv">1</span>, </span>
-<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>                              <span class="at">span =</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>),</span>
-<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Health Expenditures"</span>, <span class="at">ylab =</span> <span class="st">"Partial Residual"</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./images/10-diag-linearity/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<aside class="notes">
-<ul>
-<li><p>plot(Effect(“gdp”, logciafit2, residuals = TRUE))</p></li>
-<li><p><span class="math inline">\(\epsilon^{(1)}_i = f_1(x_{i1}) + e_i\)</span> either if the partial-regression function <span class="math inline">\(f_1(x_1)\)</span> is linear after all or if the other <span class="math inline">\(x\)</span>s are each linearly related to <span class="math inline">\(x_1\)</span>.</p></li>
-<li><p>In practice, it’s only strongly nonlinearly related <span class="math inline">\(x\)</span>s that seriously threaten the validity of component-plus-residuals plots.</p></li>
-<li><p>Correlation between x1 and x2 can induce spurious nonlinearity in the CR plot for x1.</p></li>
-<li><p>trying to correct nonlinearity for one x at a time, but in my experience, it’s rarely necessary to proceed sequentially.</p></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="transforming-xs-analytically-box-and-tidwell-1962" class="slide level2">
-<h2>Transforming <span class="math inline">\(x\)</span>s Analytically: Box and Tidwell (1962)</h2>
-<ul>
-<li><p>Box and Tidwell (1962) proposed a procedure for estimating <span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_k\)</span> in the model <span class="math display">\[y = \beta_0 + \beta_1x_1^{\lambda_1} + \cdots + \beta_kx_k^{\lambda_k}+ \epsilon\]</span></p></li>
-<li><p>All <span class="math inline">\(x_j\)</span>s are positive.</p></li>
-<li><p><span class="math inline">\(\beta_0, \beta_1, \dots,  \beta_k\)</span> are estimated <em>after and conditional on</em> the transformations.</p></li>
-<li><p><span class="math inline">\(x_j^{\lambda_j} = \log_e(x_j)\)</span> if <span class="math inline">\(\lambda_j = 0\)</span>.</p></li>
-</ul>
-<aside class="notes">
-<ul>
-<li>If some of the xs (for instance, dummy regressors) aren’t candidates for transformation, then these xs can simply enter the model linearly.</li>
-<li>all positive xs</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="r-lab-box-and-tidwell-1962" class="slide level2">
-<h2><span class="pink">R Lab</span> Box and Tidwell (1962)</h2>
-<p>Consider the model <span class="math display">\[\log(Infant) = \beta_0 + \beta_1 GDP^{\lambda_1} + \beta_2Gini^{\lambda_2} + \beta_3 Health + \beta_4 Health ^ 2 + \epsilon\]</span></p>
-<div class="cell" data-layout-align="center" data-output.lines="[1,2,3,4,5]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">boxTidwell</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> gini, </span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">other.x =</span> <span class="sc">~</span><span class="fu">poly</span>(health, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> CIA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>wind_quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(dc_output <span class="sc">~</span> wind_velocity <span class="sc">+</span> <span class="fu">I</span>(wind_velocity<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> windmill)</span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">rbind</span>(<span class="at">straight_line =</span> <span class="fu">press</span>(wind_lm),</span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>            <span class="at">quadratic     =</span> <span class="fu">press</span>(wind_quad),</span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>            <span class="at">reciprocal    =</span> <span class="fu">press</span>(wind_inv)), <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>...
-     MLE of lambda Score Statistic (t) Pr(&gt;|t|)    
-gdp            0.2                10.6   &lt;2e-16 ***
-gini          -0.5                -0.4      0.7    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-...</code></pre>
+<pre><code>              PRESS R2_pred RMSE_LOOCV
+straight_line 1.575   0.846     0.2510
+quadratic     0.445   0.956     0.1334
+reciprocal    0.238   0.977     0.0977</code></pre>
 </div>
 </div>
 <ul>
-<li><p>The point estimate of <span class="math inline">\(\lambda\)</span> is <span class="math inline">\(\hat{\lambda}_1 = 0.2\)</span> and <span class="math inline">\(\hat{\lambda}_2 = -0.5\)</span></p></li>
-<li><p>The test is for <span class="math inline">\(H_0:\)</span> No transformation is needed <span class="math inline">\((\lambda = 1)\)</span>.</p>
-<ul>
-<li>Strong evidence to transform <span class="math inline">\(GDP\)</span></li>
-<li>Little evidence of the need to transform the Gini coefficient</li>
-</ul></li>
+<li>The reciprocal model predicts best (<span class="math inline">\(R^2_{\mathrm{pred}} \approx 0.98\)</span>), and it also agrees with the physics.</li>
+<li>Interpretation: we expect the model to explain about <span class="math inline">\(R^2_{\mathrm{pred}}\)</span> of the variability in predicting <strong>new</strong> observations.</li>
 </ul>
 </section>
 <section id="other-methods-for-dealing-with-nonlinearity" class="slide level2">
 <h2>Other Methods for Dealing with Nonlinearity</h2>
 <ul>
-<li>Lack-of-fit test (LRA Sec 4.5, CMR Sec. 3.6): Need repeated observations</li>
+<li>Transformations of <span class="math inline">\(y\)</span> and/or <span class="math inline">\(x\)</span>s, including intrinsically linear models (Part I).</li>
 </ul>
-<div class="fragment">
-<ul>
-<li>Transform a nonlinear function into a linear one (LRA Sec 5.3)</li>
-</ul>
-<div class="question">
-<p>Can the nonlinear model <span class="math inline">\(y = \beta_0e^{\beta_1x}\epsilon\)</span> be transformed into a linear one (<strong>intrinsically linear</strong>)?</p>
-</div>
-</div>
 <div class="fragment">
 <ul>
 <li>Polynomial Regression, Regression Splines or other nonparametric regression (MSSC 6250)</li>
@@ -763,9 +1424,19 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 <ul>
 <li>A (pure) nonlinear model may be needed if the model assumptions cannot be satisfied.</li>
 </ul>
-
-
 </div>
+</section>
+<section id="summary-part-ii-lack-of-fit" class="slide level2">
+<h2>Summary: Part II (Lack of Fit)</h2>
+<ol type="1">
+<li>Residuals = pure error + lack of fit; <span class="math inline">\(MS_{Res}\)</span> estimates <span class="math inline">\(\sigma^2\)</span> only if the model form is right.</li>
+<li><strong>Replicates</strong>: <span class="math inline">\(SS_{Res} = SS_{PE} + SS_{LOF}\)</span> and <span class="math inline">\(F_0 = MS_{LOF}/MS_{PE}\)</span>; in R, <code>anova(fit, lm(y ~ factor(x)))</code>.</li>
+<li><strong>No replicates</strong>: near-neighbor estimate <span class="math inline">\(\hat{\sigma} = 0.886\bar{E}\)</span> vs.&nbsp;<span class="math inline">\(\sqrt{MS_{Res}}\)</span>.</li>
+<li><strong>Prediction</strong>: PRESS and <span class="math inline">\(R^2_{\mathrm{pred}}\)</span> compare candidate models on leave-one-out prediction.</li>
+<li>If the model lacks fit: transform, add terms (polynomials, next week), or move to a more flexible model.</li>
+</ol>
+
+
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

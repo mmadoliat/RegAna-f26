@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Regression Diagnostics - Constant Variance r emo::ji('book') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Regression Diagnostics - Constant Variance 📖 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Regression Diagnostics - Constant Variance r emo::ji('book') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Regression Diagnostics - Constant Variance 📖 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -240,10 +240,11 @@ Non-linearity and Lack of Fit
 </h2>
 <aside class="notes">
 <ul>
-<li>This week we are going to learn some methods to correct model inadequacy.</li>
-<li>We can either transform our data, our use a more general method, called Generalized Least Squares or Weighted Least Squares.</li>
+<li>Bridge from last lecture: Box-Cox chose <span class="math inline">\(\lambda\)</span> for normality on the CIA data. Today the same data return, now asking whether the <em>spread</em> of the errors is constant.</li>
+<li>We can either transform our data, or use a more general method, called Generalized Least Squares or Weighted Least Squares.</li>
 <li><span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>: <strong>mean 0</strong>, <strong>constant variance</strong>, <strong>normally distributed</strong>, and <strong>uncorrelated</strong>.</li>
 <li><span class="math inline">\(E(\epsilon_i) =0\)</span> implies the function form of the model (<strong>linearity</strong>) is correct.</li>
+<li>Pacing (75 min): consequences &amp; detection ~12 | variance-stabilizing transformations (table + delta method) ~8 | electric utility lab ~10 | CIA lab + spread-level plot ~10 | WLS/GLS theory ~12 | choosing weights + food sales lab ~15 | other tools &amp; summary ~8.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -262,8 +263,8 @@ Non-linearity and Lack of Fit
 <p>Without constant variance,</p>
 <ul>
 <li><p>LSEs are still unbiased if linearity and independence of <span class="math inline">\(x\)</span>s and errors hold.</p></li>
-<li><p>Inference results are not convincing: <strong>distorted <span class="math inline">\(p\)</span>-values</strong> and <strong>incorrect coverage</strong> of confidence interval.</p></li>
-<li><p>The <span class="math inline">\(b_j\)</span>s will have <strong>larger</strong> standard errors (no minimum-variance).</p></li>
+<li><p>Inference results are not convincing: the usual <span class="math inline">\(s^2({\bf X'X})^{-1}\)</span> is no longer the right covariance matrix, giving <strong>distorted <span class="math inline">\(p\)</span>-values</strong> and <strong>incorrect coverage</strong> of confidence intervals.</p></li>
+<li><p>The <span class="math inline">\(b_j\)</span>s are no longer minimum-variance: they have <strong>larger</strong> standard errors than the weighted least squares estimates (later today).</p></li>
 </ul>
 <div class="question">
 <p>Is it harder or easier to reject <span class="math inline">\(H_0: \beta_j = 0\)</span> when the standard error of <span class="math inline">\(b_j\)</span> is larger?</p>
@@ -279,9 +280,9 @@ Non-linearity and Lack of Fit
 <li><p>It seems natural to plot <span class="math inline">\(e_i\)</span> against <span class="math inline">\(y\)</span></p>
 <ul>
 <li><span class="math inline">\(e_i\)</span> have <strong>unequal</strong> variances <span class="math inline">\((\mathrm{Var}(e_i) = \sigma^2(1-h_{ii}))\)</span> even when the errors <span class="math inline">\(\epsilon_i\)</span> have equal variances <span class="math inline">\(\mathrm{Var}(\epsilon_i) = \sigma^2\)</span>.</li>
-<li><span class="math inline">\(e_i = y_i - \hat{y}_i\)</span> are correlated with <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(e_i = y_i - \hat{y}_i\)</span> are correlated with <span class="math inline">\(y\)</span> (but uncorrelated with <span class="math inline">\(\hat{y}\)</span>, since <span class="math inline">\(\mathrm{Cov}(\hat{\bf y}, {\bf e}) = \sigma^2{\bf H}({\bf I}-{\bf H}) = {\bf 0}\)</span>).</li>
 </ul></li>
-<li><p>Use R-student residual plot <span class="math inline">\(t_i\)</span> vs.&nbsp;<span class="math inline">\(\hat{y}_i\)</span> because R-student residuals have constant variance and they are uncorrelated with <span class="math inline">\(\hat{y}_i\)</span>.</p></li>
+<li><p>Use R-student residual plot <span class="math inline">\(t_i\)</span> vs.&nbsp;<span class="math inline">\(\hat{y}_i\)</span> because R-student residuals have (approximately) constant variance and they are uncorrelated with <span class="math inline">\(\hat{y}_i\)</span>.</p></li>
 </ul>
 <aside class="notes">
 <p><span class="math inline">\(r_{ey} = \sqrt{1-R^2}\)</span> https://stats.stackexchange.com/questions/5235/what-is-the-expected-correlation-between-residual-and-the-dependent-variable</p>
@@ -325,8 +326,8 @@ Non-linearity and Lack of Fit
 <li>If the spread of the residuals <strong>increases</strong> with the level of the fitted values, we might be able to correct the problem by transforming <span class="math inline">\(y\)</span> <strong>down</strong> the ladder of power and roots.</li>
 </ul>
 </section>
-<section id="variance-stablizing-transformation" class="slide level2">
-<h2>Variance Stablizing Transformation</h2>
+<section id="variance-stabilizing-transformation" class="slide level2">
+<h2>Variance Stabilizing Transformation</h2>
 <ul>
 <li>Constant variance assumption is often violated when the response <span class="math inline">\(y\)</span> follows a distribution whose <em>variance is functionally related to mean</em>. <!-- - The assumption: ${\bf y} \sim N\left({\bf X\bsbeta}, \sigma^2{\bf I}\right)$. --></li>
 </ul>
@@ -374,6 +375,8 @@ Non-linearity and Lack of Fit
 </table>
 <aside class="notes">
 <ul>
+<li>Answer to the question: Poisson counts (<span class="math inline">\(\mathrm{Var}= \mu\)</span>), binomial proportions (<span class="math inline">\(\mathrm{Var}= \mu(1-\mu)/m\)</span>), gamma/exponential (<span class="math inline">\(\mathrm{Var}\propto \mu^2\)</span>).</li>
+<li>If not corrected, the regression coefficients will have larger standard errors (less precision).</li>
 <li>The strength of a transformation depends on the amount of curvature that it induces</li>
 <li>a mild transformation applied over a relatively narrow range of values (e.g., y max / y min &lt; 2, 3) has little effect. On the other hand, a strong transformation over a wide range of values will have a dramatic effect on the analysis.</li>
 </ul>
@@ -390,10 +393,122 @@ Non-linearity and Lack of Fit
       }</style></aside>
 </div>
 </section>
+<section id="where-does-the-table-come-from" class="slide level2">
+<h2>Where Does the Table Come From?</h2>
+<ul>
+<li>If <span class="math inline">\(E(y) = \mu\)</span> and <span class="math inline">\(\mathrm{Var}(y) = \sigma^2(\mu)\)</span>, a first-order Taylor expansion (delta method) gives <span class="math display">\[\mathrm{Var}\big(g(y)\big) \approx [g'(\mu)]^2\, \sigma^2(\mu).\]</span></li>
+<li>Choose <span class="math inline">\(g\)</span> with <span class="math inline">\(g'(\mu) \propto 1/\sigma(\mu)\)</span> to make the variance constant.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\sigma^2 \propto \mu \Rightarrow g' \propto \mu^{-1/2} \Rightarrow g(y) = \sqrt{y}\)</span></li>
+<li><span class="math inline">\(\sigma^2 \propto \mu^2 \Rightarrow g' \propto \mu^{-1} \Rightarrow g(y) = \ln y\)</span></li>
+<li>In general, <span class="math inline">\(\sigma \propto \mu^{\alpha} \Rightarrow g(y) = y^{1-\alpha}\)</span>, i.e., <span class="math inline">\(\lambda = 1 - \alpha\)</span> (<span class="math inline">\(\lambda = 0\)</span> means <span class="math inline">\(\ln y\)</span>).</li>
+</ul>
+<div class="alert">
+<p>Keep <span class="math inline">\(\lambda = 1 - \alpha\)</span> in mind: it is exactly the rule behind Tukey’s spread-level plot later today.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Check one more row: <span class="math inline">\(\sigma^2 \propto \mu^4 \Rightarrow \alpha = 2 \Rightarrow \lambda = -1\)</span> (reciprocal).</li>
+<li>Arcsine row: <span class="math inline">\(g'(\mu) \propto 1/\sqrt{\mu(1-\mu)}\)</span> integrates to <span class="math inline">\(\sin^{-1}\sqrt{\mu}\)</span> (up to a constant).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-electric-utility-data-lra-example-5.1" class="slide level2">
+<h2><span class="pink">R Lab</span> Electric Utility Data (LRA Example 5.1)</h2>
+<ul>
+<li>Peak-hour demand <span class="math inline">\(y\)</span> (kW) vs.&nbsp;total August energy usage <span class="math inline">\(x\)</span> (kWh) for 53 residential customers.</li>
+<li>The generation system must be large enough to meet the <em>peak</em> demand.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>course_data <span class="ot">&lt;-</span> <span class="fu">new.env</span>()   <span class="co"># keeps the course data separate from objects already loaded</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"./data/regression_datasets.rda"</span>, <span class="at">envir =</span> course_data)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>elec <span class="ot">&lt;-</span> course_data<span class="sc">$</span>electric_utility</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>elec_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(demand_kw <span class="sc">~</span> usage_kwh, <span class="at">data =</span> elec)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(elec_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)   usage_kwh 
+    -0.8313      0.0037 </code></pre>
+</div>
+</div>
+
+<img data-src="./images/09-diag-const-var/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"><aside class="notes">
+<ul>
+<li><span class="math inline">\(\hat{y} = -0.8313 + 0.00368x\)</span>, <span class="math inline">\(R^2 = 0.705\)</span>, matching LRA Table 5.3.</li>
+<li>Funnel shape: the spread of the residuals grows with <span class="math inline">\(\hat{y}\)</span>.</li>
+<li>Ask: demand behaves roughly like a count; which row of the table suggests itself? (<span class="math inline">\(\sigma^2 \propto E(y)\)</span>, so <span class="math inline">\(\sqrt{y}\)</span>.)</li>
+<li>Data: LRA Table 5.2, object <code>electric_utility</code> in the course data file <code>regression_datasets.rda</code>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-electric-utility-sqrty-and-box-cox-lra-examples-5.1-5.3" class="slide level2">
+<h2><span class="pink">R Lab</span> Electric Utility: <span class="math inline">\(\sqrt{y}\)</span> and Box-Cox (LRA Examples 5.1, 5.3)</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a>sqrt_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(demand_kw) <span class="sc">~</span> usage_kwh, <span class="at">data =</span> elec)</span>
+<span id="cb3-2"><a aria-label="2"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(sqrt_fit), <span class="fu">rstudent</span>(sqrt_fit), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">main =</span> <span class="st">"sqrt(demand) as y"</span>,</span>
+<span id="cb3-3"><a aria-label="3"></a>     <span class="at">xlab =</span> <span class="st">"Fitted Values"</span>, <span class="at">ylab =</span> <span class="st">"R-Student Residuals"</span>)</span>
+<span id="cb3-4"><a aria-label="4"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-5"><a aria-label="5"></a>MASS<span class="sc">::</span><span class="fu">boxcox</span>(elec_fit, <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="at">by =</span> <span class="fl">0.05</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="./images/09-diag-const-var/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"><ul>
+<li>After <span class="math inline">\(\sqrt{y}\)</span>, the funnel is gone.</li>
+<li>Box-Cox agrees: <span class="math inline">\(\hat{\lambda} \approx 0.55\)</span> with a 95% CI of about <span class="math inline">\((0.3, 0.8)\)</span>, which contains <span class="math inline">\(0.5\)</span> and excludes <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</li>
+</ul>
+<div class="fragment">
+<div class="alert">
+<p>LS properties now hold for <span class="math inline">\(\sqrt{y}\)</span>, not for <span class="math inline">\(y\)</span>: back-transforming <span class="math inline">\((\hat{y}')^2\)</span> estimates the <em>median</em> demand, not the mean.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Box-Cox (08) handles nonnormality <strong>and/or</strong> nonconstant variance; here it confirms the variance-stabilizing choice.</li>
+<li>LRA finds the same interval from the <span class="math inline">\(SS_{Res}(\lambda)\)</span> plot with the critical value <span class="math inline">\(SS^* = SS_{Res}(\hat\lambda)e^{\chi^2_{0.05,1}/n} = 104.23\)</span>.</li>
+<li><span class="math inline">\(R^2\)</span> drops from 0.705 to 0.648, but <span class="math inline">\(R^2\)</span> values on different response scales are not comparable.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="r-lab-nonconstant-variance-cia-example" class="slide level2">
 <h2><span class="pink">R Lab</span> Nonconstant Variance (CIA Example)</h2>
+<div class="midi">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">scatterplot</span>(<span class="fu">fitted</span>(ciafit), <span class="fu">rstudent</span>(ciafit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>CIA <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./data/CIA.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)   <span class="co"># or: load("regression_datasets.rda")</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>ciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(infant <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>logciafit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA)</span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplot</span>(<span class="fu">fitted</span>(ciafit), <span class="fu">rstudent</span>(ciafit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -401,7 +516,7 @@ Non-linearity and Lack of Fit
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/09-diag-const-var/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/09-diag-const-var/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -417,7 +532,7 @@ Non-linearity and Lack of Fit
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/09-diag-const-var/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/09-diag-const-var/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -430,23 +545,11 @@ Non-linearity and Lack of Fit
 </div></div>
 <aside class="notes">
 <ul>
-<li><p>The nonlinear pattern suggests there are serious problems of the linear model.</p></li>
-<li><p>The residuals increases with fitted values.</p></li>
-<li><p>Several nonsense negative fitted values.</p></li>
+<li>The nonlinear pattern suggests there are serious problems with the linear model.</li>
+<li>The residuals increase with fitted values.</li>
+<li>Several nonsense negative fitted values.</li>
+<li>A residual plot can reveal nonlinearity, but can’t determine where the problem lies and how to correct it.</li>
 </ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<aside class="notes">
-<p>residual plot can reveal nonlinearity, but can;t determine where the problem lies and how to correct it.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -463,17 +566,17 @@ Non-linearity and Lack of Fit
 <h2>Tukey’s Spread-Level Plot</h2>
 <ul>
 <li>Plot log of the absolute R-Student residuals vs.&nbsp;log of the (positive) fitted values.</li>
-<li>The fitted line slope <span class="math inline">\(b\)</span> suggests a variance-stablizing power transformation <span class="math inline">\(\lambda = 1 - b\)</span> for <span class="math inline">\(y\)</span>.</li>
+<li>The fitted line slope <span class="math inline">\(b\)</span> estimates <span class="math inline">\(\alpha\)</span> in <span class="math inline">\(\sigma \propto \mu^\alpha\)</span>, so it suggests a variance-stabilizing power transformation <span class="math inline">\(\lambda = 1 - b\)</span> for <span class="math inline">\(y\)</span>.</li>
 </ul>
 <div class="columns">
 <div class="midi">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">spreadLevelPlot</span>(ciafit, <span class="at">smooth =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">spreadLevelPlot</span>(ciafit, <span class="at">smooth =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/09-diag-const-var/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/09-diag-const-var/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -484,11 +587,11 @@ Suggested power transformation:  0.37 </code></pre>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">spreadLevelPlot</span>(logciafit, <span class="at">smooth =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">spreadLevelPlot</span>(logciafit, <span class="at">smooth =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/09-diag-const-var/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/09-diag-const-var/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -501,9 +604,14 @@ Suggested power transformation:  1.1 </code></pre>
 </div>
 <aside class="notes">
 <ul>
+<li><p><code>infant</code> as <span class="math inline">\(y\)</span>: suggested power is roughly <span class="math inline">\(0.4\)</span> (cases with negative fitted values are dropped).</p></li>
+<li><p><code>log(infant)</code> as <span class="math inline">\(y\)</span>: suggested power is close to <span class="math inline">\(1\)</span>, so no further transformation is needed.</p></li>
 <li><p>Plot log of the absolute R-Student residuals vs.&nbsp;log of the (positive) fitted values</p></li>
 <li><p>Fit by robust regression to generate fitted lines.</p></li>
-<li><p>The slope <span class="math inline">\(b\)</span> of the fitted line suggests a variance-stablizing power transformation <span class="math inline">\(\lambda = 1 - b\)</span> for <span class="math inline">\(y\)</span>.</p></li>
+<li><p>The slope <span class="math inline">\(b\)</span> of the fitted line suggests a variance-stabilizing power transformation <span class="math inline">\(\lambda = 1 - b\)</span> for <span class="math inline">\(y\)</span>.</p></li>
+<li><p>Why: if <span class="math inline">\(\sigma \propto \mu^\alpha\)</span>, then <span class="math inline">\(\log|t_i| \approx c + \alpha \log \hat{y}_i\)</span>; the delta-method slide gives <span class="math inline">\(\lambda = 1 - \alpha\)</span>.</p></li>
+<li><p>Different targets, different answers: Box-Cox for normality (08) suggested <span class="math inline">\(\lambda \approx -0.2\)</span>; the spread-level plot (constant variance) suggests about <span class="math inline">\(0.4\)</span>. The log is a reasonable compromise.</p></li>
+<li><p>With 14 negative fitted values dropped for the raw model, the suggested power should be read as rough guidance.</p></li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -520,10 +628,9 @@ Suggested power transformation:  1.1 </code></pre>
 <section id="weighted-least-squares-wls" class="slide level2">
 <h2>Weighted Least Squares (WLS)</h2>
 <ul>
-<li><p>Suppose that the other assumptions hold but that the error variances differ: <span class="math inline">\(\epsilon_i \stackrel{indep}{\sim} N(0, \sigma_i^2)\)</span></p></li>
-<li><p>The resulting model isn’t estimable because we have more parameters than data points.</p></li>
-<li><p>If we <strong>know</strong> the pattern of unequal error variances, so that <span class="math inline">\(\sigma_i^2 = \sigma^2/w_i\)</span>, for <strong>known</strong> values <span class="math inline">\(w_i\)</span>, we can compute the coefficient estimates that minimize the <strong>Weighted Residual Sum of Squares</strong>.</p></li>
-<li><p>In simple linear regression, <span class="math display">\[S(\beta_0, \beta_1) = \sum_{i=1}^nw_i\epsilon_i^2 = \sum_{i=1}^n w_i \left(y_i - \beta_0 - \beta_1x_i \right)^2\]</span></p></li>
+<li><p>Suppose that the other assumptions hold but <span class="math inline">\(\epsilon_i \stackrel{indep}{\sim} N(0, \sigma_i^2)\)</span>: with <span class="math inline">\(n\)</span> different variances, the model isn’t estimable.</p></li>
+<li><p>If <span class="math inline">\(\sigma_i^2 = \sigma^2/w_i\)</span> for <strong>known</strong> <span class="math inline">\(w_i\)</span>, minimize the <strong>Weighted Residual Sum of Squares</strong>. In simple linear regression, <span class="math display">\[S(\beta_0, \beta_1) = \sum_{i=1}^nw_i\epsilon_i^2 = \sum_{i=1}^n w_i \left(y_i - \beta_0 - \beta_1x_i \right)^2\]</span></p></li>
+<li><p>Setting <span class="math inline">\(\partial S/\partial\beta_0 = \partial S/\partial\beta_1 = 0\)</span> gives the normal equations <span class="math display">\[\begin{align} \beta_0\sum_{i=1}^n w_i+\beta_1\sum_{i=1}^n w_ix_i &amp;= \sum_{i=1}^n w_iy_i \\ \beta_0 \sum_{i=1}^n w_ix_i + \beta_1 \sum_{i=1}^n w_ix_i^2 &amp;= \sum_{i=1}^n w_ix_iy_i \end{align}\]</span></p></li>
 </ul>
 <div class="alert">
 <p>Observations with large variances will have smaller weights.</p>
@@ -543,7 +650,40 @@ Suggested power transformation:  1.1 </code></pre>
           display:block!important;
       }</style></aside>
 </section>
-
+<section id="weighted-least-squares-in-matrix-form" class="slide level2">
+<h2>Weighted Least Squares in Matrix Form</h2>
+<ul>
+<li>In MLR, with <span class="math inline">\({\bf W} = \mathrm{diag}(w_1, \dots, w_n)\)</span> and <span class="math inline">\(\mathrm{Var}(\boldsymbol\epsilon) = \sigma^2{\bf W}^{-1}\)</span>, minimize <span class="math display">\[S(\boldsymbol\beta) = \sum_{i=1}^n w_i\left(y_i - {\bf x}_i'\boldsymbol\beta\right)^2 = ({\bf y} - {\bf X}\boldsymbol\beta)'{\bf W}({\bf y} - {\bf X}\boldsymbol\beta)\]</span></li>
+<li>Normal equations <span class="math inline">\({\bf (X'WX)}\boldsymbol\beta = {\bf X'Wy}\)</span> (the SLR equations are the case <span class="math inline">\(k = 1\)</span>), so <span class="math display">\[{\bf b}_W = ({\bf X'WX})^{-1}{\bf X'Wy}\]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>WLS = OLS on rescaled data</strong>: <span class="math inline">\({\bf B} = {\bf W}^{1/2}{\bf X}\)</span>, <span class="math inline">\({\bf z} = {\bf W}^{1/2}{\bf y}\)</span> (row <span class="math inline">\(i\)</span> times <span class="math inline">\(\sqrt{w_i}\)</span>) gives <span class="math inline">\(\mathrm{Var}({\bf W}^{1/2}\boldsymbol\epsilon) = \sigma^2{\bf I}\)</span> and <span class="math inline">\({\bf b}_W = ({\bf B'B})^{-1}{\bf B'z}\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Generalized LS</strong>: for <span class="math inline">\(\mathrm{Var}(\boldsymbol\epsilon) = \sigma^2{\bf V}\)</span> (possibly correlated errors), <span class="math inline">\({\bf b}_{GLS} = ({\bf X'V^{-1}X})^{-1}{\bf X'V^{-1}y}\)</span>. WLS is the special case <span class="math inline">\({\bf V} = {\bf W}^{-1}\)</span>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>The rescaling view explains why, after a WLS fit, we check the <em>weighted</em> residuals <span class="math inline">\(\sqrt{w_i}e_i\)</span> against <span class="math inline">\(\sqrt{w_i}\hat{y}_i\)</span>: they behave like OLS residuals.</li>
+<li>GLS derivation (LRA 5.5.1): write <span class="math inline">\({\bf V} = {\bf KK}\)</span> with <span class="math inline">\({\bf K}\)</span> symmetric, transform <span class="math inline">\({\bf z} = {\bf K}^{-1}{\bf y}\)</span>, <span class="math inline">\({\bf B} = {\bf K}^{-1}{\bf X}\)</span>, and apply OLS.</li>
+<li>In R: <code>lm(y ~ x, weights = w)</code> for WLS; <code>nlme::gls()</code> for general <span class="math inline">\({\bf V}\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="methods-of-choosing-weights" class="slide level2">
 <h2>Methods of Choosing Weights</h2>
 <ul>
@@ -554,8 +694,12 @@ Suggested power transformation:  1.1 </code></pre>
 <li>When <span class="math inline">\(y_i\)</span> is an <em>average</em> of <span class="math inline">\(n_i\)</span> observations at <span class="math inline">\(x_i\)</span>, <span class="math inline">\(\mathrm{Var}(y_i) =\sigma^2 / n_{i}\)</span> and suggest <span class="math inline">\(w_i = n_i\)</span></li>
 </ul></li>
 <li><p>Chosen inversely proportional to variances of measurement error</p></li>
+<li><p>Guess at the weights and iteratively re-estimate them (feasible GLS)</p></li>
 </ul>
-<!-- - Guess at the weights and iteratively estimate them. -->
+<div class="fragment">
+<div class="alert">
+<p>If WLS should have been used but OLS is used instead, the OLS estimator is still unbiased, but it is no longer minimum-variance, and its usual standard errors are wrong.</p>
+</div>
 <aside class="notes">
 <p>.alert[ If we have no idea of <span class="math inline">\(\bf W\)</span>, consider <strong>feasible GLS</strong> estimator <span class="math inline">\(\hat{\bsbeta}_{FGLS} = {\bf(X'\hat{W}X)^{-1}X'\hat{W}y}\)</span>, where <span class="math inline">\(\bf \hat{W}\)</span> is an estimate of <span class="math inline">\(\bf W\)</span> from some method. ] - The weights, <span class="math inline">\(w_i\)</span>, or in general <span class="math inline">\(\bf V\)</span> must be <em>known.</em> - Prior knowledge or information - Residual analysis + <span class="math inline">\(\mathrm{Var}(\epsilon_i) \propto x_{i}\)</span>, suggest <span class="math inline">\(w_i = 1/x_{i}\)</span> + When <span class="math inline">\(y_i\)</span> is an <em>average</em> of <span class="math inline">\(n_i\)</span> observations at <span class="math inline">\(x_i\)</span>, <span class="math inline">\(\mathrm{Var}(y_i) =\sigma^2 / n_{i}\)</span> and suggest <span class="math inline">\(w_i = n_i\)</span> - Chosen inversely proportional to variances of measurement error - Guess at the weights and iteratively estimate them.</p>
 <style type="text/css">
@@ -569,6 +713,7 @@ Suggested power transformation:  1.1 </code></pre>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
 <section id="r-lab-example-5.5-food-sales-in-lra" class="slide level2">
 <h2><span class="pink">R Lab</span> Example 5.5 Food Sales in LRA</h2>
@@ -578,22 +723,22 @@ Suggested power transformation:  1.1 </code></pre>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-label="1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3150</span>, <span class="dv">3085</span>, <span class="dv">5225</span>, <span class="dv">5350</span>, <span class="dv">6090</span>, <span class="dv">8925</span>, <span class="dv">9015</span>, <span class="dv">8885</span>, <span class="dv">8950</span>, <span class="dv">9000</span>, <span class="dv">11345</span>,</span>
-<span id="cb6-2"><a aria-label="2"></a>       <span class="dv">12275</span>, <span class="dv">12400</span>, <span class="dv">12525</span>, <span class="dv">12310</span>, <span class="dv">13700</span>, <span class="dv">15000</span>, <span class="dv">15175</span>, <span class="dv">14995</span>, <span class="dv">15050</span>, <span class="dv">15200</span>,</span>
-<span id="cb6-3"><a aria-label="3"></a>       <span class="dv">15150</span>, <span class="dv">16800</span>, <span class="dv">16500</span>, <span class="dv">17830</span>, <span class="dv">19500</span>, <span class="dv">19200</span>, <span class="dv">19000</span>, <span class="dv">19350</span>)</span>
-<span id="cb6-4"><a aria-label="4"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">81464</span>, <span class="dv">72661</span>, <span class="dv">72344</span>, <span class="dv">90743</span>, <span class="dv">98588</span>, <span class="dv">96507</span>, <span class="dv">126574</span>, <span class="dv">114133</span>, <span class="dv">115814</span>, <span class="dv">123181</span>,</span>
-<span id="cb6-5"><a aria-label="5"></a>       <span class="dv">131434</span>, <span class="dv">140564</span>, <span class="dv">151352</span>, <span class="dv">146926</span>, <span class="dv">130963</span>, <span class="dv">144630</span>, <span class="dv">147041</span>, <span class="dv">179021</span>, <span class="dv">166200</span>, <span class="dv">180732</span>,</span>
-<span id="cb6-6"><a aria-label="6"></a>       <span class="dv">178187</span>, <span class="dv">185304</span>, <span class="dv">155931</span>, <span class="dv">172579</span>, <span class="dv">188851</span>, <span class="dv">192424</span>, <span class="dv">203112</span>, <span class="dv">192482</span>, <span class="dv">218715</span>, <span class="dv">214317</span>)</span>
-<span id="cb6-7"><a aria-label="7"></a>group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, </span>
-<span id="cb6-8"><a aria-label="8"></a>           <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
-<span id="cb6-9"><a aria-label="9"></a>ex5_5 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"expense"</span> <span class="ot">=</span> x, <span class="st">"sales"</span> <span class="ot">=</span> y, <span class="st">"group"</span> <span class="ot">=</span> group)</span>
-<span id="cb6-10"><a aria-label="10"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">mgp =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb6-11"><a aria-label="11"></a><span class="fu">plot</span>(ex5_5<span class="sc">$</span>expense, ex5_5<span class="sc">$</span>sales, <span class="at">xlab =</span> <span class="st">"Advertising expense"</span>, </span>
-<span id="cb6-12"><a aria-label="12"></a>     <span class="at">ylab =</span> <span class="st">"Food sales"</span>, <span class="at">col =</span> group, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3150</span>, <span class="dv">3085</span>, <span class="dv">5225</span>, <span class="dv">5350</span>, <span class="dv">6090</span>, <span class="dv">8925</span>, <span class="dv">9015</span>, <span class="dv">8885</span>, <span class="dv">8950</span>, <span class="dv">9000</span>, <span class="dv">11345</span>,</span>
+<span id="cb9-2"><a aria-label="2"></a>       <span class="dv">12275</span>, <span class="dv">12400</span>, <span class="dv">12525</span>, <span class="dv">12310</span>, <span class="dv">13700</span>, <span class="dv">15000</span>, <span class="dv">15175</span>, <span class="dv">14995</span>, <span class="dv">15050</span>, <span class="dv">15200</span>,</span>
+<span id="cb9-3"><a aria-label="3"></a>       <span class="dv">15150</span>, <span class="dv">16800</span>, <span class="dv">16500</span>, <span class="dv">17830</span>, <span class="dv">19500</span>, <span class="dv">19200</span>, <span class="dv">19000</span>, <span class="dv">19350</span>)</span>
+<span id="cb9-4"><a aria-label="4"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">81464</span>, <span class="dv">72661</span>, <span class="dv">72344</span>, <span class="dv">90743</span>, <span class="dv">98588</span>, <span class="dv">96507</span>, <span class="dv">126574</span>, <span class="dv">114133</span>, <span class="dv">115814</span>, <span class="dv">123181</span>,</span>
+<span id="cb9-5"><a aria-label="5"></a>       <span class="dv">131434</span>, <span class="dv">140564</span>, <span class="dv">151352</span>, <span class="dv">146926</span>, <span class="dv">130963</span>, <span class="dv">144630</span>, <span class="dv">147041</span>, <span class="dv">179021</span>, <span class="dv">166200</span>, <span class="dv">180732</span>,</span>
+<span id="cb9-6"><a aria-label="6"></a>       <span class="dv">178187</span>, <span class="dv">185304</span>, <span class="dv">155931</span>, <span class="dv">172579</span>, <span class="dv">188851</span>, <span class="dv">192424</span>, <span class="dv">203112</span>, <span class="dv">192482</span>, <span class="dv">218715</span>, <span class="dv">214317</span>)</span>
+<span id="cb9-7"><a aria-label="7"></a>group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, </span>
+<span id="cb9-8"><a aria-label="8"></a>           <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb9-9"><a aria-label="9"></a>ex5_5 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"expense"</span> <span class="ot">=</span> x, <span class="st">"sales"</span> <span class="ot">=</span> y, <span class="st">"group"</span> <span class="ot">=</span> group)</span>
+<span id="cb9-10"><a aria-label="10"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">mgp =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb9-11"><a aria-label="11"></a><span class="fu">plot</span>(ex5_5<span class="sc">$</span>expense, ex5_5<span class="sc">$</span>sales, <span class="at">xlab =</span> <span class="st">"Advertising expense"</span>, </span>
+<span id="cb9-12"><a aria-label="12"></a>     <span class="at">ylab =</span> <span class="st">"Food sales"</span>, <span class="at">col =</span> group, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 
 </div>
-<img data-src="./images/09-diag-const-var/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
+<img data-src="./images/09-diag-const-var/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
 <ul>
 <li>The average monthly income from food sales vs.&nbsp;annual advertising expenses for 30 restaurants.</li>
 <li>Management is interested in the relationship between these variables. <!-- - Management is interested in the relationship between these variables. --></li>
@@ -616,20 +761,20 @@ Suggested power transformation:  1.1 </code></pre>
 <li><span class="math inline">\(\hat{y} = 49443.384 + 8.048x\)</span></li>
 </ul>
 
-<img data-src="./images/09-diag-const-var/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<img data-src="./images/09-diag-const-var/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
 <section id="r-lab-determine-weights" class="slide level2">
 <h2><span class="pink">R Lab</span> Determine Weights</h2>
 <ul>
 <li>There are several sets of <span class="math inline">\(x\)</span> values that are <em>“near neighbors”</em>.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a>ex5_5<span class="sc">$</span>expense</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a>ex5_5<span class="sc">$</span>expense</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  3000  3150  3085  5225  5350  6090  8925  9015  8885  8950  9000 11345
 [13] 12275 12400 12525 12310 13700 15000 15175 14995 15050 15200 15150 16800
 [25] 16500 17830 19500 19200 19000 19350</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a>ex5_5<span class="sc">$</span>group</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a>ex5_5<span class="sc">$</span>group</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  1  1  2  2  3  4  4  4  4  4  5  5  5  5  5  6  7  7  7  7  7  7  8  8
 [26]  9 10 10 10 10</code></pre>
@@ -646,7 +791,7 @@ Suggested power transformation:  1.1 </code></pre>
 <li>The empirical variance of <span class="math inline">\(y\)</span>, <span class="math inline">\(s_y^2\)</span>, increases approximately linearly with <span class="math inline">\(\bar{x}\)</span>.</li>
 </ul>
 
-<img data-src="./images/09-diag-const-var/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<img data-src="./images/09-diag-const-var/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
 <section id="r-lab-determine-weights-2" class="slide level2">
 <h2><span class="pink">R Lab</span> Determine Weights</h2>
 <ul>
@@ -655,14 +800,14 @@ Suggested power transformation:  1.1 </code></pre>
 <li>The inverse of these <span class="math inline">\(\hat{s}^2_i\)</span> will be reasonable estimates of the weights <span class="math inline">\(w_i\)</span>.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-label="1"></a>s2_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(s2_y<span class="sc">~</span>x_bar)</span>
-<span id="cb11-2"><a aria-label="2"></a>(coef <span class="ot">&lt;-</span> s2_fit<span class="sc">$</span>coef)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a>s2_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(s2_y<span class="sc">~</span>x_bar)</span>
+<span id="cb14-2"><a aria-label="2"></a>(coef <span class="ot">&lt;-</span> s2_fit<span class="sc">$</span>coef)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)       x_bar 
    -9226002        7782 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-label="1"></a>s2_i <span class="ot">&lt;-</span> coef[<span class="dv">1</span>] <span class="sc">+</span> coef[<span class="dv">2</span>] <span class="sc">*</span> ex5_5<span class="sc">$</span>expense</span>
-<span id="cb13-2"><a aria-label="2"></a>(wt <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> s2_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a>s2_i <span class="ot">&lt;-</span> coef[<span class="dv">1</span>] <span class="sc">+</span> coef[<span class="dv">2</span>] <span class="sc">*</span> ex5_5<span class="sc">$</span>expense</span>
+<span id="cb16-2"><a aria-label="2"></a>(wt <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> s2_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 7.1e-08 6.5e-08 6.8e-08 3.2e-08 3.1e-08 2.6e-08 1.7e-08 1.6e-08 1.7e-08
 [10] 1.7e-08 1.6e-08 1.3e-08 1.2e-08 1.1e-08 1.1e-08 1.2e-08 1.0e-08 9.3e-09
@@ -674,8 +819,8 @@ Suggested power transformation:  1.1 </code></pre>
 <section id="r-lab-wls-fit" class="slide level2">
 <h2><span class="pink">R Lab</span> WLS fit</h2>
 <div class="cell" data-layout-align="center" data-output.lines="[5,6,7]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-label="1"></a>(wls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ex5_5<span class="sc">$</span>sales <span class="sc">~</span> ex5_5<span class="sc">$</span>expense, </span>
-<span id="cb15-2"><a aria-label="2"></a>               <span class="at">weights =</span> wt))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-label="1"></a>(wls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ex5_5<span class="sc">$</span>sales <span class="sc">~</span> ex5_5<span class="sc">$</span>expense, </span>
+<span id="cb18-2"><a aria-label="2"></a>               <span class="at">weights =</span> wt))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>...
 Coefficients:
@@ -685,12 +830,15 @@ Coefficients:
 </div>
 </div>
 <ul>
-<li><span class="math inline">\(\hat{y} = 51024.8 + 7.918x\)</span></li>
+<li><span class="math inline">\(\hat{y} = 5.1\times 10^{4} + 7.92x\)</span> (OLS: <span class="math inline">\(49443.4 + 8.048x\)</span>)</li>
 <li>We must examine the residuals to determine if using WLS has improved the fit.</li>
-<li>Plot the <strong>weighted</strong> residuals <span class="math inline">\(w_i^{1/2}(y_i - \hat{y}_i^W)\)</span>, where <span class="math inline">\(\hat{y}_i^W\)</span> comes form the WLS fit, against <span class="math inline">\(w_i^{1/2}\hat{y}_i^W\)</span></li>
+<li>Plot the <strong>weighted</strong> residuals <span class="math inline">\(w_i^{1/2}(y_i - \hat{y}_i^W)\)</span>, where <span class="math inline">\(\hat{y}_i^W\)</span> comes from the WLS fit, against <span class="math inline">\(w_i^{1/2}\hat{y}_i^W\)</span></li>
 </ul>
 <aside class="notes">
-<p>.alert[ The WLS residuals and the WLS fitted values when the model assumes <span class="math inline">\(\mathrm{Var}(\boldsymbol \epsilon) = \sigma^2 {\bf W}^{-1}\)</span> should behave as the OLS residuals and OLS fitted values when the model assumes <span class="math inline">\(\mathrm{Var}(\boldsymbol \epsilon) = \sigma^2 {\bf I}\)</span>.</p>
+<ul>
+<li>The weighted residuals and weighted fitted values under <span class="math inline">\(\mathrm{Var}(\boldsymbol\epsilon) = \sigma^2 {\bf W}^{-1}\)</span> should behave like OLS residuals and fitted values under <span class="math inline">\(\mathrm{Var}(\boldsymbol\epsilon) = \sigma^2 {\bf I}\)</span> (the rescaling slide).</li>
+<li>LRA reports <span class="math inline">\(\hat{y} = 50975.57 + 7.9222x\)</span>; the small difference comes from rounding the weights in Table 5.9.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -706,9 +854,66 @@ Coefficients:
 <section id="r-lab-wls-residual-plot" class="slide level2">
 <h2><span class="pink">R Lab</span> WLS Residual Plot</h2>
 <ul>
-<li>The residual plot has no significant fanning.</li>
+<li>Compared with the OLS fit (left), the weighted residual plot (right) has no significant fanning.</li>
 </ul>
 
+<img data-src="./images/09-diag-const-var/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<section id="other-tools-for-nonconstant-variance" class="slide level2">
+<h2>Other Tools for Nonconstant Variance</h2>
+<ul>
+<li>Formal score test (Breusch and Pagan, 1979) of <span class="math inline">\(H_0\)</span>: constant variance vs.&nbsp;variance changing with <span class="math inline">\(\hat{y}\)</span>:</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(ciafit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 5, Df = 1, p = 0.02</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(logciafit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 7.6, Df = 1, p = 0.006</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-label="1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(<span class="fu">lm</span>(<span class="fu">log</span>(infant) <span class="sc">~</span> gdp <span class="sc">+</span> health <span class="sc">+</span> gini, <span class="at">data =</span> CIA[<span class="sc">-</span><span class="dv">71</span>,]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 3.2, Df = 1, p = 0.07</code></pre>
+</div>
+</div>
+<ul>
+<li>Tests are sensitive to outliers and large samples: always pair them with the residual plot.</li>
+<li>Keep OLS but fix the standard errors: heteroscedasticity-consistent covariance <code>car::hccm()</code> (White, 1980), or the bootstrap <code>car::Boot()</code>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Raw <code>infant</code>: variance increases with <span class="math inline">\(\hat{y}\)</span> (<span class="math inline">\(p \approx 0.02\)</span>).</li>
+<li><code>log(infant)</code>: still significant (<span class="math inline">\(p \approx 0.006\)</span>), but the variance now <em>decreases</em> slightly with <span class="math inline">\(\hat{y}\)</span>, and the result is driven largely by Luxembourg (the outlier from 08); without it, <span class="math inline">\(p \approx 0.07\)</span>.</li>
+<li>Good discussion point: the plot looked fine, the test did not; look for the reason before transforming again.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="summary-nonconstant-variance" class="slide level2">
+<h2>Summary: Nonconstant Variance</h2>
+<ol type="1">
+<li><strong>Detect</strong>: R-student residuals vs.&nbsp;<span class="math inline">\(\hat{y}\)</span> (funnel), spread-level plot, <code>car::ncvTest()</code>.</li>
+<li><strong>Variance a function of the mean</strong>: variance-stabilizing transformation (table, <span class="math inline">\(\lambda = 1 - b\)</span> from the spread-level plot, or Box-Cox).</li>
+<li><strong>Variance pattern known or estimable</strong> (e.g., near-replicates): WLS with <span class="math inline">\(w_i \propto 1/\hat{\sigma}_i^2\)</span>.</li>
+<li><strong>Recheck</strong> the residuals (weighted residuals for WLS).</li>
+<li><strong>Alternative</strong>: keep OLS with robust standard errors or the bootstrap.</li>
+</ol>
 <!-- ## Other Methods for Dealing with Nonconstant Variance {visibility="hidden"} -->
 <!-- - Testing (Breusch and Pagan (1979)) -->
 <!-- ```{r, eval=FALSE} -->
@@ -725,7 +930,7 @@ Coefficients:
 <!-- ``` -->
 
 
-<img data-src="./images/09-diag-const-var/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section></section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
