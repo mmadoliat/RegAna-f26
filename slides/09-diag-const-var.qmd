@@ -1,5 +1,5 @@
 ---
-title: "Regression Diagnostics - Constant Variance `r emo::ji('book')`"
+title: "Regression Diagnostics - Constant Variance 📖"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 format: 
   revealjs:
@@ -130,10 +130,11 @@ logciafit <- lm(log(infant) ~ gdp + health + gini, data = CIA)
 <h2> Non-linearity and Lack of Fit </h2>
 
 ::: notes
-- This week we are going to learn some methods to correct model inadequacy.
-- We can either transform our data, our use a more general method, called Generalized Least Squares or Weighted Least Squares.
+- Bridge from last lecture: Box-Cox chose $\lambda$ for normality on the CIA data. Today the same data return, now asking whether the *spread* of the errors is constant.
+- We can either transform our data, or use a more general method, called Generalized Least Squares or Weighted Least Squares.
 - $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$: **mean 0**, **constant variance**, **normally distributed**, and **uncorrelated**.
 - $E(\epsilon_i) =0$ implies the function form of the model (**linearity**) is correct.
+- Pacing (75 min): consequences & detection ~12 | variance-stabilizing transformations (table + delta method) ~8 | electric utility lab ~10 | CIA lab + spread-level plot ~10 | WLS/GLS theory ~12 | choosing weights + food sales lab ~15 | other tools & summary ~8.
 :::
 
 ## Nonconstant Error Variance
@@ -142,9 +143,9 @@ Without constant variance,
 
 - LSEs are still unbiased if linearity and independence of $x$s and errors hold.
 
-- Inference results are not convincing: **distorted $p$-values** and **incorrect coverage** of confidence interval.
+- Inference results are not convincing: the usual $s^2({\bf X'X})^{-1}$ is no longer the right covariance matrix, giving **distorted $p$-values** and **incorrect coverage** of confidence intervals.
 
-- The $b_j$s will have **larger** standard errors (no minimum-variance).
+- The $b_j$s are no longer minimum-variance: they have **larger** standard errors than the weighted least squares estimates (later today).
 
 ::: question
 Is it harder or easier to reject $H_0: \beta_j = 0$ when the standard error of $b_j$ is larger?
@@ -158,9 +159,9 @@ Is it harder or easier to reject $H_0: \beta_j = 0$ when the standard error of $
 - It seems natural to plot $e_i$ against $y$
 
   + $e_i$ have **unequal** variances $(\var(e_i) = \sigma^2(1-h_{ii}))$ even when the errors $\epsilon_i$ have equal variances $\var(\epsilon_i) = \sigma^2$.
-  + $e_i = y_i - \hat{y}_i$ are correlated with $y$
+  + $e_i = y_i - \hat{y}_i$ are correlated with $y$ (but uncorrelated with $\hat{y}$, since $\cov(\hat{\bf y}, {\bf e}) = \sigma^2{\bf H}({\bf I}-{\bf H}) = {\bf 0}$).
   
-- Use R-student residual plot $t_i$ vs. $\hat{y}_i$ because R-student residuals have constant variance and they are uncorrelated with $\hat{y}_i$.
+- Use R-student residual plot $t_i$ vs. $\hat{y}_i$ because R-student residuals have (approximately) constant variance and they are uncorrelated with $\hat{y}_i$.
 
 
 ::: notes
@@ -267,7 +268,7 @@ abline(a = 0, b = 0, col = 2, lwd = 2)
 - If the spread of the residuals **increases** with the level of the fitted values, we might be able to correct the problem by transforming $y$ **down** the ladder of power and roots.
 
 
-## Variance Stablizing Transformation
+## Variance Stabilizing Transformation
 - Constant variance assumption is often violated when the response $y$ follows a distribution whose *variance is functionally related to mean*.
 <!-- - The assumption: ${\bf y} \sim N\left({\bf X\bsbeta}, \sigma^2{\bf I}\right)$. -->
 
@@ -287,26 +288,121 @@ $\sigma^2 \propto [E(y)]^3$          | $y' = y^{-1/2}$ (reciprocal square root)
 $\sigma^2 \propto [E(y)]^4$          | $y' = y^{-1}$ (reciprocal)
 
 ::: notes
+- Answer to the question: Poisson counts ($\var = \mu$), binomial proportions ($\var = \mu(1-\mu)/m$), gamma/exponential ($\var \propto \mu^2$).
+- If not corrected, the regression coefficients will have larger standard errors (less precision).
 - The strength of a transformation depends on the amount of curvature that it induces
 - a mild transformation applied over a relatively narrow range of values (e.g., y max / y min < 2, 3) has little effect. On the other hand, a strong transformation over a wide range of values will have a dramatic effect on the analysis.
 :::
 
 
 
-## [R Lab]{.pink} Nonconstant Variance (CIA Example)
+## Where Does the Table Come From?
+
+- If $E(y) = \mu$ and $\var(y) = \sigma^2(\mu)$, a first-order Taylor expansion (delta method) gives
+$$\var\big(g(y)\big) \approx [g'(\mu)]^2\, \sigma^2(\mu).$$
+- Choose $g$ with $g'(\mu) \propto 1/\sigma(\mu)$ to make the variance constant.
+
+. . .
+
+- $\sigma^2 \propto \mu \Rightarrow g' \propto \mu^{-1/2} \Rightarrow g(y) = \sqrt{y}$
+- $\sigma^2 \propto \mu^2 \Rightarrow g' \propto \mu^{-1} \Rightarrow g(y) = \ln y$
+- In general, $\sigma \propto \mu^{\alpha} \Rightarrow g(y) = y^{1-\alpha}$, i.e., $\lambda = 1 - \alpha$ ($\lambda = 0$ means $\ln y$).
+
+::: alert
+Keep $\lambda = 1 - \alpha$ in mind: it is exactly the rule behind Tukey's spread-level plot later today.
+:::
+
+::: notes
+- Check one more row: $\sigma^2 \propto \mu^4 \Rightarrow \alpha = 2 \Rightarrow \lambda = -1$ (reciprocal).
+- Arcsine row: $g'(\mu) \propto 1/\sqrt{\mu(1-\mu)}$ integrates to $\sin^{-1}\sqrt{\mu}$ (up to a constant).
+:::
+
+
+## [R Lab]{.pink} Electric Utility Data (LRA Example 5.1)
+
+- Peak-hour demand $y$ (kW) vs. total August energy usage $x$ (kWh) for 53 residential customers.
+- The generation system must be large enough to meet the *peak* demand.
 
 ```{r}
 #| echo: true
+#| code-line-numbers: false
+course_data <- new.env()   # keeps the course data separate from objects already loaded
+load("./data/regression_datasets.rda", envir = course_data)
+elec <- course_data$electric_utility
+elec_fit <- lm(demand_kw ~ usage_kwh, data = elec)
+coef(elec_fit)
+```
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 72%
+par(mfrow = c(1, 2), mar = c(3, 3.5, 2, 0.5), mgp = c(2, 0.8, 0), las = 1)
+plot(elec$usage_kwh, elec$demand_kw, pch = 16, xlab = "Usage (kWh)",
+     ylab = "Demand (kW)", main = "Data and LS fit")
+abline(elec_fit, col = 4, lwd = 2)
+plot(fitted(elec_fit), rstudent(elec_fit), pch = 16, xlab = "Fitted Values",
+     ylab = "R-Student Residuals", main = "demand as y")
+abline(h = 0, col = 2, lwd = 2)
+```
+
+::: notes
+- $\hat{y} = -0.8313 + 0.00368x$, $R^2 = 0.705$, matching LRA Table 5.3.
+- Funnel shape: the spread of the residuals grows with $\hat{y}$.
+- Ask: demand behaves roughly like a count; which row of the table suggests itself? ($\sigma^2 \propto E(y)$, so $\sqrt{y}$.)
+- Data: LRA Table 5.2, object `electric_utility` in the course data file `regression_datasets.rda`.
+:::
+
+
+## [R Lab]{.pink} Electric Utility: $\sqrt{y}$ and Box-Cox (LRA Examples 5.1, 5.3)
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 72%
+#| echo: !expr c(-1)
+par(mfrow = c(1, 2), mar = c(3, 3.5, 2, 0.5), mgp = c(2, 0.8, 0), las = 1)
+sqrt_fit <- lm(sqrt(demand_kw) ~ usage_kwh, data = elec)
+plot(fitted(sqrt_fit), rstudent(sqrt_fit), pch = 16, main = "sqrt(demand) as y",
+     xlab = "Fitted Values", ylab = "R-Student Residuals")
+abline(h = 0, col = 2, lwd = 2)
+MASS::boxcox(elec_fit, lambda = seq(-0.5, 1.5, by = 0.05))
+```
+
+- After $\sqrt{y}$, the funnel is gone.
+- Box-Cox agrees: $\hat{\lambda} \approx 0.55$ with a 95% CI of about $(0.3, 0.8)$, which contains $0.5$ and excludes $0$ and $1$.
+
+. . .
+
+::: alert
+LS properties now hold for $\sqrt{y}$, not for $y$: back-transforming $(\hat{y}')^2$ estimates the *median* demand, not the mean.
+:::
+
+::: notes
+- Box-Cox (08) handles nonnormality **and/or** nonconstant variance; here it confirms the variance-stabilizing choice.
+- LRA finds the same interval from the $SS_{Res}(\lambda)$ plot with the critical value $SS^* = SS_{Res}(\hat\lambda)e^{\chi^2_{0.05,1}/n} = 104.23$.
+- $R^2$ drops from 0.705 to 0.648, but $R^2$ values on different response scales are not comparable.
+:::
+
+
+## [R Lab]{.pink} Nonconstant Variance (CIA Example)
+
+::: midi
+```{r}
+#| echo: true
 #| eval: false
+#| code-line-numbers: false
+CIA <- read.table("./data/CIA.txt", header = TRUE)   # or: load("regression_datasets.rda")
+ciafit <- lm(infant ~ gdp + health + gini, data = CIA)
+logciafit <- lm(log(infant) ~ gdp + health + gini, data = CIA)
 car::scatterplot(fitted(ciafit), rstudent(ciafit))
 ```
+:::
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 ```{r}
 #| out-width: 100%
-
+#| fig-asp: 0.5
 par(mar = c(3, 3.5, 2, 0), mgp = c(2, 0.8, 0), las = 1)
 scatterplot(fitted(ciafit), rstudent(ciafit), 
             smooth = list(span = 2/3, lwd.smooth = 3, lwd.spread = 4), 
@@ -331,12 +427,13 @@ abline(a = 0, b = 0, col = 2, lwd = 2)
 ::: fragment
 ```{r}
 #| out-width: 100%
+#| fig-asp: 0.5
 # infant mortality log-transformed
 par(mar = c(3, 3.5, 2, 0), mgp = c(2, 0.8, 0), las = 1)
 scatterplot(fitted(logciafit), rstudent(logciafit), 
             smooth = list(span = 2/3, lwd.smooth = 3, lwd.spread = 3), 
             regLine = FALSE, boxplots = FALSE, main = "ln(infant) as y",
-            xlab = "Fitted Values", ylab = "Studentized Residuals",
+            xlab = "Fitted Values", ylab = "R-Student Residuals",
             cex.lab = 2, cex.main = 2)
 abline(a = 0, b = 0, col = 2, lwd = 2)
 ```
@@ -352,15 +449,10 @@ abline(a = 0, b = 0, col = 2, lwd = 2)
 
 
 ::: notes
-- The nonlinear pattern suggests there are serious problems of the linear model.
-
-- The residuals increases with fitted values.
-
+- The nonlinear pattern suggests there are serious problems with the linear model.
+- The residuals increase with fitted values.
 - Several nonsense negative fitted values.
-:::
-
-::: notes
-residual plot can reveal nonlinearity, but can;t determine where the problem lies and how to correct it.
+- A residual plot can reveal nonlinearity, but can't determine where the problem lies and how to correct it.
 :::
 
 
@@ -368,7 +460,7 @@ residual plot can reveal nonlinearity, but can;t determine where the problem lie
 ## Tukey's Spread-Level Plot
 
 - Plot log of the absolute R-Student residuals vs. log of the (positive) fitted values.
-- The fitted line slope $b$ suggests a variance-stablizing power transformation $\lambda = 1 - b$ for $y$.
+- The fitted line slope $b$ estimates $\alpha$ in $\sigma \propto \mu^\alpha$, so it suggests a variance-stabilizing power transformation $\lambda = 1 - b$ for $y$.
 
 
 :::: {.columns}
@@ -397,26 +489,29 @@ spreadLevelPlot(logciafit, smooth = FALSE)
 :::
 ::::
 
-
 ::: notes
+- `infant` as $y$: suggested power is roughly $0.4$ (cases with negative fitted values are dropped).
+- `log(infant)` as $y$: suggested power is close to $1$, so no further transformation is needed.
 - Plot log of the absolute R-Student residuals vs. log of the (positive) fitted values
 
 - Fit by robust regression to generate fitted lines.
 
-- The slope $b$ of the fitted line suggests a variance-stablizing power transformation $\lambda = 1 - b$ for $y$.
+- The slope $b$ of the fitted line suggests a variance-stabilizing power transformation $\lambda = 1 - b$ for $y$.
+- Why: if $\sigma \propto \mu^\alpha$, then $\log|t_i| \approx c + \alpha \log \hat{y}_i$; the delta-method slide gives $\lambda = 1 - \alpha$.
+- Different targets, different answers: Box-Cox for normality (08) suggested $\lambda \approx -0.2$; the spread-level plot (constant variance) suggests about $0.4$. The log is a reasonable compromise.
+- With 14 negative fitted values dropped for the raw model, the suggested power should be read as rough guidance.
 :::
 
 
 
 ## Weighted Least Squares (WLS)
-- Suppose that the other assumptions hold but that the error variances differ: $\epsilon_i \stackrel{indep}{\sim} N(0, \sigma_i^2)$
+- Suppose that the other assumptions hold but $\epsilon_i \stackrel{indep}{\sim} N(0, \sigma_i^2)$: with $n$ different variances, the model isn't estimable.
 
-- The resulting model isn't estimable because we have more parameters than data points.
-
-- If we **know** the pattern of unequal error variances, so that $\sigma_i^2 = \sigma^2/w_i$, for **known** values $w_i$, we can compute the coefficient estimates that minimize the **Weighted Residual Sum of Squares**.
-
-- In simple linear regression, 
+- If $\sigma_i^2 = \sigma^2/w_i$ for **known** $w_i$, minimize the **Weighted Residual Sum of Squares**. In simple linear regression,
 $$S(\beta_0, \beta_1) = \sum_{i=1}^nw_i\epsilon_i^2 = \sum_{i=1}^n w_i \left(y_i - \beta_0 - \beta_1x_i \right)^2$$
+
+- Setting $\partial S/\partial\beta_0 = \partial S/\partial\beta_1 = 0$ gives the normal equations
+$$\begin{align} \beta_0\sum_{i=1}^n w_i+\beta_1\sum_{i=1}^n w_ix_i &= \sum_{i=1}^n w_iy_i \\ \beta_0 \sum_{i=1}^n w_ix_i + \beta_1 \sum_{i=1}^n w_ix_i^2 &= \sum_{i=1}^n w_ix_iy_i \end{align}$$
 
 
 ::: alert
@@ -431,10 +526,26 @@ $$S(\beta_0, \beta_1, \dots, \beta_k) = \sum_{i=1}^nw_i\epsilon_i^2 = \sum_{i=1}
 :::
 
 
-## Weighted Least Squares (WLS)  {visibility="hidden"}
+## Weighted Least Squares in Matrix Form
 
-- The resulting least squares normal equations:
-$$\begin{align} \beta_0\sum_{i=1}^n w_i+\beta_1\sum_{i=1}^n w_ix_i &= \sum_{i=1}^n w_iy_i \\ \beta_0 \sum_{i=1}^n w_ix_i + \beta_1 \sum_{i=1}^n w_ix_i^2 &= \sum_{i=1}^n w_ix_iy_i \end{align}$$ which can be written as $${\bf (X'WX)\bbeta = X'Wy}$$
+- In MLR, with ${\bf W} = \mathrm{diag}(w_1, \dots, w_n)$ and $\var(\boldsymbol\epsilon) = \sigma^2{\bf W}^{-1}$, minimize
+$$S(\boldsymbol\beta) = \sum_{i=1}^n w_i\left(y_i - {\bf x}_i'\boldsymbol\beta\right)^2 = ({\bf y} - {\bf X}\boldsymbol\beta)'{\bf W}({\bf y} - {\bf X}\boldsymbol\beta)$$
+- Normal equations ${\bf (X'WX)}\boldsymbol\beta = {\bf X'Wy}$ (the SLR equations are the case $k = 1$), so
+$${\bf b}_W = ({\bf X'WX})^{-1}{\bf X'Wy}$$
+
+. . .
+
+- **WLS = OLS on rescaled data**: ${\bf B} = {\bf W}^{1/2}{\bf X}$, ${\bf z} = {\bf W}^{1/2}{\bf y}$ (row $i$ times $\sqrt{w_i}$) gives $\var({\bf W}^{1/2}\boldsymbol\epsilon) = \sigma^2{\bf I}$ and ${\bf b}_W = ({\bf B'B})^{-1}{\bf B'z}$.
+
+. . .
+
+- **Generalized LS**: for $\var(\boldsymbol\epsilon) = \sigma^2{\bf V}$ (possibly correlated errors), ${\bf b}_{GLS} = ({\bf X'V^{-1}X})^{-1}{\bf X'V^{-1}y}$. WLS is the special case ${\bf V} = {\bf W}^{-1}$.
+
+::: notes
+- The rescaling view explains why, after a WLS fit, we check the *weighted* residuals $\sqrt{w_i}e_i$ against $\sqrt{w_i}\hat{y}_i$: they behave like OLS residuals.
+- GLS derivation (LRA 5.5.1): write ${\bf V} = {\bf KK}$ with ${\bf K}$ symmetric, transform ${\bf z} = {\bf K}^{-1}{\bf y}$, ${\bf B} = {\bf K}^{-1}{\bf X}$, and apply OLS.
+- In R: `lm(y ~ x, weights = w)` for WLS; `nlme::gls()` for general ${\bf V}$.
+:::
 
 
 
@@ -448,7 +559,13 @@ $$\begin{align} \beta_0\sum_{i=1}^n w_i+\beta_1\sum_{i=1}^n w_ix_i &= \sum_{i=1}
   
 - Chosen inversely proportional to variances of measurement error
 
-<!-- - Guess at the weights and iteratively estimate them. -->
+- Guess at the weights and iteratively re-estimate them (feasible GLS)
+
+. . .
+
+::: alert
+If WLS should have been used but OLS is used instead, the OLS estimator is still unbiased, but it is no longer minimum-variance, and its usual standard errors are wrong.
+:::
 
 
 
@@ -566,19 +683,19 @@ s2_i <- coef[1] + coef[2] * ex5_5$expense
                weights = wt))
 ```
 
-- $\hat{y} = 51024.8 + 7.918x$
+- $\hat{y} = `r round(coef(wls_fit)[1], 1)` + `r round(coef(wls_fit)[2], 3)`x$ (OLS: $49443.4 + 8.048x$)
 - We must examine the residuals to determine if using WLS has improved the fit. 
-- Plot the **weighted** residuals $w_i^{1/2}(y_i - \hat{y}_i^W)$, where $\hat{y}_i^W$ comes form the WLS fit, against $w_i^{1/2}\hat{y}_i^W$
+- Plot the **weighted** residuals $w_i^{1/2}(y_i - \hat{y}_i^W)$, where $\hat{y}_i^W$ comes from the WLS fit, against $w_i^{1/2}\hat{y}_i^W$
 
 
 
 ::: notes
-.alert[
-The WLS residuals and the WLS fitted values when the model assumes $\var(\beps) = \sigma^2 {\bf W}^{-1}$ should behave as the OLS residuals and OLS fitted values when the model assumes $\var(\beps) = \sigma^2 {\bf I}$.
+- The weighted residuals and weighted fitted values under $\var(\boldsymbol\epsilon) = \sigma^2 {\bf W}^{-1}$ should behave like OLS residuals and fitted values under $\var(\boldsymbol\epsilon) = \sigma^2 {\bf I}$ (the rescaling slide).
+- LRA reports $\hat{y} = 50975.57 + 7.9222x$; the small difference comes from rounding the weights in Table 5.9.
 :::
 
 ## [R Lab]{.pink} WLS Residual Plot
-- The residual plot has no significant fanning.
+- Compared with the OLS fit (left), the weighted residual plot (right) has no significant fanning.
 
 ```{r}
 # library(MASS)
@@ -591,12 +708,45 @@ The WLS residuals and the WLS fitted values when the model assumes $\var(\beps) 
 #      sqrt(wls_fit$weights) * rstudent(wls_fit),
 #      ylab = "(weighted) residual", xlab = "(weighted) fitted y", pch = 16)
 
-par(mar = c(3, 3, 0, 0), mgp = c(2, 1, 0))
+par(mfrow = c(1, 2), mar = c(3, 3, 2, 0.5), mgp = c(2, 1, 0))
+plot(lm_fit$fitted.values, rstudent(lm_fit), cex = 2, cex.lab = 1.4, pch = 16,
+     ylab = "R-Student residual", xlab = "fitted y", main = "OLS")
+abline(h = 0, lty = 2, col = "red")
 plot(sqrt(wls_fit$weights) * wls_fit$fitted.values,
      sqrt(wls_fit$weights) * wls_fit$residuals, ylim = c(-3, 2), cex = 2, cex.lab = 1.4,
-     ylab = "(weighted) residual", xlab = "(weighted) fitted y", pch = 16)
+     ylab = "(weighted) residual", xlab = "(weighted) fitted y", pch = 16, main = "WLS")
 abline(h = 0, lty = 2, col = "red")
 ```
+
+## Other Tools for Nonconstant Variance
+
+- Formal score test (Breusch and Pagan, 1979) of $H_0$: constant variance vs. variance changing with $\hat{y}$:
+
+```{r}
+#| echo: true
+car::ncvTest(ciafit)
+car::ncvTest(logciafit)
+car::ncvTest(lm(log(infant) ~ gdp + health + gini, data = CIA[-71,]))
+```
+
+- Tests are sensitive to outliers and large samples: always pair them with the residual plot.
+- Keep OLS but fix the standard errors: heteroscedasticity-consistent covariance `car::hccm()` (White, 1980), or the bootstrap `car::Boot()`.
+
+::: notes
+- Raw `infant`: variance increases with $\hat{y}$ ($p \approx 0.02$).
+- `log(infant)`: still significant ($p \approx 0.006$), but the variance now *decreases* slightly with $\hat{y}$, and the result is driven largely by Luxembourg (the outlier from 08); without it, $p \approx 0.07$.
+- Good discussion point: the plot looked fine, the test did not; look for the reason before transforming again.
+:::
+
+
+## Summary: Nonconstant Variance
+
+1. **Detect**: R-student residuals vs. $\hat{y}$ (funnel), spread-level plot, `car::ncvTest()`.
+2. **Variance a function of the mean**: variance-stabilizing transformation (table, $\lambda = 1 - b$ from the spread-level plot, or Box-Cox).
+3. **Variance pattern known or estimable** (e.g., near-replicates): WLS with $w_i \propto 1/\hat{\sigma}_i^2$.
+4. **Recheck** the residuals (weighted residuals for WLS).
+5. **Alternative**: keep OLS with robust standard errors or the bootstrap.
+
 
 <!-- ## Other Methods for Dealing with Nonconstant Variance {visibility="hidden"} -->
 
