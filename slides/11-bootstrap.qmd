@@ -1,5 +1,5 @@
 ---
-title: "Simulation-based Inference `r emo::ji('computer')`"
+title: "Simulation-based Inference 💻"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 format: 
   revealjs:
@@ -125,9 +125,10 @@ ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
 <h2> Randomization test for Linear Regression* </h2>
 
 ::: notes
-- When CLT can no longer use applied, bootstraping is a way to quantify uncertainty. 
-- It doesn't mean that we cannot use bootstraping when CLT is applicable. OK. 
-- You can probably do bootstraping using your sample under any situation. 
+- When the CLT can no longer be applied, bootstrapping is a way to quantify uncertainty.
+- It doesn't mean that we cannot use bootstrapping when the CLT is applicable.
+- Bridge: in lecture 09 we listed the bootstrap as a way to get standard errors when the error variance is not constant; today we see how it works.
+- Pacing (75 min): why simulation & idea ~12 | rent example + infer lab ~15 | slope bootstrap pictures ~10 | regression labs (infer, car, boot) ~18 | case vs. residual bootstrap ~7 | randomization test ~10 | summary ~3.
 - In other words, the method can be widely used in many situations, and in fact it is very popular in statistics and machine learning.
 - Ok let's see what it is.
 :::
@@ -142,7 +143,7 @@ ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
 - Student's $t$-interval when $\sigma$ is unknown
 
 ::: question
-What are the assumptions in orderto use $z$ or $t$ intervals?
+What are the assumptions needed to use $z$ or $t$ intervals?
 :::
 
 . . .
@@ -475,6 +476,7 @@ manhattan |>
 ```{r}
 #| echo: true
 #| eval: true
+set.seed(4780)
 # save resulting bootstrap distribution
 boot_sample <- manhattan |> 
     # specify the variable of interest
@@ -491,7 +493,7 @@ boot_sample <- manhattan |>
 :::
 
 
-## [R Lab]{.pink} The bootstrap Sample
+## [R Lab]{.pink} The Bootstrap Sample
 
 ::: question
 `r emo::ji("bust_in_silhouette")` How many observations are there in `boot_sample`? What does each observation represent?
@@ -523,6 +525,7 @@ bt_dist
 
 ::: notes
 - And this is the bootstrap distribution of medians that is generated purely by our sample data, and it is generated without using normal assumptions or CLT.
+- The histogram is "lumpy": with $n = 20$, a bootstrap median can only take values among (averages of) the 20 observed rents.
 :::
 
 
@@ -554,6 +557,8 @@ bt_dist + geom_vline(xintercept = c(bt_ci$lower_ci, bt_ci$upper_ci),
 :::
 ::::
 
+
+- We are 95% confident that the **median** rent of 1-bedroom apartments listed by owner in Manhattan is between \$`r bt_ci$lower_ci` and \$`r bt_ci$upper_ci`.
 
 ::: notes
 A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.
@@ -598,8 +603,8 @@ p_df_obs <- ggplot(delivery_data, aes(x = cases, y = time)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
-    title = "Delivery Time vs. Number of Cases of Producted Stocked"
+    y = "Delivery Time (min)",
+    title = "Delivery Time vs. Number of Cases of Product Stocked"
   ) +
   scale_x_continuous(labels = label_number())
 
@@ -619,7 +624,7 @@ ggplot(df_boot_samples_5 |> filter(replicate == replicate_no),
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.8) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap sample {replicate_no}")
   ) +
   scale_x_continuous(labels = label_number())
@@ -649,7 +654,7 @@ ggplot(df_boot_samples_5 |> filter(replicate == replicate_no),
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.8) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap sample {replicate_no}")
   ) +
   scale_x_continuous(labels = label_number())
@@ -680,7 +685,7 @@ ggplot(df_boot_samples_5 |> filter(replicate == replicate_no),
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.8) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap sample {replicate_no}")
   ) +
   scale_x_continuous(labels = label_number())
@@ -711,7 +716,7 @@ ggplot(df_boot_samples_5 |> filter(replicate == replicate_no),
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.8) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap sample {replicate_no}")
   ) +
   scale_x_continuous(labels = label_number())
@@ -742,7 +747,7 @@ ggplot(df_boot_samples_5 |> filter(replicate == replicate_no),
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.8) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap sample {replicate_no}")
   ) +
   scale_x_continuous(labels = label_number())
@@ -773,7 +778,7 @@ ggplot(df_boot_samples_5, aes(x = cases, y = time, group = replicate)) +
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.5) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap samples 1 - 5")
   ) +
   scale_x_continuous(labels = label_number())
@@ -808,7 +813,7 @@ p_df_boot_samples_100 <- ggplot(df_boot_samples_100, aes(x = cases, y = time, gr
   geom_line(stat = "smooth", method = "lm", se = FALSE, alpha = 0.05) +
   labs(
     x = "Number of Cases",
-    y = "Delivert Time (min)",
+    y = "Delivery Time (min)",
     title = glue("Bootstrap samples 1 - 100")
   ) +
   scale_x_continuous(labels = label_number())
@@ -893,6 +898,38 @@ df_boot_samples_100_hist +
 - A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.
 
 
+## Two Ways to Bootstrap a Regression
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Case (pairs) resampling** (what we just did)
+
+1. Resample the pairs $(x_i, y_i)$ with replacement.
+2. Refit; keep ${\bf b}^*$.
+
+- Treats the $x$s as **random**.
+- Does **not** assume constant variance or a correct model: robust (lecture 09).
+:::
+
+::: {.column width="50%"}
+**Residual resampling**
+
+1. Fit the model; keep $\hat{y}_i$ and $e_i$.
+2. Resample the residuals: $y_i^* = \hat{y}_i + e_i^*$.
+3. Refit on $(x_i, y_i^*)$; keep ${\bf b}^*$.
+
+- Treats the $x$s as **fixed** (designed experiments).
+- Assumes the model form and constant variance are right.
+:::
+::::
+
+::: notes
+- `infer` does case resampling; `car::Boot(fit, method = "residual")` does residual resampling.
+- With a correct model and constant variance, both give similar answers; under heteroscedasticity, case resampling is the safer choice.
+:::
+
+
 ## [R Lab]{.pink} Fit Regression to Bootstrap Samples
 
 <!-- Take `100` bootstrap samples and fit models to each one: -->
@@ -955,10 +992,13 @@ boot_fits |> get_ci(point_estimate = observed_fit, type = "percentile")
 boot_fits |> get_ci(point_estimate = observed_fit, type = "se")
 ```
 
+. . .
 
+- Compare with the usual $t$ interval: `confint(lm(time ~ cases, data = delivery_data))`.
 
 ::: notes
-confint(lm(time~cases, data = delivery_data))
+- Only 100 bootstrap samples here, to keep the pictures readable; use $B \ge 1000$ in practice.
+- `confint(lm(time ~ cases, data = delivery_data))` gives the normal-theory interval for comparison.
 :::
 
 ## [R Lab]{.pink} `car::Boot()`
@@ -968,13 +1008,21 @@ confint(lm(time~cases, data = delivery_data))
 ```{r}
 #| echo: true
 lm_fit <- lm(time ~ cases, data = delivery_data)
-car_boot <- car::Boot(lm_fit, R = 100)
-car::brief(car_boot$t)
+set.seed(4780)
+car_boot <- car::Boot(lm_fit, R = 2000)                       # case resampling (default)
+car_boot_res <- car::Boot(lm_fit, R = 2000, method = "residual")
+rbind(case = apply(car_boot$t, 2, sd), residual = apply(car_boot_res$t, 2, sd),
+      lm = sqrt(diag(vcov(lm_fit))))                          # bootstrap vs. usual SEs
 ```
+
+::: notes
+- `car_boot$t` is a $R \times p$ matrix: one row of bootstrapped coefficients per bootstrap sample.
+- If the case-resampling SE is clearly larger than the `lm` SE, suspect nonconstant variance or outliers (point 9, lecture 07).
+:::
 
 ## [R Lab]{.pink} Histogram of Bootstrap Samples
 
-- BC$_a$ is the **accelerated bias-corrected percentile interval**.
+- BC$_a$ is the **bias-corrected and accelerated** percentile interval: it adjusts the percentile interval for bias and skewness of the bootstrap distribution.
 
 ```{r}
 #| echo: true
@@ -987,19 +1035,87 @@ hist(car_boot)
 
 ```{r}
 #| echo: true
-car::Confint(lm_fit, vcov. = vcov(car_boot))
+car::Confint(lm_fit, vcov. = vcov(car_boot))   # normal theory with bootstrap SEs
+car::Confint(car_boot, type = "perc")         # percentile interval
+car::Confint(car_boot)                        # BCa interval (default)
 ```
 
-
 ::: notes
-
-check boot::boot.ci
-
+- The three intervals use the same bootstrap samples; they differ in how the interval is built from them.
 :::
 
 
 ## [R Lab]{.pink} `boot::boot()`
 
-- <https://stats.oarc.ucla.edu/r/faq/how-can-i-generate-bootstrap-statistics-in-r/> 
+- `boot::boot()` bootstraps **any** statistic: write a function of the data and the resampled row indices.
+
+```{r}
+#| echo: true
+slope_fun <- function(data, idx) coef(lm(time ~ cases, data = data[idx, ]))[2]
+set.seed(4780)
+boot_slope <- boot::boot(delivery_data, statistic = slope_fun, R = 2000)
+boot::boot.ci(boot_slope, type = c("perc", "bca"))
+```
+
+- More examples: <https://stats.oarc.ucla.edu/r/faq/how-can-i-generate-bootstrap-statistics-in-r/>
+
+
+# Randomization Test for the Slope*
+
+## Testing $H_0: \beta_1 = 0$ by Simulation
+
+- If $H_0$ is true, $y$ is unrelated to $x$: **shuffling** the $y$ values among the $x$ values gives data that are just as likely.
+
+. . .
+
+::: instructions
+- **[1]** Permute (shuffle) $y$, keeping $x$ fixed.
+- **[2]** Fit the regression and record the slope $b_1^*$.
+- **[3]** Repeat many times: the **null distribution** of the slope.
+- **[4]** $p$-value = proportion of $|b_1^*| \ge |b_1|$.
+:::
+
+. . .
+
+- Bootstrap: resample **with replacement** to estimate variability (CI). Randomization: **shuffle without replacement** to mimic $H_0$ (test).
+
+::: notes
+- No normality assumption; requires exchangeability under $H_0$.
+:::
+
+
+## [R Lab]{.pink} Randomization Test with `infer`
+
+```{r}
+#| echo: true
+set.seed(4780)
+null_fits <- delivery_data |>
+  specify(time ~ cases) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  fit()
+null_fits |> get_p_value(obs_stat = observed_fit, direction = "two-sided")
+```
+
+```{r}
+#| echo: true
+#| out-width: 55%
+#| code-fold: true
+visualize(null_fits) + shade_p_value(obs_stat = observed_fit, direction = "two-sided")
+```
+
+::: notes
+- A reported $p$-value of 0 means that none of the 1000 shuffled slopes was as extreme as the observed one: $p < 1/1000$ (infer prints a warning about this).
+- The observed slope (red line) is far outside the null distribution, matching the $t$ test.
+:::
+
+
+## Summary
+
+- **Bootstrap**: resample the data *with replacement* to approximate the sampling distribution of any statistic.
+- **CIs**: percentile, SE ($\pm 2\,\widehat{SE}$), and BC$_a$.
+- **Regression**: case resampling (robust, random $x$) vs. residual resampling (fixed $x$, correct model).
+- **Tools**: `infer` (`specify` → `generate` → `calculate`/`fit` → `get_ci`), `car::Boot()`, `boot::boot()`.
+- **Randomization test**: *shuffle* $y$ to build the null distribution of the slope.
 
 - ISL Lab 5.3.4
