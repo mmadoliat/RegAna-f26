@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Simulation-based Inference r emo::ji('computer') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Simulation-based Inference 💻 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Simulation-based Inference r emo::ji('computer') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Simulation-based Inference 💻 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -243,9 +243,10 @@ Randomization test for Linear Regression*
 </h2>
 <aside class="notes">
 <ul>
-<li>When CLT can no longer use applied, bootstraping is a way to quantify uncertainty.</li>
-<li>It doesn’t mean that we cannot use bootstraping when CLT is applicable. OK.</li>
-<li>You can probably do bootstraping using your sample under any situation.</li>
+<li>When the CLT can no longer be applied, bootstrapping is a way to quantify uncertainty.</li>
+<li>It doesn’t mean that we cannot use bootstrapping when the CLT is applicable.</li>
+<li>Bridge: in lecture 09 we listed the bootstrap as a way to get standard errors when the error variance is not constant; today we see how it works.</li>
+<li>Pacing (75 min): why simulation &amp; idea ~12 | rent example + infer lab ~15 | slope bootstrap pictures ~10 | regression labs (infer, car, boot) ~18 | case vs.&nbsp;residual bootstrap ~7 | randomization test ~10 | summary ~3.</li>
 <li>In other words, the method can be widely used in many situations, and in fact it is very popular in statistics and machine learning.</li>
 <li>Ok let’s see what it is.</li>
 </ul>
@@ -272,7 +273,7 @@ Randomization test for Linear Regression*
 <li>Student’s <span class="math inline">\(t\)</span>-interval when <span class="math inline">\(\sigma\)</span> is unknown</li>
 </ul>
 <div class="question">
-<p>What are the assumptions in orderto use <span class="math inline">\(z\)</span> or <span class="math inline">\(t\)</span> intervals?</p>
+<p>What are the assumptions needed to use <span class="math inline">\(z\)</span> or <span class="math inline">\(t\)</span> intervals?</p>
 </div>
 </div>
 <div class="fragment">
@@ -684,14 +685,15 @@ $ rent &lt;dbl&gt; 3850, 3800, 2350, 3200, 2150, 3267, 2495, 2349, 3950, 1795, 2
 <li>save bootstrapping distribution for analysis.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># save resulting bootstrap distribution</span></span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">&lt;-</span> manhattan <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># specify the variable of interest</span></span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">specify</span>(<span class="at">response =</span> rent) <span class="sc">|&gt;</span>  </span>
-<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate 15000 bootstrap samples</span></span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate the median of each bootstrap sample</span></span>
-<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"median"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># save resulting bootstrap distribution</span></span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>boot_sample <span class="ot">&lt;-</span> manhattan <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># specify the variable of interest</span></span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">specify</span>(<span class="at">response =</span> rent) <span class="sc">|&gt;</span>  </span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate 15000 bootstrap samples</span></span>
+<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">15000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate the median of each bootstrap sample</span></span>
+<span id="cb8-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"median"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <aside class="notes">
 <ul>
@@ -711,7 +713,7 @@ $ rent &lt;dbl&gt; 3850, 3800, 2350, 3200, 2150, 3267, 2495, 2349, 3950, 1795, 2
       }</style></aside>
 </section>
 <section id="r-lab-the-bootstrap-sample" class="slide level2">
-<h2><span class="pink">R Lab</span> The bootstrap Sample</h2>
+<h2><span class="pink">R Lab</span> The Bootstrap Sample</h2>
 <div class="question">
 <p>👤 How many observations are there in <code>boot_sample</code>? What does each observation represent?</p>
 </div>
@@ -721,7 +723,7 @@ $ rent &lt;dbl&gt; 3850, 3800, 2350, 3200, 2150, 3267, 2495, 2349, 3950, 1795, 2
 <pre><code>Rows: 15,000
 Columns: 2
 $ replicate &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
-$ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 2162, …</code></pre>
+$ stat      &lt;dbl&gt; 2238, 2350, 2262, 2350, 2422, 2522, 2350, 2350, 2350, 2422, …</code></pre>
 </div>
 </div>
 <ul>
@@ -756,6 +758,7 @@ $ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 21
 <img data-src="./images/11-bootstrap/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><aside class="notes">
 <ul>
 <li>And this is the bootstrap distribution of medians that is generated purely by our sample data, and it is generated without using normal assumptions or CLT.</li>
+<li>The histogram is “lumpy”: with <span class="math inline">\(n = 20\)</span>, a bootstrap median can only take values among (averages of) the 20 observed rents.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -801,6 +804,9 @@ $ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 21
 </div>
 </div>
 </div></div>
+<ul>
+<li>We are 95% confident that the <strong>median</strong> rent of 1-bedroom apartments listed by owner in Manhattan is between $2162.5 and $2875.</li>
+</ul>
 <aside class="notes">
 <p>A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.</p>
 <style type="text/css">
@@ -1060,6 +1066,48 @@ $ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 21
 <li>A 95% confidence interval is bounded by the middle 95% of the bootstrap distribution.</li>
 </ul>
 </section>
+<section id="two-ways-to-bootstrap-a-regression" class="slide level2">
+<h2>Two Ways to Bootstrap a Regression</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Case (pairs) resampling</strong> (what we just did)</p>
+<ol type="1">
+<li>Resample the pairs <span class="math inline">\((x_i, y_i)\)</span> with replacement.</li>
+<li>Refit; keep <span class="math inline">\({\bf b}^*\)</span>.</li>
+</ol>
+<ul>
+<li>Treats the <span class="math inline">\(x\)</span>s as <strong>random</strong>.</li>
+<li>Does <strong>not</strong> assume constant variance or a correct model: robust (lecture 09).</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Residual resampling</strong></p>
+<ol type="1">
+<li>Fit the model; keep <span class="math inline">\(\hat{y}_i\)</span> and <span class="math inline">\(e_i\)</span>.</li>
+<li>Resample the residuals: <span class="math inline">\(y_i^* = \hat{y}_i + e_i^*\)</span>.</li>
+<li>Refit on <span class="math inline">\((x_i, y_i^*)\)</span>; keep <span class="math inline">\({\bf b}^*\)</span>.</li>
+</ol>
+<ul>
+<li>Treats the <span class="math inline">\(x\)</span>s as <strong>fixed</strong> (designed experiments).</li>
+<li>Assumes the model form and constant variance are right.</li>
+</ul>
+</div></div>
+<aside class="notes">
+<ul>
+<li><code>infer</code> does case resampling; <code>car::Boot(fit, method = "residual")</code> does residual resampling.</li>
+<li>With a correct model and constant variance, both give similar answers; under heteroscedasticity, case resampling is the safer choice.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="r-lab-fit-regression-to-bootstrap-samples" class="slide level2">
 <h2><span class="pink">R Lab</span> Fit Regression to Bootstrap Samples</h2>
 <!-- Take `100` bootstrap samples and fit models to each one: -->
@@ -1123,8 +1171,16 @@ $ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 21
 2 intercept   -0.341     6.98</code></pre>
 </div>
 </div>
+</div>
+<div class="fragment">
+<ul>
+<li>Compare with the usual <span class="math inline">\(t\)</span> interval: <code>confint(lm(time ~ cases, data = delivery_data))</code>.</li>
+</ul>
 <aside class="notes">
-<p>confint(lm(time~cases, data = delivery_data))</p>
+<ul>
+<li>Only 100 bootstrap samples here, to keep the pictures readable; use <span class="math inline">\(B \ge 1000\)</span> in practice.</li>
+<li><code>confint(lm(time ~ cases, data = delivery_data))</code> gives the normal-theory interval for comparison.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1145,24 +1201,39 @@ $ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 21
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> cases, <span class="at">data =</span> delivery_data)</span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>car_boot <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">Boot</span>(lm_fit, <span class="at">R =</span> <span class="dv">100</span>)</span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">brief</span>(car_boot<span class="sc">$</span>t)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>car_boot <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">Boot</span>(lm_fit, <span class="at">R =</span> <span class="dv">2000</span>)                       <span class="co"># case resampling (default)</span></span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>car_boot_res <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">Boot</span>(lm_fit, <span class="at">R =</span> <span class="dv">2000</span>, <span class="at">method =</span> <span class="st">"residual"</span>)</span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">case =</span> <span class="fu">apply</span>(car_boot<span class="sc">$</span>t, <span class="dv">2</span>, sd), <span class="at">residual =</span> <span class="fu">apply</span>(car_boot_res<span class="sc">$</span>t, <span class="dv">2</span>, sd),</span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">lm =</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(lm_fit))))                          <span class="co"># bootstrap vs. usual SEs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>100 x 2 matrix (95 rows omitted)
-       (Intercept) cases
-  [1,]       1.159  2.40
-  [2,]       3.537  2.11
-  [3,]       0.961  2.35
-. . .                        
- [99,]       2.757  2.24
-[100,]       2.415  2.35</code></pre>
+<pre><code>         (Intercept) cases
+case            1.80 0.258
+residual        1.53 0.138
+lm              1.37 0.124</code></pre>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li><code>car_boot$t</code> is a <span class="math inline">\(R \times p\)</span> matrix: one row of bootstrapped coefficients per bootstrap sample.</li>
+<li>If the case-resampling SE is clearly larger than the <code>lm</code> SE, suspect nonconstant variance or outliers (point 9, lecture 07).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="r-lab-histogram-of-bootstrap-samples" class="slide level2">
 <h2><span class="pink">R Lab</span> Histogram of Bootstrap Samples</h2>
 <ul>
-<li>BC<span class="math inline">\(_a\)</span> is the <strong>accelerated bias-corrected percentile interval</strong>.</li>
+<li>BC<span class="math inline">\(_a\)</span> is the <strong>bias-corrected and accelerated</strong> percentile interval: it adjusts the percentile interval for bias and skewness of the bootstrap distribution.</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(car_boot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1172,18 +1243,36 @@ $ stat      &lt;dbl&gt; 2350, 2350, 2350, 2350, 2350, 2238, 2350, 2262, 2350, 21
 <section id="r-lab-carconfint" class="slide level2">
 <h2><span class="pink">R Lab</span> <code>car::Confint()</code></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Confint</span>(lm_fit, <span class="at">vcov. =</span> <span class="fu">vcov</span>(car_boot))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Confint</span>(lm_fit, <span class="at">vcov. =</span> <span class="fu">vcov</span>(car_boot))   <span class="co"># normal theory with bootstrap SEs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Standard errors computed by vcov(car_boot) </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Estimate  2.5 % 97.5 %
-(Intercept)     3.32 -0.611   7.25
-cases           2.18  1.613   2.74</code></pre>
+(Intercept)     3.32 -0.393   7.03
+cases           2.18  1.643   2.71</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Confint</span>(car_boot, <span class="at">type =</span> <span class="st">"perc"</span>)         <span class="co"># percentile interval</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bootstrap percent confidence intervals
+
+            Estimate 2.5 % 97.5 %
+(Intercept)     3.32 0.651   7.09
+cases           2.18 1.654   2.52</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Confint</span>(car_boot)                        <span class="co"># BCa interval (default)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bootstrap bca confidence intervals
+
+            Estimate  2.5 % 97.5 %
+(Intercept)     3.32 -0.245   6.40
+cases           2.18  1.739   2.57</code></pre>
 </div>
 </div>
 <aside class="notes">
-<p>check boot::boot.ci</p>
+<ul>
+<li>The three intervals use the same bootstrap samples; they differ in how the interval is built from them.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1199,7 +1288,122 @@ cases           2.18  1.613   2.74</code></pre>
 <section id="r-lab-bootboot" class="slide level2">
 <h2><span class="pink">R Lab</span> <code>boot::boot()</code></h2>
 <ul>
-<li><p><a href="https://stats.oarc.ucla.edu/r/faq/how-can-i-generate-bootstrap-statistics-in-r/" class="uri">https://stats.oarc.ucla.edu/r/faq/how-can-i-generate-bootstrap-statistics-in-r/</a></p></li>
+<li><code>boot::boot()</code> bootstraps <strong>any</strong> statistic: write a function of the data and the resampled row indices.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>slope_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(data, idx) <span class="fu">coef</span>(<span class="fu">lm</span>(time <span class="sc">~</span> cases, <span class="at">data =</span> data[idx, ]))[<span class="dv">2</span>]</span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>boot_slope <span class="ot">&lt;-</span> boot<span class="sc">::</span><span class="fu">boot</span>(delivery_data, <span class="at">statistic =</span> slope_fun, <span class="at">R =</span> <span class="dv">2000</span>)</span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>boot<span class="sc">::</span><span class="fu">boot.ci</span>(boot_slope, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"perc"</span>, <span class="st">"bca"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 2000 bootstrap replicates
+
+CALL : 
+boot::boot.ci(boot.out = boot_slope, type = c("perc", "bca"))
+
+Intervals : 
+Level     Percentile            BCa          
+95%   ( 1.65,  2.52 )   ( 1.74,  2.57 )  
+Calculations and Intervals on Original Scale
+Some BCa intervals may be unstable</code></pre>
+</div>
+</div>
+<ul>
+<li>More examples: <a href="https://stats.oarc.ucla.edu/r/faq/how-can-i-generate-bootstrap-statistics-in-r/" class="uri">https://stats.oarc.ucla.edu/r/faq/how-can-i-generate-bootstrap-statistics-in-r/</a></li>
+</ul>
+</section></section>
+<section>
+<section id="randomization-test-for-the-slope" class="title-slide slide level1 center">
+<h1>Randomization Test for the Slope*</h1>
+
+</section>
+<section id="testing-h_0-beta_1-0-by-simulation" class="slide level2">
+<h2>Testing <span class="math inline">\(H_0: \beta_1 = 0\)</span> by Simulation</h2>
+<ul>
+<li>If <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(y\)</span> is unrelated to <span class="math inline">\(x\)</span>: <strong>shuffling</strong> the <span class="math inline">\(y\)</span> values among the <span class="math inline">\(x\)</span> values gives data that are just as likely.</li>
+</ul>
+<div class="fragment">
+<div class="instructions">
+<ul>
+<li><strong>[1]</strong> Permute (shuffle) <span class="math inline">\(y\)</span>, keeping <span class="math inline">\(x\)</span> fixed.</li>
+<li><strong>[2]</strong> Fit the regression and record the slope <span class="math inline">\(b_1^*\)</span>.</li>
+<li><strong>[3]</strong> Repeat many times: the <strong>null distribution</strong> of the slope.</li>
+<li><strong>[4]</strong> <span class="math inline">\(p\)</span>-value = proportion of <span class="math inline">\(|b_1^*| \ge |b_1|\)</span>.</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Bootstrap: resample <strong>with replacement</strong> to estimate variability (CI). Randomization: <strong>shuffle without replacement</strong> to mimic <span class="math inline">\(H_0\)</span> (test).</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>No normality assumption; requires exchangeability under <span class="math inline">\(H_0\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-randomization-test-with-infer" class="slide level2">
+<h2><span class="pink">R Lab</span> Randomization Test with <code>infer</code></h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>null_fits <span class="ot">&lt;-</span> delivery_data <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(time <span class="sc">~</span> cases) <span class="sc">|&gt;</span></span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>()</span>
+<span id="cb33-7"><a aria-hidden="true" tabindex="-1"></a>null_fits <span class="sc">|&gt;</span> <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_fit, <span class="at">direction =</span> <span class="st">"two-sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  term      p_value
+  &lt;chr&gt;       &lt;dbl&gt;
+1 cases           0
+2 intercept       0</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_fits) <span class="sc">+</span> <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> observed_fit, <span class="at">direction =</span> <span class="st">"two-sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+
+</div>
+<img data-src="./images/11-bootstrap/unnamed-chunk-48-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"><aside class="notes">
+<ul>
+<li>A reported <span class="math inline">\(p\)</span>-value of 0 means that none of the 1000 shuffled slopes was as extreme as the observed one: <span class="math inline">\(p &lt; 1/1000\)</span> (infer prints a warning about this).</li>
+<li>The observed slope (red line) is far outside the null distribution, matching the <span class="math inline">\(t\)</span> test.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li><p><strong>Bootstrap</strong>: resample the data <em>with replacement</em> to approximate the sampling distribution of any statistic.</p></li>
+<li><p><strong>CIs</strong>: percentile, SE (<span class="math inline">\(\pm 2\,\widehat{SE}\)</span>), and BC<span class="math inline">\(_a\)</span>.</p></li>
+<li><p><strong>Regression</strong>: case resampling (robust, random <span class="math inline">\(x\)</span>) vs.&nbsp;residual resampling (fixed <span class="math inline">\(x\)</span>, correct model).</p></li>
+<li><p><strong>Tools</strong>: <code>infer</code> (<code>specify</code> → <code>generate</code> → <code>calculate</code>/<code>fit</code> → <code>get_ci</code>), <code>car::Boot()</code>, <code>boot::boot()</code>.</p></li>
+<li><p><strong>Randomization test</strong>: <em>shuffle</em> <span class="math inline">\(y\)</span> to build the null distribution of the slope.</p></li>
 <li><p>ISL Lab 5.3.4</p></li>
 </ul>
 

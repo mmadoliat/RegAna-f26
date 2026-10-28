@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
-  <title>MATH 4780 (MSSC 5780) – Polynomial Regression ▶️</title>
+  <title>MATH 4780 (MSSC 5780) – Polynomial Regression 📈</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Polynomial Regression r emo::ji('right') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Polynomial Regression 📈 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Polynomial Regression r emo::ji('right') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Polynomial Regression 📈 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -209,7 +209,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
-  <h1 class="title">Polynomial Regression ▶️</h1>
+  <h1 class="title">Polynomial Regression 📈</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
@@ -233,11 +233,30 @@ Dr.&nbsp;Mehdi Maadooliat
 Polynomial Models in One Variable
 </h2>
 <h2>
-Piecewise Regression
+Orthogonal Polynomials
 </h2>
 <h2>
-Splines
+Piecewise Regression and Splines
 </h2>
+<h2>
+Polynomial Models in Two Variables
+</h2>
+<aside class="notes">
+<ul>
+<li>Bridge: in lecture 10 we added <code>health^2</code> to the CIA model and a quadratic removed the lack of fit in LRA Example 4.8. Today: polynomial models in general.</li>
+<li>Pacing (75 min): why &amp; considerations ~12 | hardwood labs (centering, model building) ~18 | orthogonal polynomials ~8 | piecewise &amp; splines (incl.&nbsp;truncated power basis) ~22 | two variables ~10 | summary ~5.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="why-polynomial-regression" class="slide level2">
 <h2>Why Polynomial Regression</h2>
@@ -386,6 +405,44 @@ Splines
           display:block!important;
       }</style></aside>
 </section>
+<section id="important-considerations-4" class="slide level2">
+<h2>Important Considerations</h2>
+<div class="large">
+<p><em>Hierarchy</em></p>
+</div>
+<ul>
+<li>A <strong>hierarchical</strong> model of order <span class="math inline">\(k\)</span> contains <strong>all</strong> terms of order <span class="math inline">\(k\)</span> and below: <span class="math display">\[y = \beta_0 + \beta_1x + \beta_2x^2 + \cdots + \beta_kx^k + \epsilon\]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Two schools of thought:
+<ul>
+<li>Always maintain hierarchy (keep <span class="math inline">\(x\)</span> when <span class="math inline">\(x^2\)</span> is in the model).</li>
+<li>Hierarchy is not important; keep only significant terms.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="alert">
+<p>Fit the model with the significant terms, then use knowledge of the process to decide whether a hierarchical model is needed. A non-hierarchical model is <strong>not</strong> invariant to shifting <span class="math inline">\(x\)</span> (e.g., centering).</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Example: <span class="math inline">\(y = \beta_0 + \beta_2 x^2\)</span> becomes <span class="math inline">\(\beta_0 + \beta_2 (x - c)^2 = \beta_0 + \beta_2c^2 - 2\beta_2cx + \beta_2x^2\)</span> after a shift: a linear term reappears. That is why most analysts keep lower-order terms.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="example-7.1-hardwood-data-lra" class="slide level2">
 <h2>Example 7.1: <a href="./data/data-ex-7-1.csv">Hardwood Data</a> (LRA)</h2>
 <ul>
@@ -440,14 +497,14 @@ Coefficients:
 </div>
 </div>
 <ul>
-<li><span class="math inline">\(y = 45.3 + 2.55 (x - 7.26) - 0.63 (x - 7.26) ^ 2 + \epsilon\)</span></li>
+<li><span class="math inline">\(\hat{y} = 45.3 + 2.55 (x - 7.26) - 0.635 (x - 7.26) ^ 2\)</span></li>
 <li>Inference, prediction and residual diagnostics procedures are the same as multiple linear regression.</li>
 </ul>
 <aside class="notes">
 <ul>
 <li>We don’t need to create an extra predictor concentration ^ 2 in the data set.</li>
 <li>We can construct the x_sq term in the lm() function.</li>
-<li>We use I() function to wrap up the operation concen_cen ^ 2, so that concen_cen ^ 2 is not interpreted as a part of formula, but actual arithmetic operation.</li>
+<li>We use the I() function to wrap the operation conc_cen ^ 2, so that concen_cen ^ 2 is not interpreted as a part of formula, but actual arithmetic operation.</li>
 <li>To avoid this confusion, the function I() can be used to bracket those portions of a model formula where the operators are used in their arithmetic sense. For example, in the formula y ~ a + I(b+c), the term b+c is to be interpreted as the sum of b and c.</li>
 </ul>
 <style type="text/css">
@@ -461,6 +518,131 @@ Coefficients:
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="r-lab-hardwood-building-the-model-order" class="slide level2">
+<h2><span class="pink">R Lab</span> Hardwood: Building the Model Order</h2>
+<ul>
+<li><strong>Forward selection</strong>: increase the order until the highest-order term is not significant.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(strength <span class="sc">~</span> conc, <span class="at">data =</span> hardwood)</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">update</span>(fit1, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">update</span>(fit2, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">update</span>(fit3, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">4</span>))</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit1, fit2, fit3, fit4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: strength ~ conc
+Model 2: strength ~ conc + I(conc^2)
+Model 3: strength ~ conc + I(conc^2) + I(conc^3)
+Model 4: strength ~ conc + I(conc^2) + I(conc^3) + I(conc^4)
+  Res.Df  RSS Df Sum of Sq      F  Pr(&gt;F)    
+1     17 2373                                
+2     16  313  1      2061 319.78 4.9e-11 ***
+3     15  100  1       212  32.96 5.1e-05 ***
+4     14   90  1        10   1.55    0.23    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(x^2\)</span> and <span class="math inline">\(x^3\)</span> are significant; <span class="math inline">\(x^4\)</span> is not (<span class="math inline">\(p \approx 0.23\)</span>): forward selection stops at the <strong>cubic</strong>.</li>
+</ul>
+<div class="question">
+<p>LRA uses the quadratic (<span class="math inline">\(R^2 = 0.91\)</span>); the cubic has <span class="math inline">\(R^2 = 0.97\)</span>. Which would you report? What would you check first?</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Points for discussion: residual plots of the quadratic (curvature left?), the scientific meaning of the turning point, extrapolation behavior of a cubic beyond 15%, and parsimony.</li>
+<li><code>anova()</code> with nested models gives the sequential extra-sum-of-squares <span class="math inline">\(F\)</span> tests (<span class="math inline">\(= t^2\)</span> for one added term).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-hardwood-quadratic-vs.-cubic" class="slide level2">
+<h2><span class="pink">R Lab</span> Hardwood: Quadratic vs.&nbsp;Cubic</h2>
+
+<img data-src="./images/11-poly-reg/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><ul>
+<li>Nearly identical within the data; they <strong>disagree beyond 15%</strong> (dotted line): extrapolation danger.</li>
+</ul>
+</section>
+<section id="orthogonal-polynomials" class="slide level2">
+<h2>Orthogonal Polynomials</h2>
+<ul>
+<li>Fit <span class="math inline">\(y = \alpha_0P_0(x) + \alpha_1P_1(x) + \cdots + \alpha_kP_k(x) + \epsilon\)</span>, where <span class="math inline">\(P_j(x)\)</span> is a polynomial of degree <span class="math inline">\(j\)</span> and <span class="math display">\[\sum_{i=1}^n P_r(x_i)P_s(x_i) = 0, \quad r \ne s\]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Then <span class="math inline">\({\bf X'X}\)</span> is <strong>diagonal</strong>: no ill-conditioning, and <span class="math display">\[\hat{\alpha}_j = \frac{\sum_i P_j(x_i)y_i}{\sum_i P_j^2(x_i)}\]</span></li>
+<li>Adding <span class="math inline">\(P_{k+1}\)</span> does <strong>not</strong> change <span class="math inline">\(\hat{\alpha}_0, \dots, \hat{\alpha}_k\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>poly(x, k)</code> (default) builds orthogonal polynomials; <code>poly(x, k, raw = TRUE)</code> builds <span class="math inline">\(x, x^2, \dots, x^k\)</span>.
+<ul>
+<li>Same fitted values and same test for the highest-order term.</li>
+<li>Coefficients of orthogonal polynomials are not directly interpretable in terms of <span class="math inline">\(x\)</span>.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>LRA Sec 7.5. Orthogonal polynomials are especially convenient when the <span class="math inline">\(x\)</span> levels are equally spaced (tabulated <span class="math inline">\(P_j\)</span>).</li>
+<li>In lecture 10 we used <code>raw = TRUE</code> so that the coefficients refer to <code>health</code> and <code>health^2</code> directly.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-orthogonal-vs.-raw-polynomials" class="slide level2">
+<h2><span class="pink">R Lab</span> Orthogonal vs.&nbsp;Raw Polynomials</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>orth3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(strength <span class="sc">~</span> <span class="fu">poly</span>(conc, <span class="dv">3</span>), <span class="at">data =</span> hardwood)</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>raw3  <span class="ot">&lt;-</span> <span class="fu">lm</span>(strength <span class="sc">~</span> <span class="fu">poly</span>(conc, <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> hardwood)</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">crossprod</span>(<span class="fu">model.matrix</span>(orth3)), <span class="dv">10</span>)     <span class="co"># X'X is diagonal</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               (Intercept) poly(conc, 3)1 poly(conc, 3)2 poly(conc, 3)3
+(Intercept)             19              0              0              0
+poly(conc, 3)1           0              1              0              0
+poly(conc, 3)2           0              0              1              0
+poly(conc, 3)3           0              0              0              1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">fitted</span>(orth3), <span class="fu">fitted</span>(raw3))         <span class="co"># same fit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(strength <span class="sc">~</span> <span class="fu">poly</span>(conc, <span class="dv">2</span>), <span class="at">data =</span> hardwood))   <span class="co"># first 3 unchanged ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   (Intercept) poly(conc, 2)1 poly(conc, 2)2 
+          34.2           32.3          -45.4 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(orth3)                                            <span class="co"># ... when P_3 is added</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   (Intercept) poly(conc, 3)1 poly(conc, 3)2 poly(conc, 3)3 
+          34.2           32.3          -45.4          -14.6 </code></pre>
+</div>
+</div>
 </section>
 <section id="piecewise-polynomial-regression" class="slide level2">
 <h2>Piecewise (Polynomial) Regression</h2>
@@ -489,7 +671,8 @@ Coefficients:
 <!-- - Piecewise polynomials of order $k$ are called **splines**. -->
 <aside class="notes">
 <ul>
-<li>There might be tow different systems or schemes that govern the relationship between response and predictor variables.</li>
+<li>With <span class="math inline">\(K\)</span> knots we fit <span class="math inline">\(K + 1\)</span> different polynomials.</li>
+<li>There might be two different systems or schemes that govern the relationship between response and predictor variables.</li>
 <li>Any issue of fitting a piecewise polynomial regression?</li>
 <li>In other words, we fit two different polynomial functions to the data, one on the subset of the observations with <span class="math inline">\(xi &lt; c\)</span>, and one on the subset of the observations with <span class="math inline">\(xi ≥ c\)</span>. The first polynomial function has coefficients β01, β11, β21, β31, and the second has coefficients β02, β12, β22, β32.</li>
 <li>Each of these polynomial functions can be fit using least squares applied to simple functions of the original predictor.</li>
@@ -545,18 +728,18 @@ Coefficients:
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/11-poly-reg/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/11-poly-reg/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="r-lab-a-polynomial-regression-provide-a-poor-fit" class="slide level2">
-<h2><span class="pink">R Lab</span> A Polynomial Regression Provide a Poor Fit</h2>
+<section id="r-lab-a-polynomial-regression-provides-a-poor-fit" class="slide level2">
+<h2><span class="pink">R Lab</span> A Polynomial Regression Provides a Poor Fit</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>lmfit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">poly</span>(Year <span class="sc">-</span> <span class="fu">mean</span>(Year), <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>lmfit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">poly</span>(Year <span class="sc">-</span> <span class="fu">mean</span>(Year), <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -564,7 +747,7 @@ Coefficients:
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/11-poly-reg/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/11-poly-reg/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -574,7 +757,7 @@ Coefficients:
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/11-poly-reg/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/11-poly-reg/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -597,11 +780,15 @@ Coefficients:
 <section id="r-lab-piecewise-polynomials-3-knots-at-1936-60-78" class="slide level2">
 <h2><span class="pink">R Lab</span> Piecewise Polynomials: 3 knots at 1936, 60, 78</h2>
 
-<img data-src="./images/11-poly-reg/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><div class="question">
+<img data-src="./images/11-poly-reg/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><div class="question">
 <p>Any issue of piecewise polynomials?</p>
 </div>
+<div class="fragment">
+<ul>
+<li>The pieces do not join: the fitted function <strong>jumps</strong> at the knots.</li>
+</ul>
 <aside class="notes">
-<p>these functions are not continuous. Hence we use a trick to construct continuous basis</p>
+<p>These functions are not continuous. Hence we use a trick to construct a continuous basis (next slide).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -613,6 +800,61 @@ Coefficients:
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
+</section>
+<section id="making-the-pieces-join-truncated-power-basis" class="slide level2">
+<h2>Making the Pieces Join: Truncated Power Basis</h2>
+<ul>
+<li><p>Define <span class="math inline">\((x - t)_+ = \max(0,\ x - t)\)</span>.</p></li>
+<li><p><strong>Linear spline</strong> with knots <span class="math inline">\(t_1, \dots, t_K\)</span>: <span class="math display">\[y = \beta_0 + \beta_1x + \sum_{h=1}^K \gamma_h (x - t_h)_+ + \epsilon\]</span></p>
+<ul>
+<li>Continuous at every knot; the slope <strong>changes by <span class="math inline">\(\gamma_h\)</span></strong> at <span class="math inline">\(t_h\)</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Cubic spline</strong>: <span class="math display">\[y = \beta_0 + \beta_1x + \beta_2x^2 + \beta_3x^3 + \sum_{h=1}^K \gamma_h (x - t_h)^3_+ + \epsilon\]</span>
+<ul>
+<li>Continuous with continuous 1st and 2nd derivatives; <span class="math inline">\(K + 4\)</span> parameters.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="alert">
+<p>For <strong>fixed</strong> knots, a spline is just a multiple linear regression: all the tools (LS, <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> tests, diagnostics) apply. Testing <span class="math inline">\(H_0: \gamma_1 = \cdots = \gamma_K = 0\)</span> asks whether the pieces are needed.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Sec 7.2.2. If the knot locations are unknown parameters, the model becomes nonlinear regression.</li>
+<li><code>splines::bs()</code> uses the B-spline basis: numerically better, same column space, same fitted values.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-linear-spline-by-hand" class="slide level2">
+<h2><span class="pink">R Lab</span> Linear Spline by Hand</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>lin_hand <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> Year <span class="sc">+</span> <span class="fu">pmax</span>(Year <span class="sc">-</span> <span class="dv">1936</span>, <span class="dv">0</span>) <span class="sc">+</span> <span class="fu">pmax</span>(Year <span class="sc">-</span> <span class="dv">1960</span>, <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>                 <span class="fu">pmax</span>(Year <span class="sc">-</span> <span class="dv">1978</span>, <span class="dv">0</span>), <span class="at">data =</span> birthrates)</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>), <span class="at">mgp =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">0.8</span>, <span class="dv">0</span>))</span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, <span class="fu">fitted</span>(lin_hand), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="./images/11-poly-reg/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"><ul>
+<li>5 parameters instead of the 8 of the piecewise linear fit, and the pieces now <strong>join</strong>.</li>
+</ul>
 </section>
 <section id="splines" class="slide level2">
 <h2>Splines</h2>
@@ -621,22 +863,51 @@ Coefficients:
 <li>Use <code>bs()</code> function in the <strong>splines</strong> package.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>lin_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>lin_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/11-poly-reg/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"></section>
+<img data-src="./images/11-poly-reg/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"></section>
 <section id="cubic-splines" class="slide level2">
 <h2>Cubic Splines</h2>
 <ul>
 <li>The cubic spline is a spline of degree 3 with <em>first 2 derivatives are continuous</em> at the knots.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>cub_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>cub_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">knots =</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)), </span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="./images/11-poly-reg/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"></section>
+<img data-src="./images/11-poly-reg/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:55.0%"></section>
+<section id="r-lab-are-the-knots-needed" class="slide level2">
+<h2><span class="pink">R Lab</span> Are the Knots Needed?</h2>
+<ul>
+<li>The cubic polynomial (<code>lmfit3</code>) is nested in the cubic spline: same cubic terms plus 3 truncated terms.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">cubic_poly =</span> <span class="fu">summary</span>(lmfit3)<span class="sc">$</span>r.squared, <span class="at">cubic_spline =</span> <span class="fu">summary</span>(cub_sp)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  cubic_poly cubic_spline 
+       0.424        0.956 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lmfit3, cub_sp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: Birthrate ~ poly(Year - mean(Year), degree = 3, raw = TRUE)
+Model 2: Birthrate ~ splines::bs(Year, degree = 3, knots = c(1936, 1960, 
+    1978))
+  Res.Df    RSS Df Sum of Sq   F Pr(&gt;F)    
+1     83 121751                            
+2     80   9294  3    112458 323 &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(R^2\)</span> jumps from 0.42 to 0.96, and <span class="math inline">\(F \approx 323\)</span> on <span class="math inline">\((3, 80)\)</span> df: the knots are clearly needed.</li>
+</ul>
+</section>
 <section id="practical-issue" class="slide level2">
 <h2>Practical Issue</h2>
 <ul>
@@ -651,6 +922,92 @@ Coefficients:
 <li>If possible, the extreme points should be centered in the segment</li>
 </ul></li>
 <li><em>What is the degree of functions in each region</em>
+<ul>
+<li>Cubic is usually enough: the eye cannot see discontinuities in the 3rd derivative.</li>
+<li><strong>Natural</strong> cubic splines (<code>splines::ns()</code>) are linear beyond the boundary knots, taming extrapolation.</li>
+</ul></li>
+</ul>
+</section>
+<section id="polynomial-models-in-two-variables" class="slide level2">
+<h2>Polynomial Models in Two Variables</h2>
+<p><span class="math display">\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2 + \epsilon\]</span></p>
+<ul>
+<li>A <strong>second-order response surface</strong>: curvature in each <span class="math inline">\(x\)</span> (<span class="math inline">\(\beta_{11}, \beta_{22}\)</span>) and <strong>interaction</strong> (<span class="math inline">\(\beta_{12}\)</span>).</li>
+<li>Interaction: the effect of <span class="math inline">\(x_1\)</span> depends on <span class="math inline">\(x_2\)</span>, since <span class="math inline">\(\partial E(y)/\partial x_1 = \beta_1 + 2\beta_{11}x_1 + \beta_{12}x_2\)</span>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x1, x2, <span class="at">degree =</span> <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> dat)   <span class="co"># all 5 second-order terms</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> dat)             <span class="co"># same model, named terms</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Sec 7.4 uses a chemical-process response surface example; widely used in designed experiments (response surface methodology).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-advertising-second-order-model" class="slide level2">
+<h2><span class="pink">R Lab</span> Advertising: Second-Order Model</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>course_data <span class="ot">&lt;-</span> <span class="fu">new.env</span>()</span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"./data/regression_datasets.rda"</span>, <span class="at">envir =</span> course_data)</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>advertising <span class="ot">&lt;-</span> course_data<span class="sc">$</span>advertising</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>ad_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales <span class="sc">~</span> TV <span class="sc">+</span> radio, <span class="at">data =</span> advertising)</span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>ad_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales <span class="sc">~</span> TV <span class="sc">*</span> radio <span class="sc">+</span> <span class="fu">I</span>(TV<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(radio<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> advertising)</span>
+<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">first_order =</span> <span class="fu">summary</span>(ad_1)<span class="sc">$</span>r.squared, <span class="at">second_order =</span> <span class="fu">summary</span>(ad_2)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> first_order second_order 
+       0.897        0.986 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(ad_2)<span class="sc">$</span>coefficients, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  5.19444    0.20611  25.202   0.0000
+TV           0.05099    0.00224  22.801   0.0000
+radio        0.02654    0.01242   2.136   0.0339
+I(TV^2)     -0.00011    0.00001 -15.914   0.0000
+I(radio^2)   0.00019    0.00024   0.789   0.4311
+TV:radio     0.00107    0.00003  30.892   0.0000</code></pre>
+</div>
+</div>
+<ul>
+<li><code>TV^2</code> &lt; 0: diminishing returns to TV spending. <code>TV:radio</code> &gt; 0: <strong>synergy</strong>; each medium works better when the other is used.</li>
+<li><code>radio^2</code> is not significant: drop it or keep it for hierarchy?</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><span class="math inline">\(R^2\)</span> goes from 0.897 to 0.986; the three second-order terms together give <span class="math inline">\(F \approx 412\)</span> on <span class="math inline">\((3, 194)\)</span> df.</li>
+<li><code>I(radio^2)</code> has <span class="math inline">\(t \approx 0.8\)</span>: a good place to revisit the hierarchy discussion.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li>Polynomial models are linear models in <span class="math inline">\(x, x^2, \dots\)</span>: all MLR tools apply.</li>
+<li>Keep the order low; build it with nested <span class="math inline">\(F\)</span> tests; beware of extrapolation.</li>
+<li>Center <span class="math inline">\(x\)</span> (or use orthogonal polynomials) to reduce ill-conditioning.</li>
+<li>If one polynomial cannot fit the whole range: <strong>piecewise polynomials</strong>, and <strong>splines</strong> to make the pieces join smoothly.</li>
+<li>Second-order models in several variables add curvature and interaction.
 <ul>
 <li>Cubic spline is popular</li>
 </ul></li>
