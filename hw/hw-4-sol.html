@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 4: Regression Diagnostics — Solutions – MATH 4780 (MSSC 5780)</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-eaeb381c6b7494c50009502241a4985c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-021961dafe3d662ff16037a5e7f49df9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c55672ede5483166cf8c27b780e575d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-021961dafe3d662ff16037a5e7f49df9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Homework 4: Regression Diagnostics — Solutions – MATH 4780 (MSSC 5780)">
+<meta property="og:description" content="MATH 4780 / MSSC 5780 · Fall 2026">
+<meta property="og:image" content="https://tinyurl.com/f26-4780/hw/hw-4-sol_files/figure-html/q1-normality-1.png">
+<meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
+<meta property="og:image:height" content="729">
+<meta property="og:image:width" content="1920">
+<meta name="twitter:title" content="Homework 4: Regression Diagnostics — Solutions – MATH 4780 (MSSC 5780)">
+<meta name="twitter:description" content="MATH 4780 / MSSC 5780 · Fall 2026">
+<meta name="twitter:image" content="https://tinyurl.com/f26-4780/hw/images/twitter-card.png">
+<meta name="twitter:creator" content="@mmadoliat">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Homework 4: Regression Diagnostics — Solutions</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/mmadoliat/RegAna-f26/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://tinyurl.com/f26-4780" title="TinyURL" class="quarto-navigation-tool px-1" aria-label="TinyURL"><i class="bi bi-code-square"></i></a>
+    <a href="https://d2l.mu.edu/" title="D2L" class="quarto-navigation-tool px-1" aria-label="D2L"><i class="bi bi-person-fill"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Course information</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-links.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Useful links</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Computing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../computing/computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#statistical-computing-and-data-analysis" id="toc-statistical-computing-and-data-analysis" class="nav-link active" data-scroll-target="#statistical-computing-and-data-analysis">Statistical Computing and Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#diagnostics-on-gasoline-mileage-data" id="toc-diagnostics-on-gasoline-mileage-data" class="nav-link" data-scroll-target="#diagnostics-on-gasoline-mileage-data">Diagnostics on Gasoline Mileage Data</a></li>
+  <li><a href="#normality-of-the-r-student-residuals" id="toc-normality-of-the-r-student-residuals" class="nav-link" data-scroll-target="#normality-of-the-r-student-residuals">1. Normality of the R-student residuals</a></li>
+  <li><a href="#box-cox-transformation" id="toc-box-cox-transformation" class="nav-link" data-scroll-target="#box-cox-transformation">2. Box-Cox transformation</a></li>
+  <li><a href="#refit-with-lambda0-and-with-the-box-cox-selected-lambda" id="toc-refit-with-lambda0-and-with-the-box-cox-selected-lambda" class="nav-link" data-scroll-target="#refit-with-lambda0-and-with-the-box-cox-selected-lambda">3. Refit with <span class="math inline">\(\lambda=0\)</span> and with the Box-Cox-selected <span class="math inline">\(\lambda\)</span></a></li>
+  <li><a href="#residuals-versus-fitted-values-and-spread-level-plot" id="toc-residuals-versus-fitted-values-and-spread-level-plot" class="nav-link" data-scroll-target="#residuals-versus-fitted-values-and-spread-level-plot">4. Residuals versus fitted values and spread-level plot</a></li>
+  <li><a href="#score-test-for-constant-variance" id="toc-score-test-for-constant-variance" class="nav-link" data-scroll-target="#score-test-for-constant-variance">5. Score test for constant variance</a></li>
+  <li><a href="#influence-diagnostics-on-squid-data" id="toc-influence-diagnostics-on-squid-data" class="nav-link" data-scroll-target="#influence-diagnostics-on-squid-data">Influence Diagnostics on Squid Data</a></li>
+  <li><a href="#leverage-and-influence-analysis" id="toc-leverage-and-influence-analysis" class="nav-link" data-scroll-target="#leverage-and-influence-analysis">6. Leverage and influence analysis</a></li>
+  <li><a href="#graphical-influence-diagnostics" id="toc-graphical-influence-diagnostics" class="nav-link" data-scroll-target="#graphical-influence-diagnostics">7. Graphical influence diagnostics</a>
+  <ul class="collapse">
+  <li><a href="#a.-bubble-plot" id="toc-a.-bubble-plot" class="nav-link" data-scroll-target="#a.-bubble-plot">a. Bubble plot</a></li>
+  <li><a href="#b.-influence-index-plot" id="toc-b.-influence-index-plot" class="nav-link" data-scroll-target="#b.-influence-index-plot">b. Influence index plot</a></li>
+  </ul></li>
+  <li><a href="#added-variable-plots" id="toc-added-variable-plots" class="nav-link" data-scroll-target="#added-variable-plots">8. Added-variable plots</a></li>
+  <li><a href="#numerical-verification-of-the-added-variable-plot-properties-for-x_1" id="toc-numerical-verification-of-the-added-variable-plot-properties-for-x_1" class="nav-link" data-scroll-target="#numerical-verification-of-the-added-variable-plot-properties-for-x_1">9. Numerical verification of the added-variable plot properties for <span class="math inline">\(x_1\)</span></a></li>
+  </ul></li>
+  <li><a href="#mathematical-derivation-and-reasoning" id="toc-mathematical-derivation-and-reasoning" class="nav-link" data-scroll-target="#mathematical-derivation-and-reasoning">Mathematical Derivation and Reasoning</a>
+  <ul class="collapse">
+  <li><a href="#bounds-on-the-leverage-values" id="toc-bounds-on-the-leverage-values" class="nav-link" data-scroll-target="#bounds-on-the-leverage-values">10. Bounds on the leverage values</a>
+  <ul class="collapse">
+  <li><a href="#lower-bound" id="toc-lower-bound" class="nav-link" data-scroll-target="#lower-bound">Lower bound</a></li>
+  <li><a href="#upper-bound" id="toc-upper-bound" class="nav-link" data-scroll-target="#upper-bound">Upper bound</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/hw/hw-4-sol.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 4: Regression Diagnostics — Solutions</h1>
+<p class="subtitle lead">MATH 4780 / MSSC 5780 · Fall 2026</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="statistical-computing-and-data-analysis" class="level1">
+<h1>Statistical Computing and Data Analysis</h1>
+<p>The answers below follow the question numbering in <code>hw-4.qmd</code>. Questions 1–5 use the <strong>32-car gasoline mileage data</strong> and the model <span class="math inline">\(y=\beta_0+\beta_1x_1+\beta_6x_6+\epsilon\)</span> from Homework 3. Questions 6–9 use the <strong>22-observation squid data</strong> and the model with all five regressors. Printed values are rounded; R keeps full precision for calculations.</p>
+<section id="diagnostics-on-gasoline-mileage-data" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostics-on-gasoline-mileage-data">Diagnostics on Gasoline Mileage Data</h2>
+</section>
+<section id="normality-of-the-r-student-residuals" class="level2">
+<h2 class="anchored" data-anchor-id="normality-of-the-r-student-residuals">1. Normality of the R-student residuals</h2>
+<p><code>car::qqPlot()</code> applied to an <code>lm</code> object plots the R-student residuals <span class="math inline">\(t_i\)</span> against quantiles of <span class="math inline">\(t_{n-p-1}=t_{28}\)</span>, with a pointwise 95% envelope.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>t_i <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(fit)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(fit, <span class="at">id =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">2</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"Q-Q plot of R-student residuals"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="st">"R-student residuals"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12 15</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(t_i, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"gray90"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram with density"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"R-student residuals"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(t_i), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">densityPlot</span>(t_i, <span class="at">xlab =</span> <span class="st">"R-student residuals"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">"Kernel density estimate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q1-normality-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(t_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-2.7033 -0.5766 -0.1224  0.0083  0.5575  2.4130 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(t_i)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">31</span><span class="sc">:</span><span class="dv">32</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       15        13        22        12 
+-2.703289 -1.473479  2.150743  2.413045 </code></pre>
+</div>
+</div>
+<p>There is no serious problem with normality.</p>
+<ul>
+<li>In the Q-Q plot the points follow the reference line closely and stay inside the 95% envelope. The two labeled points, observation 15 (<span class="math inline">\(t_{15}\approx-2.70\)</span>) and observation 12 (<span class="math inline">\(t_{12}\approx2.41\)</span>), lie at the ends of the plot but are still inside the envelope.</li>
+<li>The histogram and density are unimodal and roughly symmetric around 0. The tails are slightly bumpy, as expected with only 32 observations.</li>
+<li>Three residuals (observations 12, 15, and 22) exceed 2 in absolute value. That is about 9% of the cases, close to the roughly 5% we would expect under a <span class="math inline">\(t\)</span> distribution, so these are not evidence of a normality violation.</li>
+</ul>
+</section>
+<section id="box-cox-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="box-cox-transformation">2. Box-Cox transformation</h2>
+<p>We estimate <span class="math inline">\(\lambda\)</span> by maximum likelihood using <code>car::powerTransform()</code>, as in the lecture. <code>MASS::boxcox()</code> plots the profile log-likelihood of the same problem.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">powerTransform</span>(fit, <span class="at">family =</span> <span class="st">"bcPower"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>bcPower Transformation to Normality 
+   Est Power Rounded Pwr Wald Lwr Bnd Wald Upr Bnd
+Y1   -0.1483           0      -0.8779       0.5812
+
+Likelihood ratio test that transformation parameter is equal to 0
+ (log transformation)
+                            LRT df    pval
+LR test, lambda = (0) 0.1598941  1 0.68925
+
+Likelihood ratio test that no transformation is needed
+                           LRT df      pval
+LR test, lambda = (1) 9.355126  1 0.0022236</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">boxcox</span>(fit, <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="at">by =</span> <span class="fl">0.05</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q2-boxcox-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Box-Cox analysis gives</p>
+<p><span class="math display">\[
+\hat\lambda=-0.148,
+\qquad
+95\%\text{ CI for }\lambda:\ (-0.88,\ 0.58).
+\]</span></p>
+<ul>
+<li>The value <span class="math inline">\(\lambda=1\)</span> (no transformation) is <strong>outside</strong> the interval. The likelihood-ratio test of <span class="math inline">\(\lambda=1\)</span> gives <span class="math inline">\(LRT=9.36\)</span> on 1 df with <span class="math inline">\(p=0.0022\)</span>, so the data favor transforming <span class="math inline">\(y\)</span>.</li>
+<li>The value <span class="math inline">\(\lambda=0\)</span> (log transformation) is well <strong>inside</strong> the interval. The likelihood-ratio test of <span class="math inline">\(\lambda=0\)</span> gives <span class="math inline">\(p=0.69\)</span>, and <code>powerTransform()</code> rounds the estimate to <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>So a transformation of mileage appears helpful, and the log is a natural, interpretable choice. The selected value <span class="math inline">\(\hat\lambda\approx-0.15\)</span> is very close to <span class="math inline">\(0\)</span>. Note, however, that the confidence interval is wide: <span class="math inline">\(n=32\)</span> does not pin down <span class="math inline">\(\lambda\)</span> precisely.</p>
+</section>
+<section id="refit-with-lambda0-and-with-the-box-cox-selected-lambda" class="level2">
+<h2 class="anchored" data-anchor-id="refit-with-lambda0-and-with-the-box-cox-selected-lambda">3. Refit with <span class="math inline">\(\lambda=0\)</span> and with the Box-Cox-selected <span class="math inline">\(\lambda\)</span></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lam_hat <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">coef</span>(bc), <span class="dv">2</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lam_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Y1 
+-0.15 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> x1 <span class="sc">+</span> x6, <span class="at">data =</span> mpg)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit_bc  <span class="ot">&lt;-</span> <span class="fu">lm</span>(car<span class="sc">::</span><span class="fu">bcPower</span>(y, lam_hat) <span class="sc">~</span> x1 <span class="sc">+</span> x6, <span class="at">data =</span> mpg)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>rstud_mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Original (lambda = 1)"</span> <span class="ot">=</span> <span class="fu">rstudent</span>(fit),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Log (lambda = 0)"</span> <span class="ot">=</span> <span class="fu">rstudent</span>(fit_log),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Box-Cox (lambda = -0.15)"</span> <span class="ot">=</span> <span class="fu">rstudent</span>(fit_bc)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rstud_mat, <span class="at">ylab =</span> <span class="st">"R-student residuals"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"R-student residuals by response transformation"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>), <span class="at">col =</span> <span class="st">"gray40"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q3-refit-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(rstud_mat, <span class="dv">2</span>, summary), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Original (lambda = 1) Log (lambda = 0) Box-Cox (lambda = -0.15)
+Min.                   -2.703           -2.341                   -2.249
+1st Qu.                -0.577           -0.536                   -0.516
+Median                 -0.122            0.068                    0.051
+Mean                    0.008            0.000                   -0.002
+3rd Qu.                 0.557            0.639                    0.659
+Max.                    2.413            2.492                    2.504</code></pre>
+</div>
+</div>
+<p>Both transformations give a modest improvement, mainly in symmetry.</p>
+<ul>
+<li>For the original model, the median R-student residual (<span class="math inline">\(-0.12\)</span>) sits below the center of the box, which indicates slight right skewness. After either transformation the median is close to 0 (<span class="math inline">\(0.07\)</span> for the log, <span class="math inline">\(0.05\)</span> for <span class="math inline">\(\lambda=-0.15\)</span>) and the box is more balanced.</li>
+<li>The lower tail is pulled in: the minimum changes from <span class="math inline">\(-2.70\)</span> to <span class="math inline">\(-2.34\)</span> (log) and <span class="math inline">\(-2.25\)</span> (Box-Cox).</li>
+<li>The two transformed models are nearly indistinguishable, as expected since <span class="math inline">\(\hat\lambda\approx-0.15\)</span> is close to <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>The improvement is not dramatic, because the original residuals were already reasonably well behaved (Question 1). Given the similar results, the log model is preferable because it is easier to interpret.</p>
+</section>
+<section id="residuals-versus-fitted-values-and-spread-level-plot" class="level2">
+<h2 class="anchored" data-anchor-id="residuals-versus-fitted-values-and-spread-level-plot">4. Residuals versus fitted values and spread-level plot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">rstudent</span>(fit), <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Fitted values"</span>, <span class="at">ylab =</span> <span class="st">"R-student residuals"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"R-student residuals vs fitted values"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(<span class="fu">fitted</span>(fit), <span class="fu">rstudent</span>(fit)), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>slp <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">spreadLevelPlot</span>(fit, <span class="at">smooth =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">main =</span> <span class="st">"Spread-level plot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q4-const-var-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>slp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Suggested power transformation:  0.6287351 </code></pre>
+</div>
+</div>
+<p>There is some evidence of nonconstant variance, though it is not severe.</p>
+<ul>
+<li>In the residual plot, residuals at high fitted values (above about 25 mpg) are more spread out than those in the middle range. The lowess curve also shows a U-shaped pattern, which suggests some <strong>nonlinearity</strong> in the mean as well as a spread problem.</li>
+<li>The spread-level plot shows the absolute R-student residuals increasing with the fitted values: the fitted line has a positive slope of about <span class="math inline">\(0.37\)</span>. The suggested power transformation is <span class="math inline">\(1-0.37\approx0.63\)</span>. A power below 1 is consistent with variance that increases with the mean.</li>
+</ul>
+</section>
+<section id="score-test-for-constant-variance" class="level2">
+<h2 class="anchored" data-anchor-id="score-test-for-constant-variance">5. Score test for constant variance</h2>
+<p>We test</p>
+<p><span class="math display">\[
+H_0:\ \text{constant variance}
+\qquad\text{versus}\qquad
+H_1:\ \text{variance changes with }E(Y\mid X).
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 3.953199, Df = 1, p = 0.046782</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(fit_log)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 0.02816192, Df = 1, p = 0.86673</code></pre>
+</div>
+</div>
+<p>For the original model, the score statistic is <span class="math inline">\(\chi^2=3.95\)</span> on 1 df with <span class="math inline">\(p=0.047\)</span>. At <span class="math inline">\(\alpha=0.05\)</span> we (barely) reject <span class="math inline">\(H_0\)</span>. There is some evidence that the variability of gasoline mileage increases with the mean mileage, consistent with the plots in Question 4.</p>
+<p>The evidence is borderline, so the problem is mild. After the log transformation the test gives <span class="math inline">\(p=0.87\)</span>, so the log transformation from Questions 2–3 also removes the nonconstant variance.</p>
+</section>
+<section id="influence-diagnostics-on-squid-data" class="level2">
+<h2 class="anchored" data-anchor-id="influence-diagnostics-on-squid-data">Influence Diagnostics on Squid Data</h2>
+</section>
+<section id="leverage-and-influence-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="leverage-and-influence-analysis">6. Leverage and influence analysis</h2>
+<p>The model has <span class="math inline">\(p=6\)</span> parameters and <span class="math inline">\(n=22\)</span> observations. We use the cutoffs from the lecture.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Measure</th>
+<th style="text-align: left;">Cutoff used</th>
+<th style="text-align: left;">Value here</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hat value <span class="math inline">\(h_{ii}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(2p/n\)</span> (and <span class="math inline">\(3p/n\)</span>)</td>
+<td style="text-align: left;"><span class="math inline">\(0.545\)</span> (<span class="math inline">\(0.818\)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R-student <span class="math inline">\(t_i\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\lvert t_i\rvert&gt;2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cook’s distance <span class="math inline">\(D_i\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(4/(n-p)\)</span> (and <span class="math inline">\(1\)</span>)</td>
+<td style="text-align: left;"><span class="math inline">\(0.25\)</span> (<span class="math inline">\(1\)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\lvert DFFITS_i\rvert\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(2\sqrt{p/n}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1.044\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\lvert DFBETAS_{j,i}\rvert\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(2/\sqrt{n}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(0.426\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(COVRATIO_i\)</span></td>
+<td style="text-align: left;">outside <span class="math inline">\(1\pm3p/n\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((0.182,\ 1.818)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(squid)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(fit_squid))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>diag_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">rstudent =</span> <span class="fu">rstudent</span>(fit_squid),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">hat =</span> <span class="fu">hatvalues</span>(fit_squid),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">cook =</span> <span class="fu">cooks.distance</span>(fit_squid),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dffits =</span> <span class="fu">dffits</span>(fit_squid),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfbetas</span>(fit_squid),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">covratio =</span> <span class="fu">covratio</span>(fit_squid)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(diag_tab, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   rstudent   hat  cook dffits X.Intercept.     x1     x2     x3     x4     x5
+1    -0.363 0.132 0.004 -0.141        0.018 -0.071  0.040 -0.033  0.007  0.082
+2    -2.339 0.565 0.924 -2.664        0.194 -0.040 -2.497  1.284  1.275  0.161
+3    -0.111 0.310 0.001 -0.074       -0.071  0.030 -0.002  0.042 -0.019 -0.055
+4     1.358 0.144 0.049  0.557        0.348  0.034  0.056 -0.108 -0.109  0.043
+5     0.430 0.185 0.007  0.205        0.170 -0.095 -0.019 -0.070  0.110  0.075
+6     0.463 0.195 0.009  0.228        0.017  0.010 -0.061  0.157 -0.030 -0.111
+7     1.050 0.389 0.116  0.837       -0.058  0.420  0.127  0.242 -0.671 -0.282
+8    -0.159 0.139 0.001 -0.064       -0.003  0.001  0.016 -0.018 -0.024  0.033
+9     0.483 0.139 0.007  0.194        0.150 -0.054 -0.006 -0.010  0.013  0.041
+10   -0.542 0.098 0.006 -0.179        0.010 -0.078 -0.017  0.010  0.034  0.083
+11   -0.865 0.066 0.009 -0.230       -0.083 -0.010  0.035  0.013 -0.044  0.027
+12   -1.361 0.150 0.052 -0.571        0.100 -0.150  0.303 -0.386 -0.047  0.350
+13    1.487 0.558 0.432  1.670        0.247  0.674 -0.156 -0.983 -0.356  0.987
+14   -1.011 0.175 0.036 -0.466       -0.181  0.047 -0.025  0.344 -0.176 -0.242
+15    1.025 0.460 0.148  0.945       -0.474  0.321 -0.588  0.347  0.361 -0.420
+16   -0.952 0.181 0.034 -0.447        0.297 -0.208 -0.034 -0.202  0.252  0.212
+17    1.014 0.166 0.034  0.453        0.065 -0.259  0.105 -0.140  0.225  0.153
+18   -2.474 0.307 0.342 -1.646       -0.448  0.426  1.024 -0.174 -0.731 -0.893
+19   -0.020 0.611 0.000 -0.025       -0.001  0.010 -0.002 -0.010  0.005 -0.006
+20    0.660 0.208 0.020  0.339       -0.011 -0.204 -0.033  0.130  0.132  0.034
+21    0.820 0.375 0.069  0.635       -0.425  0.408  0.120 -0.060 -0.329 -0.135
+22    1.275 0.447 0.211  1.146       -0.082 -0.682  0.496 -0.050  0.474 -0.160
+   covratio
+1     1.610
+2     0.524
+3     2.124
+4     0.859
+5     1.680
+6     1.680
+7     1.574
+8     1.693
+9     1.560
+10    1.454
+11    1.177
+12    0.861
+13    1.460
+14    1.202
+15    1.816
+16    1.265
+17    1.187
+18    0.273
+19    3.787
+20    1.567
+21    1.811
+22    1.437</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cutoffs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">hat =</span> <span class="dv">2</span> <span class="sc">*</span> p <span class="sc">/</span> n, <span class="at">cook =</span> <span class="dv">4</span> <span class="sc">/</span> (n <span class="sc">-</span> p),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">dffits =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n), <span class="at">dfbetas =</span> <span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">cov_lo =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> p <span class="sc">/</span> n, <span class="at">cov_hi =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> p <span class="sc">/</span> n)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cutoffs, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    hat    cook  dffits dfbetas  cov_lo  cov_hi 
+  0.545   0.250   1.044   0.426   0.182   1.818 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Observations flagged by each guideline</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rstudent =</span> <span class="fu">which</span>(<span class="fu">abs</span>(diag_tab<span class="sc">$</span>rstudent) <span class="sc">&gt;</span> <span class="dv">2</span>),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">hat =</span> <span class="fu">which</span>(diag_tab<span class="sc">$</span>hat <span class="sc">&gt;</span> cutoffs[<span class="st">"hat"</span>]),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">cook =</span> <span class="fu">which</span>(diag_tab<span class="sc">$</span>cook <span class="sc">&gt;</span> cutoffs[<span class="st">"cook"</span>]),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dffits =</span> <span class="fu">which</span>(<span class="fu">abs</span>(diag_tab<span class="sc">$</span>dffits) <span class="sc">&gt;</span> cutoffs[<span class="st">"dffits"</span>]),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covratio =</span> <span class="fu">which</span>(diag_tab<span class="sc">$</span>covratio <span class="sc">&lt;</span> cutoffs[<span class="st">"cov_lo"</span>] <span class="sc">|</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                     diag_tab<span class="sc">$</span>covratio <span class="sc">&gt;</span> cutoffs[<span class="st">"cov_hi"</span>])</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$rstudent
+[1]  2 18
+
+$hat
+[1]  2 13 19
+
+$cook
+[1]  2 13 18
+
+$dffits
+[1]  2 13 18 22
+
+$covratio
+[1]  3 19</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(<span class="fu">abs</span>(<span class="fu">dfbetas</span>(fit_squid)) <span class="sc">&gt;</span> cutoffs[<span class="st">"dfbetas"</span>], <span class="dv">2</span>, which)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`(Intercept)`
+15 18 
+15 18 
+
+$x1
+13 22 
+13 22 
+
+$x2
+ 2 15 18 22 
+ 2 15 18 22 
+
+$x3
+ 2 13 
+ 2 13 
+
+$x4
+ 2  7 18 22 
+ 2  7 18 22 
+
+$x5
+13 18 
+13 18 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">influence.measures</span>(fit_squid))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Potentially influential observations of
+     lm(formula = y ~ x1 + x2 + x3 + x4 + x5, data = squid) :
+
+   dfb.1_ dfb.x1 dfb.x2  dfb.x3  dfb.x4  dfb.x5 dffit   cov.r   cook.d hat  
+2   0.19  -0.04  -2.50_*  1.28_*  1.28_*  0.16  -2.66_*  0.52    0.92   0.56
+18 -0.45   0.43   1.02_* -0.17   -0.73   -0.89  -1.65    0.27    0.34   0.31
+19  0.00   0.01   0.00   -0.01    0.01   -0.01  -0.03    3.79_*  0.00   0.61</code></pre>
+</div>
+</div>
+<p>The flagged observations are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Obs.</th>
+<th style="text-align: right;"><span class="math inline">\(t_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(h_{ii}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(D_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(DFFITS_i\)</span></th>
+<th style="text-align: left;">Large <span class="math inline">\(\lvert DFBETAS\rvert\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(COVRATIO_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: right;"><span class="math inline">\(-2.34\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.565\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.924\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(-2.66\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(x_2\)</span> (<span class="math inline">\(-2.50\)</span>), <span class="math inline">\(x_3\)</span> (<span class="math inline">\(1.28\)</span>), <span class="math inline">\(x_4\)</span> (<span class="math inline">\(1.28\)</span>)</td>
+<td style="text-align: right;"><span class="math inline">\(0.52\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">13</td>
+<td style="text-align: right;"><span class="math inline">\(1.49\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.558\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.432\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1.67\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_3\)</span> (<span class="math inline">\(-0.98\)</span>), <span class="math inline">\(x_5\)</span> (<span class="math inline">\(0.99\)</span>)</td>
+<td style="text-align: right;"><span class="math inline">\(1.46\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">18</td>
+<td style="text-align: right;"><span class="math inline">\(-2.47\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.307\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.342\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(-1.65\)</span></td>
+<td style="text-align: left;">intercept, <span class="math inline">\(x_2\)</span> (<span class="math inline">\(1.02\)</span>), <span class="math inline">\(x_4\)</span>, <span class="math inline">\(x_5\)</span> (<span class="math inline">\(-0.89\)</span>)</td>
+<td style="text-align: right;"><span class="math inline">\(0.27\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">19</td>
+<td style="text-align: right;"><span class="math inline">\(-0.02\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.611\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.000\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(-0.03\)</span></td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;"><span class="math inline">\(3.79\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">22</td>
+<td style="text-align: right;"><span class="math inline">\(1.27\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.447\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.211\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1.15\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(x_1\)</span> (<span class="math inline">\(-0.68\)</span>), <span class="math inline">\(x_2\)</span>, <span class="math inline">\(x_4\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1.44\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><code>influence.measures()</code> flags observations 2, 18, and 19. Its built-in cutoffs are more conservative than ours (for example <span class="math inline">\(\lvert DFBETAS\rvert&gt;1\)</span> and <span class="math inline">\(h_{ii}&gt;3p/n\)</span>), so it flags fewer cases.</p>
+<p><strong>Observation 2</strong> is the most influential case. It has high leverage (<span class="math inline">\(h_{22}=0.565&gt;2p/n\)</span>) and is an outlier (<span class="math inline">\(t_2=-2.34\)</span>). It has the largest Cook’s distance (<span class="math inline">\(0.92\)</span>, close to 1) and the largest <span class="math inline">\(\lvert DFFITS\rvert\)</span> (<span class="math inline">\(2.66\)</span>).</p>
+<p><strong>Observation 18</strong> is the largest outlier (<span class="math inline">\(t_{18}=-2.47\)</span>) with moderate leverage. It is influential through <span class="math inline">\(D_i\)</span>, DFFITS, and several DFBETAS.</p>
+<p><strong>Observation 13</strong> has high leverage and a moderate residual. That combination makes it influential for <span class="math inline">\(b_1\)</span>, <span class="math inline">\(b_3\)</span>, and <span class="math inline">\(b_5\)</span>.</p>
+<p><strong>Observation 19</strong> has the highest leverage (<span class="math inline">\(0.611\)</span>) but a residual of essentially 0. It is a “good” leverage point: it barely changes the fit, and its <span class="math inline">\(COVRATIO=3.79\)</span> shows that it substantially <em>improves</em> precision.</p>
+<p>To see the effect concretely, we refit without the most important cases.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>compare_drop <span class="ot">&lt;-</span> <span class="cf">function</span>(drop) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">update</span>(fit_squid, <span class="at">subset =</span> <span class="sc">-</span>drop)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">b_full =</span> <span class="fu">coef</span>(fit_squid), <span class="at">b_drop =</span> <span class="fu">coef</span>(f),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">se_full =</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit_squid))),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">se_drop =</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(f)))), <span class="dv">3</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_drop</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            b_full b_drop se_full se_drop
+(Intercept) -6.512 -6.672   0.934   0.828
+x1           1.999  2.089   2.573   2.275
+x2          -3.675  2.448   2.774   3.587
+x3           2.524 -4.682   6.347   6.402
+x4           5.158  1.032   3.660   3.686
+x5          14.401 13.712   4.856   4.303</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_drop</span>(<span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            b_full b_drop se_full se_drop
+(Intercept) -6.512 -6.148   0.934   0.826
+x1           1.999  1.045   2.573   2.273
+x2          -3.675 -6.146   2.774   2.613
+x3           2.524  3.488   6.347   5.539
+x4           5.158  7.487   3.660   3.322
+x5          14.401 18.174   4.856   4.493</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_drop</span>(<span class="dv">19</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            b_full b_drop se_full se_drop
+(Intercept) -6.512 -6.511   0.934   0.966
+x1           1.999  1.974   2.573   2.943
+x2          -3.675 -3.670   2.774   2.874
+x3           2.524  2.588   6.347   7.281
+x4           5.158  5.139   3.660   3.899
+x5          14.401 14.432   4.856   5.243</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effect of case 2 on fitted values</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>fit_no2 <span class="ot">&lt;-</span> <span class="fu">update</span>(fit_squid, <span class="at">subset =</span> <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">y_2 =</span> squid<span class="sc">$</span>y[<span class="dv">2</span>], <span class="at">yhat_2_full =</span> <span class="fu">unname</span>(<span class="fu">fitted</span>(fit_squid)[<span class="dv">2</span>]),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yhat_2_without_2 =</span> <span class="fu">unname</span>(<span class="fu">predict</span>(fit_no2, squid[<span class="dv">2</span>, ])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             y_2      yhat_2_full yhat_2_without_2 
+        2.900000         3.859780         5.104712 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">fitted</span>(fit_squid) <span class="sc">-</span> <span class="fu">predict</span>(fit_no2, squid)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.244932</code></pre>
+</div>
+</div>
+<p><strong>Fitted values.</strong> Deleting observation 2 changes its own fitted value from <span class="math inline">\(3.86\)</span> to <span class="math inline">\(5.10\)</span>. Scaled by <span class="math inline">\(s_{(2)}\sqrt{h_{22}}\)</span>, this change of <span class="math inline">\(1.24\)</span> is <span class="math inline">\(DFFITS_2=-2.66\)</span>, the largest in absolute value. Other fitted values also move, by as much as <span class="math inline">\(1.24\)</span> pounds. Observation 18 has a similar but smaller effect: its fitted value changes from <span class="math inline">\(7.62\)</span> to <span class="math inline">\(8.18\)</span>.</p>
+<p><strong>Regression coefficients.</strong> The coefficients are very sensitive to a few cases. This is partly because the five length measurements are almost collinear: their pairwise correlations are all above 0.92.</p>
+<ul>
+<li>Deleting observation 2 <strong>reverses the signs</strong> of <span class="math inline">\(b_2\)</span> (from <span class="math inline">\(-3.68\)</span> to <span class="math inline">\(2.45\)</span>) and <span class="math inline">\(b_3\)</span> (from <span class="math inline">\(2.52\)</span> to <span class="math inline">\(-4.68\)</span>), and reduces <span class="math inline">\(b_4\)</span> from <span class="math inline">\(5.16\)</span> to <span class="math inline">\(1.03\)</span>. This is what the large DFBETAS for <span class="math inline">\(x_2\)</span>, <span class="math inline">\(x_3\)</span>, and <span class="math inline">\(x_4\)</span> predict.</li>
+<li>Deleting observation 18 roughly halves <span class="math inline">\(b_1\)</span> (from <span class="math inline">\(2.00\)</span> to <span class="math inline">\(1.05\)</span>) and increases <span class="math inline">\(b_5\)</span> from <span class="math inline">\(14.40\)</span> to <span class="math inline">\(18.17\)</span>.</li>
+<li>Deleting observation 19 changes the coefficients by less than 3%.</li>
+</ul>
+<p><strong>Precision.</strong> Observations 2 and 18 <em>reduce</em> precision (<span class="math inline">\(COVRATIO&lt;1\)</span>). Without them, <span class="math inline">\(s\)</span> drops from <span class="math inline">\(0.70\)</span> to <span class="math inline">\(0.62\)</span> and <span class="math inline">\(0.61\)</span>, and most standard errors get smaller. Observation 18 has the smallest COVRATIO (<span class="math inline">\(0.27\)</span>), but it is still above the lower cutoff <span class="math inline">\(0.18\)</span>.</p>
+<p>Observation 19, by contrast, <em>improves</em> precision (<span class="math inline">\(COVRATIO=3.79&gt;1.818\)</span>). Deleting it inflates every standard error, for example <span class="math inline">\(SE(b_3)\)</span> from <span class="math inline">\(6.35\)</span> to <span class="math inline">\(7.28\)</span>. Observation 3 (<span class="math inline">\(COVRATIO=2.12\)</span>) plays a similar role.</p>
+</section>
+<section id="graphical-influence-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="graphical-influence-diagnostics">7. Graphical influence diagnostics</h2>
+<section id="a.-bubble-plot" class="level3">
+<h3 class="anchored" data-anchor-id="a.-bubble-plot">a. Bubble plot</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">influencePlot</span>(fit_squid,</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">main =</span> <span class="st">"Bubble plot: R-student vs hat values (area ~ Cook's D)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q7a-bubble-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       StudRes       Hat        CookD
+2  -2.33904094 0.5646687 0.9244357141
+13  1.48676396 0.5577881 0.4320150660
+18 -2.47377065 0.3068443 0.3420506512
+19 -0.02003576 0.6111113 0.0001121431</code></pre>
+</div>
+</div>
+<p>In the bubble plot each circle’s area is proportional to Cook’s distance. The horizontal lines mark R-student residuals of 0 and <span class="math inline">\(\pm2\)</span>. The vertical line marks <span class="math inline">\(2\bar h=2p/n=0.545\)</span>; the <span class="math inline">\(3\bar h\)</span> line at <span class="math inline">\(0.818\)</span> is beyond the range of the data.</p>
+<ul>
+<li><strong>Observation 2</strong> (bottom right) has high leverage and a residual below <span class="math inline">\(-2\)</span>. It is the largest bubble (<span class="math inline">\(D_2=0.92\)</span>).</li>
+<li><strong>Observation 18</strong> is an outlier (<span class="math inline">\(t_{18}&lt;-2\)</span>) with moderate leverage, so it has a sizable bubble.</li>
+<li><strong>Observation 13</strong> (top right) has high leverage with a positive residual of about 1.5, giving a medium-sized bubble.</li>
+<li><strong>Observation 19</strong> has the largest leverage but sits on the zero line. Its bubble is tiny because a high-leverage point that follows the fitted surface has little influence.</li>
+</ul>
+</section>
+<section id="b.-influence-index-plot" class="level3">
+<h3 class="anchored" data-anchor-id="b.-influence-index-plot">b. Influence index plot</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">influenceIndexPlot</span>(fit_squid,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Cook"</span>, <span class="st">"Studentized"</span>, <span class="st">"Bonf"</span>, <span class="st">"hat"</span>),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">main =</span> <span class="st">"Influence index plot for the squid model"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q7b-index-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Cook’s distance:</strong> observation 2 stands out (<span class="math inline">\(0.92\)</span>), followed by 13 (<span class="math inline">\(0.43\)</span>) and 18 (<span class="math inline">\(0.34\)</span>).</li>
+<li><strong>R-student residuals:</strong> observations 2 and 18 are the only cases beyond <span class="math inline">\(\pm2\)</span>.</li>
+<li><strong>Bonferroni p-values:</strong> neither observation 2 nor 18 is significant after the Bonferroni adjustment (smallest adjusted <span class="math inline">\(p\approx0.57\)</span>, see <code>car::outlierTest()</code>). Neither is a formal outlier.</li>
+<li><strong>Hat values:</strong> observations 19, 2, and 13 have the largest leverage, with 15 and 22 next.</li>
+</ul>
+<p>Together, the plots confirm the numerical analysis. Observation 2 is noteworthy because it combines high leverage with a large residual. Observation 18 is the most outlying case. Observations 13 and 19 are high-leverage points with very different influence.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">outlierTest</span>(fit_squid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>No Studentized residuals with Bonferroni p &lt; 0.05
+Largest |rstudent|:
+    rstudent unadjusted p-value Bonferroni p
+18 -2.473771           0.025806      0.56774</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="added-variable-plots" class="level2">
+<h2 class="anchored" data-anchor-id="added-variable-plots">8. Added-variable plots</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">avPlots</span>(fit_squid, <span class="at">id =</span> <span class="fu">list</span>(<span class="at">method =</span> <span class="st">"mahal"</span>, <span class="at">n =</span> <span class="dv">3</span>),</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">main =</span> <span class="st">"Added-variable plots for the squid model"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-4-sol_files/figure-html/q8-avplots-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The slope of the line in each plot equals the corresponding coefficient <span class="math inline">\(b_j\)</span> in the full model, so a point far from the center of a plot can pull that slope.</p>
+<p><strong>Influence on particular coefficients.</strong></p>
+<ul>
+<li>In the plot for <span class="math inline">\(x_2\)</span>, <strong>observation 2</strong> is isolated at the far right with a large negative residual. It pulls the slope down and is largely responsible for the negative estimate <span class="math inline">\(b_2=-3.68\)</span>. This matches <span class="math inline">\(DFBETAS_{x_2,2}=-2.50\)</span>; without case 2, <span class="math inline">\(b_2\)</span> becomes <span class="math inline">\(+2.45\)</span>.</li>
+<li>In the plot for <span class="math inline">\(x_5\)</span>, <strong>observation 13</strong> sits in the upper right and makes the positive slope steeper (<span class="math inline">\(DFBETAS_{x_5,13}=0.99\)</span>).</li>
+<li>In the plot for <span class="math inline">\(x_3\)</span>, observations 13 and 2 are at the far left on opposite sides of the line, so they act on <span class="math inline">\(b_3\)</span> in opposite directions.</li>
+<li>In the plot for <span class="math inline">\(x_1\)</span>, observations <strong>22</strong> (left) and <strong>18</strong> (bottom) are the most extreme. This is consistent with their DFBETAS for <span class="math inline">\(x_1\)</span>.</li>
+</ul>
+<p><strong>Joint influence.</strong></p>
+<ul>
+<li><strong>Observation 18</strong> appears as an extreme point in all five plots, always below the line. Its influence is spread across all coefficients.</li>
+<li><strong>Observation 2</strong> appears in the plots for <span class="math inline">\(x_2\)</span>, <span class="math inline">\(x_3\)</span>, and <span class="math inline">\(x_4\)</span>.</li>
+<li><strong>Observations 2 and 18</strong> appear together in the plots for <span class="math inline">\(x_2\)</span>, <span class="math inline">\(x_3\)</span>, and <span class="math inline">\(x_4\)</span>, so they may be jointly influential. Deleting both changes <span class="math inline">\(b_3\)</span> from <span class="math inline">\(2.52\)</span> to <span class="math inline">\(-1.71\)</span> and <span class="math inline">\(b_2\)</span> from <span class="math inline">\(-3.68\)</span> to <span class="math inline">\(-1.28\)</span>; neither deletion alone produces that combination.</li>
+</ul>
+<p><strong>Agreement with the numerical diagnostics.</strong> Yes. The cases that stand out in the added-variable plots are 2, 18, 13 and, to a lesser extent, 22 and 15. These are the same cases flagged by Cook’s distance, DFFITS, and DFBETAS in Questions 6 and 7.</p>
+<p>Observation 19 has the largest leverage but does not stand out in any added-variable plot. Its residual is near zero, so it lies on the fitted line in every plot. This agrees with its tiny Cook’s distance.</p>
+</section>
+<section id="numerical-verification-of-the-added-variable-plot-properties-for-x_1" class="level2">
+<h2 class="anchored" data-anchor-id="numerical-verification-of-the-added-variable-plot-properties-for-x_1">9. Numerical verification of the added-variable plot properties for <span class="math inline">\(x_1\)</span></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>e_y  <span class="ot">&lt;-</span> <span class="fu">resid</span>(<span class="fu">lm</span>(y  <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5, <span class="at">data =</span> squid))   <span class="co"># e(y | x_(1))</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>e_x1 <span class="ot">&lt;-</span> <span class="fu">resid</span>(<span class="fu">lm</span>(x1 <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5, <span class="at">data =</span> squid))   <span class="co"># e(x1 | x_(1))</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>av_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(e_y <span class="sc">~</span> e_x1)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) slopes</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">av_slope =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(av_fit)[<span class="st">"e_x1"</span>]),</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">b1_full =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(fit_squid)[<span class="st">"x1"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>av_slope  b1_full 
+1.999413 1.999413 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">unname</span>(<span class="fu">coef</span>(av_fit)[<span class="st">"e_x1"</span>]), <span class="fu">unname</span>(<span class="fu">coef</span>(fit_squid)[<span class="st">"x1"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) residuals</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">resid</span>(av_fit) <span class="sc">-</span> <span class="fu">resid</span>(fit_squid)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.884981e-15</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">unname</span>(<span class="fu">resid</span>(av_fit)), <span class="fu">unname</span>(<span class="fu">resid</span>(fit_squid)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (c) standard error</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sigma</span>(fit_squid)                      <span class="co"># sqrt(MS_res), full model</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>se_formula <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(e_x1<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">se_formula =</span> se_formula,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">se_lm =</span> <span class="fu">summary</span>(fit_squid)<span class="sc">$</span>coefficients[<span class="st">"x1"</span>, <span class="st">"Std. Error"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>se_formula      se_lm 
+  2.573338   2.573338 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(se_formula, <span class="fu">summary</span>(fit_squid)<span class="sc">$</span>coefficients[<span class="st">"x1"</span>, <span class="st">"Std. Error"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ol type="a">
+<li><p>The slope of the simple regression of <span class="math inline">\(e(y\mid x_{(1)})\)</span> on <span class="math inline">\(e(x_1\mid x_{(1)})\)</span> is <span class="math inline">\(1.9994\)</span>, identical to <span class="math inline">\(b_1=1.9994\)</span> from the full model. Its intercept is essentially 0, because both sets of residuals have mean 0.</p></li>
+<li><p>The residuals from that simple regression agree with the full-model residuals; the largest absolute difference is of order <span class="math inline">\(10^{-15}\)</span>, which is rounding error.</p></li>
+<li><p>With <span class="math inline">\(s=\sqrt{MS_{\mathrm{res}}}=0.7035\)</span> from the full model,</p></li>
+</ol>
+<p><span class="math display">\[
+\frac{s}{\sqrt{\sum_{i=1}^n e_i^2(x_1\mid x_{(1)})}}=2.5733=SE(b_1).
+\]</span></p>
+<p>The <span class="math inline">\(s\)</span> must come from the <strong>full</strong> regression, with <span class="math inline">\(n-p=16\)</span> residual df. The standard error printed by <code>summary(av_fit)</code> is <span class="math inline">\(2.30\)</span>, not <span class="math inline">\(2.57\)</span>, because <code>lm()</code> treats the added-variable regression as a simple regression with <span class="math inline">\(n-2=20\)</span> df. It does not know that four more parameters were estimated in the first step.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(av_fit)<span class="sc">$</span>coefficients[<span class="st">"e_x1"</span>, <span class="st">"Std. Error"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.301664</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df.residual</span>(av_fit); <span class="fu">df.residual</span>(fit_squid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="mathematical-derivation-and-reasoning" class="level1">
+<h1>Mathematical Derivation and Reasoning</h1>
+<section id="bounds-on-the-leverage-values" class="level2">
+<h2 class="anchored" data-anchor-id="bounds-on-the-leverage-values">10. Bounds on the leverage values</h2>
+<p>Let <span class="math inline">\(\mathbf H=\mathbf X(\mathbf X'\mathbf X)^{-1}\mathbf X'\)</span>, where <span class="math inline">\(\mathbf X\)</span> has full column rank and includes a column of ones. We show</p>
+<p><span class="math display">\[
+\frac1n\le h_{ii}\le1.
+\]</span></p>
+<section id="lower-bound" class="level3">
+<h3 class="anchored" data-anchor-id="lower-bound">Lower bound</h3>
+<p>For a model with an intercept, write <span class="math inline">\(\mathbf x_i'=(1,\mathbf z_i')\)</span>, where <span class="math inline">\(\mathbf z_i\)</span> contains the <span class="math inline">\(k=p-1\)</span> non-intercept predictors. The leverage can be written as</p>
+<p><span class="math display">\[
+h_{ii}
+=
+\frac{1}{n}
++
+(\mathbf z_i-\bar{\mathbf z})'
+\mathbf S^{-1}
+(\mathbf z_i-\bar{\mathbf z}),
+\qquad
+\mathbf S=\sum_{j=1}^n(\mathbf z_j-\bar{\mathbf z})(\mathbf z_j-\bar{\mathbf z})'.
+\]</span></p>
+<p>The matrix <span class="math inline">\(\mathbf S\)</span> is positive definite. It is positive semidefinite because, for any vector <span class="math inline">\(\mathbf a\)</span>,</p>
+<p><span class="math display">\[
+\mathbf a'\mathbf S\mathbf a
+=
+\sum_{j=1}^n\left[\mathbf a'(\mathbf z_j-\bar{\mathbf z})\right]^2\ge0.
+\]</span></p>
+<p>It is also nonsingular, because <span class="math inline">\(\mathbf X\)</span> has full column rank: if <span class="math inline">\(\mathbf a'\mathbf S\mathbf a=0\)</span>, then <span class="math inline">\(\mathbf a'\mathbf z_j=\mathbf a'\bar{\mathbf z}\)</span> for every <span class="math inline">\(j\)</span>, so a column of <span class="math inline">\(\mathbf X\)</span> would be a linear combination of the others. Hence <span class="math inline">\(\mathbf S^{-1}\)</span> exists and is also positive definite, and</p>
+<p><span class="math display">\[
+(\mathbf z_i-\bar{\mathbf z})'\mathbf S^{-1}(\mathbf z_i-\bar{\mathbf z})\ge0.
+\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[
+h_{ii}\ge\frac1n,
+\]</span></p>
+<p>with equality exactly when <span class="math inline">\(\mathbf z_i=\bar{\mathbf z}\)</span>, that is, when case <span class="math inline">\(i\)</span> is at the center of the predictor space.</p>
+</section>
+<section id="upper-bound" class="level3">
+<h3 class="anchored" data-anchor-id="upper-bound">Upper bound</h3>
+<p>Since <span class="math inline">\(\mathbf H\)</span> is symmetric (<span class="math inline">\(\mathbf H'=\mathbf H\)</span>) and idempotent (<span class="math inline">\(\mathbf H\mathbf H=\mathbf H\)</span>),</p>
+<p><span class="math display">\[
+h_{ii}
+=
+(\mathbf H\mathbf H)_{ii}
+=
+\sum_{j=1}^n h_{ij}h_{ji}
+=
+\sum_{j=1}^n h_{ij}^2.
+\]</span></p>
+<p>Separating the <span class="math inline">\(j=i\)</span> term,</p>
+<p><span class="math display">\[
+h_{ii}
+=
+h_{ii}^2+\sum_{j\ne i}h_{ij}^2
+\ \ge\
+h_{ii}^2.
+\]</span></p>
+<p>So <span class="math inline">\(h_{ii}-h_{ii}^2=h_{ii}(1-h_{ii})\ge0\)</span>. From the lower bound, <span class="math inline">\(h_{ii}\ge1/n&gt;0\)</span>, so we can divide by <span class="math inline">\(h_{ii}\)</span> to get <span class="math inline">\(1-h_{ii}\ge0\)</span>, that is,</p>
+<p><span class="math display">\[
+h_{ii}\le1.
+\]</span></p>
+<p>Equality holds when <span class="math inline">\(h_{ij}=0\)</span> for all <span class="math inline">\(j\ne i\)</span>. In that case the fitted value <span class="math inline">\(\hat y_i=\sum_j h_{ij}y_j=y_i\)</span> is determined entirely by the case’s own response, and its residual is 0.</p>
+<p>Combining the two parts,</p>
+<p><span class="math display">\[
+\boxed{\frac{1}{n}\le h_{ii}\le1}.
+\]</span></p>
+<p>As a numerical check, the squid hat values lie in <span class="math inline">\([0.066, 0.611]\)</span>, inside <span class="math inline">\([1/22, 1]=[0.045, 1]\)</span>, and they sum to <span class="math inline">\(p=6\)</span> (Homework 3, Question 14).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(fit_squid)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">min =</span> <span class="fu">min</span>(h), <span class="at">max =</span> <span class="fu">max</span>(h), <span class="at">lower_bound =</span> <span class="dv">1</span> <span class="sc">/</span> n, <span class="at">sum =</span> <span class="fu">sum</span>(h))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        min         max lower_bound         sum 
+ 0.06614660  0.61111129  0.04545455  6.00000000 </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/tinyurl\.com\/f26-4780");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Mehdi Maadooliat</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mmadoliat/RegAna-f26/edit/main/hw/hw-4-sol.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mmadoliat/RegAna-f26/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
