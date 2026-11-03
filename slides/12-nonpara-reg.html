@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Mehdi Maadooliat">
-  <title>MATH 4780 (MSSC 5780) – Nonparametric Regression 🛠</title>
+  <title>MATH 4780 (MSSC 5780) – Nonparametric Regression 🛠️</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Nonparametric Regression r emo::ji('hammer_and_wrench') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Nonparametric Regression 🛠️ – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Nonparametric Regression r emo::ji('hammer_and_wrench') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Nonparametric Regression 🛠️ – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -209,7 +209,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="mu-bg.png" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
-  <h1 class="title">Nonparametric Regression 🛠</h1>
+  <h1 class="title">Nonparametric Regression 🛠️</h1>
   <p class="subtitle">MATH 4780 / MSSC 5780 Regression Analysis</p>
 
 <div class="quarto-title-authors">
@@ -235,6 +235,26 @@ Nonparametric Kernel Smoother
 <h2>
 Local Regression
 </h2>
+<h2>
+Choosing the Bandwidth
+</h2>
+<aside class="notes">
+<ul>
+<li>Bridge: polynomials and splines (lecture 11) still assume a global form or fixed knots. Today we let the data decide the shape locally.</li>
+<li>You have already used a nonparametric smoother: the smooth curves in <code>car::scatterplot()</code>, <code>crPlots()</code> and <code>residualPlots()</code> are LOESS fits.</li>
+<li>Pacing (75 min): nonparametric idea ~8 | kernels &amp; Nadaraya-Watson ~15 | local regression &amp; boundary bias ~15 | LOESS ~10 | bandwidth choice &amp; cross-validation ~15 | real data lab &amp; summary ~12.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="nonparametric-statistics" class="slide level2">
 <h2>Nonparametric Statistics</h2>
@@ -310,8 +330,13 @@ Local Regression
 <div class="alert">
 <p><span class="math inline">\(w_{ij}\)</span> is larger when <span class="math inline">\(x_i\)</span> and <span class="math inline">\(x_j\)</span> are closer. <span class="math inline">\(y_i\)</span> is affected more by its <em>neighbors</em>.</p>
 </div>
+<div class="fragment">
+<ul>
+<li>In matrix form, both are <strong>linear smoothers</strong>: <span class="math inline">\(\hat{\mathbf{y}} = \mathbf{H}\mathbf{y}\)</span> (OLS) and <span class="math inline">\(\tilde{\mathbf{y}} = \mathbf{S}\mathbf{y}\)</span> with <span class="math inline">\(\mathbf{S}= [w_{ij}]\)</span> (smoother matrix).</li>
+<li><strong>Effective degrees of freedom</strong>: <span class="math inline">\(\text{Trace}(\mathbf{S})\)</span>, the analogue of <span class="math inline">\(\text{Trace}(\mathbf{H}) = p\)</span> (number of parameters).</li>
+</ul>
 <aside class="notes">
-<p><span class="math display">\[\small {\bf \hat{y} = Xb = X(X'X)^{-1}X'y = Hy},\]</span> - <span class="math inline">\(w_{ij}\)</span>: the influence power of <span class="math inline">\(y_j\)</span> on <span class="math inline">\(y_i\)</span>.</p>
+<p><span class="math display">\[\small {\bf \hat{y} = Xb = X(X'X)^{-1}X'y = Hy},\]</span> - <span class="math inline">\(w_{ij}\)</span>: the influence power of <span class="math inline">\(y_j\)</span> on <span class="math inline">\(y_i\)</span>. - <span class="math inline">\(\text{Trace}(\mathbf{S})\)</span> grows as the bandwidth shrinks: a wiggly smoother “uses” more parameters. <code>loess()</code> reports it as <code>enp</code> (equivalent number of parameters).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -323,6 +348,7 @@ Local Regression
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
 <section id="kernel-smoother" class="slide level2">
 <h2>Kernel Smoother</h2>
@@ -335,7 +361,7 @@ Local Regression
 </ul></li>
 </ul>
 <div class="question">
-<p>Can you give me an kernel function?</p>
+<p>Can you give me a kernel function?</p>
 </div>
 </section>
 <section id="kernel-smoother-1" class="slide level2">
@@ -537,6 +563,26 @@ Local Regression
 <h2>Local Linear Regression w/ Gaussian Kernel Weights</h2>
 
 <img data-src="./images/12-nonpara-reg/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="why-local-linear-boundary-bias" class="slide level2">
+<h2>Why Local Linear? Boundary Bias</h2>
+<ul>
+<li>At <span class="math inline">\(x_0 = 0\)</span> (left panel of the previous slide), all neighbors lie to the <strong>right</strong> of <span class="math inline">\(x_0\)</span>.
+<ul>
+<li>The kernel smoother (local <strong>constant</strong>) averages <span class="math inline">\(y\)</span> values from one side only, so it is pulled toward them: <strong>bias at the boundary</strong>.</li>
+<li>The local <strong>linear</strong> fit follows the local trend and corrects most of this bias.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Local constant: fits a horizontal line in each window (<span class="math inline">\(d = 0\)</span>).</li>
+<li>Local linear (<span class="math inline">\(d = 1\)</span>): fits a sloped line; good default.</li>
+<li>Local quadratic (<span class="math inline">\(d = 2\)</span>): also captures local curvature (peaks and valleys), but is more variable.</li>
+</ul>
+<div class="alert">
+<p>Higher local degree reduces bias but increases variance; in practice <span class="math inline">\(d = 1\)</span> or <span class="math inline">\(2\)</span> is used.</p>
+</div>
+</div>
+</section>
 <section id="local-quadratic-regression-w-gaussian-weights" class="slide level2">
 <h2>Local Quadratic Regression w/ Gaussian Weights</h2>
 
@@ -670,16 +716,16 @@ Local Regression
 <section id="r-implementation" class="slide level2">
 <h2>R Implementation</h2>
 <ul>
-<li><p><code>loess()</code>, <code>KernSmooth::locploy()</code>, <code>locfit::locfit()</code>, <code>ksmooth()</code>. <strong>Not all of them uses the same definition of the bandwidth</strong>.</p></li>
+<li><p><code>loess()</code>, <code>KernSmooth::locpoly()</code>, <code>locfit::locfit()</code>, <code>ksmooth()</code>. <strong>They do not all use the same definition of the bandwidth</strong>.</p></li>
 <li><p><code>ksmooth</code>: The kernels are scaled so that their quartiles are at <span class="math inline">\(\pm 0.25 * \text{bandwidth}\)</span>.</p></li>
 <li><p><code>KernSmooth::locpoly</code> uses the raw value that we directly plug into the kernel.</p></li>
 </ul>
 
 <img data-src="./images/12-nonpara-reg/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:82.0%"><aside class="notes">
 <ul>
-<li>h=1.06σxn−1/5</li>
+<li>Rule-of-thumb (Silverman) bandwidth: <span class="math inline">\(h = 1.06\,\hat{\sigma}_x\, n^{-1/5}\)</span>.</li>
 <li>ksmooth: The kernels are scaled so that their quartiles (viewed as probability densities) are at ± 0.25*bandwidth.</li>
-<li>span: In this case, the bandwidth is decided by first finding the closes k neighbors and then use a tri-cubic weighting on the range of these neighbors. the bandwidth essentially varies depending on the target point</li>
+<li>span: In this case, the bandwidth is decided by first finding the closest k neighbors and then use a tri-cubic weighting on the range of these neighbors. the bandwidth essentially varies depending on the target point</li>
 <li>the kknn() also utilize such a feature as default, so when you want to fit the standard KNN, you should specify method = “rectangular”, otherwise, the neighboring points will not receive the same weight.</li>
 </ul>
 <style type="text/css">
@@ -693,6 +739,145 @@ Local Regression
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="choosing-the-bandwidth-bias-variance-trade-off" class="slide level2">
+<h2>Choosing the Bandwidth: Bias-Variance Trade-off</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Small</strong> <span class="math inline">\(b\)</span> (or span <span class="math inline">\(\alpha\)</span>): follows the data closely, <strong>low bias, high variance</strong> (wiggly, overfits).</li>
+<li><strong>Large</strong> <span class="math inline">\(b\)</span>: averages over many points, <strong>high bias, low variance</strong> (too smooth, misses features).</li>
+<li>Goal: minimize prediction error <span class="math inline">\(=\)</span> bias<span class="math inline">\(^2\)</span> <span class="math inline">\(+\)</span> variance.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/12-nonpara-reg/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<ul>
+<li>Choose <span class="math inline">\(b\)</span> by <strong>leave-one-out cross-validation</strong> (as with PRESS in lecture 10): <span class="math display">\[CV(b) = \frac{1}{n}\sum_{i=1}^n\left(y_i - \tilde{y}_{(i)}\right)^2 = \frac{1}{n}\sum_{i=1}^n\left(\frac{y_i - \tilde{y}_i}{1 - S_{ii}}\right)^2\]</span></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>The shortcut with <span class="math inline">\(S_{ii}\)</span> (diagonal of the smoother matrix) is the same identity as <span class="math inline">\(e_{(i)} = e_i/(1 - h_{ii})\)</span> for PRESS residuals.</li>
+<li>Generalized cross-validation (GCV) replaces <span class="math inline">\(S_{ii}\)</span> by their average <span class="math inline">\(\text{Trace}(\mathbf{S})/n\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-motorcycle-crash-data-choosing-the-span" class="slide level2">
+<h2><span class="pink">R Lab</span> Motorcycle Crash Data: Choosing the Span</h2>
+<ul>
+<li><code>MASS::mcycle</code>: head acceleration (g) vs.&nbsp;time (ms) after a simulated motorcycle crash, <span class="math inline">\(n = 133\)</span>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>spans <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>loocv <span class="ot">&lt;-</span> <span class="fu">sapply</span>(spans, <span class="cf">function</span>(s) {</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">sapply</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(mcycle)), <span class="cf">function</span>(i) {</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>    fit <span class="ot">&lt;-</span> <span class="fu">loess</span>(accel <span class="sc">~</span> times, <span class="at">data =</span> mcycle[<span class="sc">-</span>i, ], <span class="at">span =</span> s,</span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">loess.control</span>(<span class="at">surface =</span> <span class="st">"direct"</span>))</span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>    (mcycle<span class="sc">$</span>accel[i] <span class="sc">-</span> <span class="fu">predict</span>(fit, mcycle[i, ]))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setNames</span>(<span class="fu">round</span>(loocv, <span class="dv">1</span>), <span class="fu">paste</span>(<span class="st">"span"</span>, spans))   <span class="co"># LOOCV error for each span</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> span 0.1  span 0.2  span 0.3  span 0.5 span 0.75 
+      670       572       540       587       982 </code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li><code>surface = "direct"</code> lets <code>predict()</code> work at the boundary points that are left out.</li>
+<li>The minimum is around span = 0.3; the default span 0.75 badly oversmooths these data.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-motorcycle-crash-data-fits" class="slide level2">
+<h2><span class="pink">R Lab</span> Motorcycle Crash Data: Fits</h2>
+
+<img data-src="./images/12-nonpara-reg/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><ul>
+<li>A single polynomial cannot follow the flat start, the sharp dip and the oscillation; the CV-chosen LOESS can.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>The variance is clearly not constant (small at the start, large later): a reminder that smoothers estimate the mean, while the diagnostics from lectures 07 to 10 still matter.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="beyond-one-predictor" class="slide level2">
+<h2>Beyond One Predictor</h2>
+<ul>
+<li><code>loess(y ~ x1 + x2)</code> works with a few predictors, but neighborhoods become <strong>sparse</strong> as the dimension grows (<strong>curse of dimensionality</strong>).</li>
+<li><strong>Additive models</strong> keep one smooth function per predictor: <span class="math display">\[y = \beta_0 + f_1(x_1) + f_2(x_2) + \cdots + f_k(x_k) + \epsilon\]</span>
+<ul>
+<li>fitted with <code>mgcv::gam(y ~ s(x1) + s(x2))</code>.</li>
+<li>Each <span class="math inline">\(f_j\)</span> can be plotted, just like the partial residual plots of lecture 10.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Generalized additive models (GAMs) are a natural next course topic; here we only point to them.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li>Nonparametric regression estimates <span class="math inline">\(f\)</span> without assuming its form: <span class="math inline">\(\tilde{y}_i = \sum_j w_{ij}y_j\)</span>.</li>
+<li><strong>Kernel smoother</strong> (Nadaraya-Watson): local weighted average; weights from a kernel with bandwidth <span class="math inline">\(b\)</span>.</li>
+<li><strong>Local polynomial</strong> (linear/quadratic) regression: weighted LS in each window; reduces boundary bias.</li>
+<li><strong>LOESS</strong>: tricube weights on the nearest fraction <span class="math inline">\(\alpha\)</span> (span) of the data.</li>
+<li>The bandwidth/span controls the <strong>bias-variance trade-off</strong>; choose it by <strong>cross-validation</strong>.</li>
+<li>Software defines the bandwidth differently: <code>ksmooth()</code>, <code>locpoly()</code>, <code>locfit()</code>, <code>loess()</code>.</li>
+</ul>
 
 
 </section></section>
