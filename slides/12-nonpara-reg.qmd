@@ -1,5 +1,5 @@
 ---
-title: "Nonparametric Regression `r emo::ji('hammer_and_wrench')`"
+title: "Nonparametric Regression 🛠️"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 format: 
   revealjs:
@@ -113,6 +113,13 @@ knitr::knit_hooks$set(output = function(x, options) {
 
 <h2> Nonparametric Kernel Smoother </h2>
 <h2> Local Regression </h2>
+<h2> Choosing the Bandwidth </h2>
+
+::: notes
+- Bridge: polynomials and splines (lecture 11) still assume a global form or fixed knots. Today we let the data decide the shape locally.
+- You have already used a nonparametric smoother: the smooth curves in `car::scatterplot()`, `crPlots()` and `residualPlots()` are LOESS fits.
+- Pacing (75 min): nonparametric idea ~8 | kernels & Nadaraya-Watson ~15 | local regression & boundary bias ~15 | LOESS ~10 | bandwidth choice & cross-validation ~15 | real data lab & summary ~12.
+:::
 
 ## Nonparametric Statistics
 - A general regression model $y = f(x) + \epsilon$.
@@ -189,9 +196,15 @@ $w_{ij}$ is larger when $x_i$ and $x_j$ are closer. $y_i$ is affected more by it
 :::
 
 
+. . .
+
+- In matrix form, both are **linear smoothers**: $\hat{\by} = \bH\by$ (OLS) and $\tilde{\by} = \bS\by$ with $\bS = [w_{ij}]$ (smoother matrix).
+- **Effective degrees of freedom**: $\Trace(\bS)$, the analogue of $\Trace(\bH) = p$ (number of parameters).
+
 ::: notes
 $$\small {\bf \hat{y} = Xb = X(X'X)^{-1}X'y = Hy},$$
 -  $w_{ij}$: the influence power of $y_j$ on $y_i$.
+- $\Trace(\bS)$ grows as the bandwidth shrinks: a wiggly smoother "uses" more parameters. `loess()` reports it as `enp` (equivalent number of parameters).
 :::
 
 
@@ -204,7 +217,7 @@ $$\small {\bf \hat{y} = Xb = X(X'X)^{-1}X'y = Hy},$$
   + $K(-t) = K(t)$ for all $t$
 
 ::: question
-Can you give me an kernel function?
+Can you give me a kernel function?
 :::
 
 
@@ -398,15 +411,15 @@ Bandwidth $b$ defines *"neighbors"* of $x_i$, and controls the smoothness of the
     for (x0 in c(2, 3, 4, 5)) {
         # predicting the point at x_0
         par(mar = c(0, 0, 2, 0), mgp = c(0, 0.2, 0), las = 1)
-        plot(x, y, xlim = c(0, 2*pi), cex = 2*dnorm(x, x0, 0.5), xlab = "", ylab = "", 
+        plot(x, y, xlim = c(0, 2*pi), cex = 0.8*dnorm(x, x0, 0.2), xlab = "", ylab = "", 
              pch = 16, xaxt='n', yaxt='n')
         title(main = paste0("Kernel average at x = ", x0, "; b = 0.2"), cex.main = 1.5)
         lines(testx, 2*sin(testx), col = 2, lwd = 3)
         lines(ks_fit_02$x, ks_fit_02$y, type = "s", col = 4, lwd = 3)
         idx <- which.min(abs(ks_fit_02$x - x0))
         points(ks_fit_02$x[idx], ks_fit_02$y[idx], col = "red", pch = 18, cex = 2)
-        cord.x <- seq(x0 - 3, x0 + 3, 0.01)
-        cord.y <- 3*dnorm(cord.x, x0, 0.5) - 3
+        cord.x <- seq(x0 - 1, x0 + 1, 0.005)
+        cord.y <- 1.5*dnorm(cord.x, x0, 0.2) - 3
      
         # The Gaussian Kernel Function
         polygon(cord.x, cord.y, col = rgb(0.5, 0.5, 0.9, 0.2), 
@@ -515,6 +528,23 @@ In locally weighted linear regression, we find the estimates of $\beta_0$ and $\
                col = c(4, 3), lwd = 2, pch = c(NA, 18), cex = 1, bty = "n")
     }
 ```
+
+
+## Why Local Linear? Boundary Bias
+
+- At $x_0 = 0$ (left panel of the previous slide), all neighbors lie to the **right** of $x_0$.
+  + The kernel smoother (local **constant**) averages $y$ values from one side only, so it is pulled toward them: **bias at the boundary**.
+  + The local **linear** fit follows the local trend and corrects most of this bias.
+
+. . .
+
+- Local constant: fits a horizontal line in each window ($d = 0$).
+- Local linear ($d = 1$): fits a sloped line; good default.
+- Local quadratic ($d = 2$): also captures local curvature (peaks and valleys), but is more variable.
+
+::: alert
+Higher local degree reduces bias but increases variance; in practice $d = 1$ or $2$ is used.
+:::
 
 
 ## Local Quadratic Regression w/ Gaussian Weights
@@ -696,7 +726,7 @@ for (i in 1:4) {
 
 ## R Implementation
 
-- `loess()`, `KernSmooth::locploy()`, `locfit::locfit()`, `ksmooth()`. **Not all of them uses the same definition of the bandwidth**.
+- `loess()`, `KernSmooth::locpoly()`, `locfit::locfit()`, `ksmooth()`. **They do not all use the same definition of the bandwidth**.
 
 - `ksmooth`: The kernels are scaled so that their quartiles are at $\pm 0.25 * \text{bandwidth}$.
 
@@ -752,10 +782,121 @@ for (i in 1:4) {
 
 
 ::: notes
-- h=1.06σxn−1/5
+- Rule-of-thumb (Silverman) bandwidth: $h = 1.06\,\hat{\sigma}_x\, n^{-1/5}$.
 - ksmooth: The kernels are scaled so that their quartiles (viewed as probability densities) are at ± 0.25*bandwidth.
-- span: In this case, the bandwidth is decided by first finding the closes k neighbors and then use a tri-cubic weighting on the range of these neighbors. the bandwidth essentially varies depending on the target point
+- span: In this case, the bandwidth is decided by first finding the closest k neighbors and then use a tri-cubic weighting on the range of these neighbors. the bandwidth essentially varies depending on the target point
 - the kknn() also utilize such a feature as default, so when you want to fit the standard KNN, you should specify method = "rectangular", otherwise, the neighboring points will not receive the same weight.
 :::
 
 
+## Choosing the Bandwidth: Bias-Variance Trade-off
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- **Small** $b$ (or span $\alpha$): follows the data closely, **low bias, high variance** (wiggly, overfits).
+- **Large** $b$: averages over many points, **high bias, low variance** (too smooth, misses features).
+- Goal: minimize prediction error $=$ bias$^2$ $+$ variance.
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out-width: 100%
+#| fig-asp: 0.8
+set.seed(1)
+xb <- seq(0, 2 * pi, length.out = 100)
+yb <- 2 * sin(xb) + rnorm(100)
+par(mar = c(2, 2, 1, 0), mgp = c(1, 0.3, 0), las = 1)
+plot(xb, yb, pch = 16, col = "gray50", xlab = "", ylab = "", xaxt = "n", yaxt = "n")
+lines(xb, 2 * sin(xb), col = 2, lwd = 3)
+lines(xb, fitted(loess(yb ~ xb, span = 0.1)), col = 4, lwd = 3)
+lines(xb, fitted(loess(yb ~ xb, span = 1)), col = 3, lwd = 3)
+legend("bottomleft", c("true f", "span = 0.1 (wiggly)", "span = 1 (too smooth)"),
+       col = c(2, 4, 3), lwd = 3, bty = "n", cex = 1.3)
+```
+:::
+::::
+
+. . .
+
+- Choose $b$ by **leave-one-out cross-validation** (as with PRESS in lecture 10):
+$$CV(b) = \frac{1}{n}\sum_{i=1}^n\left(y_i - \tilde{y}_{(i)}\right)^2 = \frac{1}{n}\sum_{i=1}^n\left(\frac{y_i - \tilde{y}_i}{1 - S_{ii}}\right)^2$$
+
+::: notes
+- The shortcut with $S_{ii}$ (diagonal of the smoother matrix) is the same identity as $e_{(i)} = e_i/(1 - h_{ii})$ for PRESS residuals.
+- Generalized cross-validation (GCV) replaces $S_{ii}$ by their average $\Trace(\bS)/n$.
+:::
+
+
+## [R Lab]{.pink} Motorcycle Crash Data: Choosing the Span
+
+- `MASS::mcycle`: head acceleration (g) vs. time (ms) after a simulated motorcycle crash, $n = 133$.
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+library(MASS)
+spans <- c(0.1, 0.2, 0.3, 0.5, 0.75)
+loocv <- sapply(spans, function(s) {
+  mean(sapply(seq_len(nrow(mcycle)), function(i) {
+    fit <- loess(accel ~ times, data = mcycle[-i, ], span = s,
+                 control = loess.control(surface = "direct"))
+    (mcycle$accel[i] - predict(fit, mcycle[i, ]))^2
+  }))
+})
+setNames(round(loocv, 1), paste("span", spans))   # LOOCV error for each span
+```
+
+::: notes
+- `surface = "direct"` lets `predict()` work at the boundary points that are left out.
+- The minimum is around span = 0.3; the default span 0.75 badly oversmooths these data.
+:::
+
+
+## [R Lab]{.pink} Motorcycle Crash Data: Fits
+
+```{r}
+#| out-width: 75%
+#| fig-asp: 0.5
+par(mar = c(3.5, 3.5, 1, 0.5), mgp = c(2, 0.6, 0), las = 1)
+plot(mcycle$times, mcycle$accel, pch = 16, col = "gray45",
+     xlab = "Time (ms)", ylab = "Acceleration (g)")
+tt <- seq(min(mcycle$times), max(mcycle$times), length.out = 300)
+lines(tt, predict(loess(accel ~ times, mcycle, span = 0.3), data.frame(times = tt)),
+      col = 4, lwd = 3)
+lines(tt, predict(loess(accel ~ times, mcycle), data.frame(times = tt)), col = 3, lwd = 3)
+lines(tt, predict(lm(accel ~ poly(times, 5), mcycle), data.frame(times = tt)),
+      col = 2, lwd = 3, lty = 2)
+legend("bottomright", c("LOESS, span = 0.3 (CV)", "LOESS, default span = 0.75",
+                        "polynomial, degree 5"), col = c(4, 3, 2), lwd = 3,
+       lty = c(1, 1, 2), bty = "n", cex = 1.2)
+```
+
+- A single polynomial cannot follow the flat start, the sharp dip and the oscillation; the CV-chosen LOESS can.
+
+::: notes
+- The variance is clearly not constant (small at the start, large later): a reminder that smoothers estimate the mean, while the diagnostics from lectures 07 to 10 still matter.
+:::
+
+
+## Beyond One Predictor
+
+- `loess(y ~ x1 + x2)` works with a few predictors, but neighborhoods become **sparse** as the dimension grows (**curse of dimensionality**).
+- **Additive models** keep one smooth function per predictor:
+$$y = \beta_0 + f_1(x_1) + f_2(x_2) + \cdots + f_k(x_k) + \epsilon$$
+  + fitted with `mgcv::gam(y ~ s(x1) + s(x2))`.
+  + Each $f_j$ can be plotted, just like the partial residual plots of lecture 10.
+
+::: notes
+- Generalized additive models (GAMs) are a natural next course topic; here we only point to them.
+:::
+
+
+## Summary
+
+- Nonparametric regression estimates $f$ without assuming its form: $\tilde{y}_i = \sum_j w_{ij}y_j$.
+- **Kernel smoother** (Nadaraya-Watson): local weighted average; weights from a kernel with bandwidth $b$.
+- **Local polynomial** (linear/quadratic) regression: weighted LS in each window; reduces boundary bias.
+- **LOESS**: tricube weights on the nearest fraction $\alpha$ (span) of the data.
+- The bandwidth/span controls the **bias-variance trade-off**; choose it by **cross-validation**.
+- Software defines the bandwidth differently: `ksmooth()`, `locpoly()`, `locfit()`, `loess()`.
