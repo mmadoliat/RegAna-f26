@@ -761,9 +761,11 @@ Choosing the Bandwidth
 </div>
 </div></div>
 <div class="fragment">
+<div style="margin-top: -20px;">
 <ul>
 <li>Choose <span class="math inline">\(b\)</span> by <strong>leave-one-out cross-validation</strong> (as with PRESS in lecture 10): <span class="math display">\[CV(b) = \frac{1}{n}\sum_{i=1}^n\left(y_i - \tilde{y}_{(i)}\right)^2 = \frac{1}{n}\sum_{i=1}^n\left(\frac{y_i - \tilde{y}_i}{1 - S_{ii}}\right)^2\]</span></li>
 </ul>
+</div>
 <aside class="notes">
 <ul>
 <li>The shortcut with <span class="math inline">\(S_{ii}\)</span> (diagonal of the smoother matrix) is the same identity as <span class="math inline">\(e_{(i)} = e_i/(1 - h_{ii})\)</span> for PRESS residuals.</li>
