@@ -819,7 +819,7 @@ legend("bottomleft", c("true f", "span = 0.1 (wiggly)", "span = 1 (too smooth)")
 
 . . .
 
-::: {style="margin-top: -20px;"}
+::: {style="margin-top: -75px;"}
 - Choose $b$ by **leave-one-out cross-validation** (as with PRESS in lecture 10):
 $$CV(b) = \frac{1}{n}\sum_{i=1}^n\left(y_i - \tilde{y}_{(i)}\right)^2 = \frac{1}{n}\sum_{i=1}^n\left(\frac{y_i - \tilde{y}_i}{1 - S_{ii}}\right)^2$$
 :::

@@ -75,6 +75,7 @@ library(olsrr)
 library(leaps)
 library(MASS)
 library(kableExtra)
+library(glmnet)
 knitr::opts_chunk$set(
     fig.asp = 0.618,
     fig.align = "center",
@@ -120,6 +121,13 @@ knitr::knit_hooks$set(output = function(x, options) {
 <h2> Model Building Process </h2>
 <h2> Model Selection Criteria </h2>
 <h2> Selection Methods </h2>
+<h2> Model Validation and Shrinkage </h2>
+
+::: notes
+- Two lectures. **Part I**: why select, misspecification, prediction and data splitting, selection criteria, best subsets. **Part II**: stepwise methods, a model-building strategy, cross-validation, and shrinkage (lasso).
+- Pacing, Part I (75 min): model building & variable selection ~10 | misspecification ~10 | prediction, overfitting, splitting ~12 | criteria ($R^2_{adj}$, $C_p$, AIC/BIC, PRESS) ~20 | best subset labs ~18 | summary ~5.
+- Pacing, Part II (75 min): forward / backward / stepwise (+ labs) ~25 | comments & strategy ~10 | cross-validation lab ~15 | lasso ~15 | inference after selection & summary ~10.
+:::
 
 ## Model Building
 
@@ -218,6 +226,33 @@ There is **no unique definition of "best"**, and different methods specify **dif
 <!-- | MSE                | $\small MSE({\bf b_1}_{under}) > MSE({\bf b_1})$ unless $\small {\bf X_1'X_2=0}$| $\small MSE({\bf b}_{over}) > MSE({\bf b})$ unless $\small {\bf X'Z=0}$ -->
 <!-- | Bias of $\small \hat{\sigma}^2$ | $\small E[\hat{\sigma}^2_{under}] > \sigma^2$ even if $\small {\bf X_1'X_2=0}$| $\small E[\hat{\sigma}^2_{over}] = \sigma^2$ -->
 
+## Consequences of Model Misspecification
+
+- Partition the candidate regressors: ${\bf y} = {\bf X}_1\bbeta_1 + {\bf X}_2\bbeta_2 + \beps$.
+
+. . .
+
+- **Underfitting** (true model has ${\bf X}_2$, we fit only ${\bf X}_1$):
+  + ${\bf b}_1$ is **biased** unless ${\bf X}_1'{\bf X}_2 = {\bf 0}$: $\;E({\bf b}_1) = \bbeta_1 + ({\bf X}_1'{\bf X}_1)^{-1}{\bf X}_1'{\bf X}_2\bbeta_2$
+  + $MS_{Res}$ **overestimates** $\sigma^2$.
+  + but $\var({\bf b}_1)$ is **smaller** than in the full model.
+
+. . .
+
+- **Overfitting** (fit ${\bf X}_1$ and ${\bf X}_2$ when $\bbeta_2 = {\bf 0}$):
+  + All estimates remain **unbiased**, and $MS_{Res}$ is unbiased for $\sigma^2$.
+  + but the variances of ${\bf b}_1$ and $\hat{y}$ are **larger** (unless ${\bf X}_1'{\bf X}_2 = {\bf 0}$).
+
+::: alert
+Deleting regressors trades variance for bias: worthwhile only when the deleted effects are small relative to their variance.
+:::
+
+::: notes
+- LRA Sec 10.1.2. Bias of the reduced model: ${\bf A} = ({\bf X}_1'{\bf X}_1)^{-1}{\bf X}_1'{\bf X}_2$ is the "alias" matrix.
+- This is exactly the variance-bias trade-off quantified by $C_p$ on the next slides.
+:::
+
+
 ## Predictive Performance
 - A selected model that fits the observed sample data well may not predict well on new observations.
 - Build a good regression function/model in terms of **prediction accuracy**. (Model validation/assessment)
@@ -271,7 +306,7 @@ $$\small MSPE(\hat{y}) = E\left[ (\hat{y} - y)^2\right] = E\left[ (\hat{y} - E(\
 
 <br>
 
-> *The model performs well on the current sample data, but awfully predicts the response on the new data we are interested.*
+> *The model performs well on the current sample data, but predicts the response poorly on the new data we are interested in.*
 
 <br>
 
@@ -293,7 +328,7 @@ $$\small MSPE(\hat{y}) = E\left[ (\hat{y} - y)^2\right] = E\left[ (\hat{y} - E(\
 
 ## Overfitting
 
-> *The model performs well on the current sample data, but awfully predicts the response on the new data we are interested.*
+> *The model performs well on the current sample data, but predicts the response poorly on the new data we are interested in.*
 
 - **Low error rate on observed data, but high prediction error rate on future unobserved data!**
 
@@ -364,7 +399,7 @@ https://i.pinimg.com/originals/72/e2/22/72e222c1542539754df1d914cb671bd7.png
 
 - Evaluate subset models:
   + $R_{adj}^2$ $\uparrow$
-  + Mallow's $C_p$  $\downarrow$
+  + Mallows' $C_p$  $\downarrow$
   + Information Criterion (AIC, BIC)  $\downarrow$
   + **PRE**diction **S**um of **S**quares (PRESS) $\downarrow$ (Allen, D.M. (1974))
 
@@ -375,7 +410,7 @@ https://i.pinimg.com/originals/72/e2/22/72e222c1542539754df1d914cb671bd7.png
 - The idea of model selection is to apply some penalty on the number of parameters used in the model. On one hand, we want to model fitting to be as good as possible, i.e., the mean squared error is small. On the other hand, we also want to restrict on the number of variables. We know that as we keep adding variables into a linear regression, the R2 would usually increase. Hence, there is a trade-off between the two. In general, we consider a criterion in the form of
 :::
 
-## Selection Criteria: Mallow's $C_p$ Statistic $\downarrow$
+## Selection Criteria: Mallows' $C_p$ Statistic $\downarrow$
 For a model with $p$ coefficients ( $k$ predictors ),
 
 $$\begin{align} C_p &= \frac{SS_{res}(p)}{\hat{\sigma}^2} - n + 2p \\ &= p + \frac{(s^2 - \hat{\sigma}^2)(n-p)}{\hat{\sigma}^2} \end{align}$$
@@ -394,7 +429,7 @@ $$\begin{align} C_p &= \frac{SS_{res}(p)}{\hat{\sigma}^2} - n + 2p \\ &= p + \fr
 :::
 
 
-## Mallow's $C_p$ Plot
+## Mallows' $C_p$ Plot
 :::: {.columns}
 
 ::: {.column width="50%"}
@@ -432,11 +467,12 @@ For a model with $p$ coefficients ( $k$ predictors ),
 - Akaike information criterion (AIC) is $$\text{AIC} = n \ln \left( \frac{SS_{res}(p)}{n} \right) + 2p$$
 - Bayesian information criterion (BIC) is $$\text{BIC} = n \ln \left( \frac{SS_{res}(p)}{n} \right) + p \ln (n)$$
 - BIC penalizes more when adding more variables as the sample size increases. 
-- BIC tends to choose models with less regressors.
+- BIC tends to choose models with fewer regressors.
+- These forms drop constants; R's `AIC()`/`BIC()` use $-2\ln L + 2(p+1)$ (also counting $\sigma^2$). Only **differences** between models matter.
 
 
 ## Selection Criteria: PRESS $\downarrow$
-- Predicted Residual Error Sum of Squares (PRESS)
+- **PRE**diction **S**um of **S**quares (PRESS), Allen (1974); see lecture 10
 
 - $\text{PRESS}_p = \sum_{i=1}^n[y_i - \hat{y}_{(i)}]^2 = \sum_{i=1}^n\left( \frac{e_i}{1-h_{ii}}\right)^2$ where $e_i = y_i - \hat{y}_i$.
 
@@ -465,7 +501,7 @@ sum((lm_full$residual /
 ```
 
 <!-- - `AIC()` calculating AIC using -2 log-likelihood. -->
-- `ols_mallows_cp()` for Mallow's $C_p$ in [`olsrr`](https://olsrr.rsquaredacademy.com/) package
+- `ols_mallows_cp()` for Mallows' $C_p$ in [`olsrr`](https://olsrr.rsquaredacademy.com/) package
 :::
 
 
@@ -537,7 +573,7 @@ names(olsrr_all)
 
 
 ::: {.column width="50%"}
-- `cp`: Mallow’s Cp
+- `cp`: Mallows' Cp
 - `aic`: AIC
 - `sbic`: Sawa BIC
 - `sbc`: Schwarz BIC (the one we defined)
@@ -691,6 +727,17 @@ legend("topright", lty = rep(1, 3), lwd = rep(2, 3),
 ```
 
 
+## Summary: Part I
+
+- More regressors: smaller bias but larger variance; fewer regressors: the reverse.
+- Judge models by **prediction** on new data, not by fit to the sample.
+- Criteria that balance fit and complexity: $R^2_{adj}$ $\uparrow$, $C_p$ $\downarrow$ (close to $p$), AIC/BIC $\downarrow$, PRESS $\downarrow$.
+- Best subset regression evaluates all $2^M$ models; different criteria can pick different "best" models.
+
+
+# Part II: Stepwise Methods, Validation and Shrinkage
+
+
 ## Selection Methods: Forward Selection
 
 - Begins with **no regressors**.
@@ -796,10 +843,15 @@ it becomes insignificant with the addition of other variables to the model.
 (olsrr_both <- olsrr::ols_step_both_p(lm_full, pent = 0.1, prem = 0.3))
 ```
 
-## [R Lab]{.pink} Stepwise Regression `step()` {visibility="hidden"}
+## [R Lab]{.pink} Stepwise Regression by AIC: `step()`
 ```{r}
-stats::step(lm_full, direction = "both", trace = 0) 
+#| echo: true
+#| code-line-numbers: false
+stats::step(lm_full, direction = "both", trace = 0)
 ```
+
+- Base R alternative: adds or drops the term that most reduces AIC at each step.
+- `direction = "backward"` (start from the full model) or `"forward"` (start from `y ~ 1` with a `scope`); `k = log(n)` uses BIC.
 
 ::: notes
 - Choose a model by AIC in a Stepwise Algorithm
@@ -849,15 +901,128 @@ forward selection. F IN of between 1.3 and 2.
 Kennedy and Bancroft [ 1971] suggest α = 0.25 for forward selection and recommend α = 0.10 for backward elimi
 
 - STRATEGY FOR VARIABLE SELECTION AND MODEL BUILDING
-the PRESS statistic tends to recommend smaller models than Mallow's Cp, which in turn tends to recommend smaller models than the adjusted R2 .
+the PRESS statistic tends to recommend smaller models than Mallows' Cp, which in turn tends to recommend smaller models than the adjusted R2 .
 :::
 
 
+## A Strategy for Variable Selection and Model Building
+
+1. Fit the **full model** (all candidate regressors).
+2. Perform a thorough analysis: residuals, outliers/influence, collinearity (lectures 07 to 14).
+3. Decide whether transformations of $y$ or the $x$s are needed.
+4. Use **all possible regressions** (or stepwise if $M$ is large) to identify a few candidate models.
+5. Compare the candidates with $C_p$, AIC/BIC, PRESS, and **cross-validation**.
+6. Re-check the diagnostics of the final candidates; use subject-matter knowledge to choose.
+
+::: alert
+Automated methods are not substitutes for careful analysis: are the assumptions met, and is the model interpretable?
+:::
+
+::: notes
+- LRA Sec 10.3 (Figure 10.10).
+:::
 
 
+## Cross-Validation
+
+- One train/test split wastes data and is noisy when $n$ is small.
+- **$K$-fold cross-validation**:
+  1. Randomly split the data into $K$ folds (often $K = 5$ or $10$).
+  2. For each fold $k$: fit on the other $K-1$ folds, predict fold $k$, record the MSE.
+  3. $CV_{(K)} = \frac{1}{K}\sum_{k=1}^K MSE_k$; choose the model with the smallest $CV$.
+- $K = n$ is leave-one-out CV; for linear regression, $n \cdot CV_{(n)} = \text{PRESS}$.
+
+::: alert
+Any selection step (stepwise, choosing a subset) must be done **inside** each training fold; otherwise the CV error is too optimistic.
+:::
 
 
+## [R Lab]{.pink} 5-fold CV: Comparing Models for `mtcars`
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+step_model <- stats::step(lm(mpg ~ ., data = mtcars), direction = "both", trace = 0)
+formula(step_model)
+set.seed(4780)
+fold <- sample(rep(1:5, length.out = nrow(mtcars)))
+cv_mse <- function(form) mean(sapply(1:5, function(k) {
+  fit <- lm(form, data = mtcars[fold != k, ])
+  mean((mtcars$mpg[fold == k] - predict(fit, mtcars[fold == k, ]))^2)
+}))
+forms <- list(full = mpg ~ ., stepAIC = formula(step_model),
+              wt_only = mpg ~ wt, wt_hp = mpg ~ wt + hp)
+round(sapply(forms, cv_mse), 2)
+```
+
+- The full model (10 regressors, $n = 32$) predicts worst; the AIC-selected model `wt + qsec + am` predicts best.
+
+::: notes
+- Caution: here `step()` used all 32 cars, so its CV error is a little optimistic (selection was not repeated inside each fold).
+:::
 
 
+## Shrinkage: The Lasso
+
+- Instead of keeping or dropping regressors, **shrink** the coefficients:
+$$\hat{\bbeta}^{lasso} = \arg\min_{\bbeta} \left\{\sum_{i=1}^n(y_i - {\bf x}_i'\bbeta)^2 + \lambda\sum_{j=1}^k|\beta_j|\right\}$$
+  + $\lambda = 0$: least squares; larger $\lambda$: more shrinkage.
+  + The $|\beta_j|$ penalty sets some coefficients **exactly to 0**: selection and estimation in one step.
+  + Ridge (lecture 14) uses $\sum\beta_j^2$: shrinks, but never exactly to 0.
+- Choose $\lambda$ by cross-validation; standardize the $x$s first (`glmnet` does this by default).
 
 
+## [R Lab]{.pink} Lasso with `glmnet`
+
+:::: {.columns}
+
+::: {.column width="55%"}
+```{r}
+#| echo: true
+#| code-line-numbers: false
+X <- model.matrix(mpg ~ ., data = mtcars)[, -1]
+set.seed(4780)
+cv_lasso <- cv.glmnet(X, mtcars$mpg, alpha = 1, nfolds = 5)
+round(c(min = cv_lasso$lambda.min, `1se` = cv_lasso$lambda.1se), 3)
+round(as.matrix(coef(cv_lasso, s = "lambda.1se")), 3)
+```
+:::
+
+::: {.column width="45%"}
+```{r}
+#| out-width: 100%
+#| fig-asp: 0.8
+par(mar = c(4, 4, 3, 1))
+plot(cv_lasso)
+```
+:::
+::::
+
+- With the "1-SE rule", the lasso keeps `cyl`, `hp` and `wt` and sets the other 7 coefficients to 0.
+
+::: notes
+- `lambda.min` minimizes the CV error; `lambda.1se` is the largest $\lambda$ within one standard error of that minimum (a simpler model).
+- `alpha = 0` gives ridge regression; values in between give the elastic net.
+- Install with `install.packages("glmnet")` if needed.
+:::
+
+
+## Inference After Selection
+
+- $p$-values and CIs from the **final** model ignore the selection step:
+  + The selected regressors were chosen *because* they looked significant in this sample.
+  + Reported $p$-values are too small and CIs too narrow.
+- Remedies: validate on new data, use CV to *compare* rather than to confirm, or split the data (select on one part, estimate and test on the other).
+
+::: alert
+Report how the model was selected, and treat selected-model $p$-values as descriptive.
+:::
+
+
+## Summary: Part II
+
+- **Forward, backward, stepwise**: add/remove one regressor at a time by partial $F$ ($p$-value) or AIC; fast but not guaranteed to find the best subset.
+- Different methods and criteria can give different models: there is no single "best".
+- **Cross-validation** estimates prediction error honestly; repeat any selection inside each fold.
+- **Lasso** shrinks and selects at the same time; choose $\lambda$ by CV.
+- Selection affects inference: be careful with $p$-values after selection.

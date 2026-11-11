@@ -1,5 +1,5 @@
 ---
-title: "Logistic Regression `r emo::ji('computer')`"
+title: "Logistic Regression 💻"
 subtitle: "MATH 4780 / MSSC 5780 Regression Analysis"
 format: 
   revealjs:
@@ -118,6 +118,12 @@ knitr::knit_hooks$set(output = function(x, options) {
 
 # Classification
 
+::: notes
+- Two lectures. **Part I**: classification, the logistic model, interpretation (odds ratios), estimation by maximum likelihood, Wald inference, categorical predictors and confounding. **Part II**: deviance and likelihood-ratio tests, binomial responses and goodness of fit, other links (probit, cloglog), classification metrics, thresholds, ROC/AUC on test data.
+- Pacing, Part I (75 min): classification & why not LS ~12 | logit/logistic & model ~13 | Default labs & interpretation ~20 | MLE & Wald inference ~12 | multiple logistic & student example ~15 | summary ~3.
+- Pacing, Part II (75 min): deviance & LR tests ~15 | binomial responses & fastener labs ~20 | link functions ~8 | confusion matrix & thresholds ~12 | ROC/AUC & test data ~15 | summary ~5.
+:::
+
 
 
 
@@ -234,7 +240,7 @@ What is the problem of this dummy variable approach?
 - **Some estimates are outside $[0, 1]$.**
 
 ```{r}
-#| label: lm-defualt
+#| label: lm-default
 #| out-width: 70%
 Default_tbl %>% 
     ggplot(aes(x = balance, y = as.numeric(default)-1), colour=default) +
@@ -289,7 +295,7 @@ Default_tbl %>%
 ::: notes
 Often, we first predict the probability of each of the categories of $Y$, as a basis for making the classification.
 - The predicted probability should be like a S-shaped curve that first is in [0, 1] interval.
-- Second, the predicted probability of being defualted is increasing in the credit card balance.
+- Second, the predicted probability of default is increasing in the credit card balance.
 ```{r echo=FALSE, out.width="57%"}
 # knitr::include_graphics("img/default_prob.png")
 ```
@@ -303,7 +309,7 @@ Often, we first predict the probability of each of the categories of $Y$, as a b
 
 
 ::: notes
-- When we have several replicates of reposnse, meaning that we have several binary 0-1 outcomes of $y$ at any given level of $x$, we consider Binomial and Proportion Responses, that is the number of successes, or the proportion or the number of successes divided by the total number of trials or replicates.
+- When we have several replicates of the response, meaning that we have several binary 0-1 outcomes of $y$ at any given level of $x$, we consider Binomial and Proportion Responses, that is the number of successes, or the proportion or the number of successes divided by the total number of trials or replicates.
 :::
 
 
@@ -672,6 +678,50 @@ summ_logit_fit$coefficients
 
 - The odds of `default` increases by 0.55% with additional one unit of credit card `balance`.
 
+::: notes
+- A more meaningful unit: each additional \$100 of balance multiplies the odds by $e^{100\hat{\beta}_1} = 1.73$.
+:::
+
+
+## Estimation: Maximum Likelihood
+
+- No $\epsilon$ and no least squares: estimate $\bbeta$ by **maximum likelihood**.
+- With $y_i \in \{0, 1\}$ and $\pi_i = \pi({\bf x}_i)$,
+$$L(\bbeta) = \prod_{i=1}^n \pi_i^{y_i}(1-\pi_i)^{1-y_i}, \qquad \ln L(\bbeta) = \sum_{i=1}^n\left[y_i\,{\bf x}_i'\bbeta - \ln\left(1 + e^{{\bf x}_i'\bbeta}\right)\right]$$
+
+. . .
+
+- Setting the derivatives to zero gives ${\bf X}'({\bf y} - \boldsymbol\pi) = {\bf 0}$: **no closed form**.
+- Solved iteratively by Newton-Raphson, which is **iteratively reweighted least squares** (IRLS): a sequence of WLS fits (lecture 09) with weights $\hat{\pi}_i(1-\hat{\pi}_i)$.
+- For large $n$: $\hat{\bbeta} \approx N\left(\bbeta,\ ({\bf X'VX})^{-1}\right)$, ${\bf V} = \text{diag}\{\pi_i(1-\pi_i)\}$.
+
+::: notes
+- `glm()` reports "Number of Fisher Scoring iterations": the number of IRLS steps.
+- Compare with OLS: ${\bf X}'({\bf y} - {\bf X}\bbeta) = {\bf 0}$ has the closed-form solution because the mean is linear in $\bbeta$.
+:::
+
+
+## Inference: Wald Tests and Confidence Intervals
+
+- **Wald test** of $H_0: \beta_j = 0$: $\;z = \dfrac{\hat{\beta}_j}{se(\hat{\beta}_j)} \approx N(0, 1)$ (the `z value` column).
+- Approximate $100(1-\alpha)\%$ CI: $\hat{\beta}_j \pm z_{\alpha/2}\,se(\hat{\beta}_j)$.
+- CI for the **odds ratio**: exponentiate the endpoints, $\left(e^{\hat{\beta}_j - z_{\alpha/2}se},\ e^{\hat{\beta}_j + z_{\alpha/2}se}\right)$.
+
+. . .
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+exp(100 * coef(logit_fit)["balance"])                  # OR per $100 of balance
+exp(100 * confint.default(logit_fit)["balance", ])      # Wald 95% CI for that OR
+```
+
+- Each extra \$100 of balance multiplies the odds of default by about 1.73 (95% CI 1.66 to 1.81).
+
+::: notes
+- `confint(logit_fit)` gives profile-likelihood intervals, usually slightly better than Wald intervals.
+:::
+
 
 
 
@@ -830,7 +880,83 @@ summ_multi_logit_fit$coefficients
 Why we multiply the `income` coefficient by 40, rather than 40,000?
 :::
 
+::: notes
+- With unrounded coefficients the probability is 0.096.
+:::
 
+
+## [R Lab]{.pink} A Categorical Predictor: Are Students Riskier?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: false
+glm(default ~ student, data = Default,
+    family = binomial) |> coef()
+glm(default ~ balance + student, data = Default,
+    family = binomial) |> coef()
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: false
+tapply(Default$balance, Default$student, mean)
+```
+:::
+::::
+
+- **Alone**: students have *higher* odds of default ($e^{0.405} = 1.50$).
+- **Given balance**: students have *lower* odds ($e^{-0.715} = 0.49$).
+- Students carry larger balances, and balance drives default: **confounding**. Marginal and partial effects can have opposite signs, as with collinear regressors in linear regression.
+
+
+## Summary: Part I
+
+- Binary $y$: model $\pi(x) = P(y = 1 \mid x)$ with $\text{logit}(\pi) = \beta_0 + \beta_1x_1 + \cdots + \beta_kx_k$.
+- $\beta_j$: change in **log-odds**; $e^{\beta_j}$: **odds ratio** per unit of $x_j$ (others fixed).
+- Estimation by maximum likelihood (IRLS); Wald $z$ tests and CIs, exponentiated for odds ratios.
+- `glm(y ~ x, family = binomial)`; `predict(..., type = "response")` for probabilities.
+
+
+# Part II: Deviance, Binomial Responses and Classification
+
+
+## Deviance and Likelihood-Ratio Tests
+
+- **Deviance**: $D = -2\ln L(\hat{\bbeta})$ for binary data; the analogue of $SS_{Res}$ (smaller is better).
+  + *Null deviance*: model with intercept only; *residual deviance*: fitted model.
+
+. . .
+
+- **Likelihood-ratio (LR) test** for nested models (reduced R vs. full F), the analogue of the partial $F$ test:
+$$G^2 = D(\text{R}) - D(\text{F}) \approx \chi^2_{r} \text{ under } H_0, \quad r = \text{number of extra parameters}$$
+
+. . .
+
+- AIC $= D + 2(k+1)$ compares non-nested models.
+
+::: notes
+- For binary responses the residual deviance itself has no reference distribution (no goodness-of-fit test); differences of deviances do.
+- The overall test: null deviance (2920.6) minus residual deviance, on $k$ df.
+:::
+
+
+## [R Lab]{.pink} Likelihood-Ratio Test
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+full_logit <- glm(default ~ balance + income + student, data = Default, family = binomial)
+anova(logit_fit, full_logit, test = "Chisq")
+c(AIC(logit_fit), AIC(full_logit))
+```
+
+- $G^2 = 1596.5 - 1571.5 = 24.9$ on 2 df ($p < 0.001$): income and student together improve the model with balance.
+- AIC agrees: 1600.5 vs. 1579.5.
 
 ## Multiple Binary Outcomes 
 - So far we consider only **one** binary outcome for each combination of predictors.
@@ -932,9 +1058,65 @@ binom_summ$coef
 
 $$\hat{\pi} = \frac{e^{-5.34 + 0.0015x}}{1 + e^{-5.34 + 0.0015x}}$$
 
+- Each additional 100 psi multiplies the odds of failure by $e^{100(0.00155)} = 1.17$.
+- The load with a 50% failure probability: $\hat{x}_{50} = -\hat{\beta}_0/\hat{\beta}_1 \approx 3448$ psi.
+
 ::: notes
 The complete test data are shown below.
 :::
+
+
+## [R Lab]{.pink} Fastener: Fit and Goodness of Fit
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| out-width: 100%
+#| fig-asp: 0.8
+par(mar = c(4, 4, 1, 1), las = 1)
+plot(fastener$load, fastener$y / fastener$m, pch = 16, cex = 2, col = 4,
+     xlab = "Load (psi)", ylab = "Proportion failing", ylim = c(0, 1), cex.lab = 1.4)
+load_grid <- seq(2400, 4400, by = 10)
+lines(load_grid, predict(binom_fit, data.frame(load = load_grid), type = "response"),
+      lwd = 3, col = 2)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: false
+c(deviance = deviance(binom_fit),
+  df = df.residual(binom_fit),
+  p_value = pchisq(deviance(binom_fit),
+                   df.residual(binom_fit),
+                   lower.tail = FALSE))
+```
+:::
+::::
+
+- With binomial (grouped) data, the residual deviance $\approx \chi^2_{n-p}$ if the model is adequate.
+- Deviance $= 0.37$ on 8 df ($p \approx 1$): **no evidence of lack of fit**.
+
+
+## Other Link Functions
+
+- Any increasing function $g$ mapping $(0, 1)$ to $(-\infty, \infty)$ can serve as the link $g(\pi) = {\bf x}'\bbeta$:
+  + **logit**: $\ln\frac{\pi}{1-\pi}$ (odds-ratio interpretation)
+  + **probit**: $\Phi^{-1}(\pi)$ (standard normal quantile)
+  + **complementary log-log**: $\ln[-\ln(1-\pi)]$ (asymmetric)
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+fits <- list(logit = binom_fit,
+             probit = update(binom_fit, family = binomial(link = "probit")),
+             cloglog = update(binom_fit, family = binomial(link = "cloglog")))
+round(t(sapply(fits, function(f) c(coef(f), deviance = deviance(f), AIC = AIC(f)))), 5)
+```
+
+- All three fit the fastener data almost equally well; logit is preferred for its odds-ratio interpretation.
 
 # Evaluation Metrics
 
@@ -1016,6 +1198,28 @@ default_predict <-
 df <- data.frame(truth = default_true, estimate = default_predict)
 yardstick::conf_mat(data = df, truth = truth, estimate = estimate)
 ```
+:::
+
+
+## [R Lab]{.pink} Choosing the Threshold
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+y_obs <- Default$default == "Yes"
+metrics <- function(th) {
+  y_hat <- pred_prob > th
+  c(threshold = th, sensitivity = mean(y_hat[y_obs]),
+    specificity = mean(!y_hat[!y_obs]), accuracy = mean(y_hat == y_obs))
+}
+round(rbind(metrics(0.5), metrics(0.2)), 3)
+```
+
+- Only 3.3% of customers default: with threshold 0.5 the accuracy is high (97%), but only **30%** of defaulters are caught.
+- Lowering the threshold to 0.2 doubles the sensitivity (60%) at a small cost in specificity.
+
+::: alert
+The best threshold depends on the costs of the two errors (missing a defaulter vs. flagging a good customer). Accuracy alone can be misleading for imbalanced classes.
 :::
 
 
@@ -1123,16 +1327,14 @@ logis_mdl <- parsnip::logistic_reg() %>%
     set_engine("glm") 
 spam_fit <- logis_mdl %>%
     fit(spam ~ num_char, 
-        data = email, 
-        family = "binomial")
+        data = email)
 prob <- predict(spam_fit$fit, type = "response")
 spam_df <- tibble(truth = spam_obs, 
                   pp = 1 - prob)
 # ====
 spam_fit_all <- logistic_reg() %>%
     set_engine("glm") %>%
-    fit(spam ~ ., data = email, 
-        family = "binomial")
+    fit(spam ~ ., data = email)
 prob_all <- predict(spam_fit_all$fit, type = "response")
 spam_df_all <- tibble(truth = spam_obs, pp = 1 - prob_all)
 
@@ -1181,3 +1383,35 @@ plot(roc_multi, col = 3, lty = 2, add = TRUE)
 ```
 :::
 
+
+## [R Lab]{.pink} Comparing Models on Test Data
+
+```{r}
+#| echo: true
+#| code-line-numbers: false
+set.seed(4780)
+train_id <- sample(nrow(Default), 0.8 * nrow(Default))
+train <- Default[train_id, ]; test <- Default[-train_id, ]
+m1 <- glm(default ~ balance, data = train, family = binomial)
+m3 <- glm(default ~ balance + income + student, data = train, family = binomial)
+test_auc <- function(m) {
+  pr <- ROCR::prediction(predict(m, test, type = "response"), test$default)
+  ROCR::performance(pr, "auc")@y.values[[1]]
+}
+round(c(balance_only = test_auc(m1), three_predictors = test_auc(m3)), 4)
+```
+
+- The three-predictor model is significantly better by the LR test, but on new data it does **not** classify better: balance carries almost all the predictive information.
+
+::: notes
+- Statistical significance and predictive gain are different questions (lecture 15).
+:::
+
+
+## Summary: Part II
+
+- **Deviance** plays the role of $SS_{Res}$; nested models are compared with **LR (deviance) tests**, others with AIC.
+- **Binomial responses**: `glm(cbind(y, m - y) ~ x, family = binomial)`; the residual deviance tests goodness of fit.
+- Links: logit (odds ratios), probit, complementary log-log.
+- Classification: choose a threshold; report **sensitivity**, **specificity**, accuracy; ROC curve and **AUC** summarize all thresholds.
+- Compare classifiers on **test data**.

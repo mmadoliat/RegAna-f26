@@ -119,6 +119,11 @@ knitr::knit_hooks$set(output = function(x, options) {
 <h2> Diagnostics </h2>
 <h2> Solutions </h2>
 
+::: notes
+- Pacing (one 75-min lecture): meaning & sources ~10 | effects (+ simulation) ~12 | correlation matrix & VIF ~12 | manpower labs ~15 | eigensystem & variance proportions ~15 | other diagnostics & remedies ~10.
+- The section "Biased Estimation: Ridge and PCR" at the end is ready for a second lecture; skip it (or show only the ridge trace) when collinearity gets one lecture.
+:::
+
 ## What is Collinearity
 
 - **Collinearity** refers to the situation in which **two or more predictors are closely related to one another**.
@@ -204,7 +209,7 @@ set.seed(1234)
 size <- seq(1000, 5000, length = 100)
 income <- 10000 + 15 * jitter(size) + rnorm(100, sd = 14000)
 par(mar = c(4, 5, 0, 0), mgp = c(3, 0.5, 0), las = 1)
-plot(size, income, xlab = "House size (sqaure feet)", ylab = "Family income ($)",
+plot(size, income, xlab = "House size (square feet)", ylab = "Family income ($)",
      pch = 16, col = 4, ylim = c(5000, 120000), cex = 2, cex.lab = 1.5)
 text(4000, 10000, "No data here!", col = 2, cex = 2)
 text(1500, 90000, "No data here!", col = 2, cex = 2)
@@ -215,6 +220,7 @@ text(1500, 90000, "No data here!", col = 2, cex = 2)
 - Polynomial terms can cause ill-conditioning in ${\bf X'X}$.
 - As the order of the model increases, ${\bf X'X}$ matrix inversion will become inaccurate, and error can be introduced into the parameter estimates.
 - If range on a regressor variable is small, adding an $x^2$ term can result in significant collinearity.
+- Recall the hardwood data (lecture 11): VIF of $x$ and $x^2$ dropped from 17.1 to 1.1 after **centering** $x$.
 
 
 ::: notes
@@ -236,23 +242,21 @@ $x$ and $x^2$ are highly (linearly correlated)
 
 1. `r emo::ji('point_right')` **Large variances and covariances** for the LSE $b_j$s.
 
-
-<!-- $$({\bf X}_2'{\bf X}_2)^{-1} = \begin{bmatrix} 63.94 & -63.44 \\ -63.44 & 63.94 \end{bmatrix}$$  -->
-
-2. `r emo::ji('point_right')` The estimates $b_j$ become **highly variable and unstable**. They may have large magnitudes or unexpected signs, even though OLS remains unbiased.
+2. `r emo::ji('point_right')` The estimates $b_j$ become **highly variable and unstable**: large magnitudes or unexpected signs, even though OLS remains unbiased.
 
 ::: alert
-- Large variances can produce **unstable coefficient estimates**, with large magnitudes and changing or unexpected signs.
-- Unstable coefficient estimates do **not necessarily imply poor fit or poor prediction** within the observed predictor region.
-- Predictions are generally most reliable within the region of the $x$-space represented by the observed data.
-- Collinearity can lead to **poor extrapolated prediction**, particularly away from the observed predictor structure.
+- Unstable coefficients do **not necessarily imply poor fit or poor prediction** within the region of $x$-space covered by the data.
+- Collinearity can lead to **poor extrapolated prediction** away from the observed predictor structure.
 :::
 
+. . .
 
-
+- On average, ${\bf b}$ lands far from $\bbeta$ (regressors in correlation form):
+$$E\left[\sum_{j=1}^k(b_j - \beta_j)^2\right] = \sigma^2 \,\Trace\left[({\bf X'X})^{-1}\right] = \sigma^2\sum_{j=1}^k\frac{1}{\lambda_j},$$
+which is **huge** when some eigenvalue $\lambda_j$ of ${\bf X'X}$ is near 0.
 
 ::: notes
-- The squared distance from ${\bf b}$ to $\bsbeta$ is $D^2 = \sum_{j=1}^k(b_j - \beta_j)^2$.
+- The squared distance from ${\bf b}$ to $\bbeta$ is $D^2 = \sum_{j=1}^k(b_j - \beta_j)^2$.
 - The *expected* squared distance is $$E(D^2) = E\left(\sum_{j=1}^k(b_j - \beta_j)^2 \right) = \sum_{j=1}^kE\left[(b_j - \beta_j)^2\right] = \sum_{j=1}^k\var(b_j) = \sigma^2 \mathrm{tr}\left[({\bf X'X})^{-1}\right]$$
 - Strong Collinearity between $x$'s results in 
 - the trace of a matrix (Tr) is the sum of the diagonal elements.
@@ -260,11 +264,40 @@ $x$ and $x^2$ are highly (linearly correlated)
 
 
 
+## Collinearity in Action: A Simulation
+
+- True model: $y = 1 + 2x_1 + 2x_2 + \epsilon$, $n = 30$; 1000 samples with $\cor(x_1, x_2) = 0$ vs. $0.99$.
+
+```{r}
+#| out-width: 75%
+#| fig-asp: 0.45
+set.seed(4780)
+sim_coef <- function(r, B = 1000, n = 30) {
+  t(replicate(B, {
+    x1 <- rnorm(n); x2 <- r * x1 + sqrt(1 - r^2) * rnorm(n)
+    y <- 1 + 2 * x1 + 2 * x2 + rnorm(n)
+    coef(lm(y ~ x1 + x2))[2:3]
+  }))
+}
+b_orth <- sim_coef(0); b_coll <- sim_coef(0.99)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1), las = 1)
+plot(b_orth, pch = 16, col = alpha(4, 0.3), xlim = c(-3, 7), ylim = c(-3, 7),
+     xlab = expression(b[1]), ylab = expression(b[2]), main = "r = 0")
+points(2, 2, pch = 4, col = 2, cex = 2, lwd = 3)
+plot(b_coll, pch = 16, col = alpha(4, 0.3), xlim = c(-3, 7), ylim = c(-3, 7),
+     xlab = expression(b[1]), ylab = expression(b[2]), main = "r = 0.99")
+points(2, 2, pch = 4, col = 2, cex = 2, lwd = 3)
+```
+
+- Both are unbiased (centered at the red $\times$), but with $r = 0.99$, $SD(b_j)$ grows from about 0.2 to 1.35, the estimates are strongly **negatively correlated**, and about 7% of samples give $b_1 < 0$ (**wrong sign**).
+- $b_1 + b_2$ is still well estimated: **predictions** along the data are fine.
+
+
 ## Perfectly Correlated Regressors
 
 - Suppose the true population regression equation is $y = 3 + 4x$.
 
-- Suppose we try estimating that equation using perfected correlated variables $x$ and $z = x/10$.
+- Suppose we try estimating that equation using perfectly correlated variables $x$ and $z = x/10$.
 
 $$
 \begin{aligned}\hat{y}&= \hat{\beta}_0 + \hat{\beta}_1x  + \hat{\beta}_2z\\
@@ -595,6 +628,7 @@ Don't just look at the pairwise correlation
 <!-- - $\kappa$ does not tell us *how many* regressors are involved. -->
 - **Condition indices** of ${\bf \Sigma}$ are $\kappa_j = \frac{\lambda_{max}}{\lambda_{j}}$. 
 - The number of $\kappa_j > 1000$ is a measure of the number of near-linear dependencies in  ${\bf \Sigma}.$
+- **Condition number** $\kappa = \lambda_{max}/\lambda_{min}$: below 100 no serious problem; 100 to 1000 moderate to strong; above 1000 severe collinearity.
 
 
 ::: notes
@@ -677,7 +711,7 @@ unit_length_scale <- function(x, center = TRUE) {
 (V <- eigen_Sig$vectors)
 ```
 - ${\bf X}{\bf v}_5 = \sum_{i=1}^5v_{i5}{\bf x}_i \approx {\bf 0}$.
-- $0.720 {\bf x}_1 + 0.001 {\bf x}_2 - 0.694 {\bf x}_3 - 0.023 {\bf x}_4 - 0.007 {\bf x}_5 \approx {\bf 0}$
+- $0.719 {\bf x}_1 + 0.001 {\bf x}_2 - 0.694 {\bf x}_3 - 0.023 {\bf x}_4 - 0.007 {\bf x}_5 \approx {\bf 0}$
 - Highly correlated $x_1$ and $x_3$ causes collinearity.
 
 
@@ -752,7 +786,7 @@ X_s%*%V[, 5]
 
 
 
-## Eigensystem Analysis: Variance Proportion {visibility="hidden"}
+## Eigensystem Analysis: Variance Proportion
 <!-- - ${\bf X'X = V\bsLambda V'}$, therefore ${\bf (X'X)^{-1} = V\bsLambda^{-1} V'}$ -->
 <!-- - $\var\left( {\bf b} \right) = \sigma^2 {\bf (X'X)} ^{-1} = \sigma^2 {\bf V\bsLambda^{-1} V'}$ -->
 <!-- - $\var\left( b_j \right) = \sigma^2 \sum_{i=1}^k\frac{v_{ji}^2}{\lambda_i} =\sigma^2\text{VIF}_j$ -->
@@ -763,16 +797,16 @@ X_s%*%V[, 5]
 
 ::: alert
 - A small $\lambda_i$, accompanied by a subset of regressors with high variance proportions $\pi_{ij}$ represents a dependency involving the regressors in that subset.
-- If $\pi_{32}$ and $\pi_{34}$ are large, $\lambda_3$ is associated with a collinearity that inflats the variance of $b_2$ and $b_4$.
+- If $\pi_{32}$ and $\pi_{34}$ are large, $\lambda_3$ is associated with a collinearity that inflates the variance of $b_2$ and $b_4$.
 :::
 
 
 ::: notes
-- ${\bf X'X = V\bsLambda V'}$, therefore ${\bf (X'X)^{-1} = V\bsLambda^{-1} V'}$
-- $\var\left( {\bf b} \right) = \sigma^2 {\bf (X'X)} ^{-1} = \sigma^2 {\bf V\bsLambda^{-1} V'}$
+- ${\bf X'X = V}\bLambda{\bf V'}$, therefore ${\bf (X'X)^{-1} = V}\bLambda^{-1}{\bf V'}$
+- $\var\left( {\bf b} \right) = \sigma^2 {\bf (X'X)} ^{-1} = \sigma^2 {\bf V}\bLambda^{-1}{\bf V'}$
 - $\var\left( b_j \right) = \sigma^2 \sum_{i=1}^k\frac{v_{ji}^2}{\lambda_i} =\sigma^2\text{VIF}_j$
 - $\sum_{j=1}^k \var\left( b_j \right) =\sigma^2 \sum_{i=1}^k\sum_{j=1}^k\frac{v_{ji}^2}{\lambda_i} = \sigma^2\sum_{i=1}^k\frac{1}{\lambda_i}$ (length of ${\bf v}_j$ is 1)
-- $\pi_{ij} = \frac{v_{ji}^2/\lambda_i}{\text{VIF}_j}$ is the **variance decomposition proportion**, which is attributed to (or blamed on) the colliearity characterized by the eigenvalue $\lambda_i$.
+- $\pi_{ij} = \frac{v_{ji}^2/\lambda_i}{\text{VIF}_j}$ is the **variance decomposition proportion**, which is attributed to (or blamed on) the collinearity characterized by the eigenvalue $\lambda_i$.
 - $\pi_{ij} > 0.5$ indicates Collinearity. 
 
 A small $\lambda_i$, accompanied by a subset of regressors with high variance proportions $\pi_{ij}$: 
@@ -781,7 +815,7 @@ A small $\lambda_i$, accompanied by a subset of regressors with high variance pr
 :::
 
 
-## [R Lab]{.pink} Hospital Manpower - Variance Proportion {visibility="hidden"}
+## [R Lab]{.pink} Hospital Manpower - Variance Proportion
 ```{r}
 #| echo: true
 #| code-line-numbers: false
@@ -793,7 +827,8 @@ var_prop <- function(V, lambda, vif_all) {
 var_prop(V = V, lambda = lambda, vif_all = vif_all)
 ```
 
-- $\pi_{51}$ and $\pi_{53}$ are large, indicating that $\lambda_5$ is inflating the variance of $b_1$ and $b_3$.
+- Rows are eigenvalues $\lambda_1, \dots, \lambda_5$; columns are $b_1, \dots, b_5$.
+- $\pi_{51} \approx \pi_{53} \approx 0.999$: the smallest eigenvalue $\lambda_5$ is responsible for almost all of the variance of $b_1$ and $b_3$.
 
 
 ::: notes
@@ -828,13 +863,14 @@ Collinearity may exist if
 
 - overall $F$-test for regression is significant, but individual $t$-tests are all non-significant.
 
-- the coefficient estimates are **instable**
+- the coefficient estimates are **unstable**
   + adding or removing a regressor produces large changes in the estimates
   + deleting one or more observations results in large changes in the estimates
   + if the signs or magnitudes of the estimates are contrary to prior expectation
 
 
 ## [R Lab]{.pink} Hospital Manpower - Significance
+::: midi
 ```{r}
 #| echo: true
 #| code-line-numbers: false
@@ -845,19 +881,24 @@ summ_full$coefficients  ## t-test not significant
 #| code-line-numbers: false
 summ_full$fstatistic  ## F-test significant
 ```
+:::
 
 . . .
 
+::: midi
 ```{r}
 #| echo: true
 #| code-line-numbers: false
 lm_no_x3 <- lm(y ~ . -x3, data = manpower)
 summary(lm_no_x3)$coef
 ```
+:::
+
+- Dropping $x_3$ changes the other estimates a lot, and $b_1$ becomes positive: a sign of the instability.
 
 
 
-## Diagonastics Summary {visibility="hidden"}
+## Diagnostics Summary
 ::: alert
 
 *Summary*:
@@ -866,6 +907,8 @@ summary(lm_no_x3)$coef
 + Variance proportion: signify what regressors are involved and to what extent
 + VIF: determine the damage to the individual coefficient
 :::
+
+- Hospital manpower: one near-linear dependency ($\kappa_5 \approx 77{,}770$), involving $x_1$ (patient load) and $x_3$ (occupied bed days); VIFs about 9600 and 8900.
 
 
 ## Methods for Dealing with Collinearity 
@@ -892,240 +935,116 @@ summary(lm_no_x3)$coef
   + <span style="color:blue"> Ridge Regression, Principal Component Regression, Bayesian Regression, etc </span>
 
 
-<!-- ## Unbiased vs. Biased Estimators {visibility="hidden"} -->
-<!-- - The LSE ${\bf b}$ is *unbiased*, i.e., $E({\bf b}) = \bbeta$. -->
-<!-- - LSE is a BLUE: has *minimum variance* among all *unbiased* linear estimators -->
-<!-- - *No guarantee that this variance will be small.* -->
-<!-- - When collinearity exists, $\var({\bf b})$ is largely inflated. -->
+# Biased Estimation: Ridge and PCR
 
-<!-- ```{r} -->
-<!-- #| fig-asp: 0.35 -->
-<!-- par(mar = c(2, 0, 2, 0), mgp = c(0.5, 0.5, 0), las = 1) -->
-<!-- x <- seq(-3, 3, by = 0.1) -->
-<!-- plot(x, dnorm(x), type = "l", lwd = 3, axes = F, xlab = "", ylab = "") -->
-<!-- title(main = "Sampling distribution of LSE b") -->
-<!-- axis(1, at = c(-3, 0.1, 3), labels = c("", expression(bold(beta) == E(b)), ""),  -->
-<!--      tick = T, tck = -0.01) -->
-<!-- segments(x0 = 0, y0 = 0, x1 = 0, y1 = dnorm(0), lty = 2) -->
-<!-- text(2, dnorm(1), expression(paste("E(b) = ", bold(beta), " (unbiased)")), cex = 1.5) -->
-<!-- text(2.5, dnorm(1.5), paste("Var(b) large"), cex = 1.5) -->
-<!-- ``` -->
+::: notes
+- Material for a second collinearity lecture. Ridge and PCR trade a little bias for a large reduction in variance.
+:::
 
 
-<!-- ::: notes -->
-<!-- implying that confidence intervals on β would be wide and the point estimate ˆb is very unstable. -->
-<!-- ::: -->
+## Unbiased vs. Biased Estimators
+
+- LSE ${\bf b}$ is unbiased with minimum variance among unbiased *linear* estimators, but that variance can still be **huge**.
+- Mean squared error: $\text{MSE}(\hat{\beta}) = E[(\hat{\beta} - \beta)^2] = \var(\hat{\beta}) + \text{bias}(\hat{\beta})^2$.
+
+. . .
+
+- **Idea**: accept a small bias for a large drop in variance, so the MSE decreases.
+
+```{r}
+#| out-width: 60%
+#| fig-asp: 0.35
+par(mar = c(2, 0, 1, 0), mgp = c(0.5, 0.5, 0), las = 1)
+xx <- seq(-6, 6, by = 0.01)
+plot(xx, dnorm(xx, 0, 2), type = "l", lwd = 3, axes = FALSE, xlab = "", ylab = "",
+     ylim = c(0, 0.45), col = 4)
+lines(xx, dnorm(xx, -0.8, 0.9), lwd = 3, col = 2)
+axis(1, at = c(-6, 0, 6), labels = c("", expression(beta), ""), tck = -0.01)
+abline(v = 0, lty = 2)
+legend("topright", c("unbiased, large variance (LSE)", "biased, small variance (ridge)"),
+       col = c(4, 2), lwd = 3, bty = "n", cex = 1.2)
+```
 
 
-<!-- ## Biased Estimators {visibility="hidden"} -->
+## Ridge Regression
 
-<!-- :::: {.columns} -->
+- With regressors in correlation form, ${\bf X'X}$ has eigenvalues $\lambda_j$; collinearity means some $\lambda_j \approx 0$.
+- **Ridge estimator** with a small $\delta > 0$:
+$${\bf b}_R = ({\bf X'X} + \delta{\bf I})^{-1}{\bf X'y}$$
+  + Eigenvalues become $\lambda_j + \delta$: no longer near 0.
+  + $\sum_j \var(b_{R,j}) = \sigma^2\sum_j \dfrac{\lambda_j}{(\lambda_j + \delta)^2} \le \sigma^2\sum_j\dfrac{1}{\lambda_j}$.
 
-<!-- ::: {.column width="45%"} -->
-<!-- A good estimator is the one that *balances bias and variance well*, or the one that *minimizes the mean square error* $$\small \text{MSE}(\hat{\beta}) = E[(\hat{\beta} - \beta)^2] = \var(\hat{\beta}) + \text{bias}(\hat{\beta})^2$$ -->
+. . .
 
-<!-- - Biasedness and variance have a *trade-off* relationship! -->
-<!-- - Find a **biased** estimator ${\bf \hat{b}}$ that has *smaller variance and MSE* than ${\bf b}$. -->
-<!-- ::: -->
+- As $\delta$ increases: variance $\downarrow$, bias $\uparrow$, $R^2 \downarrow$.
+- Choose $\delta$ with the **ridge trace** (smallest $\delta$ at which the estimates stabilize) or by **generalized cross-validation** (GCV).
 
-<!-- ::: {.column width="55%"} -->
-<!-- ```{r} -->
-<!-- #| out-width: 100% -->
-<!-- par(mar = c(2, 0, 2, 0), mgp = c(0.5, 0.5, 0), las = 1) -->
-<!-- x <- seq(-6, 6, by = 0.1) -->
-<!-- plot(x, dnorm(x), type = "l", lwd = 3, axes = F, xlab = "", ylab = "", -->
-<!--      xlim = c(-8, 8)) -->
-<!-- title(main = list(expression(paste("Sampling distribution a biased estimator ", hat(b))), cex = 2)) -->
-<!-- axis(1, at = c(-8, -1, 0, 8),  -->
-<!--      labels = c("", expression(bold(beta)), expression(E(b)), ""),  -->
-<!--      tick = T, tck = -0.01, cex.lab = 2) -->
-<!-- segments(x0 = 0, y0 = 0, x1 = 0, y1 = dnorm(0), lty = 2) -->
-<!-- segments(x0 = -1, y0 = 0, x1 = -1, y1 = dnorm(-1), lty = 2) -->
-<!-- text(3.5, dnorm(1), expression(paste(E(hat(b)) != bold(beta), " (biased)")), cex = 2) -->
-<!-- text(4, dnorm(1.5), expression(paste(Var(hat(b)), " small")), cex = 2) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
+::: notes
+- Example: $\begin{bmatrix} 1 & 0.992 \\ 0.992 & 1 \end{bmatrix}^{-1}$ has diagonal 62.8; adding $\delta = 0.1$ gives $\begin{bmatrix} 1.1 & 0.992 \\ 0.992 & 1.1 \end{bmatrix}^{-1}$ with diagonal 4.87.
+- Equivalent penalized form: minimize $\sum_i(y_i - {\bf x}_i'\bbeta)^2 + \delta\sum_j\beta_j^2$ (more on penalties in the next lecture).
+:::
 
 
-<!-- ::: notes -->
-<!-- <!-- .question[ --> -->
-<!-- <!-- Can we obtain an estimator that has a smaller variance? --> -->
-<!-- <!-- ] --> -->
-<!-- ::: -->
+## [R Lab]{.pink} Hospital Manpower - Ridge Trace
+
+:::: {.columns}
+
+::: {.column width="45%"}
+::: midi
+```{r}
+#| echo: true
+#| code-line-numbers: false
+manpower_scale <- as.data.frame(scale(manpower))
+delta <- seq(0, 0.5, by = 0.01)
+ridge_fit <- MASS::lm.ridge(y ~ . - 1, data = manpower_scale, lambda = delta)
+delta[which.min(ridge_fit$GCV)]           # GCV choice
+round(coef(ridge_fit)[c(1, 8, 51), ], 3)  # delta = 0, 0.07, 0.5
+```
+:::
+:::
+
+::: {.column width="55%"}
+```{r}
+#| out-width: 100%
+par(mar = c(3, 3.5, 2, 0), mgp = c(2, 0.5, 0), las = 1)
+matplot(delta, coef(ridge_fit), type = "l", lty = 1, lwd = 2.5, col = 1:5,
+        xlab = expression(delta), ylab = "Standardized coefficients",
+        main = "Ridge Trace", cex.lab = 1.5, cex.main = 2)
+abline(v = 0.07, col = "orange", lty = 2, lwd = 2)
+abline(h = 0, col = "gray")
+legend("topright", paste0("x", 1:5), col = 1:5, lty = 1, lwd = 2.5, bty = "n", cex = 1.2)
+```
+:::
+::::
+
+- At $\delta = 0.07$ (GCV), the coefficient of $x_1$ becomes **positive** and $b_1 \approx b_3$: the expected signs.
 
 
+## Principal Component Regression
 
-<!-- ## Ridge Regression: Motivation  {visibility="hidden"} -->
+- Rotate the (standardized) regressors with the eigenvectors: ${\bf Z} = {\bf XV}$, columns $= $ **principal components**, $\var$ of component $j$ $\propto \lambda_j$.
+- Components are **orthogonal**: no collinearity among them.
+- Drop the components with $\lambda_j \approx 0$, regress $y$ on the rest, and transform the coefficients back to the $x$s.
 
-<!-- - ${\bf \Sigma} = \begin{bmatrix} 1 & 0.992 \\ 0.992 & 1 \end{bmatrix}$ $\quad {\bf  \Sigma}^{-1} = \begin{bmatrix} 62.8 & -62.2 \\ -62.2 & 62.8 \end{bmatrix}$ -->
-<!-- - $\lambda_1 = 1.992$ and $\lambda_2 = 0.008$ -->
+```{r}
+#| echo: true
+#| code-line-numbers: false
+pc <- prcomp(manpower[, -1], scale. = TRUE)
+round(summary(pc)$importance[3, ], 4)   # cumulative proportion of variance
+pcr_fit <- lm(manpower$y ~ pc$x[, 1:4])  # drop the 5th component
+round(pc$rotation[, 1:4] %*% coef(pcr_fit)[-1] / apply(manpower[, -1], 2, sd), 3)
+```
 
-<!-- . . . -->
-
-<!-- - ${\bf \Sigma} = \begin{bmatrix} 1 & 0\\ 0 & 1 \end{bmatrix}$ $\quad {\bf \Sigma}^{-1} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ -->
-<!-- - $\lambda_1 = 1$ and $\lambda_2 = 1$ -->
-
-<!-- . . . -->
-
-<!-- - IDEA: To make ${\bf \Sigma}$ behave more like the orthogonal case. But how? -->
-
-
-<!-- . . . -->
-
-<!-- - Use $({\bf X'X + \delta I})$ with a small $\delta >0$. -->
-<!-- - The eigenvalues of $({\bf X'X + \delta I})$ are $\lambda_1+\delta$ and $\lambda_2 + \delta$. -->
-<!-- - If $\delta = 0.1$, -->
-<!-- $({\bf X'X + \delta I}) = \begin{bmatrix} 1.1 & 0.992 \\ 0.992 & 1.1 \end{bmatrix}$ and $({\bf X'X + \delta I})^{-1} = \begin{bmatrix} 4.87 & -4.39 \\ -4.39 & 4.87 \end{bmatrix}$ -->
+::: notes
+- The 5th component explains essentially 0% of the variance of the $x$s: it is exactly the near-linear dependency $0.72x_1 - 0.69x_3 \approx 0$.
+- Back on the original scale: $b_1 \approx 16.5$ is now positive (it was $-15.9$ by OLS) and $b_3$ shrinks from 1.59 to 0.57; $b_4$ and $b_5$ stay negative, which may be real partial effects.
+- PCR and ridge are both biased; ridge shrinks all components smoothly, PCR drops some completely.
+:::
 
 
+## Summary
 
-<!-- ::: notes -->
-<!-- - The diagonals *do not dominate* as in the orthogonal case whose matrix diagonals dominate and $\lambda_1 = \lambda_2 = 1$. -->
-<!-- Adding $\delta$ to the main diagonal effectively replaces $\lambda$ by $\lambda+\delta$.  -->
-<!-- ::: -->
-
-
-<!-- ## Ridge Regression Estimator {visibility="hidden"} -->
-
-<!-- - With a small $\delta >0$, the ridge estimator ${\bf b}_R$ is $${\bf b}_R = ({\bf X'X + \delta I})^{-1}{\bf X'y}$$ -->
-
-<!-- - ${\bf b}_R$ is a *biased* estimator for $\bbeta$. -->
-
-<!-- ::: notes -->
-<!-- - $\sum_{i=1}^k \var\left( b_{Ri} \right) \le \sum_{i=1}^k \var\left( b_i \right)$ with equality when $\delta = 0$. -->
-<!-- ::: -->
-
-<!-- . . . -->
-
-<!-- - As $\delta$ increases, -->
-<!--   + $\sum_{i=1}^k \var\left( b_{Ri} \right)$ decreases -->
-<!--   + Bias $E\left[ {\bf b}_R \right] - \bbeta$ increases -->
-<!--   + $R^2$ decreases (it's OK as we care more about stable estimates and better prediction) -->
-
-<!-- . . . -->
-
-<!-- - Choose $\delta$ by the **ridge trace** that is a plot of $\{ b_{Ri} \}_{i=1}^k$ vs. $\delta$. -->
-<!--   + Select a small value of $\delta$ at which the ridge estimates ${\bf b}_R$ are stable. -->
-
-
-
-
-<!-- ::: notes -->
-<!-- - Cross Validation -->
-<!-- - The ridge estimator ${\bf b}_R$ is $${\bf b}_R = ({\bf X'X + \delta I})^{-1}{\bf X'y}$$ -->
-<!-- - ${\bf b}_R$ is a *biased* estimator of $\bsbeta$: -->
-<!-- $$E\left[ {\bf b}_R \right] = E\left[({\bf X'X + \delta I})^{-1}{\bf X'y} \right]  = E\left[({\bf X'X + \delta I})^{-1}({\bf X'X}){\bf b}\right] = {\bf Z_{\delta}}\bsbeta$$ -->
-<!-- - The covariance matrix of ${\bf b}_R$ is -->
-<!-- $$\var\left({\bf b}_R \right) = \sigma^2 ({\bf X'X + \delta I})^{-1}{\bf X'X }({\bf X'X + \delta I})^{-1}$$ -->
-<!-- - For LSE, $\sum_{i=1}^k \var\left( b_i \right) = \sigma^2\sum_{i=1}^k\frac{1}{\lambda_i}$ -->
-<!-- - For ridge estimator,  $\sum_{i=1}^k \var\left( b_{Ri} \right) = \sigma^2\sum_{i=1}^k\frac{\lambda_i}{(\lambda_i+\delta)^2}$ -->
-<!-- - $\sum_{i=1}^k \var\left( b_{Ri} \right) \le \sum_{i=1}^k \var\left( b_i \right)$ with equality when $\delta = 0$. -->
-<!-- - As $\delta$ increases, $\sum_{i=1}^k \var\left( b_{Ri} \right)$ decreases. -->
-<!-- ::: -->
-
-
-<!-- ## [R Lab]{.pink} Hospital Manpower - Ridge Regression {visibility="hidden"} -->
-<!-- :::: {.columns} -->
-
-<!-- ::: {.column width="40%"} -->
-<!-- ::: midi -->
-<!-- ```{r} -->
-<!-- #| echo: true -->
-<!-- #| eval: false -->
-<!-- #| code-line-numbers: false -->
-<!-- #| class-source: my_class800 -->
-
-<!-- manpower_scale <- apply(manpower, 2, scale) -->
-<!-- df <- as.data.frame(manpower_scale) -->
-<!-- delta <- seq(0, 0.5, by = 0.01) -->
-<!-- ridge_fit <- MASS::lm.ridge( -->
-<!--   y ~ . -1, data = df, lambda = delta) -->
-<!-- matplot(coef(ridge_fit), type = "l", -->
-<!--         xlab = "delta", ylab = "Coef",  -->
-<!--         main = "Ridge Trace") -->
-<!-- abline(v = which(delta == 0.07),  -->
-<!--        col = "orange", lty = 2) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: -->
-
-
-<!-- ::: {.column width="60%"} -->
-<!-- ```{r} -->
-<!-- #| out-width: 100% -->
-<!-- library(MASS) -->
-<!-- # manpower_scale <- apply(manpower, 2,  -->
-<!-- #                         unit_length_scale) -->
-<!-- manpower_scale <- apply(manpower, 2, scale) -->
-<!-- delta <- seq(0, 0.5, by = 0.01) -->
-<!-- ridge_fit <- lm.ridge(y ~ . -1,  -->
-<!--                       data = as.data.frame(manpower_scale),  -->
-<!--                       lambda = delta) -->
-<!-- par(mar = c(3, 3.5, 2, 0), mgp = c(2, 0.5, 0), las = 1) -->
-<!-- matplot(coef(ridge_fit), type = "l", xlab = "delta", axes = F, cex.lab = 1.5, -->
-<!--         ylab = "Coefficients", main = "Ridge Trace", lwd = 2.5, cex.main = 2) -->
-<!-- axis(2, at = seq(-0.5, 1.5, by = 0.5)) -->
-<!-- axis(1, at = c(0, 10, 20, 30, 40, 50), labels = delta[c(0, 10, 20, 30, 40, 50)+1]) -->
-<!-- text(jitter(rep(15, 5), factor = 3), jitter(coef(ridge_fit)[15, ]), colnames(manpower_scale)[-1], cex = 1.5) -->
-<!-- abline(v = which(delta == 0.07), col = "orange", lty = 2) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
-
-
-
-<!-- ::: notes -->
-<!-- ```{r, eval=FALSE} -->
-<!-- # use GCV to select the best delta -->
-<!-- plot(ridge_fit$lambda, ridge_fit$GCV, type = "l", col = "darkorange",  -->
-<!--      ylab = "GCV", xlab = "delta", lwd = 3) -->
-<!-- title("Hospital Manpower Data: GCV") -->
-<!-- ridge_fit$lambda[which.min(ridge_fit$GCV)] -->
-<!-- ``` -->
-<!-- ::: -->
-
-
-<!-- ## [R Lab]{.pink} Hospital Manpower - Ridge Regression {visibility="hidden"} -->
-<!-- ```{r} -->
-<!-- #| out-width: 78% -->
-<!-- manpower_scale <- as.data.frame(manpower_scale) -->
-<!-- lm_full_scale <- lm(y ~ ., data = manpower_scale) -->
-<!-- par(mar = c(3, 4, 0, 0), mgp = c(2, 0.5, 0)) -->
-<!-- confidenceEllipse(lm_full_scale, which.coef = c(5, 6), col="black", -->
-<!--                   fill=TRUE, -->
-<!--                   center.cex=1, -->
-<!--                   levels=c(0.8, 0.95), fill.alpha=0.1, -->
-<!--                   xlab=expression(beta[4]),  -->
-<!--                   ylab=expression(beta[5]),  -->
-<!--                   las=1, segments=1000, cex.lab = 2) -->
-<!-- abline(h = 0, v = 0) -->
-<!-- points(0, 0, pch = 15, cex = 1, col = 2) -->
-
-<!-- X_stX_s <- t(X_s) %*% X_s -->
-<!-- A <- X_stX_s + diag(0.07, 5) -->
-<!-- Ainv <- solve(A) -->
-<!-- var_ridge <- summary(lm_full_scale)$sigma^2 * Ainv %*% X_stX_s %*% Ainv / (nrow(manpower) - 1) -->
-<!-- # center <- c(0.10711510, 0.11790894) -->
-<!-- # center <- c(-0.007907946, -0.020534287) -->
-<!-- center <- c(-0.01925995, -0.02575226) -->
-<!-- ellipse(center, shape = var_ridge[c(4, 5), c(4, 5)], center.cex=1, -->
-<!--         radius = sqrt(qchisq(c(0.95), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-<!-- ellipse(center, shape = var_ridge[c(4, 5), c(4, 5)], center.cex=1, -->
-<!--         radius = sqrt(qchisq(c(0.8), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-
-<!-- # ellipse(center, shape = var_ridge[c(1, 3), c(1, 3)], center.cex=1, -->
-<!-- #         radius = sqrt(qchisq(c(0.95), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-<!-- # ellipse(center, shape = var_ridge[c(1, 3), c(1, 3)], center.cex=1, -->
-<!-- #         radius = sqrt(qchisq(c(0.8), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-
-<!-- # confidenceEllipse(ridge_fit, which.coef = c(2, 4), col="black", -->
-<!-- #                   fill=TRUE,  -->
-<!-- #                   center.cex=1, -->
-<!-- #                   levels=c(0.8, 0.95), fill.alpha=0.1, -->
-<!-- #                   xlab=expression(beta[1]),  -->
-<!-- #                   ylab=expression(beta[3]),  -->
-<!-- #                   las=1, segments=1000) -->
-<!-- # abline(h = 0, v = 0) -->
-<!-- # points(0, 0, pch = 15, cex = 1, col = 2) -->
-<!-- ``` -->
+- **Collinearity**: near-linear dependence among regressors; a property of the data.
+- **Effects**: inflated variances, unstable estimates, wrong signs; fitted values within the data range are still fine.
+- **Diagnostics**: correlation matrix (pairwise only), VIF ($> 10$), eigenvalues/condition indices ($\kappa > 1000$), variance proportions ($> 0.5$).
+- **Remedies**: more/better data, respecify or drop regressors, or **biased estimation** (ridge, PCR).
