@@ -244,6 +244,22 @@ Diagnostics
 <h2>
 Solutions
 </h2>
+<aside class="notes">
+<ul>
+<li>Pacing (one 75-min lecture): meaning &amp; sources ~10 | effects (+ simulation) ~12 | correlation matrix &amp; VIF ~12 | manpower labs ~15 | eigensystem &amp; variance proportions ~15 | other diagnostics &amp; remedies ~10.</li>
+<li>The section “Biased Estimation: Ridge and PCR” at the end is ready for a second lecture; skip it (or show only the ridge trace) when collinearity gets one lecture.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="what-is-collinearity" class="slide level2">
 <h2>What is Collinearity</h2>
@@ -333,6 +349,7 @@ Solutions
 <li>Polynomial terms can cause ill-conditioning in <span class="math inline">\({\bf X'X}\)</span>.</li>
 <li>As the order of the model increases, <span class="math inline">\({\bf X'X}\)</span> matrix inversion will become inaccurate, and error can be introduced into the parameter estimates.</li>
 <li>If range on a regressor variable is small, adding an <span class="math inline">\(x^2\)</span> term can result in significant collinearity.</li>
+<li>Recall the hardwood data (lecture 11): VIF of <span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> dropped from 17.1 to 1.1 after <strong>centering</strong> <span class="math inline">\(x\)</span>.</li>
 </ul>
 <aside class="notes">
 <p><span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> are highly (linearly correlated) - Polynomial terms can cause ill-conditioning (a sign of Collinearity) in the <span class="math inline">\(({\bf X'X})\)</span> matrix. - As the order of the model increases, <span class="math inline">\(({\bf X'X})\)</span> matrix inversion will become more inaccurate, and error can be introduced into the parameter estimates - If range on a regressor variable is small, adding <span class="math inline">\(x^2\)</span> term can result in significant Collinearity.</p>
@@ -362,23 +379,22 @@ Solutions
 <section id="effect-of-collinearity" class="slide level2">
 <h2>Effect of Collinearity</h2>
 <ol type="1">
-<li>👉 <strong>Large variances and covariances</strong> for the LSE <span class="math inline">\(b_j\)</span>s.</li>
-</ol>
-<!-- $$({\bf X}_2'{\bf X}_2)^{-1} = \begin{bmatrix} 63.94 & -63.44 \\ -63.44 & 63.94 \end{bmatrix}$$  -->
-<ol start="2" type="1">
-<li>👉 The estimates <span class="math inline">\(b_j\)</span> become <strong>highly variable and unstable</strong>. They may have large magnitudes or unexpected signs, even though OLS remains unbiased.</li>
+<li><p>👉 <strong>Large variances and covariances</strong> for the LSE <span class="math inline">\(b_j\)</span>s.</p></li>
+<li><p>👉 The estimates <span class="math inline">\(b_j\)</span> become <strong>highly variable and unstable</strong>: large magnitudes or unexpected signs, even though OLS remains unbiased.</p></li>
 </ol>
 <div class="alert">
 <ul>
-<li>Large variances can produce <strong>unstable coefficient estimates</strong>, with large magnitudes and changing or unexpected signs.</li>
-<li>Unstable coefficient estimates do <strong>not necessarily imply poor fit or poor prediction</strong> within the observed predictor region.</li>
-<li>Predictions are generally most reliable within the region of the <span class="math inline">\(x\)</span>-space represented by the observed data.</li>
-<li>Collinearity can lead to <strong>poor extrapolated prediction</strong>, particularly away from the observed predictor structure.</li>
+<li>Unstable coefficients do <strong>not necessarily imply poor fit or poor prediction</strong> within the region of <span class="math inline">\(x\)</span>-space covered by the data.</li>
+<li>Collinearity can lead to <strong>poor extrapolated prediction</strong> away from the observed predictor structure.</li>
 </ul>
 </div>
+<div class="fragment">
+<ul>
+<li>On average, <span class="math inline">\({\bf b}\)</span> lands far from <span class="math inline">\(\boldsymbol \beta\)</span> (regressors in correlation form): <span class="math display">\[E\left[\sum_{j=1}^k(b_j - \beta_j)^2\right] = \sigma^2 \,\text{Trace}\left[({\bf X'X})^{-1}\right] = \sigma^2\sum_{j=1}^k\frac{1}{\lambda_j},\]</span> which is <strong>huge</strong> when some eigenvalue <span class="math inline">\(\lambda_j\)</span> of <span class="math inline">\({\bf X'X}\)</span> is near 0.</li>
+</ul>
 <aside class="notes">
 <ul>
-<li>The squared distance from <span class="math inline">\({\bf b}\)</span> to <span class="math inline">\(\bsbeta\)</span> is <span class="math inline">\(D^2 = \sum_{j=1}^k(b_j - \beta_j)^2\)</span>.</li>
+<li>The squared distance from <span class="math inline">\({\bf b}\)</span> to <span class="math inline">\(\boldsymbol \beta\)</span> is <span class="math inline">\(D^2 = \sum_{j=1}^k(b_j - \beta_j)^2\)</span>.</li>
 <li>The <em>expected</em> squared distance is <span class="math display">\[E(D^2) = E\left(\sum_{j=1}^k(b_j - \beta_j)^2 \right) = \sum_{j=1}^kE\left[(b_j - \beta_j)^2\right] = \sum_{j=1}^k\mathrm{Var}(b_j) = \sigma^2 \mathrm{tr}\left[({\bf X'X})^{-1}\right]\]</span></li>
 <li>Strong Collinearity between <span class="math inline">\(x\)</span>’s results in</li>
 <li>the trace of a matrix (Tr) is the sum of the diagonal elements.</li>
@@ -394,12 +410,24 @@ Solutions
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
+</section>
+<section id="collinearity-in-action-a-simulation" class="slide level2">
+<h2>Collinearity in Action: A Simulation</h2>
+<ul>
+<li>True model: <span class="math inline">\(y = 1 + 2x_1 + 2x_2 + \epsilon\)</span>, <span class="math inline">\(n = 30\)</span>; 1000 samples with <span class="math inline">\(\mathrm{Corr}(x_1, x_2) = 0\)</span> vs.&nbsp;<span class="math inline">\(0.99\)</span>.</li>
+</ul>
+
+<img data-src="./images/14-collinearity/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"><ul>
+<li>Both are unbiased (centered at the red <span class="math inline">\(\times\)</span>), but with <span class="math inline">\(r = 0.99\)</span>, <span class="math inline">\(SD(b_j)\)</span> grows from about 0.2 to 1.35, the estimates are strongly <strong>negatively correlated</strong>, and about 7% of samples give <span class="math inline">\(b_1 &lt; 0\)</span> (<strong>wrong sign</strong>).</li>
+<li><span class="math inline">\(b_1 + b_2\)</span> is still well estimated: <strong>predictions</strong> along the data are fine.</li>
+</ul>
 </section>
 <section id="perfectly-correlated-regressors" class="slide level2">
 <h2>Perfectly Correlated Regressors</h2>
 <ul>
 <li><p>Suppose the true population regression equation is <span class="math inline">\(y = 3 + 4x\)</span>.</p></li>
-<li><p>Suppose we try estimating that equation using perfected correlated variables <span class="math inline">\(x\)</span> and <span class="math inline">\(z = x/10\)</span>.</p></li>
+<li><p>Suppose we try estimating that equation using perfectly correlated variables <span class="math inline">\(x\)</span> and <span class="math inline">\(z = x/10\)</span>.</p></li>
 </ul>
 <p><span class="math display">\[
 \begin{aligned}\hat{y}&amp;= \hat{\beta}_0 + \hat{\beta}_1x  + \hat{\beta}_2z\\
@@ -560,7 +588,7 @@ Solutions
 <section id="r-lab-hospital-manpower---pairwise-dependence" class="slide level2">
 <h2><span class="pink">R Lab</span> Hospital Manpower - Pairwise Dependence</h2>
 
-<img data-src="./images/14-collinearity/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="./images/14-collinearity/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="r-lab-hospital-manpower---model-fit" class="slide level2">
 <h2><span class="pink">R Lab</span> Hospital Manpower - Model Fit</h2>
 <div class="cell" data-layout-align="center" data-output.lines="[10,11,12,13,14,15,16,20,21]">
@@ -660,7 +688,7 @@ x5   -94   1.8    83    6.4   4.3</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/14-collinearity/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/14-collinearity/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -681,7 +709,7 @@ x3   -5.2    8.4</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/14-collinearity/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/14-collinearity/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -715,7 +743,7 @@ x3   -5.2    8.4</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/14-collinearity/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/14-collinearity/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -725,7 +753,7 @@ x3   -5.2    8.4</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/14-collinearity/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/14-collinearity/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -764,6 +792,7 @@ x5  -856     67</code></pre>
 <li>If there are one or more near-linear dependencies, one or more of the <span class="math inline">\(\lambda_i\)</span>s will be (relatively) <em>small</em>. <!-- - **Condition number** of ${\bf X'X}$ is $\kappa = \frac{\lambda_{max}}{\lambda_{min}}$.  --> <!-- - $\kappa > 100$ implies collinearity. --> <!-- - $\kappa$ does not tell us *how many* regressors are involved. --></li>
 <li><strong>Condition indices</strong> of <span class="math inline">\({\bf \Sigma}\)</span> are <span class="math inline">\(\kappa_j = \frac{\lambda_{max}}{\lambda_{j}}\)</span>.</li>
 <li>The number of <span class="math inline">\(\kappa_j &gt; 1000\)</span> is a measure of the number of near-linear dependencies in <span class="math inline">\({\bf \Sigma}.\)</span></li>
+<li><strong>Condition number</strong> <span class="math inline">\(\kappa = \lambda_{max}/\lambda_{min}\)</span>: below 100 no serious problem; 100 to 1000 moderate to strong; above 1000 severe collinearity.</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -882,7 +911,7 @@ x5  -856     67</code></pre>
 </div>
 <ul>
 <li><span class="math inline">\({\bf X}{\bf v}_5 = \sum_{i=1}^5v_{i5}{\bf x}_i \approx {\bf 0}\)</span>.</li>
-<li><span class="math inline">\(0.720 {\bf x}_1 + 0.001 {\bf x}_2 - 0.694 {\bf x}_3 - 0.023 {\bf x}_4 - 0.007 {\bf x}_5 \approx {\bf 0}\)</span></li>
+<li><span class="math inline">\(0.719 {\bf x}_1 + 0.001 {\bf x}_2 - 0.694 {\bf x}_3 - 0.023 {\bf x}_4 - 0.007 {\bf x}_5 \approx {\bf 0}\)</span></li>
 <li>Highly correlated <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_3\)</span> causes collinearity.</li>
 </ul>
 <div class="alert">
@@ -987,14 +1016,106 @@ x5  -856     67</code></pre>
           display:block!important;
       }</style></aside>
 </section>
-
-
+<section id="eigensystem-analysis-variance-proportion" class="slide level2">
+<h2>Eigensystem Analysis: Variance Proportion</h2>
+<!-- - ${\bf X'X = V\bsLambda V'}$, therefore ${\bf (X'X)^{-1} = V\bsLambda^{-1} V'}$ -->
+<!-- - $\var\left( {\bf b} \right) = \sigma^2 {\bf (X'X)} ^{-1} = \sigma^2 {\bf V\bsLambda^{-1} V'}$ -->
+<!-- - $\var\left( b_j \right) = \sigma^2 \sum_{i=1}^k\frac{v_{ji}^2}{\lambda_i} =\sigma^2\text{VIF}_j$ -->
+<ul>
+<li><span class="math inline">\(\text{VIF}_j = \sum_{i=1}^k\frac{v_{ji}^2}{\lambda_i}\)</span> <!-- - $\sum_{j=1}^k \var\left( b_j \right) =\sigma^2 \sum_{i=1}^k\sum_{j=1}^k\frac{v_{ji}^2}{\lambda_i} = \sigma^2\sum_{i=1}^k\frac{1}{\lambda_i}$ (length of ${\bf v}_j$ is 1) --></li>
+<li><span class="math inline">\(\pi_{ij} = \frac{v_{ji}^2/\lambda_i}{\text{VIF}_j}\)</span> is the <strong>variance decomposition proportion</strong> that measures the proportion of the variance of <span class="math inline">\(b_j\)</span> contributed by <span class="math inline">\(\lambda_i\)</span>.</li>
+<li><span class="math inline">\(\pi_{ij} &gt; 0.5\)</span> indicates collinearity.</li>
+</ul>
+<div class="alert">
+<ul>
+<li>A small <span class="math inline">\(\lambda_i\)</span>, accompanied by a subset of regressors with high variance proportions <span class="math inline">\(\pi_{ij}\)</span> represents a dependency involving the regressors in that subset.</li>
+<li>If <span class="math inline">\(\pi_{32}\)</span> and <span class="math inline">\(\pi_{34}\)</span> are large, <span class="math inline">\(\lambda_3\)</span> is associated with a collinearity that inflates the variance of <span class="math inline">\(b_2\)</span> and <span class="math inline">\(b_4\)</span>.</li>
+</ul>
+</div>
+<aside class="notes">
+<ul>
+<li><span class="math inline">\({\bf X'X = V}\boldsymbol \Lambda{\bf V'}\)</span>, therefore <span class="math inline">\({\bf (X'X)^{-1} = V}\boldsymbol \Lambda^{-1}{\bf V'}\)</span></li>
+<li><span class="math inline">\(\mathrm{Var}\left( {\bf b} \right) = \sigma^2 {\bf (X'X)} ^{-1} = \sigma^2 {\bf V}\boldsymbol \Lambda^{-1}{\bf V'}\)</span></li>
+<li><span class="math inline">\(\mathrm{Var}\left( b_j \right) = \sigma^2 \sum_{i=1}^k\frac{v_{ji}^2}{\lambda_i} =\sigma^2\text{VIF}_j\)</span></li>
+<li><span class="math inline">\(\sum_{j=1}^k \mathrm{Var}\left( b_j \right) =\sigma^2 \sum_{i=1}^k\sum_{j=1}^k\frac{v_{ji}^2}{\lambda_i} = \sigma^2\sum_{i=1}^k\frac{1}{\lambda_i}\)</span> (length of <span class="math inline">\({\bf v}_j\)</span> is 1)</li>
+<li><span class="math inline">\(\pi_{ij} = \frac{v_{ji}^2/\lambda_i}{\text{VIF}_j}\)</span> is the <strong>variance decomposition proportion</strong>, which is attributed to (or blamed on) the collinearity characterized by the eigenvalue <span class="math inline">\(\lambda_i\)</span>.</li>
+<li><span class="math inline">\(\pi_{ij} &gt; 0.5\)</span> indicates Collinearity.</li>
+</ul>
+<p>A small <span class="math inline">\(\lambda_i\)</span>, accompanied by a subset of regressors with high variance proportions <span class="math inline">\(\pi_{ij}\)</span>: + represents a dependency involving the regressors in that subset, and the dependency is damaging to the precision of estimation of the coefficients in the subset.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-hospital-manpower---variance-proportion" class="slide level2">
+<h2><span class="pink">R Lab</span> Hospital Manpower - Variance Proportion</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Variance Proportion</span></span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>var_prop <span class="ot">&lt;-</span> <span class="cf">function</span>(V, lambda, vif_all) {</span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="do">## diag(1 / lambda) means divide by lambda row-wise</span></span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">t</span>(V <span class="sc">^</span> <span class="dv">2</span> <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="dv">1</span> <span class="sc">/</span> lambda)) <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span>vif_all), <span class="dv">5</span>)</span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">var_prop</span>(<span class="at">V =</span> V, <span class="at">lambda =</span> lambda, <span class="at">vif_all =</span> vif_all)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]   [,2]    [,3]   [,4]   [,5]
+[1,] 0.00001 0.0062 0.00001 0.0022 0.0062
+[2,] 0.00000 0.0213 0.00000 0.0062 0.2768
+[3,] 0.00003 0.8607 0.00003 0.1309 0.0328
+[4,] 0.00056 0.1087 0.00071 0.4237 0.4851
+[5,] 0.99940 0.0031 0.99925 0.4370 0.1991</code></pre>
+</div>
+</div>
+<ul>
+<li>Rows are eigenvalues <span class="math inline">\(\lambda_1, \dots, \lambda_5\)</span>; columns are <span class="math inline">\(b_1, \dots, b_5\)</span>.</li>
+<li><span class="math inline">\(\pi_{51} \approx \pi_{53} \approx 0.999\)</span>: the smallest eigenvalue <span class="math inline">\(\lambda_5\)</span> is responsible for almost all of the variance of <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_3\)</span>.</li>
+</ul>
+<aside class="notes">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-label="1"></a><span class="do">## diag(V (Lambda)^-1 V') = VIF</span></span>
+<span id="cb35-2"><a aria-label="2"></a><span class="fu">diag</span>(V <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span>lambda) <span class="sc">%*%</span> <span class="fu">t</span>(V))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9597.6    7.9 8933.1   23.3    4.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-label="1"></a>vif_all</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    x1     x2     x3     x4     x5 
+9597.6    7.9 8933.1   23.3    4.3 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-label="1"></a><span class="do">## sum(vif) = sum(1/lambda)</span></span>
+<span id="cb39-2"><a aria-label="2"></a><span class="fu">sum</span>(<span class="fu">vif</span>(lm_full))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18566</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-label="1"></a><span class="fu">sum</span>(<span class="dv">1</span><span class="sc">/</span>lambda)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18566</code></pre>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="other-diagnostics" class="slide level2">
 <h2>Other Diagnostics</h2>
 <p>Collinearity may exist if</p>
 <ul>
 <li><p>overall <span class="math inline">\(F\)</span>-test for regression is significant, but individual <span class="math inline">\(t\)</span>-tests are all non-significant.</p></li>
-<li><p>the coefficient estimates are <strong>instable</strong></p>
+<li><p>the coefficient estimates are <strong>unstable</strong></p>
 <ul>
 <li>adding or removing a regressor produces large changes in the estimates</li>
 <li>deleting one or more observations results in large changes in the estimates</li>
@@ -1004,6 +1125,7 @@ x5  -856     67</code></pre>
 </section>
 <section id="r-lab-hospital-manpower---significance" class="slide level2">
 <h2><span class="pink">R Lab</span> Hospital Manpower - Significance</h2>
+<div class="midi">
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a>summ_full<span class="sc">$</span>coefficients  <span class="do">## t-test not significant</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1023,7 +1145,9 @@ x5          -394.314    2.1e+02   -1.88    0.087</code></pre>
   238     5    11 </code></pre>
 </div>
 </div>
+</div>
 <div class="fragment">
+<div class="midi">
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a>lm_no_x3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> . <span class="sc">-</span>x3, <span class="at">data =</span> manpower)</span>
 <span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_no_x3)<span class="sc">$</span>coef</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1037,8 +1161,25 @@ x5          -440.297    183.696    -2.4  3.4e-02</code></pre>
 </div>
 </div>
 </div>
+<ul>
+<li>Dropping <span class="math inline">\(x_3\)</span> changes the other estimates a lot, and <span class="math inline">\(b_1\)</span> becomes positive: a sign of the instability.</li>
+</ul>
+</div>
 </section>
-
+<section id="diagnostics-summary" class="slide level2">
+<h2>Diagnostics Summary</h2>
+<div class="alert">
+<p><em>Summary</em>:</p>
+<ul>
+<li>Eigenvalue (or ratios): assess the seriousness of a particular dependency</li>
+<li>Variance proportion: signify what regressors are involved and to what extent</li>
+<li>VIF: determine the damage to the individual coefficient</li>
+</ul>
+</div>
+<ul>
+<li>Hospital manpower: one near-linear dependency (<span class="math inline">\(\kappa_5 \approx 77{,}770\)</span>), involving <span class="math inline">\(x_1\)</span> (patient load) and <span class="math inline">\(x_3\)</span> (occupied bed days); VIFs about 9600 and 8900.</li>
+</ul>
+</section>
 <section id="methods-for-dealing-with-collinearity" class="slide level2">
 <h2>Methods for Dealing with Collinearity</h2>
 <p><strong>Data collection</strong>: <span style="color:blue"> Collect more data to break up the collinearity </span> in the existing data</p>
@@ -1062,192 +1203,171 @@ x5          -440.297    183.696    -2.4  3.4e-02</code></pre>
 <ul>
 <li><span style="color:blue"> Ridge Regression, Principal Component Regression, Bayesian Regression, etc </span></li>
 </ul>
-<!-- ## Unbiased vs. Biased Estimators {visibility="hidden"} -->
-<!-- - The LSE ${\bf b}$ is *unbiased*, i.e., $E({\bf b}) = \bbeta$. -->
-<!-- - LSE is a BLUE: has *minimum variance* among all *unbiased* linear estimators -->
-<!-- - *No guarantee that this variance will be small.* -->
-<!-- - When collinearity exists, $\var({\bf b})$ is largely inflated. -->
-<!-- ```{r} -->
-<!-- #| fig-asp: 0.35 -->
-<!-- par(mar = c(2, 0, 2, 0), mgp = c(0.5, 0.5, 0), las = 1) -->
-<!-- x <- seq(-3, 3, by = 0.1) -->
-<!-- plot(x, dnorm(x), type = "l", lwd = 3, axes = F, xlab = "", ylab = "") -->
-<!-- title(main = "Sampling distribution of LSE b") -->
-<!-- axis(1, at = c(-3, 0.1, 3), labels = c("", expression(bold(beta) == E(b)), ""),  -->
-<!--      tick = T, tck = -0.01) -->
-<!-- segments(x0 = 0, y0 = 0, x1 = 0, y1 = dnorm(0), lty = 2) -->
-<!-- text(2, dnorm(1), expression(paste("E(b) = ", bold(beta), " (unbiased)")), cex = 1.5) -->
-<!-- text(2.5, dnorm(1.5), paste("Var(b) large"), cex = 1.5) -->
-<!-- ``` -->
-<!-- ::: notes -->
-<!-- implying that confidence intervals on β would be wide and the point estimate ˆb is very unstable. -->
-<!-- ::: -->
-<!-- ## Biased Estimators {visibility="hidden"} -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="45%"} -->
-<!-- A good estimator is the one that *balances bias and variance well*, or the one that *minimizes the mean square error* $$\small \text{MSE}(\hat{\beta}) = E[(\hat{\beta} - \beta)^2] = \var(\hat{\beta}) + \text{bias}(\hat{\beta})^2$$ -->
-<!-- - Biasedness and variance have a *trade-off* relationship! -->
-<!-- - Find a **biased** estimator ${\bf \hat{b}}$ that has *smaller variance and MSE* than ${\bf b}$. -->
-<!-- ::: -->
-<!-- ::: {.column width="55%"} -->
-<!-- ```{r} -->
-<!-- #| out-width: 100% -->
-<!-- par(mar = c(2, 0, 2, 0), mgp = c(0.5, 0.5, 0), las = 1) -->
-<!-- x <- seq(-6, 6, by = 0.1) -->
-<!-- plot(x, dnorm(x), type = "l", lwd = 3, axes = F, xlab = "", ylab = "", -->
-<!--      xlim = c(-8, 8)) -->
-<!-- title(main = list(expression(paste("Sampling distribution a biased estimator ", hat(b))), cex = 2)) -->
-<!-- axis(1, at = c(-8, -1, 0, 8),  -->
-<!--      labels = c("", expression(bold(beta)), expression(E(b)), ""),  -->
-<!--      tick = T, tck = -0.01, cex.lab = 2) -->
-<!-- segments(x0 = 0, y0 = 0, x1 = 0, y1 = dnorm(0), lty = 2) -->
-<!-- segments(x0 = -1, y0 = 0, x1 = -1, y1 = dnorm(-1), lty = 2) -->
-<!-- text(3.5, dnorm(1), expression(paste(E(hat(b)) != bold(beta), " (biased)")), cex = 2) -->
-<!-- text(4, dnorm(1.5), expression(paste(Var(hat(b)), " small")), cex = 2) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
-<!-- ::: notes -->
-<!-- <!-- .question[ -->
-<p>–&gt; <!-- <!-- Can we obtain an estimator that has a smaller variance? --> –&gt; <!-- <!-- ] --> –&gt; <!-- ::: --></p>
-<!-- ## Ridge Regression: Motivation  {visibility="hidden"} -->
-<!-- - ${\bf \Sigma} = \begin{bmatrix} 1 & 0.992 \\ 0.992 & 1 \end{bmatrix}$ $\quad {\bf  \Sigma}^{-1} = \begin{bmatrix} 62.8 & -62.2 \\ -62.2 & 62.8 \end{bmatrix}$ -->
-<!-- - $\lambda_1 = 1.992$ and $\lambda_2 = 0.008$ -->
-<!-- . . . -->
-<!-- - ${\bf \Sigma} = \begin{bmatrix} 1 & 0\\ 0 & 1 \end{bmatrix}$ $\quad {\bf \Sigma}^{-1} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ -->
-<!-- - $\lambda_1 = 1$ and $\lambda_2 = 1$ -->
-<!-- . . . -->
-<!-- - IDEA: To make ${\bf \Sigma}$ behave more like the orthogonal case. But how? -->
-<!-- . . . -->
-<!-- - Use $({\bf X'X + \delta I})$ with a small $\delta >0$. -->
-<!-- - The eigenvalues of $({\bf X'X + \delta I})$ are $\lambda_1+\delta$ and $\lambda_2 + \delta$. -->
-<!-- - If $\delta = 0.1$, -->
-<!-- $({\bf X'X + \delta I}) = \begin{bmatrix} 1.1 & 0.992 \\ 0.992 & 1.1 \end{bmatrix}$ and $({\bf X'X + \delta I})^{-1} = \begin{bmatrix} 4.87 & -4.39 \\ -4.39 & 4.87 \end{bmatrix}$ -->
-<!-- ::: notes -->
-<!-- - The diagonals *do not dominate* as in the orthogonal case whose matrix diagonals dominate and $\lambda_1 = \lambda_2 = 1$. -->
-<!-- Adding $\delta$ to the main diagonal effectively replaces $\lambda$ by $\lambda+\delta$.  -->
-<!-- ::: -->
-<!-- ## Ridge Regression Estimator {visibility="hidden"} -->
-<!-- - With a small $\delta >0$, the ridge estimator ${\bf b}_R$ is $${\bf b}_R = ({\bf X'X + \delta I})^{-1}{\bf X'y}$$ -->
-<!-- - ${\bf b}_R$ is a *biased* estimator for $\bbeta$. -->
-<!-- ::: notes -->
-<!-- - $\sum_{i=1}^k \var\left( b_{Ri} \right) \le \sum_{i=1}^k \var\left( b_i \right)$ with equality when $\delta = 0$. -->
-<!-- ::: -->
-<!-- . . . -->
-<!-- - As $\delta$ increases, -->
-<!--   + $\sum_{i=1}^k \var\left( b_{Ri} \right)$ decreases -->
-<!--   + Bias $E\left[ {\bf b}_R \right] - \bbeta$ increases -->
-<!--   + $R^2$ decreases (it's OK as we care more about stable estimates and better prediction) -->
-<!-- . . . -->
-<!-- - Choose $\delta$ by the **ridge trace** that is a plot of $\{ b_{Ri} \}_{i=1}^k$ vs. $\delta$. -->
-<!--   + Select a small value of $\delta$ at which the ridge estimates ${\bf b}_R$ are stable. -->
-<!-- ::: notes -->
-<!-- - Cross Validation -->
-<!-- - The ridge estimator ${\bf b}_R$ is $${\bf b}_R = ({\bf X'X + \delta I})^{-1}{\bf X'y}$$ -->
-<!-- - ${\bf b}_R$ is a *biased* estimator of $\bsbeta$: -->
-<!-- $$E\left[ {\bf b}_R \right] = E\left[({\bf X'X + \delta I})^{-1}{\bf X'y} \right]  = E\left[({\bf X'X + \delta I})^{-1}({\bf X'X}){\bf b}\right] = {\bf Z_{\delta}}\bsbeta$$ -->
-<!-- - The covariance matrix of ${\bf b}_R$ is -->
-<!-- $$\var\left({\bf b}_R \right) = \sigma^2 ({\bf X'X + \delta I})^{-1}{\bf X'X }({\bf X'X + \delta I})^{-1}$$ -->
-<!-- - For LSE, $\sum_{i=1}^k \var\left( b_i \right) = \sigma^2\sum_{i=1}^k\frac{1}{\lambda_i}$ -->
-<!-- - For ridge estimator,  $\sum_{i=1}^k \var\left( b_{Ri} \right) = \sigma^2\sum_{i=1}^k\frac{\lambda_i}{(\lambda_i+\delta)^2}$ -->
-<!-- - $\sum_{i=1}^k \var\left( b_{Ri} \right) \le \sum_{i=1}^k \var\left( b_i \right)$ with equality when $\delta = 0$. -->
-<!-- - As $\delta$ increases, $\sum_{i=1}^k \var\left( b_{Ri} \right)$ decreases. -->
-<!-- ::: -->
-<!-- ## [R Lab]{.pink} Hospital Manpower - Ridge Regression {visibility="hidden"} -->
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="40%"} -->
-<!-- ::: midi -->
-<!-- ```{r} -->
-<!-- #| echo: true -->
-<!-- #| eval: false -->
-<!-- #| code-line-numbers: false -->
-<!-- #| class-source: my_class800 -->
-<!-- manpower_scale <- apply(manpower, 2, scale) -->
-<!-- df <- as.data.frame(manpower_scale) -->
-<!-- delta <- seq(0, 0.5, by = 0.01) -->
-<!-- ridge_fit <- MASS::lm.ridge( -->
-<!--   y ~ . -1, data = df, lambda = delta) -->
-<!-- matplot(coef(ridge_fit), type = "l", -->
-<!--         xlab = "delta", ylab = "Coef",  -->
-<!--         main = "Ridge Trace") -->
-<!-- abline(v = which(delta == 0.07),  -->
-<!--        col = "orange", lty = 2) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ::: -->
-<!-- ::: {.column width="60%"} -->
-<!-- ```{r} -->
-<!-- #| out-width: 100% -->
-<!-- library(MASS) -->
-<!-- # manpower_scale <- apply(manpower, 2,  -->
-<!-- #                         unit_length_scale) -->
-<!-- manpower_scale <- apply(manpower, 2, scale) -->
-<!-- delta <- seq(0, 0.5, by = 0.01) -->
-<!-- ridge_fit <- lm.ridge(y ~ . -1,  -->
-<!--                       data = as.data.frame(manpower_scale),  -->
-<!--                       lambda = delta) -->
-<!-- par(mar = c(3, 3.5, 2, 0), mgp = c(2, 0.5, 0), las = 1) -->
-<!-- matplot(coef(ridge_fit), type = "l", xlab = "delta", axes = F, cex.lab = 1.5, -->
-<!--         ylab = "Coefficients", main = "Ridge Trace", lwd = 2.5, cex.main = 2) -->
-<!-- axis(2, at = seq(-0.5, 1.5, by = 0.5)) -->
-<!-- axis(1, at = c(0, 10, 20, 30, 40, 50), labels = delta[c(0, 10, 20, 30, 40, 50)+1]) -->
-<!-- text(jitter(rep(15, 5), factor = 3), jitter(coef(ridge_fit)[15, ]), colnames(manpower_scale)[-1], cex = 1.5) -->
-<!-- abline(v = which(delta == 0.07), col = "orange", lty = 2) -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- :::: -->
-<!-- ::: notes -->
-<!-- ```{r, eval=FALSE} -->
-<!-- # use GCV to select the best delta -->
-<!-- plot(ridge_fit$lambda, ridge_fit$GCV, type = "l", col = "darkorange",  -->
-<!--      ylab = "GCV", xlab = "delta", lwd = 3) -->
-<!-- title("Hospital Manpower Data: GCV") -->
-<!-- ridge_fit$lambda[which.min(ridge_fit$GCV)] -->
-<!-- ``` -->
-<!-- ::: -->
-<!-- ## [R Lab]{.pink} Hospital Manpower - Ridge Regression {visibility="hidden"} -->
-<!-- ```{r} -->
-<!-- #| out-width: 78% -->
-<!-- manpower_scale <- as.data.frame(manpower_scale) -->
-<!-- lm_full_scale <- lm(y ~ ., data = manpower_scale) -->
-<!-- par(mar = c(3, 4, 0, 0), mgp = c(2, 0.5, 0)) -->
-<!-- confidenceEllipse(lm_full_scale, which.coef = c(5, 6), col="black", -->
-<!--                   fill=TRUE, -->
-<!--                   center.cex=1, -->
-<!--                   levels=c(0.8, 0.95), fill.alpha=0.1, -->
-<!--                   xlab=expression(beta[4]),  -->
-<!--                   ylab=expression(beta[5]),  -->
-<!--                   las=1, segments=1000, cex.lab = 2) -->
-<!-- abline(h = 0, v = 0) -->
-<!-- points(0, 0, pch = 15, cex = 1, col = 2) -->
-<!-- X_stX_s <- t(X_s) %*% X_s -->
-<!-- A <- X_stX_s + diag(0.07, 5) -->
-<!-- Ainv <- solve(A) -->
-<!-- var_ridge <- summary(lm_full_scale)$sigma^2 * Ainv %*% X_stX_s %*% Ainv / (nrow(manpower) - 1) -->
-<!-- # center <- c(0.10711510, 0.11790894) -->
-<!-- # center <- c(-0.007907946, -0.020534287) -->
-<!-- center <- c(-0.01925995, -0.02575226) -->
-<!-- ellipse(center, shape = var_ridge[c(4, 5), c(4, 5)], center.cex=1, -->
-<!--         radius = sqrt(qchisq(c(0.95), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-<!-- ellipse(center, shape = var_ridge[c(4, 5), c(4, 5)], center.cex=1, -->
-<!--         radius = sqrt(qchisq(c(0.8), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-<!-- # ellipse(center, shape = var_ridge[c(1, 3), c(1, 3)], center.cex=1, -->
-<!-- #         radius = sqrt(qchisq(c(0.95), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-<!-- # ellipse(center, shape = var_ridge[c(1, 3), c(1, 3)], center.cex=1, -->
-<!-- #         radius = sqrt(qchisq(c(0.8), df = 2)), fill=TRUE, fill.alpha=0.1) -->
-<!-- # confidenceEllipse(ridge_fit, which.coef = c(2, 4), col="black", -->
-<!-- #                   fill=TRUE,  -->
-<!-- #                   center.cex=1, -->
-<!-- #                   levels=c(0.8, 0.95), fill.alpha=0.1, -->
-<!-- #                   xlab=expression(beta[1]),  -->
-<!-- #                   ylab=expression(beta[3]),  -->
-<!-- #                   las=1, segments=1000) -->
-<!-- # abline(h = 0, v = 0) -->
-<!-- # points(0, 0, pch = 15, cex = 1, col = 2) -->
-<!-- ``` -->
-
-
 </div>
+</section></section>
+<section>
+<section id="biased-estimation-ridge-and-pcr" class="title-slide slide level1 center">
+<h1>Biased Estimation: Ridge and PCR</h1>
+<aside class="notes">
+<ul>
+<li>Material for a second collinearity lecture. Ridge and PCR trade a little bias for a large reduction in variance.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="unbiased-vs.-biased-estimators" class="slide level2">
+<h2>Unbiased vs.&nbsp;Biased Estimators</h2>
+<ul>
+<li>LSE <span class="math inline">\({\bf b}\)</span> is unbiased with minimum variance among unbiased <em>linear</em> estimators, but that variance can still be <strong>huge</strong>.</li>
+<li>Mean squared error: <span class="math inline">\(\text{MSE}(\hat{\beta}) = E[(\hat{\beta} - \beta)^2] = \mathrm{Var}(\hat{\beta}) + \text{bias}(\hat{\beta})^2\)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Idea</strong>: accept a small bias for a large drop in variance, so the MSE decreases.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/14-collinearity/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ridge-regression" class="slide level2">
+<h2>Ridge Regression</h2>
+<ul>
+<li>With regressors in correlation form, <span class="math inline">\({\bf X'X}\)</span> has eigenvalues <span class="math inline">\(\lambda_j\)</span>; collinearity means some <span class="math inline">\(\lambda_j \approx 0\)</span>.</li>
+<li><strong>Ridge estimator</strong> with a small <span class="math inline">\(\delta &gt; 0\)</span>: <span class="math display">\[{\bf b}_R = ({\bf X'X} + \delta{\bf I})^{-1}{\bf X'y}\]</span>
+<ul>
+<li>Eigenvalues become <span class="math inline">\(\lambda_j + \delta\)</span>: no longer near 0.</li>
+<li><span class="math inline">\(\sum_j \mathrm{Var}(b_{R,j}) = \sigma^2\sum_j \dfrac{\lambda_j}{(\lambda_j + \delta)^2} \le \sigma^2\sum_j\dfrac{1}{\lambda_j}\)</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>As <span class="math inline">\(\delta\)</span> increases: variance <span class="math inline">\(\downarrow\)</span>, bias <span class="math inline">\(\uparrow\)</span>, <span class="math inline">\(R^2 \downarrow\)</span>.</li>
+<li>Choose <span class="math inline">\(\delta\)</span> with the <strong>ridge trace</strong> (smallest <span class="math inline">\(\delta\)</span> at which the estimates stabilize) or by <strong>generalized cross-validation</strong> (GCV).</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Example: <span class="math inline">\(\begin{bmatrix} 1 &amp; 0.992 \\ 0.992 &amp; 1 \end{bmatrix}^{-1}\)</span> has diagonal 62.8; adding <span class="math inline">\(\delta = 0.1\)</span> gives <span class="math inline">\(\begin{bmatrix} 1.1 &amp; 0.992 \\ 0.992 &amp; 1.1 \end{bmatrix}^{-1}\)</span> with diagonal 4.87.</li>
+<li>Equivalent penalized form: minimize <span class="math inline">\(\sum_i(y_i - {\bf x}_i'\boldsymbol \beta)^2 + \delta\sum_j\beta_j^2\)</span> (more on penalties in the next lecture).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-hospital-manpower---ridge-trace" class="slide level2">
+<h2><span class="pink">R Lab</span> Hospital Manpower - Ridge Trace</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="midi">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a>manpower_scale <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">scale</span>(manpower))</span>
+<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>ridge_fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">lm.ridge</span>(y <span class="sc">~</span> . <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> manpower_scale, <span class="at">lambda =</span> delta)</span>
+<span id="cb49-4"><a aria-hidden="true" tabindex="-1"></a>delta[<span class="fu">which.min</span>(ridge_fit<span class="sc">$</span>GCV)]           <span class="co"># GCV choice</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(ridge_fit)[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">51</span>), ], <span class="dv">3</span>)  <span class="co"># delta = 0, 0.07, 0.5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        x1   x2   x3     x4     x5
+0.00 -0.46 0.21 1.40 -0.082 -0.112
+0.07  0.44 0.22 0.49 -0.079 -0.106
+0.50  0.37 0.24 0.39  0.037 -0.052</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/14-collinearity/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<ul>
+<li>At <span class="math inline">\(\delta = 0.07\)</span> (GCV), the coefficient of <span class="math inline">\(x_1\)</span> becomes <strong>positive</strong> and <span class="math inline">\(b_1 \approx b_3\)</span>: the expected signs.</li>
+</ul>
+</section>
+<section id="principal-component-regression" class="slide level2">
+<h2>Principal Component Regression</h2>
+<ul>
+<li>Rotate the (standardized) regressors with the eigenvectors: <span class="math inline">\({\bf Z} = {\bf XV}\)</span>, columns $= $ <strong>principal components</strong>, <span class="math inline">\(\mathrm{Var}\)</span> of component <span class="math inline">\(j\)</span> <span class="math inline">\(\propto \lambda_j\)</span>.</li>
+<li>Components are <strong>orthogonal</strong>: no collinearity among them.</li>
+<li>Drop the components with <span class="math inline">\(\lambda_j \approx 0\)</span>, regress <span class="math inline">\(y\)</span> on the rest, and transform the coefficients back to the <span class="math inline">\(x\)</span>s.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(manpower[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(pc)<span class="sc">$</span>importance[<span class="dv">3</span>, ], <span class="dv">4</span>)   <span class="co"># cumulative proportion of variance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> PC1  PC2  PC3  PC4  PC5 
+0.84 0.97 0.99 1.00 1.00 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a>pcr_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(manpower<span class="sc">$</span>y <span class="sc">~</span> pc<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])  <span class="co"># drop the 5th component</span></span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pc<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="sc">%*%</span> <span class="fu">coef</span>(pcr_fit)[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">/</span> <span class="fu">apply</span>(manpower[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>, sd), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       [,1]
+x1   16.468
+x2    0.056
+x3    0.566
+x4   -5.789
+x5 -425.282</code></pre>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>The 5th component explains essentially 0% of the variance of the <span class="math inline">\(x\)</span>s: it is exactly the near-linear dependency <span class="math inline">\(0.72x_1 - 0.69x_3 \approx 0\)</span>.</li>
+<li>Back on the original scale: <span class="math inline">\(b_1 \approx 16.5\)</span> is now positive (it was <span class="math inline">\(-15.9\)</span> by OLS) and <span class="math inline">\(b_3\)</span> shrinks from 1.59 to 0.57; <span class="math inline">\(b_4\)</span> and <span class="math inline">\(b_5\)</span> stay negative, which may be real partial effects.</li>
+<li>PCR and ridge are both biased; ridge shrinks all components smoothly, PCR drops some completely.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li><strong>Collinearity</strong>: near-linear dependence among regressors; a property of the data.</li>
+<li><strong>Effects</strong>: inflated variances, unstable estimates, wrong signs; fitted values within the data range are still fine.</li>
+<li><strong>Diagnostics</strong>: correlation matrix (pairwise only), VIF (<span class="math inline">\(&gt; 10\)</span>), eigenvalues/condition indices (<span class="math inline">\(\kappa &gt; 1000\)</span>), variance proportions (<span class="math inline">\(&gt; 0.5\)</span>).</li>
+<li><strong>Remedies</strong>: more/better data, respecify or drop regressors, or <strong>biased estimation</strong> (ridge, PCR).</li>
+</ul>
+
+
 </section></section>
 
     </div>

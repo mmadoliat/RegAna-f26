@@ -195,10 +195,10 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Logistic Regression r emo::ji('computer') – MATH 4780 (MSSC 5780)">
+<meta property="og:title" content="Logistic Regression 💻 – MATH 4780 (MSSC 5780)">
 <meta property="og:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta property="og:site_name" content="MATH 4780 (MSSC 5780)">
-<meta name="twitter:title" content="Logistic Regression r emo::ji('computer') – MATH 4780 (MSSC 5780)">
+<meta name="twitter:title" content="Logistic Regression 💻 – MATH 4780 (MSSC 5780)">
 <meta name="twitter:description" content="MATH 4780 / MSSC 5780 Regression Analysis">
 <meta name="twitter:image" content="https://tinyurl.com/f26-4780/slides/images/twitter-card.png">
 <meta name="twitter:creator" content="@mmadoliat">
@@ -229,7 +229,23 @@ Dr.&nbsp;Mehdi Maadooliat
 <section>
 <section id="classification" class="title-slide slide level1 center">
 <h1>Classification</h1>
-
+<aside class="notes">
+<ul>
+<li>Two lectures. <strong>Part I</strong>: classification, the logistic model, interpretation (odds ratios), estimation by maximum likelihood, Wald inference, categorical predictors and confounding. <strong>Part II</strong>: deviance and likelihood-ratio tests, binomial responses and goodness of fit, other links (probit, cloglog), classification metrics, thresholds, ROC/AUC on test data.</li>
+<li>Pacing, Part I (75 min): classification &amp; why not LS ~12 | logit/logistic &amp; model ~13 | Default labs &amp; interpretation ~20 | MLE &amp; Wald inference ~12 | multiple logistic &amp; student example ~15 | summary ~3.</li>
+<li>Pacing, Part II (75 min): deviance &amp; LR tests ~15 | binomial responses &amp; fastener labs ~20 | link functions ~8 | confusion matrix &amp; thresholds ~12 | ROC/AUC &amp; test data ~15 | summary ~5.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="regression-vs.-classification" class="slide level2">
 <h2>Regression vs.&nbsp;Classification</h2>
@@ -376,7 +392,7 @@ Dr.&nbsp;Mehdi Maadooliat
 <li><strong>Some estimates are outside <span class="math inline">\([0, 1]\)</span>.</strong></li>
 </ul>
 
-<img data-src="./images/16-logistic-reg/lm-defualt-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
+<img data-src="./images/16-logistic-reg/lm-default-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
 <ul>
 <li><strong>The dummy variable approach <span class="math inline">\((Y = 0, 1)\)</span> cannot be easily extended to <span class="math inline">\(Y\)</span> with more than two categories.</strong></li>
 </ul>
@@ -400,7 +416,7 @@ Dr.&nbsp;Mehdi Maadooliat
 </ul>
 
 <img data-src="./images/16-logistic-reg/glm-default-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><aside class="notes">
-<p>Often, we first predict the probability of each of the categories of <span class="math inline">\(Y\)</span>, as a basis for making the classification. - The predicted probability should be like a S-shaped curve that first is in [0, 1] interval. - Second, the predicted probability of being defualted is increasing in the credit card balance.</p>
+<p>Often, we first predict the probability of each of the categories of <span class="math inline">\(Y\)</span>, as a basis for making the classification. - The predicted probability should be like a S-shaped curve that first is in [0, 1] interval. - Second, the predicted probability of default is increasing in the credit card balance.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -427,7 +443,7 @@ Multinomial Response (MSSC 6250)
 </h2>
 <aside class="notes">
 <ul>
-<li>When we have several replicates of reposnse, meaning that we have several binary 0-1 outcomes of <span class="math inline">\(y\)</span> at any given level of <span class="math inline">\(x\)</span>, we consider Binomial and Proportion Responses, that is the number of successes, or the proportion or the number of successes divided by the total number of trials or replicates.</li>
+<li>When we have several replicates of the response, meaning that we have several binary 0-1 outcomes of <span class="math inline">\(y\)</span> at any given level of <span class="math inline">\(x\)</span>, we consider Binomial and Proportion Responses, that is the number of successes, or the proportion or the number of successes divided by the total number of trials or replicates.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -878,6 +894,91 @@ balance       0.0055    0.00022    25.0 1.98e-137</code></pre>
 <li><p>The <strong>odds ratio</strong>, <span class="math inline">\(\widehat{OR} = \frac{\text{odds}_{x+1}}{\text{odds}_{x}} = e^{\hat{\beta}_1} = e^{0.0055} = 1.005515\)</span>.</p></li>
 <li><p>The odds of <code>default</code> increases by 0.55% with additional one unit of credit card <code>balance</code>.</p></li>
 </ul>
+<aside class="notes">
+<ul>
+<li>A more meaningful unit: each additional $100 of balance multiplies the odds by <span class="math inline">\(e^{100\hat{\beta}_1} = 1.73\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="estimation-maximum-likelihood" class="slide level2">
+<h2>Estimation: Maximum Likelihood</h2>
+<ul>
+<li>No <span class="math inline">\(\epsilon\)</span> and no least squares: estimate <span class="math inline">\(\boldsymbol \beta\)</span> by <strong>maximum likelihood</strong>.</li>
+<li>With <span class="math inline">\(y_i \in \{0, 1\}\)</span> and <span class="math inline">\(\pi_i = \pi({\bf x}_i)\)</span>, <span class="math display">\[L(\boldsymbol \beta) = \prod_{i=1}^n \pi_i^{y_i}(1-\pi_i)^{1-y_i}, \qquad \ln L(\boldsymbol \beta) = \sum_{i=1}^n\left[y_i\,{\bf x}_i'\boldsymbol \beta- \ln\left(1 + e^{{\bf x}_i'\boldsymbol \beta}\right)\right]\]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Setting the derivatives to zero gives <span class="math inline">\({\bf X}'({\bf y} - \boldsymbol\pi) = {\bf 0}\)</span>: <strong>no closed form</strong>.</li>
+<li>Solved iteratively by Newton-Raphson, which is <strong>iteratively reweighted least squares</strong> (IRLS): a sequence of WLS fits (lecture 09) with weights <span class="math inline">\(\hat{\pi}_i(1-\hat{\pi}_i)\)</span>.</li>
+<li>For large <span class="math inline">\(n\)</span>: <span class="math inline">\(\hat{\boldsymbol \beta} \approx N\left(\boldsymbol \beta,\ ({\bf X'VX})^{-1}\right)\)</span>, <span class="math inline">\({\bf V} = \text{diag}\{\pi_i(1-\pi_i)\}\)</span>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><code>glm()</code> reports “Number of Fisher Scoring iterations”: the number of IRLS steps.</li>
+<li>Compare with OLS: <span class="math inline">\({\bf X}'({\bf y} - {\bf X}\boldsymbol \beta) = {\bf 0}\)</span> has the closed-form solution because the mean is linear in <span class="math inline">\(\boldsymbol \beta\)</span>.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="inference-wald-tests-and-confidence-intervals" class="slide level2">
+<h2>Inference: Wald Tests and Confidence Intervals</h2>
+<ul>
+<li><strong>Wald test</strong> of <span class="math inline">\(H_0: \beta_j = 0\)</span>: <span class="math inline">\(\;z = \dfrac{\hat{\beta}_j}{se(\hat{\beta}_j)} \approx N(0, 1)\)</span> (the <code>z value</code> column).</li>
+<li>Approximate <span class="math inline">\(100(1-\alpha)\%\)</span> CI: <span class="math inline">\(\hat{\beta}_j \pm z_{\alpha/2}\,se(\hat{\beta}_j)\)</span>.</li>
+<li>CI for the <strong>odds ratio</strong>: exponentiate the endpoints, <span class="math inline">\(\left(e^{\hat{\beta}_j - z_{\alpha/2}se},\ e^{\hat{\beta}_j + z_{\alpha/2}se}\right)\)</span>.</li>
+</ul>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">coef</span>(logit_fit)[<span class="st">"balance"</span>])                  <span class="co"># OR per $100 of balance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>balance 
+   1.73 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">confint.default</span>(logit_fit)[<span class="st">"balance"</span>, ])      <span class="co"># Wald 95% CI for that OR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 2.5 % 97.5 % 
+  1.66   1.81 </code></pre>
+</div>
+</div>
+<ul>
+<li>Each extra $100 of balance multiplies the odds of default by about 1.73 (95% CI 1.66 to 1.81).</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><code>confint(logit_fit)</code> gives profile-likelihood intervals, usually slightly better than Wald intervals.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="probability-curve" class="slide level2">
@@ -894,7 +995,7 @@ balance       0.0055    0.00022    25.0 1.98e-137</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/16-logistic-reg/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/16-logistic-reg/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -905,7 +1006,7 @@ balance       0.0055    0.00022    25.0 1.98e-137</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/16-logistic-reg/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/16-logistic-reg/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -928,9 +1029,9 @@ balance       0.0055    0.00022    25.0 1.98e-137</code></pre>
 <p><span class="math display">\[ \hat{\pi} = \frac{1}{1+\exp(-(-10.651+0.0055 \times 2000)} = 0.586\]</span></p>
 <div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>pi_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fit, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>eta_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fit, <span class="at">type =</span> <span class="st">"link"</span>)  <span class="do">## default gives us b0 + b1*x</span></span>
-<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(logit_fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">balance =</span> <span class="dv">2000</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>pi_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fit, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>eta_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fit, <span class="at">type =</span> <span class="st">"link"</span>)  <span class="do">## default gives us b0 + b1*x</span></span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(logit_fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">balance =</span> <span class="dv">2000</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    1 
 0.586 </code></pre>
@@ -1012,10 +1113,10 @@ balance       0.0055    0.00022    25.0 1.98e-137</code></pre>
 <section id="r-lab-multiple-logistic-regression" class="slide level2">
 <h2><span class="pink">R Lab</span> Multiple Logistic Regression</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>multi_logit_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> balance <span class="sc">+</span> <span class="fu">I</span>(income<span class="sc">/</span><span class="dv">1000</span>), <span class="at">data =</span> Default, </span>
-<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">family =</span> binomial)</span>
-<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>summ_multi_logit_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(multi_logit_fit)</span>
-<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>summ_multi_logit_fit<span class="sc">$</span>coefficients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>multi_logit_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> balance <span class="sc">+</span> <span class="fu">I</span>(income<span class="sc">/</span><span class="dv">1000</span>), <span class="at">data =</span> Default, </span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">family =</span> binomial)</span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>summ_multi_logit_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(multi_logit_fit)</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>summ_multi_logit_fit<span class="sc">$</span>coefficients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Estimate Std. Error z value  Pr(&gt;|z|)
 (Intercept)    -11.54047   0.434756  -26.54 2.96e-155
@@ -1030,6 +1131,129 @@ I(income/1000)   0.02081   0.004985    4.17  2.99e-05</code></pre>
 <div class="question">
 <p>Why we multiply the <code>income</code> coefficient by 40, rather than 40,000?</p>
 </div>
+<aside class="notes">
+<ul>
+<li>With unrounded coefficients the probability is 0.096.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-lab-a-categorical-predictor-are-students-riskier" class="slide level2">
+<h2><span class="pink">R Lab</span> A Categorical Predictor: Are Students Riskier?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(default <span class="sc">~</span> student, <span class="at">data =</span> Default,</span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial) <span class="sc">|&gt;</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  studentYes 
+     -3.504       0.405 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(default <span class="sc">~</span> balance <span class="sc">+</span> student, <span class="at">data =</span> Default,</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial) <span class="sc">|&gt;</span> <span class="fu">coef</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)     balance  studentYes 
+  -10.74950     0.00574    -0.71488 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Default<span class="sc">$</span>balance, Default<span class="sc">$</span>student, mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> No Yes 
+772 988 </code></pre>
+</div>
+</div>
+</div></div>
+<ul>
+<li><strong>Alone</strong>: students have <em>higher</em> odds of default (<span class="math inline">\(e^{0.405} = 1.50\)</span>).</li>
+<li><strong>Given balance</strong>: students have <em>lower</em> odds (<span class="math inline">\(e^{-0.715} = 0.49\)</span>).</li>
+<li>Students carry larger balances, and balance drives default: <strong>confounding</strong>. Marginal and partial effects can have opposite signs, as with collinear regressors in linear regression.</li>
+</ul>
+</section>
+<section id="summary-part-i" class="slide level2">
+<h2>Summary: Part I</h2>
+<ul>
+<li>Binary <span class="math inline">\(y\)</span>: model <span class="math inline">\(\pi(x) = P(y = 1 \mid x)\)</span> with <span class="math inline">\(\text{logit}(\pi) = \beta_0 + \beta_1x_1 + \cdots + \beta_kx_k\)</span>.</li>
+<li><span class="math inline">\(\beta_j\)</span>: change in <strong>log-odds</strong>; <span class="math inline">\(e^{\beta_j}\)</span>: <strong>odds ratio</strong> per unit of <span class="math inline">\(x_j\)</span> (others fixed).</li>
+<li>Estimation by maximum likelihood (IRLS); Wald <span class="math inline">\(z\)</span> tests and CIs, exponentiated for odds ratios.</li>
+<li><code>glm(y ~ x, family = binomial)</code>; <code>predict(..., type = "response")</code> for probabilities.</li>
+</ul>
+</section></section>
+<section>
+<section id="part-ii-deviance-binomial-responses-and-classification" class="title-slide slide level1 center">
+<h1>Part II: Deviance, Binomial Responses and Classification</h1>
+
+</section>
+<section id="deviance-and-likelihood-ratio-tests" class="slide level2">
+<h2>Deviance and Likelihood-Ratio Tests</h2>
+<ul>
+<li><strong>Deviance</strong>: <span class="math inline">\(D = -2\ln L(\hat{\boldsymbol \beta})\)</span> for binary data; the analogue of <span class="math inline">\(SS_{Res}\)</span> (smaller is better).
+<ul>
+<li><em>Null deviance</em>: model with intercept only; <em>residual deviance</em>: fitted model.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Likelihood-ratio (LR) test</strong> for nested models (reduced R vs.&nbsp;full F), the analogue of the partial <span class="math inline">\(F\)</span> test: <span class="math display">\[G^2 = D(\text{R}) - D(\text{F}) \approx \chi^2_{r} \text{ under } H_0, \quad r = \text{number of extra parameters}\]</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>AIC <span class="math inline">\(= D + 2(k+1)\)</span> compares non-nested models.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>For binary responses the residual deviance itself has no reference distribution (no goodness-of-fit test); differences of deviances do.</li>
+<li>The overall test: null deviance (2920.6) minus residual deviance, on <span class="math inline">\(k\)</span> df.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="r-lab-likelihood-ratio-test" class="slide level2">
+<h2><span class="pink">R Lab</span> Likelihood-Ratio Test</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>full_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> balance <span class="sc">+</span> income <span class="sc">+</span> student, <span class="at">data =</span> Default, <span class="at">family =</span> binomial)</span>
+<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(logit_fit, full_logit, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: default ~ balance
+Model 2: default ~ balance + income + student
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)    
+1      9998       1596                         
+2      9996       1572  2     24.9  3.9e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">AIC</span>(logit_fit), <span class="fu">AIC</span>(full_logit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1600 1580</code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(G^2 = 1596.5 - 1571.5 = 24.9\)</span> on 2 df (<span class="math inline">\(p &lt; 0.001\)</span>): income and student together improve the model with balance.</li>
+<li>AIC agrees: 1600.5 vs.&nbsp;1579.5.</li>
+</ul>
 </section>
 <section id="multiple-binary-outcomes" class="slide level2">
 <h2>Multiple Binary Outcomes</h2>
@@ -1143,9 +1367,9 @@ I(income/1000)   0.02081   0.004985    4.17  2.99e-05</code></pre>
 <li><p>The numbers of fasteners failing at each load were recorded.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>fastener <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/data-prob-13-3.csv"</span>)</span>
-<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(fastener) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"load"</span>, <span class="st">"m"</span>, <span class="st">"y"</span>)</span>
-<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>fastener</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>fastener <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/data-prob-13-3.csv"</span>)</span>
+<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(fastener) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"load"</span>, <span class="st">"m"</span>, <span class="st">"y"</span>)</span>
+<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>fastener</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   load   m  y
 1  2500  50 10
@@ -1164,10 +1388,10 @@ I(income/1000)   0.02081   0.004985    4.17  2.99e-05</code></pre>
 <section id="r-lab-binomial-response-logistic-regression" class="slide level2">
 <h2><span class="pink">R Lab</span> Binomial Response Logistic Regression</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>binom_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(y, m <span class="sc">-</span> y) <span class="sc">~</span> load,  <span class="co">#&lt;&lt;</span></span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fastener, <span class="at">family =</span> binomial)</span>
-<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>binom_summ <span class="ot">&lt;-</span> <span class="fu">summary</span>(binom_fit)</span>
-<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>binom_summ<span class="sc">$</span>coef</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>binom_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(y, m <span class="sc">-</span> y) <span class="sc">~</span> load,  <span class="co">#&lt;&lt;</span></span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fastener, <span class="at">family =</span> binomial)</span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>binom_summ <span class="ot">&lt;-</span> <span class="fu">summary</span>(binom_fit)</span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>binom_summ<span class="sc">$</span>coef</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Estimate Std. Error z value Pr(&gt;|z|)
 (Intercept) -5.33971   0.545693   -9.79 1.30e-22
@@ -1175,6 +1399,10 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 </div>
 </div>
 <p><span class="math display">\[\hat{\pi} = \frac{e^{-5.34 + 0.0015x}}{1 + e^{-5.34 + 0.0015x}}\]</span></p>
+<ul>
+<li>Each additional 100 psi multiplies the odds of failure by <span class="math inline">\(e^{100(0.00155)} = 1.17\)</span>.</li>
+<li>The load with a 50% failure probability: <span class="math inline">\(\hat{x}_{50} = -\hat{\beta}_0/\hat{\beta}_1 \approx 3448\)</span> psi.</li>
+</ul>
 <aside class="notes">
 <p>The complete test data are shown below.</p>
 <style type="text/css">
@@ -1188,6 +1416,63 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="r-lab-fastener-fit-and-goodness-of-fit" class="slide level2">
+<h2><span class="pink">R Lab</span> Fastener: Fit and Goodness of Fit</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/16-logistic-reg/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">deviance =</span> <span class="fu">deviance</span>(binom_fit),</span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> <span class="fu">df.residual</span>(binom_fit),</span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fu">pchisq</span>(<span class="fu">deviance</span>(binom_fit),</span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>                   <span class="fu">df.residual</span>(binom_fit),</span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>deviance       df  p_value 
+   0.372    8.000    1.000 </code></pre>
+</div>
+</div>
+</div></div>
+<ul>
+<li>With binomial (grouped) data, the residual deviance <span class="math inline">\(\approx \chi^2_{n-p}\)</span> if the model is adequate.</li>
+<li>Deviance <span class="math inline">\(= 0.37\)</span> on 8 df (<span class="math inline">\(p \approx 1\)</span>): <strong>no evidence of lack of fit</strong>.</li>
+</ul>
+</section>
+<section id="other-link-functions" class="slide level2">
+<h2>Other Link Functions</h2>
+<ul>
+<li>Any increasing function <span class="math inline">\(g\)</span> mapping <span class="math inline">\((0, 1)\)</span> to <span class="math inline">\((-\infty, \infty)\)</span> can serve as the link <span class="math inline">\(g(\pi) = {\bf x}'\boldsymbol \beta\)</span>:
+<ul>
+<li><strong>logit</strong>: <span class="math inline">\(\ln\frac{\pi}{1-\pi}\)</span> (odds-ratio interpretation)</li>
+<li><strong>probit</strong>: <span class="math inline">\(\Phi^{-1}(\pi)\)</span> (standard normal quantile)</li>
+<li><strong>complementary log-log</strong>: <span class="math inline">\(\ln[-\ln(1-\pi)]\)</span> (asymmetric)</li>
+</ul></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a>fits <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">logit =</span> binom_fit,</span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">probit =</span> <span class="fu">update</span>(binom_fit, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"probit"</span>)),</span>
+<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">cloglog =</span> <span class="fu">update</span>(binom_fit, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"cloglog"</span>)))</span>
+<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">t</span>(<span class="fu">sapply</span>(fits, <span class="cf">function</span>(f) <span class="fu">c</span>(<span class="fu">coef</span>(f), <span class="at">deviance =</span> <span class="fu">deviance</span>(f), <span class="at">AIC =</span> <span class="fu">AIC</span>(f)))), <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        (Intercept)    load deviance  AIC
+logit         -5.34 0.00155    0.372 49.1
+probit        -3.27 0.00095    0.437 49.2
+cloglog       -4.19 0.00109    0.687 49.4</code></pre>
+</div>
+</div>
+<ul>
+<li>All three fit the fastener data almost equally well; logit is preferred for its odds-ratio interpretation.</li>
+</ul>
 </section></section>
 <section>
 <section id="evaluation-metrics" class="title-slide slide level1 center">
@@ -1251,8 +1536,8 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 <section id="r-lab-confusion-matrix" class="slide level2">
 <h2><span class="pink">R Lab</span> Confusion Matrix</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a>pred_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fit, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb26-2"><a aria-label="2"></a><span class="fu">table</span>(pred_prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, Default<span class="sc">$</span>default)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-label="1"></a>pred_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fit, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb44-2"><a aria-label="2"></a><span class="fu">table</span>(pred_prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, Default<span class="sc">$</span>default)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       
           No  Yes
@@ -1268,26 +1553,26 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">confusionMatrix</span>()</span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">conf_mat</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">confusionMatrix</span>()</span>
+<span id="cb46-2"><a aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">conf_mat</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <aside class="notes">
 <ul>
 <li><a href="https://topepo.github.io/caret/">caret</a> package (<strong>C</strong>lassification <strong>A</strong>nd <strong>RE</strong>gression <strong>T</strong>raining) provides tools for predictive modeling.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Classification And REgression Training</span></span>
-<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret) </span>
-<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">confusionMatrix</span>(<span class="at">data =</span> a factor of predicted classes, </span>
-<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">reference =</span> a factor of classes to be used as the true results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Classification And REgression Training</span></span>
+<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret) </span>
+<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">confusionMatrix</span>(<span class="at">data =</span> a factor of predicted classes, </span>
+<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>                       <span class="at">reference =</span> a factor of classes to be used as the true results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><a href="https://yardstick.tidymodels.org/index.html">yardstick</a> is a package of <a href="https://www.tidymodels.org/">tidymodels</a> for estimating how well models are working.</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-label="1"></a>yardstick<span class="sc">::</span><span class="fu">conf_mat</span>(<span class="at">data =</span> a data frame, </span>
-<span id="cb30-2"><a aria-label="2"></a>                    <span class="at">truth =</span> true class column that is a factor,</span>
-<span id="cb30-3"><a aria-label="3"></a>                    <span class="at">estimate =</span> predicted class column that is a factor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-label="1"></a>yardstick<span class="sc">::</span><span class="fu">conf_mat</span>(<span class="at">data =</span> a data frame, </span>
+<span id="cb48-2"><a aria-label="2"></a>                    <span class="at">truth =</span> true class column that is a factor,</span>
+<span id="cb48-3"><a aria-label="3"></a>                    <span class="at">estimate =</span> predicted class column that is a factor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1301,6 +1586,30 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
           display:block!important;
       }</style></aside>
 </section>
+<section id="r-lab-choosing-the-threshold" class="slide level2">
+<h2><span class="pink">R Lab</span> Choosing the Threshold</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a>y_obs <span class="ot">&lt;-</span> Default<span class="sc">$</span>default <span class="sc">==</span> <span class="st">"Yes"</span></span>
+<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(th) {</span>
+<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>  y_hat <span class="ot">&lt;-</span> pred_prob <span class="sc">&gt;</span> th</span>
+<span id="cb49-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">threshold =</span> th, <span class="at">sensitivity =</span> <span class="fu">mean</span>(y_hat[y_obs]),</span>
+<span id="cb49-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">specificity =</span> <span class="fu">mean</span>(<span class="sc">!</span>y_hat[<span class="sc">!</span>y_obs]), <span class="at">accuracy =</span> <span class="fu">mean</span>(y_hat <span class="sc">==</span> y_obs))</span>
+<span id="cb49-6"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">rbind</span>(<span class="fu">metrics</span>(<span class="fl">0.5</span>), <span class="fu">metrics</span>(<span class="fl">0.2</span>)), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     threshold sensitivity specificity accuracy
+[1,]       0.5       0.300       0.996    0.973
+[2,]       0.2       0.598       0.973    0.960</code></pre>
+</div>
+</div>
+<ul>
+<li>Only 3.3% of customers default: with threshold 0.5 the accuracy is high (97%), but only <strong>30%</strong> of defaulters are caught.</li>
+<li>Lowering the threshold to 0.2 doubles the sensitivity (60%) at a small cost in specificity.</li>
+</ul>
+<div class="alert">
+<p>The best threshold depends on the costs of the two errors (missing a defaulter vs.&nbsp;flagging a good customer). Accuracy alone can be misleading for imbalanced classes.</p>
+</div>
+</section>
 <section id="r-lab-receiver-operating-characteristic-roc-curve" class="slide level2">
 <h2><span class="pink">R Lab</span> Receiver Operating Characteristic (ROC) Curve</h2>
 <ul>
@@ -1310,26 +1619,26 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># create an object of class prediction </span></span>
-<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">prediction</span>(</span>
-<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">predictions =</span> pred_prob, </span>
-<span id="cb31-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> Default<span class="sc">$</span>default)</span>
-<span id="cb31-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># calculates the ROC curve</span></span>
-<span id="cb31-9"><a aria-hidden="true" tabindex="-1"></a>roc <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">performance</span>(</span>
-<span id="cb31-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">prediction.obj =</span> pred, </span>
-<span id="cb31-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">measure =</span> <span class="st">"tpr"</span>,</span>
-<span id="cb31-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x.measure =</span> <span class="st">"fpr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
+<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># create an object of class prediction </span></span>
+<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">prediction</span>(</span>
+<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">predictions =</span> pred_prob, </span>
+<span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> Default<span class="sc">$</span>default)</span>
+<span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># calculates the ROC curve</span></span>
+<span id="cb51-9"><a aria-hidden="true" tabindex="-1"></a>roc <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">performance</span>(</span>
+<span id="cb51-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">prediction.obj =</span> pred, </span>
+<span id="cb51-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">measure =</span> <span class="st">"tpr"</span>,</span>
+<span id="cb51-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x.measure =</span> <span class="st">"fpr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc, <span class="at">colorize =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc, <span class="at">colorize =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/16-logistic-reg/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/16-logistic-reg/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1355,12 +1664,12 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## object of class 'performance'</span></span>
-<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">performance</span>(</span>
-<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">prediction.obj =</span> pred, </span>
-<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">measure =</span> <span class="st">"auc"</span>)</span>
-<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="do">## object of class 'performance'</span></span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">performance</span>(</span>
+<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">prediction.obj =</span> pred, </span>
+<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">measure =</span> <span class="st">"auc"</span>)</span>
+<span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 0.948</code></pre>
@@ -1371,7 +1680,7 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./images/16-logistic-reg/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./images/16-logistic-reg/unnamed-chunk-38-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1387,7 +1696,7 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
 <p>Remember! Compare the candidates using the test data.</p>
 </div>
 
-<img data-src="./images/16-logistic-reg/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><aside class="notes">
+<img data-src="./images/16-logistic-reg/unnamed-chunk-39-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><aside class="notes">
 
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1400,6 +1709,53 @@ load         0.00155   0.000158    9.83 8.45e-23</code></pre>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="r-lab-comparing-models-on-test-data" class="slide level2">
+<h2><span class="pink">R Lab</span> Comparing Models on Test Data</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a>train_id <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(Default), <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">nrow</span>(Default))</span>
+<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> Default[train_id, ]; test <span class="ot">&lt;-</span> Default[<span class="sc">-</span>train_id, ]</span>
+<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> balance, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> balance <span class="sc">+</span> income <span class="sc">+</span> student, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb55-6"><a aria-hidden="true" tabindex="-1"></a>test_auc <span class="ot">&lt;-</span> <span class="cf">function</span>(m) {</span>
+<span id="cb55-7"><a aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> ROCR<span class="sc">::</span><span class="fu">prediction</span>(<span class="fu">predict</span>(m, test, <span class="at">type =</span> <span class="st">"response"</span>), test<span class="sc">$</span>default)</span>
+<span id="cb55-8"><a aria-hidden="true" tabindex="-1"></a>  ROCR<span class="sc">::</span><span class="fu">performance</span>(pr, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-9"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">balance_only =</span> <span class="fu">test_auc</span>(m1), <span class="at">three_predictors =</span> <span class="fu">test_auc</span>(m3)), <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    balance_only three_predictors 
+           0.952            0.950 </code></pre>
+</div>
+</div>
+<ul>
+<li>The three-predictor model is significantly better by the LR test, but on new data it does <strong>not</strong> classify better: balance carries almost all the predictive information.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Statistical significance and predictive gain are different questions (lecture 15).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="summary-part-ii" class="slide level2">
+<h2>Summary: Part II</h2>
+<ul>
+<li><strong>Deviance</strong> plays the role of <span class="math inline">\(SS_{Res}\)</span>; nested models are compared with <strong>LR (deviance) tests</strong>, others with AIC.</li>
+<li><strong>Binomial responses</strong>: <code>glm(cbind(y, m - y) ~ x, family = binomial)</code>; the residual deviance tests goodness of fit.</li>
+<li>Links: logit (odds ratios), probit, complementary log-log.</li>
+<li>Classification: choose a threshold; report <strong>sensitivity</strong>, <strong>specificity</strong>, accuracy; ROC curve and <strong>AUC</strong> summarize all thresholds.</li>
+<li>Compare classifiers on <strong>test data</strong>.</li>
+</ul>
 
 
 </section></section>

@@ -240,6 +240,26 @@ Model Selection Criteria
 <h2>
 Selection Methods
 </h2>
+<h2>
+Model Validation and Shrinkage
+</h2>
+<aside class="notes">
+<ul>
+<li>Two lectures. <strong>Part I</strong>: why select, misspecification, prediction and data splitting, selection criteria, best subsets. <strong>Part II</strong>: stepwise methods, a model-building strategy, cross-validation, and shrinkage (lasso).</li>
+<li>Pacing, Part I (75 min): model building &amp; variable selection ~10 | misspecification ~10 | prediction, overfitting, splitting ~12 | criteria (<span class="math inline">\(R^2_{adj}\)</span>, <span class="math inline">\(C_p\)</span>, AIC/BIC, PRESS) ~20 | best subset labs ~18 | summary ~5.</li>
+<li>Pacing, Part II (75 min): forward / backward / stepwise (+ labs) ~25 | comments &amp; strategy ~10 | cross-validation lab ~15 | lasso ~15 | inference after selection &amp; summary ~10.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="model-building" class="slide level2">
 <h2>Model Building</h2>
@@ -347,6 +367,50 @@ Selection Methods
 <!-- | Bias of $\small \hat{\sigma}^2$ | $\small E[\hat{\sigma}^2_{under}] > \sigma^2$ even if $\small {\bf X_1'X_2=0}$| $\small E[\hat{\sigma}^2_{over}] = \sigma^2$ -->
 </div>
 </section>
+<section id="consequences-of-model-misspecification" class="slide level2">
+<h2>Consequences of Model Misspecification</h2>
+<ul>
+<li>Partition the candidate regressors: <span class="math inline">\({\bf y} = {\bf X}_1\boldsymbol \beta_1 + {\bf X}_2\boldsymbol \beta_2 + \boldsymbol \epsilon\)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Underfitting</strong> (true model has <span class="math inline">\({\bf X}_2\)</span>, we fit only <span class="math inline">\({\bf X}_1\)</span>):
+<ul>
+<li><span class="math inline">\({\bf b}_1\)</span> is <strong>biased</strong> unless <span class="math inline">\({\bf X}_1'{\bf X}_2 = {\bf 0}\)</span>: <span class="math inline">\(\;E({\bf b}_1) = \boldsymbol \beta_1 + ({\bf X}_1'{\bf X}_1)^{-1}{\bf X}_1'{\bf X}_2\boldsymbol \beta_2\)</span></li>
+<li><span class="math inline">\(MS_{Res}\)</span> <strong>overestimates</strong> <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>but <span class="math inline">\(\mathrm{Var}({\bf b}_1)\)</span> is <strong>smaller</strong> than in the full model.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Overfitting</strong> (fit <span class="math inline">\({\bf X}_1\)</span> and <span class="math inline">\({\bf X}_2\)</span> when <span class="math inline">\(\boldsymbol \beta_2 = {\bf 0}\)</span>):
+<ul>
+<li>All estimates remain <strong>unbiased</strong>, and <span class="math inline">\(MS_{Res}\)</span> is unbiased for <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>but the variances of <span class="math inline">\({\bf b}_1\)</span> and <span class="math inline">\(\hat{y}\)</span> are <strong>larger</strong> (unless <span class="math inline">\({\bf X}_1'{\bf X}_2 = {\bf 0}\)</span>).</li>
+</ul></li>
+</ul>
+<div class="alert">
+<p>Deleting regressors trades variance for bias: worthwhile only when the deleted effects are small relative to their variance.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Sec 10.1.2. Bias of the reduced model: <span class="math inline">\({\bf A} = ({\bf X}_1'{\bf X}_1)^{-1}{\bf X}_1'{\bf X}_2\)</span> is the “alias” matrix.</li>
+<li>This is exactly the variance-bias trade-off quantified by <span class="math inline">\(C_p\)</span> on the next slides.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="predictive-performance" class="slide level2">
 <h2>Predictive Performance</h2>
 <ul>
@@ -429,7 +493,7 @@ Selection Methods
 </ul>
 <p><br></p>
 <blockquote>
-<p><em>The model performs well on the current sample data, but awfully predicts the response on the new data we are interested.</em></p>
+<p><em>The model performs well on the current sample data, but predicts the response poorly on the new data we are interested in.</em></p>
 </blockquote>
 <p><br></p>
 <!-- - **Allocate specific subsets of data for different tasks**, as opposed to allocating the largest possible amount to the model parameter estimation only (what we've done so far). -->
@@ -461,7 +525,7 @@ Selection Methods
 <section id="overfitting" class="slide level2">
 <h2>Overfitting</h2>
 <blockquote>
-<p><em>The model performs well on the current sample data, but awfully predicts the response on the new data we are interested.</em></p>
+<p><em>The model performs well on the current sample data, but predicts the response poorly on the new data we are interested in.</em></p>
 </blockquote>
 <ul>
 <li><strong>Low error rate on observed data, but high prediction error rate on future unobserved data!</strong></li>
@@ -548,7 +612,7 @@ Selection Methods
 <li>Evaluate subset models:
 <ul>
 <li><span class="math inline">\(R_{adj}^2\)</span> <span class="math inline">\(\uparrow\)</span></li>
-<li>Mallow’s <span class="math inline">\(C_p\)</span> <span class="math inline">\(\downarrow\)</span></li>
+<li>Mallows’ <span class="math inline">\(C_p\)</span> <span class="math inline">\(\downarrow\)</span></li>
 <li>Information Criterion (AIC, BIC) <span class="math inline">\(\downarrow\)</span></li>
 <li><strong>PRE</strong>diction <strong>S</strong>um of <strong>S</strong>quares (PRESS) <span class="math inline">\(\downarrow\)</span> (Allen, D.M. (1974))</li>
 </ul></li>
@@ -573,7 +637,7 @@ Selection Methods
 </div>
 </section>
 <section id="selection-criteria-mallows-c_p-statistic-downarrow" class="slide level2">
-<h2>Selection Criteria: Mallow’s <span class="math inline">\(C_p\)</span> Statistic <span class="math inline">\(\downarrow\)</span></h2>
+<h2>Selection Criteria: Mallows’ <span class="math inline">\(C_p\)</span> Statistic <span class="math inline">\(\downarrow\)</span></h2>
 <p>For a model with <span class="math inline">\(p\)</span> coefficients ( <span class="math inline">\(k\)</span> predictors ),</p>
 <p><span class="math display">\[\begin{align} C_p &amp;= \frac{SS_{res}(p)}{\hat{\sigma}^2} - n + 2p \\ &amp;= p + \frac{(s^2 - \hat{\sigma}^2)(n-p)}{\hat{\sigma}^2} \end{align}\]</span></p>
 <ul>
@@ -602,7 +666,7 @@ Selection Methods
       }</style></aside>
 </section>
 <section id="mallows-c_p-plot" class="slide level2">
-<h2>Mallow’s <span class="math inline">\(C_p\)</span> Plot</h2>
+<h2>Mallows’ <span class="math inline">\(C_p\)</span> Plot</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
@@ -630,13 +694,14 @@ Selection Methods
 <li>Akaike information criterion (AIC) is <span class="math display">\[\text{AIC} = n \ln \left( \frac{SS_{res}(p)}{n} \right) + 2p\]</span></li>
 <li>Bayesian information criterion (BIC) is <span class="math display">\[\text{BIC} = n \ln \left( \frac{SS_{res}(p)}{n} \right) + p \ln (n)\]</span></li>
 <li>BIC penalizes more when adding more variables as the sample size increases.</li>
-<li>BIC tends to choose models with less regressors.</li>
+<li>BIC tends to choose models with fewer regressors.</li>
+<li>These forms drop constants; R’s <code>AIC()</code>/<code>BIC()</code> use <span class="math inline">\(-2\ln L + 2(p+1)\)</span> (also counting <span class="math inline">\(\sigma^2\)</span>). Only <strong>differences</strong> between models matter.</li>
 </ul>
 </section>
 <section id="selection-criteria-press-downarrow" class="slide level2">
 <h2>Selection Criteria: PRESS <span class="math inline">\(\downarrow\)</span></h2>
 <ul>
-<li><p>Predicted Residual Error Sum of Squares (PRESS)</p></li>
+<li><p><strong>PRE</strong>diction <strong>S</strong>um of <strong>S</strong>quares (PRESS), Allen (1974); see lecture 10</p></li>
 <li><p><span class="math inline">\(\text{PRESS}_p = \sum_{i=1}^n[y_i - \hat{y}_{(i)}]^2 = \sum_{i=1}^n\left( \frac{e_i}{1-h_{ii}}\right)^2\)</span> where <span class="math inline">\(e_i = y_i - \hat{y}_i\)</span>.</p></li>
 <li><p><span class="math inline">\(R_{pred, p}^2 = 1 - \frac{PRESS_p}{SS_T}\)</span></p></li>
 <li><p><span class="math inline">\(\text{Absolute PRESS}_p = \sum_{i=1}^n|y_i - \hat{y}_{(i)}|\)</span> can also be considered when some large prediction errors are too influential.</p></li>
@@ -666,7 +731,7 @@ Selection Methods
 </div>
 <!-- - `AIC()` calculating AIC using -2 log-likelihood. -->
 <ul>
-<li><code>ols_mallows_cp()</code> for Mallow’s <span class="math inline">\(C_p\)</span> in <a href="https://olsrr.rsquaredacademy.com/"><code>olsrr</code></a> package</li>
+<li><code>ols_mallows_cp()</code> for Mallows’ <span class="math inline">\(C_p\)</span> in <a href="https://olsrr.rsquaredacademy.com/"><code>olsrr</code></a> package</li>
 </ul>
 </div><div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
@@ -745,7 +810,7 @@ Selection Methods
 </ul>
 </div><div class="column" style="width:50%;">
 <ul>
-<li><code>cp</code>: Mallow’s Cp</li>
+<li><code>cp</code>: Mallows’ Cp</li>
 <li><code>aic</code>: AIC</li>
 <li><code>sbic</code>: Sawa BIC</li>
 <li><code>sbc</code>: Schwarz BIC (the one we defined)</li>
@@ -1450,6 +1515,20 @@ Selection Methods
 <p>Scale Cp, AIC, BIC to <span class="math inline">\([0, 1]\)</span>.</p>
 
 <img data-src="./images/15-var-select/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"></section>
+<section id="summary-part-i" class="slide level2">
+<h2>Summary: Part I</h2>
+<ul>
+<li>More regressors: smaller bias but larger variance; fewer regressors: the reverse.</li>
+<li>Judge models by <strong>prediction</strong> on new data, not by fit to the sample.</li>
+<li>Criteria that balance fit and complexity: <span class="math inline">\(R^2_{adj}\)</span> <span class="math inline">\(\uparrow\)</span>, <span class="math inline">\(C_p\)</span> <span class="math inline">\(\downarrow\)</span> (close to <span class="math inline">\(p\)</span>), AIC/BIC <span class="math inline">\(\downarrow\)</span>, PRESS <span class="math inline">\(\downarrow\)</span>.</li>
+<li>Best subset regression evaluates all <span class="math inline">\(2^M\)</span> models; different criteria can pick different “best” models.</li>
+</ul>
+</section></section>
+<section>
+<section id="part-ii-stepwise-methods-validation-and-shrinkage" class="title-slide slide level1 center">
+<h1>Part II: Stepwise Methods, Validation and Shrinkage</h1>
+
+</section>
 <section id="selection-methods-forward-selection" class="slide level2">
 <h2>Selection Methods: Forward Selection</h2>
 <ul>
@@ -1662,7 +1741,40 @@ Total            4.95e+08        16
 </div>
 </div>
 </section>
+<section id="r-lab-stepwise-regression-by-aic-step" class="slide level2">
+<h2><span class="pink">R Lab</span> Stepwise Regression by AIC: <code>step()</code></h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">step</span>(lm_full, <span class="at">direction =</span> <span class="st">"both"</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x2 + x3 + x5, data = manpower)
 
+Coefficients:
+(Intercept)           x2           x3           x5  
+   1523.389        0.053        0.978     -320.951  </code></pre>
+</div>
+</div>
+<ul>
+<li>Base R alternative: adds or drops the term that most reduces AIC at each step.</li>
+<li><code>direction = "backward"</code> (start from the full model) or <code>"forward"</code> (start from <code>y ~ 1</code> with a <code>scope</code>); <code>k = log(n)</code> uses BIC.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Choose a model by AIC in a Stepwise Algorithm</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="comments-on-stepwise-type-procedures" class="slide level2">
 <h2>Comments on Stepwise-Type Procedures</h2>
 <ul>
@@ -1702,7 +1814,7 @@ Total            4.95e+08        16
 <p>set F IN = F OUT = 4, as this corresponds roughly to the upper 5% point of the F distribution Bendel and Afi fi [ 1974 ] recommend α = 0.25 for forward selection. F IN of between 1.3 and 2.</p>
 <p>Kennedy and Bancroft [ 1971] suggest α = 0.25 for forward selection and recommend α = 0.10 for backward elimi</p>
 <ul>
-<li>STRATEGY FOR VARIABLE SELECTION AND MODEL BUILDING the PRESS statistic tends to recommend smaller models than Mallow’s Cp, which in turn tends to recommend smaller models than the adjusted R2 .</li>
+<li>STRATEGY FOR VARIABLE SELECTION AND MODEL BUILDING the PRESS statistic tends to recommend smaller models than Mallows’ Cp, which in turn tends to recommend smaller models than the adjusted R2 .</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1715,9 +1827,192 @@ Total            4.95e+08        16
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-
-
 </div>
+</section>
+<section id="a-strategy-for-variable-selection-and-model-building" class="slide level2">
+<h2>A Strategy for Variable Selection and Model Building</h2>
+<ol type="1">
+<li>Fit the <strong>full model</strong> (all candidate regressors).</li>
+<li>Perform a thorough analysis: residuals, outliers/influence, collinearity (lectures 07 to 14).</li>
+<li>Decide whether transformations of <span class="math inline">\(y\)</span> or the <span class="math inline">\(x\)</span>s are needed.</li>
+<li>Use <strong>all possible regressions</strong> (or stepwise if <span class="math inline">\(M\)</span> is large) to identify a few candidate models.</li>
+<li>Compare the candidates with <span class="math inline">\(C_p\)</span>, AIC/BIC, PRESS, and <strong>cross-validation</strong>.</li>
+<li>Re-check the diagnostics of the final candidates; use subject-matter knowledge to choose.</li>
+</ol>
+<div class="alert">
+<p>Automated methods are not substitutes for careful analysis: are the assumptions met, and is the model interpretable?</p>
+</div>
+<aside class="notes">
+<ul>
+<li>LRA Sec 10.3 (Figure 10.10).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="cross-validation" class="slide level2">
+<h2>Cross-Validation</h2>
+<ul>
+<li>One train/test split wastes data and is noisy when <span class="math inline">\(n\)</span> is small.</li>
+<li><strong><span class="math inline">\(K\)</span>-fold cross-validation</strong>:
+<ol type="1">
+<li>Randomly split the data into <span class="math inline">\(K\)</span> folds (often <span class="math inline">\(K = 5\)</span> or <span class="math inline">\(10\)</span>).</li>
+<li>For each fold <span class="math inline">\(k\)</span>: fit on the other <span class="math inline">\(K-1\)</span> folds, predict fold <span class="math inline">\(k\)</span>, record the MSE.</li>
+<li><span class="math inline">\(CV_{(K)} = \frac{1}{K}\sum_{k=1}^K MSE_k\)</span>; choose the model with the smallest <span class="math inline">\(CV\)</span>.</li>
+</ol></li>
+<li><span class="math inline">\(K = n\)</span> is leave-one-out CV; for linear regression, <span class="math inline">\(n \cdot CV_{(n)} = \text{PRESS}\)</span>.</li>
+</ul>
+<div class="alert">
+<p>Any selection step (stepwise, choosing a subset) must be done <strong>inside</strong> each training fold; otherwise the CV error is too optimistic.</p>
+</div>
+</section>
+<section id="r-lab-5-fold-cv-comparing-models-for-mtcars" class="slide level2">
+<h2><span class="pink">R Lab</span> 5-fold CV: Comparing Models for <code>mtcars</code></h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>step_model <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">step</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars), <span class="at">direction =</span> <span class="st">"both"</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">formula</span>(step_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mpg ~ wt + qsec + am</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>fold <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">length.out =</span> <span class="fu">nrow</span>(mtcars)))</span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>cv_mse <span class="ot">&lt;-</span> <span class="cf">function</span>(form) <span class="fu">mean</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(k) {</span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(form, <span class="at">data =</span> mtcars[fold <span class="sc">!=</span> k, ])</span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>((mtcars<span class="sc">$</span>mpg[fold <span class="sc">==</span> k] <span class="sc">-</span> <span class="fu">predict</span>(fit, mtcars[fold <span class="sc">==</span> k, ]))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb43-6"><a aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb43-7"><a aria-hidden="true" tabindex="-1"></a>forms <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">full =</span> mpg <span class="sc">~</span> ., <span class="at">stepAIC =</span> <span class="fu">formula</span>(step_model),</span>
+<span id="cb43-8"><a aria-hidden="true" tabindex="-1"></a>              <span class="at">wt_only =</span> mpg <span class="sc">~</span> wt, <span class="at">wt_hp =</span> mpg <span class="sc">~</span> wt <span class="sc">+</span> hp)</span>
+<span id="cb43-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sapply</span>(forms, cv_mse), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   full stepAIC wt_only   wt_hp 
+  14.03    7.32   13.35   10.39 </code></pre>
+</div>
+</div>
+<ul>
+<li>The full model (10 regressors, <span class="math inline">\(n = 32\)</span>) predicts worst; the AIC-selected model <code>wt + qsec + am</code> predicts best.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Caution: here <code>step()</code> used all 32 cars, so its CV error is a little optimistic (selection was not repeated inside each fold).</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="shrinkage-the-lasso" class="slide level2">
+<h2>Shrinkage: The Lasso</h2>
+<ul>
+<li>Instead of keeping or dropping regressors, <strong>shrink</strong> the coefficients: <span class="math display">\[\hat{\boldsymbol \beta}^{lasso} = \arg\min_{\boldsymbol \beta} \left\{\sum_{i=1}^n(y_i - {\bf x}_i'\boldsymbol \beta)^2 + \lambda\sum_{j=1}^k|\beta_j|\right\}\]</span>
+<ul>
+<li><span class="math inline">\(\lambda = 0\)</span>: least squares; larger <span class="math inline">\(\lambda\)</span>: more shrinkage.</li>
+<li>The <span class="math inline">\(|\beta_j|\)</span> penalty sets some coefficients <strong>exactly to 0</strong>: selection and estimation in one step.</li>
+<li>Ridge (lecture 14) uses <span class="math inline">\(\sum\beta_j^2\)</span>: shrinks, but never exactly to 0.</li>
+</ul></li>
+<li>Choose <span class="math inline">\(\lambda\)</span> by cross-validation; standardize the <span class="math inline">\(x\)</span>s first (<code>glmnet</code> does this by default).</li>
+</ul>
+</section>
+<section id="r-lab-lasso-with-glmnet" class="slide level2">
+<h2><span class="pink">R Lab</span> Lasso with <code>glmnet</code></h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4780</span>)</span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>cv_lasso <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, mtcars<span class="sc">$</span>mpg, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">nfolds =</span> <span class="dv">5</span>)</span>
+<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">min =</span> cv_lasso<span class="sc">$</span>lambda.min, <span class="st">`</span><span class="at">1se</span><span class="st">`</span> <span class="ot">=</span> cv_lasso<span class="sc">$</span>lambda<span class="fl">.1</span>se), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  min   1se 
+0.879 2.030 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">as.matrix</span>(<span class="fu">coef</span>(cv_lasso, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            lambda.1se
+(Intercept)     31.770
+cyl             -0.798
+disp             0.000
+hp              -0.002
+drat             0.000
+wt              -2.005
+qsec             0.000
+vs               0.000
+am               0.000
+gear             0.000
+carb             0.000</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/15-var-select/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<ul>
+<li>With the “1-SE rule”, the lasso keeps <code>cyl</code>, <code>hp</code> and <code>wt</code> and sets the other 7 coefficients to 0.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><code>lambda.min</code> minimizes the CV error; <code>lambda.1se</code> is the largest <span class="math inline">\(\lambda\)</span> within one standard error of that minimum (a simpler model).</li>
+<li><code>alpha = 0</code> gives ridge regression; values in between give the elastic net.</li>
+<li>Install with <code>install.packages("glmnet")</code> if needed.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="inference-after-selection" class="slide level2">
+<h2>Inference After Selection</h2>
+<ul>
+<li><span class="math inline">\(p\)</span>-values and CIs from the <strong>final</strong> model ignore the selection step:
+<ul>
+<li>The selected regressors were chosen <em>because</em> they looked significant in this sample.</li>
+<li>Reported <span class="math inline">\(p\)</span>-values are too small and CIs too narrow.</li>
+</ul></li>
+<li>Remedies: validate on new data, use CV to <em>compare</em> rather than to confirm, or split the data (select on one part, estimate and test on the other).</li>
+</ul>
+<div class="alert">
+<p>Report how the model was selected, and treat selected-model <span class="math inline">\(p\)</span>-values as descriptive.</p>
+</div>
+</section>
+<section id="summary-part-ii" class="slide level2">
+<h2>Summary: Part II</h2>
+<ul>
+<li><strong>Forward, backward, stepwise</strong>: add/remove one regressor at a time by partial <span class="math inline">\(F\)</span> (<span class="math inline">\(p\)</span>-value) or AIC; fast but not guaranteed to find the best subset.</li>
+<li>Different methods and criteria can give different models: there is no single “best”.</li>
+<li><strong>Cross-validation</strong> estimates prediction error honestly; repeat any selection inside each fold.</li>
+<li><strong>Lasso</strong> shrinks and selects at the same time; choose <span class="math inline">\(\lambda\)</span> by CV.</li>
+<li>Selection affects inference: be careful with <span class="math inline">\(p\)</span>-values after selection.</li>
+</ul>
+
+
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
