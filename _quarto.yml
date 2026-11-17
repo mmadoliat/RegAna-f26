@@ -41,6 +41,8 @@ website:
             text: Overview
           - href: course-syllabus.qmd
             text: Syllabus
+          - href: project-description.qmd
+            text: Final Project
           - href: index.qmd
             text: Schedule
           - href: course-links.qmd

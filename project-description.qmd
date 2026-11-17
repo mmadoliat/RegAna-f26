@@ -1,0 +1,249 @@
+---
+title: "Final Project Guidelines"
+subtitle: "MATH 4780 / MSSC 5780 — Regression Analysis, Fall 2026"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: false
+---
+
+```{=html}
+<style>
+.red   { color: #b22222; }
+.green { color: #1e7b34; }
+.blue  { color: #1f4e9c; }
+</style>
+```
+
+[**This is the current version of the project guidelines. It may be revised; any changes will be announced in class and on D2L.**]{.red}
+
+# Overview
+
+The goal of the final project is to show that you can **think critically about regression models, use them correctly, and communicate what you learn**. The final project is worth **30%** of your course grade. You may choose either option:
+
+- **[Option A — Data Analysis]{.red}:** Investigate a meaningful question using regression analysis of a real data set.
+- **[Option B — New Regression Method]{.red}:** Learn a regression method not covered in class, explain why it is useful, and evaluate it through a computational study.
+
+Neither option is easier or worth more points. You will be evaluated on the quality of your reasoning, analysis, and communication, not on model complexity.
+
+# Project Format and Deliverables
+
+| Students | Project format | Group size | Written report | Oral presentation | Reproducible code |
+|:--|:--|:--|:--|:--|:--|
+| MATH 4780 only | [Group]{.green} | **3 or 4** | ❌ | [**Yes**]{.green} ✅ | **Yes** |
+| MATH 4780 + [MSSC 5780]{.blue} | [Group]{.green} | **4 or 5** | [**Yes**]{.blue} ✅ | [**Yes**]{.green} ✅ | **Yes** |
+| [MSSC 5780]{.blue} only | [Group]{.green} | **2–4** | [**Yes**]{.blue} ✅ | [**Yes**]{.green} ✅ | **Yes** |
+| [MSSC 5780]{.blue} only | Individual | **1** | [**Yes**]{.blue} ✅ | ❌ | **Yes** |
+
+- A group may include students from MATH 4780 and/or MSSC 5780.
+- Every group gives a **12–15 minute** presentation, followed by **1–3 minutes of Q&A**. **Every member must present a meaningful part** of the work.
+- Individual MSSC 5780 projects require **only a written report**, not an oral presentation.
+- Each group or individual submits **one proposal**. A group that includes MSSC 5780 students submits **one joint written report**.
+- All members are responsible for understanding the entire project, not only the part they prepared.
+
+## Timeline
+
+| Item | What to submit or do | Deadline |
+|:--|:--|:--|
+| Group formation / individual selection | Send Dr. Maadooliat your **team name and member list**, or state that you are doing an individual project. | **[Tuesday, Nov 24, 11:59 PM]{.red}** |
+| Project proposal | Submit a **one-page PDF** with your project title and plan on D2L. | **[Friday, Dec 4, 11:59 PM]{.red}** |
+| Group presentations | Present in class; every group member participates. | **[Tuesday, Dec 15, 10:30 AM – 12:30 PM]{.red}** |
+| Written report and project materials | Submit the report (if required), slides, and code/data to reproduce all results. | **[Tuesday, Dec 15, 11:59 PM]{.red}** |
+
+## Deadlines and Late Penalties
+
+Deadlines are mandatory. **Unless Dr. Maadooliat has approved an extension, the following penalties apply:**
+
+| Missed requirement or deadline | Penalty |
+|:--|:--|
+| Group member list or individual-project declaration | **5% of the project grade deducted per student** |
+| Project proposal | **5% of the project grade deducted per student** |
+| Peer evaluation forms (see below) | **5% of the project grade deducted per student** |
+| Written report and project materials | **0 points for the final project** if submitted after the deadline without an approved extension |
+
+- A submission is late if it is received **after the announced deadline**. For group submissions, every member shares responsibility for submitting on time.
+- Deductions are applied **after the project is graded** and may accumulate.
+- If you anticipate a problem meeting a deadline, contact Dr. Maadooliat **before the deadline**.
+
+## One-Page Proposal
+
+Include:
+
+1. **Title and members:** project title, names, course (MATH 4780 or MSSC 5780), and whether you chose Option A or B.
+2. **Motivation:** What question or methodological problem is interesting, and why does it matter?
+3. **Data or method:**
+    + Option A: the **data source**, the **response**, and the **potential predictors**.
+    + Option B: the **new method** and the **limitation** of the regression methods from class that it addresses.
+4. **Analysis plan:** how you will fit, evaluate, and compare models (including at least one planned graph, diagnostic, or experiment).
+
+Your plan may change as you learn more, but the proposal should be concrete enough to show that the project is feasible. You will receive brief feedback before you start the main analysis.
+
+# Project Requirements
+
+## Option A — Data Analysis
+
+Use regression to answer a **specific, meaningful question** with a real data set. Your project should:
+
+1. **State the question and introduce the data.** Where did the data come from, what does each observation represent, and what are the response and predictors? Discuss important limitations of the data.
+2. **Explore the data visually.** Include plots that guide your modeling decisions, not charts added for decoration.
+3. **Build and justify your model(s).** Explain your decisions about variables, transformations, interactions, categorical predictors, and model selection. Start from a reasonable model and compare alternatives when informative.
+4. **Check model adequacy.** Use the relevant tools from class: residual plots and assumption checks, leverage and influence diagnostics, collinearity diagnostics, and (where appropriate) lack-of-fit or cross-validation. Explain what you found and whether changes were needed.
+5. **Answer the question and evaluate the conclusion.** Interpret coefficients or fitted relationships together with appropriate measures of uncertainty, fit, or predictive performance. Discuss limitations and avoid unsupported causal claims.
+
+A good project does not need a model whose assumptions are perfectly satisfied. If concerns remain, assess their consequences and report them clearly. A more complicated model is not automatically better.
+
+For Option A, **do not reuse a data set analyzed in class, in the textbook, or in homework** without Dr. Maadooliat's approval.
+
+Possible sources of data include [TidyTuesday](https://github.com/rfordatascience/tidytuesday), [Kaggle](https://www.kaggle.com/datasets), [Harvard Dataverse](https://dataverse.harvard.edu/), the [UCI Machine Learning Repository](https://archive.ics.uci.edu/), and [FiveThirtyEight](https://data.fivethirtyeight.com/). You are welcome to find data elsewhere.
+
+## Option B — New Regression Method
+
+Choose **one regression method not covered in depth in class** and investigate what it offers beyond a familiar method such as ordinary least squares (OLS). Your project should:
+
+1. **Explain the motivation.** What limitation or modeling need does the method address? In what settings is it useful?
+2. **Explain how the method works.** Present its main idea, model or objective function, assumptions, and key tuning parameters in language your classmates can follow. Use equations and diagrams when helpful; long proofs are not needed.
+3. **Implement the method.** Fit it with an appropriate R or Python package (or your own code) and explain key implementation choices, such as how tuning parameters were chosen.
+4. **Make an informative comparison.** Compare the method with **at least one approach from class** under conditions where the difference matters, using a real-data analysis, a simulation study, or both, with fair and relevant comparison criteria.
+5. **Critically evaluate the results.** Identify strengths and weaknesses, and explain **when you would, or would not, recommend** the method.
+
+**A literature review or software tutorial alone is not sufficient.** The project must include an original, reproducible computational demonstration. You do **not** need to invent a new method or prove new theory.
+
+Possible topics include robust regression, quantile regression, Poisson regression, lasso and elastic net, partial least squares, regression trees and random forests, generalized additive models, Bayesian linear regression, Gaussian process regression, and mixed-effects models. Methods we only introduced briefly in class (for example ridge regression or LOESS) are acceptable if you go clearly beyond the lecture. You may propose another method; choose a scope that is manageable in the time available.
+
+A useful Option B experiment might compare OLS and robust regression **with and without outliers**, or OLS and ridge regression under **different degrees of collinearity**. The aim is to explain *why* the methods behave differently, not merely to announce which one wins.
+
+# Oral Presentations (All Group Projects)
+
+Each group has **12–15 minutes**, followed by **1–3 minutes for questions**. Every member must speak and contribute meaningfully. A clear presentation usually follows this sequence:
+
+1. **Motivation and goal:** What are you trying to learn or solve?
+2. **Data and/or method:** What information or regression approach did you use, and why?
+3. **Analysis and evidence:** The most informative models, visualizations, diagnostics, or comparisons.
+4. **Conclusions:** What did you find? What are the main limitations?
+
+Focus on **explaining your decisions and results**, not on showing large blocks of code or raw software output. Be prepared to answer questions about your modeling choices.
+
+## Questions and Participation
+
+- **Each presenting group must ask at least one substantive question** about another group's project during the session. Dr. Maadooliat will coordinate the Q&A so that every group has a chance to ask.
+- **Every student**, including students doing individual projects, attends the presentation session and completes a **peer evaluation form** for each group other than their own (see the rubric below).
+- Individual-project students do **not** give a presentation.
+
+# Written Report (Groups with MSSC 5780 Students and Individual Projects)
+
+## Report Format
+
+- **Length:** **8–12 pages** for the main report, including figures and tables but excluding the title page, references, and optional appendix. Aim for clarity, not length.
+- **Text:** 11- or 12-point font, **1.5 or double spacing**, standard margins.
+- **First page:** project title, author(s), course, project option, and date.
+- **Figures and tables:** numbered, captioned, and referred to in the text.
+- **References:** cite data sources, papers, books, software, code, and any other materials you used.
+- **Code:** submit as separate, runnable files (for example `.R`, `.qmd`, or `.Rmd`); do not paste long code into the report.
+- **Submission:** a PDF report plus reproducible code and the data, or instructions for obtaining it.
+
+Use the outline below as your template. You may rename sections, but address all of the listed content.
+
+## Option A Report Outline — Data Analysis
+
+**1. Introduction:** the problem, why it matters, and your research question(s).
+
+**2. Data and Exploratory Analysis:** data source, observations, variables, data preparation, and key exploratory figures.
+
+**3. Regression Modeling and Diagnostics:** initial model, important modeling decisions, diagnostics, model revisions, and comparison of reasonable alternatives.
+
+**4. Results and Interpretation:** answer the research question with the fitted results, report uncertainty or predictive evidence, and explain the findings in context.
+
+**5. Discussion and Conclusion:** conclusions, remaining concerns, practical limitations, and possible improvements.
+
+**References** (and an optional appendix for supporting material).
+
+## Option B Report Outline — New Regression Method
+
+**1. Introduction and Motivation:** the method, the problem it addresses, and why the problem matters.
+
+**2. Method and Intuition:** how the method works, its model or objective, assumptions, key parameters, and how it differs from a familiar method.
+
+**3. Computational Study:** the real-data analysis or simulation design, implementation, comparison method(s), and evaluation criteria, and why the comparison is fair.
+
+**4. Results and Interpretation:** plots and tables comparing the methods; explain the differences and whether they match your expectations.
+
+**5. Discussion and Conclusion:** strengths, limitations, and when you would or would not recommend the method.
+
+**References** (and an optional appendix for additional mathematical or computational details).
+
+# Code, Data, and Academic Integrity
+
+All projects must be **reproducible**:
+
+- Submit the code that produces every numerical result, table, and figure in the presentation and/or report.
+- Include the data when permitted, or give a stable source and clear instructions for obtaining it.
+- Give brief instructions for running the analysis and list the important packages. Set random seeds for simulations and other randomized analyses.
+- Cite all sources and acknowledge outside help. **If you use generative AI**, briefly state what you used it for and check the accuracy of all code, analyses, and explanations. You remain responsible for understanding and defending the work.
+
+# Evaluation and Grading
+
+**Dr. Maadooliat determines final project grades.** Presentation scores combine the instructor's evaluation with peer evaluations from the class; students do not evaluate their own group. Grades follow the criteria below and are not assigned mechanically by group ranking.
+
+## Overall Grading Weights
+
+| Students | Project format | Written report | Presentation | Reproducible materials |
+|:--|:--|--:|--:|--:|
+| MATH 4780 only | Group | — | **90%** | **10%** |
+| MATH 4780 + MSSC 5780 | Group | **20%** | **70%** | **10%** |
+| MSSC 5780 only | Group | **30%** | **60%** | **10%** |
+| MSSC 5780 only | Individual | **80%** | — | **20%** |
+
+Group formation, the proposal, Q&A participation, and the peer evaluation forms are required milestones. Missing requirements, failure to participate, or substantially unequal contributions may affect an individual's project grade.
+
+## Presentation Evaluation (100 Points)
+
+Each presentation is scored with the rubric below by **Dr. Maadooliat** and by **every student not in the presenting group**.
+
+$$\text{Presentation score} = 0.6 \times \text{instructor score} + 0.4 \times \text{average peer score}$$
+
+The highest and lowest peer scores for each group are dropped before averaging. Peer scores are reviewed for consistency; scores that are clearly not based on the presentation (for example, identical scores for every group or every criterion) may be excluded.
+
+| Category | Criterion | Points |
+|:--|:--|--:|
+| **Organization (15)** | The type of presentation is appropriate for the topic and the audience. | 5 |
+| | Information is presented in a logical sequence. | 5 |
+| | Data sources, methods, and references are properly cited. | 5 |
+| **Content (45)** | The introduction is engaging, lays out the problem well, and establishes a framework for the rest of the presentation. | 5 |
+| | Technical terms are well defined in language appropriate for the audience. | 5 |
+| | The statistical content is accurate: appropriate methods, correct interpretation, and honest discussion of assumptions and limitations. | 10 |
+| | The material is relevant to the overall goal: informative analysis, diagnostics, or comparisons. | 10 |
+| | An appropriate amount of material is presented, and the emphasis reflects the relative importance of the points. | 10 |
+| | There is a clear conclusion that summarizes the findings. | 5 |
+| **Presentation (40)** | Speakers maintain eye contact with the audience and use a clear, audible voice. | 5 |
+| | Delivery is poised, controlled, and smooth. | 5 |
+| | Visual aids are well prepared, readable, and informative (no excessive code or raw output). | 5 |
+| | The presentation stays within the time limit. | 5 |
+| | Information is well communicated, and every member presents a meaningful part. | 10 |
+| | Questions are answered accurately and thoughtfully. | 10 |
+| **Total** | | **100** |
+
+The peer evaluation form will follow the same rubric and include a short space for one strength and one suggestion for each group.
+
+## Written Report Evaluation
+
+Written reports are evaluated by Dr. Maadooliat:
+
+| Criterion | Weight |
+|:--|--:|
+| Motivation and clarity of the question or problem | 15% |
+| Understanding, correctness, and justification of methods | 25% |
+| Quality of the analysis, diagnostics, or computational comparison | 30% |
+| Interpretation, critical evaluation, and limitations | 20% |
+| Writing, organization, figures, and citations | 10% |
+| **Total** | **100%** |
+
+The same general standards apply to both options, but the evidence differs: Option A emphasizes sound data analysis and diagnostics; Option B emphasizes understanding of the method and an informative comparison.
+
+## Individual Contributions to Group Projects
+
+- Group members ordinarily receive the same group score, but individual grades may be adjusted when contributions differ substantially.
+- With the peer evaluation forms, each member also identifies the teammate who made the **strongest contribution** (not yourself) and may briefly describe how the work was shared. This feedback informs, but does not automatically determine, any adjustment.
+- Every group member must take part in the work and present part of the results. A student who does not present, without an approved exception, may receive no credit for the presentation component.
+
+[Dr. Maadooliat may clarify or revise project procedures; any changes will be announced to the class.]{.blue}
