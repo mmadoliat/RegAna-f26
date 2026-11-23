@@ -1,0 +1,457 @@
+---
+title: "Homework 5: Polynomial Regression and Nonparametric Regression — Solutions"
+subtitle: "MATH 4780 / MSSC 5780 · Fall 2026"
+editor: source
+format:
+  html:
+    toc: true
+    code-copy: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Statistical Computing and Data Analysis
+
+The answers below follow the question numbering in `hw-5.qmd`. Questions 1–5 use the **10-observation rocket propellant data**, Questions 6–8 use the **`Prestige` data** from `carData`, and Questions 9–11 use **simulated data** from $y=2\sin(x)+\epsilon$. Printed values are rounded; R keeps full precision for calculations.
+
+```{r}
+#| label: setup
+#| include: false
+library(car)        # also loads carData (Prestige)
+library(KernSmooth) # locpoly()
+
+rocket <- data.frame(
+  x = seq(0.25, 2.5, by = 0.25),
+  y = c(1.42, 1.39, 1.55, 1.89, 2.43, 3.15, 4.05, 5.15, 6.43, 7.89)
+)
+data(Prestige)
+```
+
+## Polynomial Regression on Rocket Propellant Data
+
+## 1. Second-order polynomial model
+
+```{r}
+#| label: q1-fit
+fit_quad <- lm(y ~ x + I(x^2), data = rocket)
+summary(fit_quad)
+
+# Compare with the straight-line model
+fit_lin <- lm(y ~ x, data = rocket)
+summary(fit_lin)$r.squared
+anova(fit_lin, fit_quad)
+```
+
+The fitted model is
+
+$$
+\hat y = 1.633 - 1.2322\,x + 1.4945\,x^2 .
+$$
+
+For $H_0:\beta_2=0$ versus $H_1:\beta_2\ne0$, the marginal test gives $t=601.6$ on $n-p=7$ df with $p<2\times10^{-16}$, so we reject $H_0$ at $\alpha=0.05$. The partial $F$ test comparing the straight-line and quadratic models gives the same conclusion ($F=t^2\approx 3.6\times10^{5}$).
+
+The quadratic term is clearly needed. The straight line explains $R^2=0.903$ of the variation in weight loss and leaves an obvious curved pattern, while the quadratic model explains essentially all of it ($R^2>0.99999$, $s=0.0036$ kg). The weight loss accelerates with time since production, which a straight line cannot capture.
+
+## 2. Hazards of extrapolation
+
+```{r}
+#| label: q2-extrap
+x_new <- data.frame(x = c(0, 0.25, 0.41, 2.5, 3, 5))
+cbind(x_new, predict(fit_quad, x_new, interval = "prediction"))
+
+# Location of the minimum of the fitted parabola
+x_min <- -coef(fit_quad)[2] / (2 * coef(fit_quad)[3])
+unname(x_min)
+```
+
+Yes, extrapolation with a polynomial is hazardous, at both ends of the data range $[0.25, 2.5]$.
+
+- **Beyond the data ($x=5$ months).** The model predicts a weight loss of $32.8$ kg, more than four times the largest observed value ($7.89$ kg). The quadratic forces the loss to keep accelerating, but nothing in the data tells us how the propellant behaves after 2.5 months; the true curve may level off as the propellant is depleted. Even at $x=3$, just outside the range, the prediction ($11.4$ kg) is a pure model assumption.
+- **Near $x=0$.** The fitted parabola has its minimum at $x=0.41$ months, so the model says the weight loss *decreases* from $1.63$ kg at $x=0$ to $1.38$ kg at $x=0.41$. Cumulative weight loss cannot decrease over time, so the model is not physically meaningful near $0$.
+- **False precision.** The prediction intervals at $x=5$ are very narrow ($32.76$ to $32.91$). They reflect only random error under the assumed quadratic form, not uncertainty about the form itself, so they badly overstate how much we know outside the data.
+
+## 3. R-student residual analysis
+
+```{r}
+#| label: q3-resid
+#| fig-width: 10
+#| fig-height: 3.6
+t_i <- rstudent(fit_quad)
+round(t_i, 3)
+
+par(mfrow = c(1, 3))
+plot(fitted(fit_quad), t_i, pch = 16,
+     xlab = "Fitted values", ylab = "R-student residuals",
+     main = "R-student vs fitted")
+abline(h = c(-2, 0, 2), lty = c(2, 3, 2))
+plot(rocket$x, t_i, pch = 16,
+     xlab = "x (months)", ylab = "R-student residuals",
+     main = "R-student vs x")
+abline(h = c(-2, 0, 2), lty = c(2, 3, 2))
+car::qqPlot(fit_quad, id = list(n = 2),
+            main = "Q-Q plot of R-student residuals",
+            ylab = "R-student residuals")
+par(mfrow = c(1, 1))
+
+car::residualPlots(fit_quad, plot = FALSE)
+shapiro.test(t_i)
+```
+
+The residual plots support the adequacy of the second-order model.
+
+- **No remaining curvature.** The residuals against the fitted values and against $x$ show no systematic pattern; their signs alternate irregularly. The curvature tests from `residualPlots()` are not significant (Tukey test $p=0.15$), so no higher-order term is needed.
+- **No outliers.** All R-student residuals lie between $-2.01$ and $1.10$. Observation 4 ($t_4=-2.006$) sits right at the $-2$ guideline, which is expected for one case out of ten.
+- **Normality.** The Q-Q plot follows the reference line and stays inside the envelope; the Shapiro–Wilk test gives $p=0.066$. With only $n=10$ points, this is not evidence against normality.
+- **Size of the residuals.** The raw residuals are all smaller than $0.006$ kg in absolute value. Since $y$ is recorded to the nearest $0.01$ kg, much of the remaining error is rounding of the response, which also explains the "lumpy" look of the residuals.
+
+The endpoints $x=0.25$ and $x=2.5$ have the largest leverage ($h_{ii}=0.618$), but their residuals are small. Overall, the quadratic model is adequate within the range of the data.
+
+## 4. Centered model
+
+```{r}
+#| label: q4-center
+rocket$z <- rocket$x - mean(rocket$x)
+fit_cent <- lm(y ~ z + I(z^2), data = rocket)
+
+round(cbind(original = coef(fit_quad), centered = coef(fit_cent)), 4)
+round(cbind(se_original = sqrt(diag(vcov(fit_quad))),
+            se_centered = sqrt(diag(vcov(fit_cent)))), 5)
+c(R2_original = summary(fit_quad)$r.squared,
+  R2_centered = summary(fit_cent)$r.squared)
+max(abs(fitted(fit_quad) - fitted(fit_cent)))
+
+c(cor_x_x2 = cor(rocket$x, rocket$x^2),
+  cor_z_z2 = cor(rocket$z, rocket$z^2))
+```
+
+a. With $\bar x=1.375$, the centered fit is
+
+$$
+\hat y = 2.7644 + 2.8778\,z + 1.4945\,z^2 .
+$$
+
+- **What does not change:** the quadratic coefficient ($b_2=1.4945$, with the same standard error), $R^2$, $s$, and every fitted value (largest difference $\approx10^{-15}$). The two models are the same parabola written in different coordinates, so they have the same column space and the same fit.
+- **What changes:** the intercept and linear coefficient and their standard errors. Expanding $z=x-\bar x$ gives $b_1^{(z)}=b_1+2b_2\bar x=-1.2322+2(1.4945)(1.375)=2.8778$ and $b_0^{(z)}=b_0+b_1\bar x+b_2\bar x^2=2.7644$. The centered intercept is the fitted weight loss at the average age, and the linear coefficient is the slope there. Their standard errors are smaller ($0.0017$ and $0.0016$, versus $0.0042$ and $0.0070$).
+
+b. $\operatorname{corr}(x,x^2)=0.975$, while $\operatorname{corr}(z,z^2)=0$ (exactly, up to rounding error). The correlation between $x$ and $x^2$ is much larger. Question 12 shows why the centered correlation is exactly zero for these equally spaced data.
+
+## 5. Unit normal scaling and ill-conditioning
+
+```{r}
+#| label: q5-scaling
+n <- nrow(rocket)
+
+# a. Scaled design matrices (scale() centers and divides by the sample SD)
+W_x <- scale(cbind(w1 = rocket$x, w2 = rocket$x^2))
+W_z <- scale(cbind(w1 = rocket$z, w2 = rocket$z^2))
+round(W_x, 4)
+round(W_z, 4)
+
+# b. Correlation matrices
+Sigma_x <- crossprod(W_x) / (n - 1)
+Sigma_z <- crossprod(W_z) / (n - 1)
+round(Sigma_x, 4)
+round(Sigma_z, 4)
+
+# c. Inverses: diagonal elements are the VIFs
+round(solve(Sigma_x), 4)
+round(solve(Sigma_z), 4)
+car::vif(fit_quad)
+car::vif(fit_cent)
+
+# Condition numbers of the correlation matrices
+c(kappa_original = kappa(Sigma_x, exact = TRUE),
+  kappa_centered = kappa(Sigma_z, exact = TRUE))
+```
+
+a. Each column of $\mathbf W$ is centered and divided by its sample standard deviation, which is what `scale()` does. The matrices are printed above.
+
+b. For the original model,
+
+$$
+\mathbf\Sigma_x=\begin{bmatrix}1&0.9746\\0.9746&1\end{bmatrix},
+$$
+
+while for the centered model $\mathbf\Sigma_z=\mathbf I_2$. The original model has the much higher correlation between predictors, which agrees with Question 4(b).
+
+c. For the original model,
+
+$$
+\mathbf\Sigma_x^{-1}=\begin{bmatrix}19.91&-19.40\\-19.40&19.91\end{bmatrix},
+$$
+
+so both VIFs are $19.9$, above the common guideline of $10$. The condition number of $\mathbf\Sigma_x$ is $77.6$. For the centered model, $\mathbf\Sigma_z^{-1}=\mathbf I_2$: both VIFs are exactly $1$ and the condition number is $1$.
+
+Centering completely removes the ill-conditioning here. The collinearity between $x$ and $x^2$ is "nonessential": it exists only because all $x_i>0$, so $x^2$ increases almost linearly with $x$ over the data range. Centering shifts the origin to $\bar x$; because these $x$'s are equally spaced, $z$ and $z^2$ become exactly uncorrelated. In practice this gives more stable estimates and smaller standard errors for the lower-order coefficients (Question 4a), without changing the fit.
+
+## Nonlinearity Diagnostics on Prestige Data
+
+## 6. Scatterplot matrix
+
+```{r}
+#| label: q6-spm
+#| fig-width: 8
+#| fig-height: 8
+car::scatterplotMatrix(~ prestige + education + income + women,
+                       data = Prestige,
+                       main = "Scatterplot matrix of the Prestige data")
+round(cor(Prestige[, c("prestige", "education", "income", "women")]), 3)
+```
+
+- **Response vs predictors.** `prestige` increases roughly linearly with `education`. Its relationship with `income` is clearly **nonlinear**: prestige rises steeply at low incomes and levels off at high incomes. There is little relationship with `women` ($r=-0.12$).
+- **Among the predictors.** `income` is strongly right-skewed (a few occupations, such as general managers and physicians, earn over \$25,000), and its relationship with `education` and `women` is also curved. In particular, income drops sharply as the percentage of women increases from 0 and then flattens.
+
+The scatterplot matrix is **not sufficient** for checking linearity in a multiple regression. Each panel shows a *marginal* relationship that ignores the other predictors. Because the predictors are correlated (for example, `education` and `income`, $r=0.58$), a curved marginal plot can come from another predictor, and a linear-looking one can hide curvature in the partial relationship. Linearity in the model is about the relationship between $y$ and each $x_j$ *after adjusting for the others*, which is what residual plots and partial residual plots (Questions 7–8) examine.
+
+## 7. Residual plots
+
+```{r}
+#| label: q7-resid
+#| fig-width: 9
+#| fig-height: 7
+fit_prestige <- lm(prestige ~ education + income + women, data = Prestige)
+summary(fit_prestige)$coefficients
+
+car::residualPlots(fit_prestige, type = "rstudent",
+                   main = "R-student residuals for the linear model")
+```
+
+- The plot against `income` shows a clear **inverted-U** pattern: residuals are negative for very low and very high incomes and positive in between. The curvature test (adding $\texttt{income}^2$) is highly significant ($t=-4.28$, $p<0.001$).
+- The plots against `education` and `women` show only mild curvature, and their tests are not significant ($p=0.19$ and $p=0.15$).
+- The plot against the fitted values shows a slight downward bend at high fitted values, but Tukey's test for nonadditivity is not significant ($p=0.16$).
+
+So the linear model fits `education` and `women` adequately but misspecifies the effect of `income`.
+
+## 8. Partial residual plots and transformation
+
+```{r}
+#| label: q8-cr-before
+#| fig-width: 10
+#| fig-height: 3.8
+car::crPlots(fit_prestige, layout = c(1, 3),
+             main = "Component + residual plots: original model")
+```
+
+The component-plus-residual plot for `income` shows strong concave curvature: the smooth curve rises steeply for incomes below about \$10,000 and then flattens, so the straight line (dashed) overpredicts the partial effect at both extremes. The plots for `education` and `women` are close to linear.
+
+The curvature is concave and `income` is positive and strongly right-skewed. Following the bulging rule, we move income **down** the ladder of powers. A log transformation is the natural choice: it also matches the idea that a fixed *percentage* increase in income has the same effect on prestige. The Box–Tidwell procedure supports it, estimating the power of income as $\hat\lambda=0.08\approx0$.
+
+```{r}
+#| label: q8-boxtidwell
+car::boxTidwell(prestige ~ income, other.x = ~ education + women,
+                data = Prestige)
+```
+
+```{r}
+#| label: q8-cr-after
+#| fig-width: 10
+#| fig-height: 3.8
+fit_log <- lm(prestige ~ education + log2(income) + women, data = Prestige)
+summary(fit_log)$coefficients
+c(R2_original = summary(fit_prestige)$r.squared,
+  R2_log = summary(fit_log)$r.squared)
+
+car::crPlots(fit_log, layout = c(1, 3),
+             main = "Component + residual plots: log2(income) model")
+car::residualPlots(fit_log, plot = FALSE)
+```
+
+After replacing `income` with $\log_2(\texttt{income})$, the partial residual plot for income is close to linear, and its curvature test is no longer significant ($p=0.56$). $R^2$ increases from $0.798$ to $0.835$. The coefficient means that **doubling** income is associated with an increase of about $9.3$ prestige points, holding education and the percentage of women fixed.
+
+The nonlinearity in `income` has been fixed. With income on the log scale, the curvature test for `women` becomes marginally significant ($p=0.025$), and its partial residual plot shows a mild U shape. This curvature is small compared with the original income problem. Adding a quadratic term in `women` would be a reasonable refinement, but it increases $R^2$ only from $0.835$ to $0.843$.
+
+## Kernel Smoothing and Local Regression
+
+```{r}
+#| label: q9-data
+set.seed(4780)
+n_sim <- 40
+x <- seq(0, 2 * pi, length.out = n_sim)
+y <- 2 * sin(x) + rnorm(n_sim)
+
+# Helper: plot the data, the true function, and a fitted curve
+plot_smooth <- function(fit_x, fit_y, title) {
+  plot(x, y, pch = 16, col = "gray40", xlab = "x", ylab = "y", main = title)
+  curve(2 * sin(x), add = TRUE, col = "red", lwd = 3)
+  lines(fit_x, fit_y, col = "blue", lwd = 3)
+  legend("bottomleft", c("true f(x) = 2 sin(x)", "fitted smoother"),
+         col = c("red", "blue"), lwd = 3, bty = "n", cex = 0.85)
+}
+bandwidths <- c(0.2, 1, 100)
+```
+
+## 9. Gaussian kernel smoother (local constant)
+
+```{r}
+#| label: q9-kernel
+#| fig-width: 12
+#| fig-height: 4
+par(mfrow = c(1, 3))
+for (b in bandwidths) {
+  fit <- locpoly(x, y, degree = 0, bandwidth = b, kernel = "normal")
+  plot_smooth(fit$x, fit$y, paste0("Kernel smoother (degree 0), b = ", b))
+}
+par(mfrow = c(1, 1))
+```
+
+- **$b=0.2$:** the fit is very wiggly and chases individual points: low bias but high variance.
+- **$b=1$:** the fit is smooth, but it underestimates the peak and trough of $2\sin(x)$ and is badly biased near the boundaries (about $1.0$ at $x=0$, where the truth is $0$).
+- **$b=100$:** the fit is a flat line at $\bar y=0.07$: high bias, low variance.
+
+## 10. Local linear and local quadratic regression
+
+```{r}
+#| label: q10-locpoly
+#| fig-width: 12
+#| fig-height: 8
+par(mfrow = c(2, 3))
+for (d in 1:2) {
+  for (b in bandwidths) {
+    fit <- locpoly(x, y, degree = d, bandwidth = b, kernel = "normal")
+    label <- ifelse(d == 1, "Local linear", "Local quadratic")
+    plot_smooth(fit$x, fit$y, paste0(label, ", b = ", b))
+  }
+}
+par(mfrow = c(1, 1))
+```
+
+a. **Local linear.** With $b=0.2$ the fit is again wiggly. With $b=1$ it follows the shape of $2\sin(x)$ better than the kernel smoother at the boundaries, though it still flattens the peak and trough. With $b=100$ it becomes a straight line.
+
+b. **Local quadratic.** With $b=0.2$ it is the most variable fit, because each local quadratic is estimated from very few effective points. With $b=1$ it gives the best fit of all the `locpoly()` fits, following the peak, trough and both ends closely. With $b=100$ it becomes a single global parabola.
+
+## 11. Loess and overall comparison
+
+```{r}
+#| label: q11-loess
+#| fig-width: 12
+#| fig-height: 4
+x_grid <- seq(0, 2 * pi, length.out = 401)
+par(mfrow = c(1, 3))
+for (a in c(0.2, 0.5, 0.9)) {
+  lo <- loess(y ~ x, span = a, degree = 2)
+  plot_smooth(x_grid, predict(lo, data.frame(x = x_grid)),
+              paste0("Loess (degree 2), span = ", a))
+}
+par(mfrow = c(1, 1))
+```
+
+With span $0.2$ each local fit uses only 8 of the 40 points, so the loess curve is wiggly. Span $0.5$ gives a smooth curve that tracks $2\sin(x)$ well over the whole range. Span $0.9$ is smoother still and starts to flatten the peak and trough.
+
+Because the data are simulated, we can measure how close each fit is to the true curve.
+
+```{r}
+#| label: q11-rmse
+rmse <- function(fx, fy) sqrt(mean((fy - 2 * sin(fx))^2))
+res <- expand.grid(degree = 0:2, b = bandwidths)
+res$RMSE <- mapply(function(d, b) {
+  f <- locpoly(x, y, degree = d, bandwidth = b, kernel = "normal")
+  rmse(f$x, f$y)
+}, res$degree, res$b)
+res$RMSE <- round(res$RMSE, 3)
+res
+sapply(c(0.2, 0.5, 0.9), function(a)
+  round(rmse(x_grid, predict(loess(y ~ x, span = a, degree = 2),
+                             data.frame(x = x_grid))), 3))
+
+# With b = 100, the local fits reduce to global least-squares fits
+f1 <- locpoly(x, y, degree = 1, bandwidth = 100, kernel = "normal")
+f2 <- locpoly(x, y, degree = 2, bandwidth = 100, kernel = "normal")
+c(max_diff_line = max(abs(f1$y - predict(lm(y ~ x), data.frame(x = f1$x)))),
+  max_diff_quad = max(abs(f2$y - predict(lm(y ~ x + I(x^2)), data.frame(x = f2$x)))))
+```
+
+**Bias–variance trade-off.** The bandwidth $b$ (or the span $\alpha$) controls how many points receive substantial weight in each local fit. A small value uses only nearby points, so the fit has small bias but large variance and is wiggly ($b=0.2$, span $0.2$). A large value averages over many points, so the fit is stable but biased and misses the peak and trough ($b=100$, span $0.9$). A moderate value balances the two ($b=1$, span $0.5$).
+
+**Bandwidth $100$.** The range of $x$ is only $2\pi\approx6.3$, so with $b=100$ the Gaussian weights $K\big((x_i-x_0)/b\big)$ are essentially equal for every data point and every $x_0$. Each local fit then becomes an ordinary (unweighted) least-squares fit to all the data:
+
+- `degree = 0` gives the **sample mean** $\bar y=0.07$, a flat line;
+- `degree = 1` gives the **OLS straight line** $y$ on $x$;
+- `degree = 2` gives the **OLS quadratic** in $x$.
+
+The output confirms this: the $b=100$ fits differ from the corresponding `lm()` fits by less than $0.001$.
+
+**Boundaries.** The kernel (local constant) smoother has the most boundary bias. At $x=0$ it can only average points to the right, which are mostly positive near the peak, so it is pulled upward (about $1.0$ when $b=1$, versus the true value $0$). At $x=2\pi$ it can only average points to the left, near the trough, so it is pulled downward (about $-1.3$). Local linear and local quadratic fits correct this bias to first or second order because they fit a slope or curvature at the boundary, which is why they track $2\sin(x)$ much better near the ends. The price is higher variance at the boundary, visible as the wild ends of the local quadratic fit with $b=0.2$.
+
+**Preferred method.** Local quadratic regression with a moderate bandwidth, either `locpoly()` with $b=1$ (RMSE $0.335$ from the true curve) or loess with span $0.5$ (RMSE $0.333$). These two have the smallest error, follow the peak and trough, and behave well at the boundaries. The local quadratic fit is appropriate because $2\sin(x)$ has substantial curvature, which a local constant or local line can only approximate with a smaller bandwidth and therefore more variance. (In a real analysis the true curve is unknown, so the tuning parameter would be chosen by cross-validation rather than by RMSE.)
+
+# Mathematical Derivation and Reasoning
+
+## 12. Centering equally spaced predictors
+
+Let $x_i=a+(i-1)\delta$, $i=1,\dots,n$, with $\delta>0$.
+
+### a. Symmetry of the centered values
+
+The mean of the $x_i$'s is
+
+$$
+\bar x=a+\frac{\delta}{n}\sum_{i=1}^n(i-1)=a+\frac{\delta}{n}\cdot\frac{(n-1)n}{2}=a+\frac{(n-1)\delta}{2}.
+$$
+
+Hence
+
+$$
+z_i=x_i-\bar x=\left(i-1-\frac{n-1}{2}\right)\delta=\left(i-\frac{n+1}{2}\right)\delta,
+$$
+
+and replacing $i$ with $n+1-i$,
+
+$$
+z_{n+1-i}=\left(n+1-i-\frac{n+1}{2}\right)\delta=\left(\frac{n+1}{2}-i\right)\delta=-z_i .
+$$
+
+So the centered values come in pairs $\{z_i,-z_i\}$. When $n$ is odd, the middle value $i=(n+1)/2$ is paired with itself and equals $0$.
+
+For any odd power $k$, $z_{n+1-i}^k=(-z_i)^k=-z_i^k$. Since $i\mapsto n+1-i$ is a one-to-one map of $\{1,\dots,n\}$ onto itself,
+
+$$
+S_k=\sum_{i=1}^n z_i^k=\sum_{i=1}^n z_{n+1-i}^k=-\sum_{i=1}^n z_i^k=-S_k,
+$$
+
+so $S_k=0$. Taking $k=1$ and $k=3$ gives
+
+$$
+\sum_{i=1}^n z_i=0
+\qquad\text{and}\qquad
+\sum_{i=1}^n z_i^3=0.
+$$
+
+### b. Zero covariance between $z$ and $z^2$
+
+Let $\overline{z^2}=\frac1n\sum_i z_i^2$. Since $\bar z=0$,
+
+$$
+\operatorname{cov}(z,z^2)
+=\frac{1}{n-1}\sum_{i=1}^n (z_i-\bar z)\left(z_i^2-\overline{z^2}\right)
+=\frac{1}{n-1}\left[\sum_{i=1}^n z_i^3-\overline{z^2}\sum_{i=1}^n z_i\right]
+=\frac{1}{n-1}\left[0-\overline{z^2}\cdot 0\right]=0 .
+$$
+
+Both standard deviations are positive (the $z_i$ are not all equal, and for $n\ge3$ neither are the $z_i^2$), so
+
+$$
+\operatorname{corr}(z,z^2)=\frac{\operatorname{cov}(z,z^2)}{s_z\,s_{z^2}}=0 .
+$$
+
+### c. Connection to Questions 4 and 5, and why $\operatorname{corr}(x,x^2)\neq0$
+
+The rocket ages $0.25,0.50,\dots,2.50$ are equally spaced ($a=0.25$, $\delta=0.25$, $n=10$). Part (b) therefore explains why we found $\operatorname{corr}(z,z^2)=0$ in Question 4(b), why $\mathbf\Sigma_z=\mathbf I_2$ in Question 5(b), and why both VIFs equal $1$ in Question 5(c).
+
+For the uncentered predictor, write $x_i=z_i+\bar x$, so $x_i^2=z_i^2+2\bar x\,z_i+\bar x^2$. Covariance is unaffected by adding constants, so
+
+$$
+\operatorname{cov}(x,x^2)=\operatorname{cov}(z,z^2)+2\bar x\operatorname{cov}(z,z)=\operatorname{cov}(z,z^2)+2\bar x\,s_x^2 .
+$$
+
+For equally spaced data the first term is $0$, so $\operatorname{cov}(x,x^2)=2\bar x\,s_x^2$, which is strictly positive whenever all $x_i>0$ (then $\bar x>0$). More generally, when the $x_i$'s are not symmetric about their mean, $\operatorname{cov}(z,z^2)$ need not be zero, but the term $2\bar x\,s_x^2$ still dominates when the data sit far from the origin relative to their spread. Intuitively, on a range of positive values $x^2$ is an increasing, nearly linear function of $x$, so the two columns are highly correlated (here $0.975$). Centering moves the origin to the middle of the data, where $z^2$ decreases on one side and increases on the other, removing this nonessential correlation.
+
+As a numerical check for the rocket data, $2\bar x\,s_x^2$ equals the sample covariance of $x$ and $x^2$:
+
+```{r}
+#| label: q12-check
+c(cov_x_x2 = cov(rocket$x, rocket$x^2),
+  two_xbar_s2 = 2 * mean(rocket$x) * var(rocket$x),
+  sum_z3 = sum(rocket$z^3))
+```
